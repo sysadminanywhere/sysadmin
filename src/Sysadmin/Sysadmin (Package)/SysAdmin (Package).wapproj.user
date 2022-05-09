@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <AppxShowAllApps>True</AppxShowAllApps>
+    <Source>C:\Users\home\Desktop\111\Square150x150Logo.scale-200.png</Source>
+    <SmallTileSource>C:\Users\home\Desktop\111\Square150x150Logo.scale-200.png</SmallTileSource>
+    <MediumTileSource>C:\Users\home\Desktop\111\Square150x150Logo.scale-200.png</MediumTileSource>
+    <WideTileSource>C:\Users\home\Desktop\111\Square150x150Logo.scale-200.png</WideTileSource>
+    <LargeTileSource>C:\Users\home\Desktop\111\Square150x150Logo.scale-200.png</LargeTileSource>
+    <AppIconSource>C:\Users\home\Desktop\111\Square150x150Logo.scale-200.png</AppIconSource>
+    <SplashScreenSource>C:\Users\home\Desktop\111\Square150x150Logo.scale-200.png</SplashScreenSource>
+    <PackageLogoSource>C:\Users\home\Desktop\111\Square150x150Logo.scale-200.png</PackageLogoSource>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <DebuggerFlavor>AppHostLocalDebugger</DebuggerFlavor>
+    <RemoteDebugEnabled>False</RemoteDebugEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <DebuggerFlavor>AppHostLocalDebugger</DebuggerFlavor>
+    <RemoteDebugEnabled>False</RemoteDebugEnabled>
+  </PropertyGroup>
+</Project>

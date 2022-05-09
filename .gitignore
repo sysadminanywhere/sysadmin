@@ -1,0 +1,14 @@
+
+src/.vs
+src/FastReport.ReportBuilder/bin
+src/FastReport.ReportBuilder/obj
+src/IntegrationsTests/bin
+src/IntegrationsTests/obj
+src/SysAdmin.ActiveDirectory/bin
+src/SysAdmin.ActiveDirectory/obj
+src/Sysadmin/Sysadmin (Package)/bin
+src/Sysadmin/Sysadmin (Package)/obj
+src/Sysadmin/Sysadmin/bin
+src/Sysadmin/Sysadmin/obj
+src/UITests/bin
+src/UITests/obj

@@ -1,0 +1,93 @@
+﻿<Page
+    x:Class="SysAdmin.Views.Contacts.ContactDetailsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SysAdmin.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:SysAdmin.Converters"
+    x:Name="contactDetailPage"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <converters:EmptyToCollapsedConverter x:Key="EmptyToCollapsedConverter"/>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel 
+            Margin="24"
+            Grid.Row="0" 
+            Orientation="Horizontal" 
+            HorizontalAlignment="Stretch">
+            
+            <FontIcon
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="32"
+                    Glyph="&#xE779;" />
+
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock 
+                    Text="{x:Bind ViewModel.Contact.CN, Mode=OneWay}"
+                    Style="{StaticResource TitleDetailPageStyle}"/>
+
+                <TextBlock 
+                    Visibility="{x:Bind ViewModel.Contact.Description, Mode=OneWay, Converter={StaticResource EmptyToCollapsedConverter}}"
+                    Text="{x:Bind ViewModel.Contact.Description, Mode=OneWay}"
+                    Style="{StaticResource SubTitleDetailPageStyle}"/>
+            </StackPanel>
+
+        </StackPanel>
+
+        <CommandBar Margin="24" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Row="0">
+            <AppBarButton Icon="Edit" Label="Edit" Command="{x:Bind ViewModel.ModifyCommand}" CommandParameter="{x:Bind contactDetailPage.Content.XamlRoot}"/>
+            <AppBarSeparator />
+            <AppBarButton Icon="Delete" Label="Delete" Command="{x:Bind ViewModel.DeleteCommand}" CommandParameter="{x:Bind contactDetailPage.Content.XamlRoot}"/>
+        </CommandBar>
+
+        <Grid 
+            VerticalAlignment="Top"
+            Grid.Row="1" 
+            Margin="24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="0" Grid.Column="0" Text="Display name" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="0" Grid.Column="1" Text="{x:Bind ViewModel.Contact.DisplayName, Mode=OneWay}" />
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="1" Grid.Column="0" Text="Company" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="1" Grid.Column="1" Text="{x:Bind ViewModel.Contact.Company, Mode=OneWay}" />
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="2" Grid.Column="0" Text="Title" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="2" Grid.Column="1" Text="{x:Bind ViewModel.Contact.Title, Mode=OneWay}" />
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="3" Grid.Column="0" Text="Email" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="3" Grid.Column="1" Text="{x:Bind ViewModel.Contact.EmailAddress, Mode=OneWay}" />
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="4" Grid.Column="0" Text="Mobile phone" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="4" Grid.Column="1" Text="{x:Bind ViewModel.Contact.MobilePhone, Mode=OneWay}" />
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="5" Grid.Column="0" Text="Office phone" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="5" Grid.Column="1" Text="{x:Bind ViewModel.Contact.OfficePhone, Mode=OneWay}" />
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="6" Grid.Column="0" Text="Home phone" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="6" Grid.Column="1" Text="{x:Bind ViewModel.Contact.HomePhone, Mode=OneWay}" />
+        </Grid>
+
+    </Grid>
+</Page>

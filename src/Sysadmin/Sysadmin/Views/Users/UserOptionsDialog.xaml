@@ -1,0 +1,30 @@
+﻿<ContentDialog 
+    x:Class="SysAdmin.Views.Users.UserOptionsDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="450"
+    d:DesignWidth="550"
+    Title="User options"
+    PrimaryButtonText="Save"
+    DefaultButton ="Primary"
+    SecondaryButtonText="Cancel"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
+
+    <Grid>
+        <StackPanel>
+
+            <ToggleSwitch x:Name="chkUserMustChangePassword" Header="User must change password at next logon" Margin="4,16,4,4" IsOn="True" Toggled="chkUserMustChangePassword_Toggled" />
+
+            <ToggleSwitch x:Name="chkUserCannotChangePassword" Header="User cannot change password" Margin="4,16,4,4" />
+
+            <ToggleSwitch x:Name="chkPasswordNeverExpires" Header="Password never expires" Margin="4,16,4,4" IsEnabled="False" Toggled="chkPasswordNeverExpires_Toggled" />
+
+            <ToggleSwitch x:Uid="UserAddAccountDisabled" x:Name="chkAccountDisabled" Header="Account disabled" Margin="4,16,4,4" />
+
+        </StackPanel>
+    </Grid>
+
+</ContentDialog>

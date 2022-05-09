@@ -1,0 +1,28 @@
+﻿<ContentDialog 
+    x:Class="SysAdmin.Views.Computers.AddComputerDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="450"
+    d:DesignWidth="550"
+    Title="Add computer"
+    PrimaryButtonText="Save"
+    DefaultButton ="Primary"
+    SecondaryButtonText="Cancel">
+
+    <Grid>
+        <StackPanel>
+            <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Margin="4" Text="Name" />
+            <TextBox Text="{x:Bind Computer.CN, Mode=TwoWay}" />
+
+            <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Margin="4,16,4,4" Text="Description" />
+            <TextBox Text="{x:Bind Computer.Description, Mode=TwoWay}" />
+
+            <ToggleSwitch Header="Account enabled" Margin="4,16,4,4" IsOn="{x:Bind IsAccountEnabled, Mode=TwoWay}" />
+
+        </StackPanel>
+    </Grid>
+
+</ContentDialog>
