@@ -46,12 +46,9 @@
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />
     <Capability Name="internetClient"/>
-    <uap:Capability Name="enterpriseAuthentication"/>
     <Capability Name="privateNetworkClientServer"/>
     <uap3:Capability Name="remoteSystem"/>
     <iot:Capability Name="systemManagement"/>
-    <uap:Capability Name="userAccountInformation"/>
     <Capability Name="internetClientServer"/>
-    <uap:Capability Name="sharedUserCertificates"/>
   </Capabilities>
 </Package>

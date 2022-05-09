@@ -12,3 +12,7 @@ src/Sysadmin/Sysadmin/bin
 src/Sysadmin/Sysadmin/obj
 src/UITests/bin
 src/UITests/obj
+src/Sysadmin/Sysadmin (Package)/AppPackages
+*.user
+src/Sysadmin/Sysadmin (Package)/BundleArtifacts
+src/Sysadmin/Sysadmin (Package)/SysAdmin (Package).wapproj.user
