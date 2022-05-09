@@ -2,7 +2,7 @@
 
 Sysadmin makes easier to administer multidomain Active Directory-based networks by providing a single tool to do whatever you need - use it to manage domains, servers, computers, users, and groups.
 
-![Sysadmin Screenshot](README_Images/screen02.png)
+![Sysadmin Screenshot](Images/screen02.png)
 
 ### License
 

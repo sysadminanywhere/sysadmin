@@ -87,11 +87,11 @@
                         <RichTextBlock MaxWidth="840" Margin="0,10,0,0" IsTextSelectionEnabled="True">
                             <Paragraph Margin="0,10,0,0">
                                 Home page:
-                                <Hyperlink NavigateUri="https://SysAdmin.com">Sysadmin Anywhere</Hyperlink>
+                                <Hyperlink NavigateUri="https://sysadminanywhere.com/">Sysadmin</Hyperlink>
                             </Paragraph>
                             <Paragraph Margin="0,10,0,0">
                                 Source code:
-                                <Hyperlink NavigateUri="https://github.com/SysAdmin/SysAdmin">GitHub</Hyperlink>
+                                <Hyperlink NavigateUri="https://github.com/sysadminanywhere/sysadmin">GitHub</Hyperlink>
                             </Paragraph>
                         </RichTextBlock>
                         <TextBlock Margin="0,10,0,0" IsTextSelectionEnabled="True">
@@ -108,13 +108,13 @@
                                 If you have found a bug, please file an issue on GitHub:
                             </Paragraph>
                             <Paragraph Margin="0,10,0,10">
-                                <Hyperlink NavigateUri="https://github.com/SysAdmin/SysAdmin/issues/new?template=bug_report.md">New Bug Report</Hyperlink>
+                                <Hyperlink NavigateUri="https://github.com/sysadminanywhere/sysadmin/issues/new?template=bug_report.md">New Bug Report</Hyperlink>
                             </Paragraph>
                             <Paragraph>
                                 If you would like a new feature, request it on GitHub:
                             </Paragraph>
                             <Paragraph Margin="0,10,0,10">
-                                <Hyperlink NavigateUri="https://github.com/SysAdmin/SysAdmin/issues/new?template=feature_request.md">New Feature Request</Hyperlink>
+                                <Hyperlink NavigateUri="https://github.com/sysadminanywhere/sysadmin/issues/new?template=feature_request.md">New Feature Request</Hyperlink>
                             </Paragraph>
 
                         </RichTextBlock>
