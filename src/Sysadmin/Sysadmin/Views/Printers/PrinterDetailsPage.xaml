@@ -1,0 +1,85 @@
+﻿<Page
+    x:Class="SysAdmin.Views.Printers.PrinterDetailsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SysAdmin.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:SysAdmin.Converters"
+    x:Name="printerDetailsPage"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <converters:EmptyToCollapsedConverter x:Key="EmptyToCollapsedConverter"/>
+        <converters:ListToStringConverter x:Key="ListToStringConverter"/>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel 
+            Margin="24"
+            Grid.Row="0" 
+            Orientation="Horizontal" 
+            HorizontalAlignment="Stretch">
+            
+            <FontIcon
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="32"
+                    Glyph="&#xE749;" />
+
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock 
+                    Text="{x:Bind ViewModel.Printer.CN, Mode=OneWay}"
+                    Style="{StaticResource TitleDetailPageStyle}"/>
+
+                <TextBlock 
+                    Visibility="{x:Bind ViewModel.Printer.Description, Converter={StaticResource EmptyToCollapsedConverter}}"
+                    Text="{x:Bind ViewModel.Printer.Description, Mode=OneWay}"
+                    Style="{StaticResource SubTitleDetailPageStyle}"/>
+            </StackPanel>
+
+        </StackPanel>
+
+        <CommandBar Margin="24" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Row="0">
+            <AppBarSeparator />
+            <AppBarButton Icon="Delete" Label="Delete" Command="{x:Bind ViewModel.DeleteCommand}" CommandParameter="{x:Bind printerDetailsPage.Content.XamlRoot}"/>
+        </CommandBar>
+
+        <Grid 
+            VerticalAlignment="Top"
+            Grid.Row="1" 
+            Margin="24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="0" Grid.Column="0" Text="Driver name" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="0" Grid.Column="1" Text="{x:Bind ViewModel.Printer.DriverName}" />
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="1" Grid.Column="0" Text="Driver version" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="1" Grid.Column="1" Text="{x:Bind ViewModel.Printer.DriverVersion}" />
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="2" Grid.Column="0" Text="Port name" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="2" Grid.Column="1" Text="{x:Bind ViewModel.Printer.PortName}" />
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="3" Grid.Column="0" Text="Print media supported" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="3" Grid.Column="1" Text="{x:Bind ViewModel.Printer.PrintMediaSupported, Converter={StaticResource ListToStringConverter}, Mode=OneWay}" />
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="4" Grid.Column="0" Text="Print color" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="4" Grid.Column="1" Text="{x:Bind ViewModel.Printer.PrintColor}" />
+        </Grid>
+
+    </Grid>
+</Page>
