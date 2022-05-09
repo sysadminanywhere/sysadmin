@@ -4,6 +4,10 @@ Sysadmin makes easier to administer multidomain Active Directory-based networks 
 
 ![Sysadmin Screenshot](Images/screen02.png)
 
+### Download
+
+![Download Sysadmin](Images/English_L.png)(https://www.microsoft.com/store/apps/9WZDNCRDQTWT)
+
 ### License
 
 This software is distributed under the terms of the MIT License (MIT).
