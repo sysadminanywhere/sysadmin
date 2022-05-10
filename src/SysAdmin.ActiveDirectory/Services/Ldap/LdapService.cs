@@ -114,6 +114,22 @@ namespace SysAdmin.ActiveDirectory.Services.Ldap
             return entries.ToList();
         }
 
+        public async Task<List<LdapEntry>> SearchAsync(string path, string filter, LdapSearchScope scope = LdapSearchScope.LDAP_SCOPE_SUBTREE)
+        {
+            if (ldapConnection == null)
+                throw new ArgumentNullException(nameof(ldapConnection));
+
+            if (string.IsNullOrEmpty(path))
+                throw new ArgumentNullException(nameof(path));
+
+            if (string.IsNullOrEmpty(filter))
+                throw new ArgumentNullException(nameof(filter));
+
+            var entries = await ldapConnection.SearchAsync(path, filter, scope: scope);
+
+            return entries.ToList();
+        }
+
         public async Task<ModifyResponse> SendRequestAsync(ModifyRequest modifyRequest)
         {
             if (ldapConnection == null)
