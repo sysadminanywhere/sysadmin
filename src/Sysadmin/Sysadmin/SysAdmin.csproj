@@ -15,6 +15,10 @@
     <Content Remove="Images\WindowIcon.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Controls\DirectoryTreeControl.xaml" />
+    <None Remove="Views\SelectDirectoryDialog.xaml" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Images\StoreLogo.ico" />
   </ItemGroup>
 
@@ -31,5 +35,17 @@
   <ItemGroup>
     <ProjectReference Include="..\..\FastReport.ReportBuilder\FastReport.ReportBuilder.csproj" />
     <ProjectReference Include="..\..\SysAdmin.ActiveDirectory\SysAdmin.ActiveDirectory.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Controls\DirectoryTreeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\SelectDirectoryDialog.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
   </ItemGroup>
 </Project>
