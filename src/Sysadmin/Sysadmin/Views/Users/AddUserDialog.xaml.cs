@@ -21,6 +21,8 @@ namespace SysAdmin.Views.Users
 
         public UserEntry User { get; set; } = new UserEntry();
 
+        public string DistinguishedName { get; set; }
+
         public string Password { get; set; }
         public bool IsCannotChangePassword { get; set; }
         public bool IsPasswordNeverExpires { get; set; }
@@ -38,8 +40,10 @@ namespace SysAdmin.Views.Users
             }
         }
 
-        public async Task<bool?> ShowDialog(object xamlRoot)
+        public async Task<bool?> ShowDialog(string distinguishedName, object xamlRoot)
         {
+            this.DistinguishedName = distinguishedName;
+
             this.XamlRoot = (XamlRoot)xamlRoot;
             var result = await this.ShowAsync();
 

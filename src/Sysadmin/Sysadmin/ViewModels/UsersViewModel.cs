@@ -138,14 +138,14 @@ namespace SysAdmin.ViewModels
         private async void AddUser(object xaml)
         {
             IAddUserDialogService dialog = App.Current.Services.GetService<IAddUserDialogService>();
-            var result = await dialog.ShowDialog(xaml);
+            var result = await dialog.ShowDialog(await GetDefaultContainer(), xaml);
             if (result == true)
             {
                 busyService.Busy();
 
                 try
                 {
-                    await Add(dialog.User, dialog.Password);
+                    await Add(dialog.DistinguishedName, dialog.User, dialog.Password);
                     notification.ShowSuccessMessage("User added");
                     await ListAsync();
                 }
@@ -263,7 +263,7 @@ namespace SysAdmin.ViewModels
             busyService.Idle();
         }
 
-        public async Task Add(UserEntry user, string password)
+        public async Task Add(string distinguishedName, UserEntry user, string password)
         {
             await Task.Run(async () =>
             {
@@ -273,7 +273,7 @@ namespace SysAdmin.ViewModels
                     {
                         if (string.IsNullOrEmpty(user.CN))
                             user.CN = user.DisplayName;
-                        await usersRepository.AddAsync(user, password);
+                        await usersRepository.AddAsync(distinguishedName, user, password);
                     }
                 }
             });
@@ -332,6 +332,22 @@ namespace SysAdmin.ViewModels
             OnPropertyChanged(nameof(User));
 
             busyService.Idle();
+        }
+
+        private async Task<string> GetDefaultContainer()
+        {
+            string item = string.Empty;
+
+            await Task.Run(async () =>
+            {
+                using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
+                {
+                    var resultWK = await ldap.WellKnownObjectsAsync();
+                    item = resultWK.Where(c => c.StartsWith(ADContainers.ContainerUsers)).First();
+                }
+            });
+
+            return item.Replace(ADContainers.ContainerUsers, string.Empty);
         }
 
     }

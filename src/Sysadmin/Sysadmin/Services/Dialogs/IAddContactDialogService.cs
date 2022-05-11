@@ -12,6 +12,8 @@ namespace SysAdmin.Services.Dialogs
 
         ContactEntry Contact { get; set; }
 
-        Task<bool?> ShowDialog(object xamlRoot);
+        string DistinguishedName { get; set; }
+
+        Task<bool?> ShowDialog(string distinguishedName, object xamlRoot);
     }
 }

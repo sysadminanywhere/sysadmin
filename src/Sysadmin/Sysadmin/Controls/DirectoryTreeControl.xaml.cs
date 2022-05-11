@@ -55,6 +55,8 @@ namespace SysAdmin.Controls
 
         private async void DirectoryTreeControl_Loaded(object sender, RoutedEventArgs e)
         {
+            treeView.RootNodes.Clear();
+
             TreeViewNode root = new TreeViewNode() { Content = "Root", IsExpanded = true };
 
             var list = await ListAsync();

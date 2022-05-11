@@ -16,13 +16,17 @@ namespace SysAdmin.Views.Computers
         public ComputerEntry Computer { get; set; } = new ComputerEntry();
         public bool IsAccountEnabled { get; set; } = true;
 
+        public string DistinguishedName { get; set; }
+
         public AddComputerDialog()
         {
             this.InitializeComponent();
         }
 
-        public async Task<bool?> ShowDialog(object xamlRoot)
+        public async Task<bool?> ShowDialog(string distinguishedName, object xamlRoot)
         {
+            this.DistinguishedName = distinguishedName;
+
             this.XamlRoot = (XamlRoot)xamlRoot;
             var result = await this.ShowAsync();
 

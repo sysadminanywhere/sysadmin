@@ -13,6 +13,8 @@ namespace SysAdmin.Services.Dialogs
         ComputerEntry Computer { get; set; }
         bool IsAccountEnabled { get; set; }
 
-        Task<bool?> ShowDialog(object xamlRoot);
+        string DistinguishedName { get; set; }
+
+        Task<bool?> ShowDialog(string distinguishedName, object xamlRoot);
     }
 }
