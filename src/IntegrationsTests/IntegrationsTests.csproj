@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SysAdmin.ActiveDirectory\SysAdmin.ActiveDirectory.csproj" />
+    <ProjectReference Include="..\Sysadmin.WMI\Sysadmin.WMI.csproj" />
   </ItemGroup>
 
 </Project>
