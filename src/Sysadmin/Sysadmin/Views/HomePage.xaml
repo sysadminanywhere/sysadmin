@@ -5,11 +5,39 @@
     xmlns:local="using:SysAdmin.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:SysAdmin.Models"
     mc:Ignorable="d">
+    <Page.Resources>
+        <DataTemplate x:Key="ListViewTemplate" x:DataType="models:AuditItem">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock 
+                    Text="{x:Bind CN}"
+                    x:Phase="1"
+                    Style="{ThemeResource BaseTextBlockStyle}"
+                    Margin="0,6,0,0"/>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,6">
+                <TextBlock  
+                    Text="{x:Bind Action}"
+                    Style="{ThemeResource BodyTextBlockStyle}"
+                    />
+                <TextBlock  
+                    Text="{x:Bind Date}"
+                    Style="{ThemeResource BodyTextBlockStyle}"
+                    Margin="6,0,0,0"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -30,11 +58,6 @@
                 <TextBlock 
                     Text="{x:Bind ViewModel.DomainName, Mode=OneWay}"
                     Style="{StaticResource TitleDetailPageStyle}"/>
-
-                <!--<TextBlock 
-                    Visibility="{x:Bind ViewModel.Group.Description, Mode=OneWay, Converter={StaticResource EmptyToCollapsedConverter}}"
-                    Text="{x:Bind ViewModel.Group.Description, Mode=OneWay}"
-                    Style="{StaticResource SubTitleDetailPageStyle}"/>-->
             </StackPanel>
 
         </StackPanel>
@@ -87,6 +110,11 @@
             <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="4" Grid.Column="0" Text="Contacts" />
             <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="4" Grid.Column="1" Text="{x:Bind ViewModel.ContactsCount, Mode=OneWay}" />
         </Grid>
+
+        <StackPanel Grid.Row="3" Margin="24">
+            <TextBlock Text="Audit" Style="{StaticResource TableDetailNameStyle}" Margin="4,16,4,4" />
+            <ListView ItemsSource="{x:Bind ViewModel.AuditList, Mode=OneWay}" ItemTemplate="{StaticResource ListViewTemplate}"/>
+        </StackPanel>
 
     </Grid>
 </Page>
