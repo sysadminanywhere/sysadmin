@@ -101,7 +101,8 @@ namespace SysAdmin.ViewModels
                         {
                             CN = entry.DirectoryAttributes["CN"].GetValue<string>(),
                             Action = whenchanged > whencreated ? "Changed" : "Created",
-                            Date = whenchanged > whencreated ? whenchanged : whencreated
+                            Date = whenchanged > whencreated ? whenchanged : whencreated,
+                            DistinguishedName = entry.DirectoryAttributes["DistinguishedName"].GetValue<string>()
                         });
                     }
                 }

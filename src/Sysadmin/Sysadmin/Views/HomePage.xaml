@@ -6,33 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:SysAdmin.Models"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     mc:Ignorable="d">
-    <Page.Resources>
-        <DataTemplate x:Key="ListViewTemplate" x:DataType="models:AuditItem">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <TextBlock 
-                    Text="{x:Bind CN}"
-                    x:Phase="1"
-                    Style="{ThemeResource BaseTextBlockStyle}"
-                    Margin="0,6,0,0"/>
-                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,6">
-                <TextBlock  
-                    Text="{x:Bind Action}"
-                    Style="{ThemeResource BodyTextBlockStyle}"
-                    />
-                <TextBlock  
-                    Text="{x:Bind Date}"
-                    Style="{ThemeResource BodyTextBlockStyle}"
-                    Margin="6,0,0,0"/>
-                </StackPanel>
-            </Grid>
-        </DataTemplate>
-
-    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -112,8 +87,22 @@
         </Grid>
 
         <StackPanel Grid.Row="3" Margin="24">
-            <TextBlock Text="Audit" Style="{StaticResource TableDetailNameStyle}" Margin="4,16,4,4" />
-            <ListView ItemsSource="{x:Bind ViewModel.AuditList, Mode=OneWay}" ItemTemplate="{StaticResource ListViewTemplate}"/>
+            <TextBlock Text="Audit" Style="{StaticResource TableDetailValueStyle}" Margin="4,16,4,4" />
+            <controls:DataGrid
+                IsTabStop="False"
+                CanUserSortColumns="True"
+                AutoGenerateColumns="False"
+                IsReadOnly="True"
+                GridLinesVisibility="Horizontal"
+                ItemsSource="{x:Bind ViewModel.AuditList, Mode=OneWay}" 
+                CanUserResizeColumns="True">
+                <controls:DataGrid.Columns>
+                    <controls:DataGridTextColumn Binding="{Binding CN}" Header="Name"/>
+                    <controls:DataGridTextColumn Binding="{Binding DistinguishedName}" Header="Distinguished name"/>
+                    <controls:DataGridTextColumn Binding="{Binding Action}" Header="Action"/>
+                    <controls:DataGridTextColumn Binding="{Binding Date}" Header="Date"/>
+                </controls:DataGrid.Columns>
+            </controls:DataGrid>
         </StackPanel>
 
     </Grid>

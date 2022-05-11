@@ -17,6 +17,11 @@
   <ItemGroup>
     <None Remove="Controls\DirectoryControl.xaml" />
     <None Remove="Controls\DirectoryTreeControl.xaml" />
+    <None Remove="Views\Computers\Management\EventsPage.xaml" />
+    <None Remove="Views\Computers\Management\HardwarePage.xaml" />
+    <None Remove="Views\Computers\Management\ProcessesPage.xaml" />
+    <None Remove="Views\Computers\Management\ServicesPage.xaml" />
+    <None Remove="Views\Computers\Management\SoftwarePage.xaml" />
     <None Remove="Views\SelectDirectoryDialog.xaml" />
   </ItemGroup>
   <ItemGroup>
@@ -24,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.DataGrid" Version="7.1.2" />
     <PackageReference Include="FastReport.OpenSource" Version="2022.2.7" />
     <PackageReference Include="FastReport.OpenSource.Export.PdfSimple" Version="2022.2.7" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
@@ -37,6 +43,30 @@
     <ProjectReference Include="..\..\FastReport.ReportBuilder\FastReport.ReportBuilder.csproj" />
     <ProjectReference Include="..\..\SysAdmin.ActiveDirectory\SysAdmin.ActiveDirectory.csproj" />
     <ProjectReference Include="..\..\Sysadmin.WMI\Sysadmin.WMI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\Computers\Management\HardwarePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\Computers\Management\SoftwarePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\Computers\Management\ServicesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\Computers\Management\ProcessesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <ItemGroup>
@@ -54,6 +84,12 @@
   <ItemGroup>
     <Page Update="Views\SelectDirectoryDialog.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\Computers\Management\EventsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
 </Project>

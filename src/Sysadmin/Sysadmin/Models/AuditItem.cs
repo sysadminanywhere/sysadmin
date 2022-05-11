@@ -12,6 +12,7 @@ namespace SysAdmin.Models
         public string CN { get; set; }
         public string Action { get; set; }
         public DateTime Date { get; set; }
+        public string DistinguishedName { get; set; }
 
     }
 }
