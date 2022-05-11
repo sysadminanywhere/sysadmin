@@ -22,7 +22,7 @@ namespace SysAdmin.ViewModels
         INotificationService notification = App.Current.Services.GetService<INotificationService>();
         IBusyService busyService = App.Current.Services.GetService<IBusyService>();
 
-        public async Task Get(string computerAddress)
+        public async Task Get(string computerAddress, EventsFilter filter)
         {
             busyService.Busy();
 
@@ -41,9 +41,34 @@ namespace SysAdmin.ViewModels
                 {
                     using (var wmi = new WMIService(computerAddress, credential))
                     {
-                        string today = String.Format("{0:yyyyMMddHHmmss}.000000000", DateTime.Today);
+                        string today = string.Format("{0:yyyyMMddHHmmss}.000000000", DateTime.Today);
 
-                        List<Dictionary<string, object>> queryResult = wmi.Query("Select RecordNumber, EventType, EventCode, Type, TimeGenerated, SourceName, Category, Logfile, Message From Win32_NTLogEvent Where TimeGenerated > '" + today + "' And EventType = 1");
+                        string queryString = "Select RecordNumber, EventType, EventCode, Type, TimeGenerated, SourceName, Category, Logfile, Message From Win32_NTLogEvent Where TimeGenerated > '" + today + "'"; ;
+
+                        switch (filter)
+                        {
+                            case EventsFilter.TodayErrors:
+                                queryString += " And EventType = 1";
+                                break;
+
+                            case EventsFilter.TodayWarnings:
+                                queryString += " And EventType = 2";
+                                break;
+
+                            case EventsFilter.TodayInformations:
+                                queryString += " And EventType = 3";
+                                break;
+
+                            case EventsFilter.TodaySecurityAuditSuccess:
+                                queryString += " And EventType = 4";
+                                break;
+
+                            case EventsFilter.TodaySecurityAuditFailure:
+                                queryString += " And EventType = 5";
+                                break;
+                        }
+
+                        List<Dictionary<string, object>> queryResult = wmi.Query(queryString);
 
                         foreach (Dictionary<string, object> properties in queryResult)
                         {

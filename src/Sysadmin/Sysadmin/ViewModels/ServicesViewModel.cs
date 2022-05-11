@@ -63,5 +63,66 @@ namespace SysAdmin.ViewModels
             busyService.Idle();
         }
 
+        public async Task Start(string computerAddress, string processId)
+        {
+            busyService.Busy();
+
+            ICredential credential = null;
+
+            if (App.CREDENTIAL != null)
+                credential = new Credential() { UserName = App.CREDENTIAL.UserName, Password = App.CREDENTIAL.Password };
+
+            List<ProcessEntity> entities = new List<ProcessEntity>();
+
+            try
+            {
+                await Task.Run(() =>
+                {
+                    using (var wmi = new WMIService(computerAddress, credential))
+                    {
+                        wmi.Invoke("Select * From Win32_Service Where ProcessId = '" + processId + "'", "StartService", null);
+                    }
+                });
+
+                await Get(computerAddress);
+            }
+            catch (Exception ex)
+            {
+                notification.ShowErrorMessage(ex.Message);
+            }
+
+            busyService.Idle();
+        }
+
+        public async Task Stop(string computerAddress, string processId)
+        {
+            busyService.Busy();
+
+            ICredential credential = null;
+
+            if (App.CREDENTIAL != null)
+                credential = new Credential() { UserName = App.CREDENTIAL.UserName, Password = App.CREDENTIAL.Password };
+
+            List<ProcessEntity> entities = new List<ProcessEntity>();
+
+            try
+            {
+                await Task.Run(() =>
+                {
+                    using (var wmi = new WMIService(computerAddress, credential))
+                    {
+                        wmi.Invoke("Select * From Win32_Service Where ProcessId = '" + processId + "'", "StopService", null);
+                    }
+                });
+
+                await Get(computerAddress);
+            }
+            catch (Exception ex)
+            {
+                notification.ShowErrorMessage(ex.Message);
+            }
+
+            busyService.Idle();
+        }
     }
 }
