@@ -16,3 +16,5 @@ src/Sysadmin/Sysadmin (Package)/AppPackages
 *.user
 src/Sysadmin/Sysadmin (Package)/BundleArtifacts
 src/Sysadmin/Sysadmin (Package)/SysAdmin (Package).wapproj.user
+src/Sysadmin.WMI/bin
+src/Sysadmin.WMI/obj
