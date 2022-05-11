@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:SysAdmin.Controls"
     mc:Ignorable="d"
     d:DesignHeight="450"
     d:DesignWidth="550"
@@ -14,14 +15,25 @@
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
 
     <Grid>
-        <ScrollViewer>
-            <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0">
+                <TextBlock Text="Container" Style="{ThemeResource BodyTextBlockStyle}" Margin="4,16,4,4" />
+                <controls:DirectoryControl DistinguishedName="{x:Bind DistinguishedName}" Margin="0,4,0,16" HorizontalAlignment="Stretch" />
+            </StackPanel>
+            
+            <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="230"/>
                     <ColumnDefinition Width="20"/>
                     <ColumnDefinition Width="230"/>
                 </Grid.ColumnDefinitions>
-                <StackPanel>
+
+                <StackPanel Grid.Column="0">
 
                     <TextBlock Text="Display name" Style="{ThemeResource BodyTextBlockStyle}" Margin="4" />
                     <TextBox x:Name="txtDisplayName" Text="{x:Bind User.DisplayName, Mode=TwoWay}" KeyUp="txtDisplayName_KeyUp" />
@@ -57,8 +69,10 @@
                     <ToggleSwitch x:Uid="UserAddAccountDisabled" x:Name="chkAccountDisabled" Header="Account disabled" Margin="4,16,4,4" />
 
                 </StackPanel>
+
             </Grid>
-        </ScrollViewer>
+
+        </Grid>
     </Grid>
 
 </ContentDialog>

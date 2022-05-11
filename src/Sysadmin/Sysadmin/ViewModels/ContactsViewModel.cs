@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
+using SysAdmin.ActiveDirectory;
 using SysAdmin.ActiveDirectory.Models;
 using SysAdmin.ActiveDirectory.Repositories;
 using SysAdmin.ActiveDirectory.Services.Ldap;
@@ -89,14 +90,14 @@ namespace SysAdmin.ViewModels
         private async void AddContact(object xaml)
         {
             IAddContactDialogService dialog = App.Current.Services.GetService<IAddContactDialogService>();
-            var result = await dialog.ShowDialog(xaml);
+            var result = await dialog.ShowDialog(await GetDefaultContainer(), xaml);
             if (result == true)
             {
                 busyService.Busy();
 
                 try
                 {
-                    await Add(dialog.Contact);
+                    await Add(dialog.DistinguishedName, dialog.Contact);
                     notification.ShowSuccessMessage("Contact added");
                     await ListAsync();
                 }
@@ -190,7 +191,7 @@ namespace SysAdmin.ViewModels
             busyService.Idle();
         }
 
-        public async Task Add(ContactEntry contact)
+        public async Task Add(string distinguishedName, ContactEntry contact)
         {
             await Task.Run(async () =>
             {
@@ -200,7 +201,7 @@ namespace SysAdmin.ViewModels
                     {
                         if (string.IsNullOrEmpty(contact.CN))
                             contact.CN = contact.DisplayName;
-                        await contactsRepository.AddAsync(contact);
+                        await contactsRepository.AddAsync(distinguishedName, contact);
                     }
                 }
             });
@@ -237,5 +238,22 @@ namespace SysAdmin.ViewModels
                 }
             });
         }
+
+        private async Task<string> GetDefaultContainer()
+        {
+            string item = string.Empty;
+
+            await Task.Run(async () =>
+            {
+                using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
+                {
+                    var resultWK = await ldap.WellKnownObjectsAsync();
+                    item = resultWK.Where(c => c.StartsWith(ADContainers.ContainerUsers)).First();
+                }
+            });
+
+            return item.Replace(ADContainers.ContainerUsers, string.Empty);
+        }
+
     }
 }

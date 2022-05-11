@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
+using SysAdmin.ActiveDirectory;
 using SysAdmin.ActiveDirectory.Models;
 using SysAdmin.ActiveDirectory.Repositories;
 using SysAdmin.ActiveDirectory.Services.Ldap;
@@ -144,14 +145,14 @@ namespace SysAdmin.ViewModels
         private async void AddGroup(object xaml)
         {
             IAddGroupDialogService dialog = App.Current.Services.GetService<IAddGroupDialogService>();
-            var result = await dialog.ShowDialog(xaml);
+            var result = await dialog.ShowDialog(await GetDefaultContainer(), xaml);
             if (result == true)
             {
                 busyService.Busy();
 
                 try
                 {
-                    await Add(dialog.Group, dialog.GroupScope, dialog.IsSecurity);
+                    await Add(dialog.DistinguishedName, dialog.Group, dialog.GroupScope, dialog.IsSecurity);
                     notification.ShowSuccessMessage("Group added");
                     await ListAsync();
                 }
@@ -245,7 +246,7 @@ namespace SysAdmin.ViewModels
             busyService.Idle();
         }
 
-        public async Task Add(GroupEntry group, GroupScopes groupScope, bool isSecurity)
+        public async Task Add(string distinguishedName, GroupEntry group, GroupScopes groupScope, bool isSecurity)
         {
             await Task.Run(async () =>
             {
@@ -253,7 +254,7 @@ namespace SysAdmin.ViewModels
                 {
                     using (var groupsRepository = new GroupsRepository(ldap))
                     {
-                        await groupsRepository.AddAsync(group, groupScope, isSecurity);
+                        await groupsRepository.AddAsync(distinguishedName, group, groupScope, isSecurity);
                     }
                 }
             });
@@ -312,6 +313,22 @@ namespace SysAdmin.ViewModels
             OnPropertyChanged(nameof(Group));
 
             busyService.Idle();
+        }
+
+        private async Task<string> GetDefaultContainer()
+        {
+            string item = string.Empty;
+
+            await Task.Run(async () =>
+            {
+                using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
+                {
+                    var resultWK = await ldap.WellKnownObjectsAsync();
+                    item = resultWK.Where(c => c.StartsWith(ADContainers.ContainerUsers)).First();
+                }
+            });
+
+            return item.Replace(ADContainers.ContainerUsers, string.Empty);
         }
 
     }

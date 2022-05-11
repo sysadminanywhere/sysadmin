@@ -15,13 +15,17 @@ namespace SysAdmin.Views.Contacts
 
         public ContactEntry Contact { get; set; } = new ContactEntry();
 
+        public string DistinguishedName { get; set; }
+
         public AddContactDialog()
         {
             this.InitializeComponent();
         }
 
-        public async Task<bool?> ShowDialog(object xamlRoot)
+        public async Task<bool?> ShowDialog(string distinguishedName, object xamlRoot)
         {
+            this.DistinguishedName = distinguishedName;
+
             this.XamlRoot = (XamlRoot)xamlRoot;
             var result = await this.ShowAsync();
 

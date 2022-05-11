@@ -14,7 +14,9 @@ namespace SysAdmin.Services.Dialogs
         GroupScopes GroupScope { get; set; }
         bool IsSecurity { get; set; }
 
+        string DistinguishedName { get; set; }
 
-        Task<bool?> ShowDialog(object xamlRoot);
+
+        Task<bool?> ShowDialog(string distinguishedName, object xamlRoot);
     }
 }

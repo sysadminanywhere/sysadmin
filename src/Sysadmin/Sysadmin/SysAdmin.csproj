@@ -15,6 +15,7 @@
     <Content Remove="Images\WindowIcon.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Controls\DirectoryControl.xaml" />
     <None Remove="Controls\DirectoryTreeControl.xaml" />
     <None Remove="Views\SelectDirectoryDialog.xaml" />
   </ItemGroup>
@@ -35,6 +36,12 @@
   <ItemGroup>
     <ProjectReference Include="..\..\FastReport.ReportBuilder\FastReport.ReportBuilder.csproj" />
     <ProjectReference Include="..\..\SysAdmin.ActiveDirectory\SysAdmin.ActiveDirectory.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Controls\DirectoryControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <ItemGroup>

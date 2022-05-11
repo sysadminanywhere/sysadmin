@@ -120,14 +120,14 @@ namespace SysAdmin.ViewModels
         private async void AddComputer(object xaml)
         {
             IAddComputerDialogService dialog = App.Current.Services.GetService<IAddComputerDialogService>();
-            var result = await dialog.ShowDialog(xaml);
+            var result = await dialog.ShowDialog(await GetDefaultContainer(), xaml);
             if (result == true)
             {
                 busyService.Busy();
 
                 try
                 {
-                    await Add(dialog.Computer, dialog.IsAccountEnabled);
+                    await Add(dialog.DistinguishedName, dialog.Computer, dialog.IsAccountEnabled);
                     notification.ShowSuccessMessage("Computer added");
                     await ListAsync();
                 }
@@ -221,7 +221,7 @@ namespace SysAdmin.ViewModels
             busyService.Idle();
         }
 
-        public async Task Add(ComputerEntry computer, bool isEnabled)
+        public async Task Add(string distinguishedName, ComputerEntry computer, bool isEnabled)
         {
             await Task.Run(async () =>
             {
@@ -229,7 +229,7 @@ namespace SysAdmin.ViewModels
                 {
                     using (var computersRepository = new ComputersRepository(ldap))
                     {
-                        await computersRepository.AddAsync(computer, isEnabled);
+                        await computersRepository.AddAsync(distinguishedName, computer, isEnabled);
                     }
                 }
             });
@@ -288,6 +288,22 @@ namespace SysAdmin.ViewModels
             OnPropertyChanged(nameof(Computer));
 
             busyService.Idle();
+        }
+
+        private async Task<string> GetDefaultContainer()
+        {
+            string item = string.Empty;
+
+            await Task.Run(async () =>
+            {
+                using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
+                {
+                    var resultWK = await ldap.WellKnownObjectsAsync();
+                    item = resultWK.Where(c => c.StartsWith(ADContainers.ContainerComputers)).First();
+                }
+            });
+
+            return item.Replace(ADContainers.ContainerComputers, string.Empty);
         }
 
     }
