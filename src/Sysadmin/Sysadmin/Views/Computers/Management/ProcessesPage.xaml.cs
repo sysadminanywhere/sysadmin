@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using Sysadmin.WMI.Models;
 using SysAdmin.ActiveDirectory.Models;
 using SysAdmin.ViewModels;
 using System;
@@ -48,7 +49,25 @@ namespace SysAdmin.Views.Computers.Management
 
         private async void AppBarButton_Click(object sender, RoutedEventArgs e)
         {
+            stopButton.IsEnabled = false;
+
             await ViewModel.Get(Computer.DnsHostName);
         }
+
+        private async void stopButton_Click(object sender, RoutedEventArgs e)
+        {
+            stopButton.IsEnabled = false;
+
+            await ViewModel.Stop(Computer.DnsHostName, (dataGrid.SelectedItem as ProcessEntity).Handle);
+        }
+
+        private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0)
+                stopButton.IsEnabled = true;
+            else
+                stopButton.IsEnabled = false;
+        }
     }
+
 }

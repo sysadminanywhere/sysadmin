@@ -40,6 +40,20 @@
 
         <CommandBar Margin="24" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right">
             <AppBarButton Icon="Refresh" Label="Refresh" Click="AppBarButton_Click" />
+            <AppBarSeparator/>
+            <AppBarButton Icon="Filter" IsCompact="True" Label="Filter">
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Today errors" Click="MenuFlyoutItem_Click" Tag="todayerrors"/>
+                        <MenuFlyoutItem Text="Today warnings" Click="MenuFlyoutItem_Click" Tag="todaywarnings"/>
+                        <MenuFlyoutItem Text="Today informations" Click="MenuFlyoutItem_Click" Tag="todayinformations"/>
+                        <MenuFlyoutItem Text="Today security audit success" Click="MenuFlyoutItem_Click" Tag="todaysecurityauditsuccess"/>
+                        <MenuFlyoutItem Text="Today security audit failure" Click="MenuFlyoutItem_Click" Tag="todaysecurityauditfailure"/>
+                        <MenuFlyoutItem Text="Today all" Click="MenuFlyoutItem_Click" Tag="todayall"/>
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+
         </CommandBar>
 
         <controls:DataGrid

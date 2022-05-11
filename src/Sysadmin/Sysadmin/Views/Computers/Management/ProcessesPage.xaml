@@ -40,15 +40,19 @@
 
         <CommandBar Margin="24" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right">
             <AppBarButton Icon="Refresh" Label="Refresh" Click="AppBarButton_Click" />
+            <AppBarSeparator/>
+            <AppBarButton x:Name="stopButton" Icon="Stop" Label="Stop" Click="stopButton_Click" IsEnabled="False" />
         </CommandBar>
 
         <controls:DataGrid
+            x:Name="dataGrid"
             Grid.Row="1"
             Margin="16"
             CanUserSortColumns="True"
             AutoGenerateColumns="False"
             IsReadOnly="True"
             GridLinesVisibility="Horizontal"
+            SelectionChanged="dataGrid_SelectionChanged"
             ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}" 
             CanUserResizeColumns="True">
             <controls:DataGrid.Columns>

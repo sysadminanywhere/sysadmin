@@ -29,6 +29,8 @@ namespace SysAdmin.Views.Computers.Management
     public sealed partial class EventsPage : Page
     {
 
+        EventsFilter filter = EventsFilter.TodayErrors;
+
         public ComputerEntry Computer { get; set; }
 
         public EventsViewModel ViewModel { get; } = new EventsViewModel();
@@ -45,13 +47,46 @@ namespace SysAdmin.Views.Computers.Management
             if (e.Parameter is ComputerEntry)
             {
                 Computer = (ComputerEntry)e.Parameter;
-                await ViewModel.Get(Computer.DnsHostName);
+                await ViewModel.Get(Computer.DnsHostName, filter);
             }
         }
 
         private async void AppBarButton_Click(object sender, RoutedEventArgs e)
         {
-            await ViewModel.Get(Computer.DnsHostName);
+            await ViewModel.Get(Computer.DnsHostName, filter);
+        }
+
+        private async void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            MenuFlyoutItem flyoutItem = (MenuFlyoutItem)e.OriginalSource;
+
+            switch (flyoutItem.Tag)
+            {
+                case "todayerrors":
+                    filter = EventsFilter.TodayErrors;
+                    break;
+
+                case "todaywarnings":
+                    filter = EventsFilter.TodayWarnings;
+                    break;
+
+                case "todayinformations":
+                    filter = EventsFilter.TodayInformations;
+                    break;
+
+                case "todaysecurityauditsuccess":
+                    filter = EventsFilter.TodaySecurityAuditSuccess;
+                    break;
+
+                case "todaysecurityauditfailure":
+                    filter = EventsFilter.TodaySecurityAuditFailure;
+                    break;
+
+                case "todayall":
+                    filter = EventsFilter.TodayAll;
+                    break;
+            }
+            await ViewModel.Get(Computer.DnsHostName, filter);
         }
     }
 }

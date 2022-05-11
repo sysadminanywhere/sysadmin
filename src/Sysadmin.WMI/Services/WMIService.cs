@@ -86,9 +86,6 @@ namespace Sysadmin.WMI.Services
             if (methodName == null)
                 throw new ArgumentNullException(nameof(methodName));
 
-            if (args == null)
-                throw new ArgumentNullException(nameof(args));
-
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 ManagementObjectSearcher searcher = new ManagementObjectSearcher(managementScope, new SelectQuery(queryString));
@@ -97,7 +94,10 @@ namespace Sysadmin.WMI.Services
 
                 foreach (ManagementObject item in searcher.Get())
                 {
-                    obj = item.InvokeMethod(methodName, args.ToArray());
+                    if (args != null && args.Count > 0)
+                        obj = item.InvokeMethod(methodName, args.ToArray());
+                    else
+                        obj = item.InvokeMethod(methodName, null);
                 }
             }
             else
