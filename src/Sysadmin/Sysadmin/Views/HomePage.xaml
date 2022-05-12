@@ -97,10 +97,10 @@
                 ItemsSource="{x:Bind ViewModel.AuditList, Mode=OneWay}" 
                 CanUserResizeColumns="True">
                 <controls:DataGrid.Columns>
-                    <controls:DataGridTextColumn Binding="{Binding CN}" Header="Name"/>
-                    <controls:DataGridTextColumn Binding="{Binding DistinguishedName}" Header="Distinguished name"/>
-                    <controls:DataGridTextColumn Binding="{Binding Action}" Header="Action"/>
-                    <controls:DataGridTextColumn Binding="{Binding Date}" Header="Date"/>
+                    <controls:DataGridTextColumn Binding="{Binding CN}" Header="Name" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                    <controls:DataGridTextColumn Binding="{Binding DistinguishedName}" Header="Distinguished name" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                    <controls:DataGridTextColumn Binding="{Binding Action}" Header="Action" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                    <controls:DataGridTextColumn Binding="{Binding Date}" Header="Date" ElementStyle="{StaticResource TableDetailNameStyle}"/>
                 </controls:DataGrid.Columns>
             </controls:DataGrid>
         </StackPanel>
