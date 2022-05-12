@@ -57,10 +57,10 @@
             SelectionChanged="dataGrid_SelectionChanged"
             CanUserResizeColumns="True">
             <controls:DataGrid.Columns>
-                <controls:DataGridTextColumn Binding="{Binding Caption}" Header="Name"/>
-                <controls:DataGridTextColumn Binding="{Binding Description}" Header="Description" Width="400"/>
-                <controls:DataGridTextColumn Binding="{Binding State}" Header="State"/>
-                <controls:DataGridTextColumn Binding="{Binding PathName}" Header="Path"/>
+                <controls:DataGridTextColumn Binding="{Binding Caption}" Header="Name" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                <controls:DataGridTextColumn Binding="{Binding Description}" Header="Description" Width="400" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                <controls:DataGridTextColumn Binding="{Binding State}" Header="State" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                <controls:DataGridTextColumn Binding="{Binding PathName}" Header="Path" ElementStyle="{StaticResource TableDetailNameStyle}"/>
             </controls:DataGrid.Columns>
         </controls:DataGrid>
 

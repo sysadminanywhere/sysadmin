@@ -52,9 +52,9 @@
             ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}" 
             CanUserResizeColumns="True">
             <controls:DataGrid.Columns>
-                <controls:DataGridTextColumn Binding="{Binding Name}" Header="Name"/>
-                <controls:DataGridTextColumn Binding="{Binding Vendor}" Header="Vendor"/>
-                <controls:DataGridTextColumn Binding="{Binding Version}" Header="Version"/>
+                <controls:DataGridTextColumn Binding="{Binding Name}" Header="Name" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                <controls:DataGridTextColumn Binding="{Binding Vendor}" Header="Vendor" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                <controls:DataGridTextColumn Binding="{Binding Version}" Header="Version" ElementStyle="{StaticResource TableDetailNameStyle}"/>
             </controls:DataGrid.Columns>
         </controls:DataGrid>
 

@@ -66,12 +66,12 @@
             ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}" 
             CanUserResizeColumns="True">
             <controls:DataGrid.Columns>
-                <controls:DataGridTextColumn Binding="{Binding SourceName}" Header="Source"/>
-                <controls:DataGridTextColumn Binding="{Binding EventType}" Header="Event type"/>
-                <controls:DataGridTextColumn Binding="{Binding TimeGenerated}" Header="Time generated"/>
-                <controls:DataGridTextColumn Binding="{Binding Message}" Header="Message"/>
-                <controls:DataGridTextColumn Binding="{Binding User}" Header="User"/>
-                <controls:DataGridTextColumn Binding="{Binding Logfile}" Header="Log"/>
+                <controls:DataGridTextColumn Binding="{Binding SourceName}" Header="Source" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                <controls:DataGridTextColumn Binding="{Binding EventType}" Header="Event type" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                <controls:DataGridTextColumn Binding="{Binding TimeGenerated}" Header="Time generated" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                <controls:DataGridTextColumn Binding="{Binding Message}" Header="Message" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                <controls:DataGridTextColumn Binding="{Binding User}" Header="User" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                <controls:DataGridTextColumn Binding="{Binding Logfile}" Header="Log" ElementStyle="{StaticResource TableDetailNameStyle}"/>
             </controls:DataGrid.Columns>
         </controls:DataGrid>
 
