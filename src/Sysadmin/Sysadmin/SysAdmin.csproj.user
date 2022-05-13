@@ -46,6 +46,9 @@
     <Page Update="Views\SettingsPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\Users\ResetPasswordDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Users\AddUserDialog.xaml">
       <SubType>Designer</SubType>
     </Page>

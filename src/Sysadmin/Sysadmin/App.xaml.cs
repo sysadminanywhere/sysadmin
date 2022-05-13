@@ -93,6 +93,7 @@ namespace SysAdmin
             services.AddTransient<IAddUserDialogService, AddUserDialog>();
             services.AddTransient<IEditUserDialogService, EditUserDialog>();
             services.AddTransient<IUserOptionsDialogService, UserOptionsDialog>();
+            services.AddTransient<IResetPasswordDialog, ResetPasswordDialog>();
 
             services.AddTransient<IQuestionDialogService, QuestionDialog>();
 
