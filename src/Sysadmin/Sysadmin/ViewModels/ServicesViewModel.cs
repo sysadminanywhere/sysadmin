@@ -80,7 +80,7 @@ namespace SysAdmin.ViewModels
                 {
                     using (var wmi = new WMIService(computerAddress, credential))
                     {
-                        wmi.Invoke("Select * From Win32_Service Where ProcessId = '" + processId + "'", "StartService", null);
+                        wmi.Invoke("Select * From Win32_Service Where ProcessId = '" + processId + "'", "StartService");
                     }
                 });
 
@@ -111,7 +111,7 @@ namespace SysAdmin.ViewModels
                 {
                     using (var wmi = new WMIService(computerAddress, credential))
                     {
-                        wmi.Invoke("Select * From Win32_Service Where ProcessId = '" + processId + "'", "StopService", null);
+                        wmi.Invoke("Select * From Win32_Service Where ProcessId = '" + processId + "'", "StopService");
                     }
                 });
 

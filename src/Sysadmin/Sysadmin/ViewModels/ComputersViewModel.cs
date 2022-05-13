@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
+using Sysadmin.WMI.Services;
 using SysAdmin.ActiveDirectory;
 using SysAdmin.ActiveDirectory.Models;
 using SysAdmin.ActiveDirectory.Repositories;
@@ -304,6 +305,56 @@ namespace SysAdmin.ViewModels
             });
 
             return item.Replace(ADContainers.ContainerComputers, string.Empty);
+        }
+
+        public async Task Restart()
+        {
+            Sysadmin.WMI.Services.ICredential credential = null;
+
+            if (App.CREDENTIAL != null)
+                credential = new Sysadmin.WMI.Services.Credential() { UserName = App.CREDENTIAL.UserName, Password = App.CREDENTIAL.Password };
+
+            try
+            {
+                await Task.Run(() =>
+                {
+                    using (var wmi = new WMIService(Computer.DnsHostName, credential))
+                    {
+                        wmi.Invoke("SELECT * FROM Win32_OperatingSystem", "Reboot");
+                    }
+                });
+
+                notification.ShowSuccessMessage("Reboot command sent successfully");
+            }
+            catch (Exception ex)
+            {
+                notification.ShowErrorMessage(ex.Message);
+            }
+        }
+
+        public async Task Shutdown()
+        {
+            Sysadmin.WMI.Services.ICredential credential = null;
+
+            if (App.CREDENTIAL != null)
+                credential = new Sysadmin.WMI.Services.Credential() { UserName = App.CREDENTIAL.UserName, Password = App.CREDENTIAL.Password };
+
+            try
+            {
+                await Task.Run(() =>
+                {
+                    using (var wmi = new WMIService(Computer.DnsHostName, credential))
+                    {
+                        wmi.Invoke("SELECT * FROM Win32_OperatingSystem", "Shutdown");
+                    }
+                });
+
+                notification.ShowSuccessMessage("Shutdown command sent successfully");
+            }
+            catch (Exception ex)
+            {
+                notification.ShowErrorMessage(ex.Message);
+            }
         }
 
     }

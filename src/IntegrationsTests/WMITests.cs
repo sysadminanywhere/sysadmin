@@ -72,8 +72,7 @@ namespace IntegrationsTests
         {
             using (var wmi = new WMIService(server, credential))
             {
-                List<object> args = new List<object>() { 0 };
-                wmi.Invoke("Select * From Win32_Service Where Name='Audiosrv'", "StartService", args);
+                wmi.Invoke("Select * From Win32_Service Where Name='Audiosrv'", "StartService");
 
                 List<Dictionary<string, object>> result = wmi.Query("Select * From Win32_Service Where Name='Audiosrv'");
                 Assert.AreEqual(result.Count, 1);
@@ -86,8 +85,7 @@ namespace IntegrationsTests
         {
             using (var wmi = new WMIService(server, credential))
             {
-                List<object> args = new List<object>() { 0 };
-                wmi.Invoke("Select * From Win32_Service Where Name='Audiosrv'", "StopService", args);
+                wmi.Invoke("Select * From Win32_Service Where Name='Audiosrv'", "StopService");
 
                 List<Dictionary<string, object>> result = wmi.Query("Select * From Win32_Service Where Name='Audiosrv'");
                 Assert.AreEqual(result.Count, 1);

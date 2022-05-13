@@ -93,5 +93,20 @@ namespace SysAdmin.Views.Computers
                 Frame.Navigate(typeof(HardwarePage), ViewModel.Computer);
         }
 
+        private async void mnuRestart_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(ViewModel.Computer.DnsHostName))
+                notification.ShowErrorMessage("DNS address of the computer is incorrect!");
+            else
+                await ViewModel.Restart();
+        }
+
+        private async void mnuShutdown_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(ViewModel.Computer.DnsHostName))
+                notification.ShowErrorMessage("DNS address of the computer is incorrect!");
+            else
+                await ViewModel.Shutdown();
+        }
     }
 }

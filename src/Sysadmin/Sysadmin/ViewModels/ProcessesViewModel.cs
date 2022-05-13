@@ -80,7 +80,7 @@ namespace SysAdmin.ViewModels
                 {
                     using (var wmi = new WMIService(computerAddress, credential))
                     {
-                        wmi.Invoke("Select * From Win32_Process WHERE Handle = '" + handle + "'", "Terminate", null);
+                        wmi.Invoke("Select * From Win32_Process WHERE Handle = '" + handle + "'", "Terminate");
                     }
                 });
 
