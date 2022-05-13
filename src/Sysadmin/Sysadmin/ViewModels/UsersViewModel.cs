@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace SysAdmin.ViewModels
 {
@@ -33,6 +34,7 @@ namespace SysAdmin.ViewModels
         public ObservableCollection<UserEntry> Users { get; private set; } = new ObservableCollection<UserEntry>();
 
         public RelayCommand<object> AddCommand { get; private set; }
+        public RelayCommand<object> ResetPasswordCommand { get; private set; }
         public RelayCommand<object> ModifyCommand { get; private set; }
         public RelayCommand<object> DeleteCommand { get; private set; }
         public RelayCommand<object> OptionsCommand { get; private set; }
@@ -55,6 +57,7 @@ namespace SysAdmin.ViewModels
         public UsersViewModel()
         {
             AddCommand = new RelayCommand<object>((xaml) => AddUser(xaml));
+            ResetPasswordCommand = new RelayCommand<object>((xaml) => ResetUserPassword(xaml));
             ModifyCommand = new RelayCommand<object>((xaml) => ModifyUser(xaml));
             DeleteCommand = new RelayCommand<object>((xaml) => DeleteUser(xaml));
             OptionsCommand = new RelayCommand<object>((xaml) => UserOptions(xaml));
@@ -147,6 +150,37 @@ namespace SysAdmin.ViewModels
                 {
                     await Add(dialog.DistinguishedName, dialog.User, dialog.Password);
                     notification.ShowSuccessMessage("User added");
+                    await ListAsync();
+                }
+                catch (LdapException le)
+                {
+                    notification.ShowErrorMessage(ActiveDirectory.LdapResult.GetErrorMessageFromResult(le.ResultCode));
+                }
+                catch (Exception ex)
+                {
+                    notification.ShowErrorMessage(ex.Message);
+                }
+            }
+
+            busyService.Idle();
+        }
+
+        private async void ResetUserPassword(object xaml)
+        {
+            IResetPasswordDialog dialog = App.Current.Services.GetService<IResetPasswordDialog>();
+
+            if (ApplicationData.Current.LocalSettings.Values["UserDefaultPassword"] != null)
+                dialog.Password = ApplicationData.Current.LocalSettings.Values["UserDefaultPassword"].ToString();
+
+            var result = await dialog.ShowDialog(xaml);
+            if (result == true)
+            {
+                busyService.Busy();
+
+                try
+                {
+                    await ResetPassword(dialog.User, dialog.Password);
+                    notification.ShowSuccessMessage("Password changed");
                     await ListAsync();
                 }
                 catch (LdapException le)
@@ -332,6 +366,23 @@ namespace SysAdmin.ViewModels
             OnPropertyChanged(nameof(User));
 
             busyService.Idle();
+        }
+
+        public async Task ResetPassword(UserEntry user, string password)
+        {
+            await Task.Run(async () =>
+            {
+                using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
+                {
+                    using (var usersRepository = new UsersRepository(ldap))
+                    {
+                        if (string.IsNullOrEmpty(user.CN))
+                            user.CN = user.DisplayName;
+                        await usersRepository.ResetPasswordAsync(user, password);
+                        await usersRepository.MustChangePasswordAsync(user);
+                    }
+                }
+            });
         }
 
         private async Task<string> GetDefaultContainer()

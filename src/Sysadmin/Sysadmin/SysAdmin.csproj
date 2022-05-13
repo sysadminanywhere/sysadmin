@@ -23,6 +23,7 @@
     <None Remove="Views\Computers\Management\ServicesPage.xaml" />
     <None Remove="Views\Computers\Management\SoftwarePage.xaml" />
     <None Remove="Views\SelectDirectoryDialog.xaml" />
+    <None Remove="Views\Users\ResetPasswordDialog.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\StoreLogo.ico" />
@@ -90,6 +91,10 @@
   <ItemGroup>
     <Page Update="Views\Computers\Management\EventsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Views\Users\ResetPasswordDialog.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
 </Project>

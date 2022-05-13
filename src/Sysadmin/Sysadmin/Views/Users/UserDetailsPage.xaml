@@ -45,6 +45,7 @@
             <AppBarButton Icon="Edit" Label="Edit" Command="{x:Bind ViewModel.ModifyCommand}" CommandParameter="{x:Bind userDetailsPage.Content.XamlRoot}"/>
             <AppBarButton Icon="Contact2" Label="Photo" Click="PhotoBarButton_Click" />
             <AppBarButton Icon="Manage" Label="Options" Command="{x:Bind ViewModel.OptionsCommand}" CommandParameter="{x:Bind userDetailsPage.Content.XamlRoot}"/>
+            <AppBarButton Icon="SetLockScreen" Label="Reset password" Command="{x:Bind ViewModel.ResetPasswordCommand}" CommandParameter="{x:Bind userDetailsPage.Content.XamlRoot}"/>
             <AppBarSeparator />
             <AppBarButton Icon="Delete" Label="Delete" Command="{x:Bind ViewModel.DeleteCommand}" CommandParameter="{x:Bind userDetailsPage.Content.XamlRoot}"/>
         </CommandBar>
