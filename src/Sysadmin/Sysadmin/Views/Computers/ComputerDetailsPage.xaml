@@ -55,7 +55,7 @@
                         <MenuFlyoutItem x:Name="mnuServices" Text="Services" Click="mnuServices_Click" />
                         <MenuFlyoutItem x:Name="mnuEvents" Text="Events" Click="mnuEvents_Click" />
                         <MenuFlyoutItem x:Name="mnuSoftware" Text="Software" Click="mnuSoftware_Click" />
-                        <!--<MenuFlyoutItem x:Name="mnuHardware" Text="Hardware" Click="mnuHardware_Click" />-->
+                        <MenuFlyoutItem x:Name="mnuHardware" Text="Hardware" Click="mnuHardware_Click" />
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
