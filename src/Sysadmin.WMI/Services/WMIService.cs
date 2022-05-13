@@ -75,7 +75,7 @@ namespace Sysadmin.WMI.Services
             }
         }
 
-        public void Invoke(string queryString, string methodName, List<object> args)
+        public void Invoke(string queryString, string methodName, List<object>? args = null)
         {
             if (queryString == null)
                 throw new ArgumentNullException(nameof(queryString));
