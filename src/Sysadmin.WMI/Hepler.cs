@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
@@ -45,9 +44,18 @@ namespace Sysadmin.WMI
             }
             else
             {
-                arr = (string[])(obj as JArray).ToObject(typeof(string[]));
+                //arr = (string[])(obj as JArray).ToObject(typeof(string[]));
+                var col = obj as System.Collections.IEnumerable;
+                if (col != null)
+                {
+                    arr = col.Cast<object>().Select(x => x.ToString()).ToArray();
+                }
+                else
+                {
+                    arr = new string[] { };
+                }
             }
-            
+
             foreach (string item in arr)
             {
                 collection.Add(item);

@@ -5,6 +5,7 @@
     xmlns:local="using:SysAdmin.Views.Computers.Management"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     mc:Ignorable="d">
 
     <Grid>
@@ -55,6 +56,39 @@
                 <ListBoxItem Content="Physical memory" Tag="physicalmemory" Tapped="ListBoxItem_Tapped"/>
                 <ListBoxItem Content="Logical disk" Tag="logicaldisk" Tapped="ListBoxItem_Tapped"/>
             </ListBox>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <ComboBox
+                    x:Name="comboBox"
+                    Grid.Row="0"
+                    Margin="16,0,16,16"
+                    Visibility="Collapsed"
+                    PlaceholderText="Pick a item"
+                    DisplayMemberPath="Name"
+                    SelectionChanged="comboBox_SelectionChanged" />
+
+                <controls:DataGrid
+                    Grid.Row="1"
+                    IsTabStop="False"
+                    CanUserSortColumns="True"
+                    AutoGenerateColumns="False"
+                    IsReadOnly="True"
+                    GridLinesVisibility="Horizontal"
+                    ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}" 
+                    CanUserResizeColumns="True">
+                        <controls:DataGrid.Columns>
+                            <controls:DataGridTextColumn Binding="{Binding Name}" Header="Name" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                            <controls:DataGridTextColumn Binding="{Binding Value}" Header="Value" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                        </controls:DataGrid.Columns>
+                </controls:DataGrid>
+
+
+            </Grid>
 
         </Grid>
         
