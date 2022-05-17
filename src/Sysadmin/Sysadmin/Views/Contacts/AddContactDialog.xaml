@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
-            <TextBlock Text="Container" Style="{ThemeResource BodyTextBlockStyle}" Margin="4,16,4,4" />
+            <TextBlock Text="Container" Style="{ThemeResource FormLabelStyle}" />
             <controls:DirectoryControl DistinguishedName="{x:Bind DistinguishedName}" Margin="0,4,0,16" HorizontalAlignment="Stretch" />
         </StackPanel>
 
@@ -28,13 +28,13 @@
             <TextBlock Text="Display name" Style="{ThemeResource BodyTextBlockStyle}" Margin="4" />
             <TextBox x:Name="txtDisplayName" Text="{x:Bind Contact.DisplayName, Mode=TwoWay}" />
 
-            <TextBlock Text="First name" Style="{ThemeResource BodyTextBlockStyle}" Margin="4,16,4,4" />
+            <TextBlock Text="First name" Style="{ThemeResource FormLabelStyle}" />
             <TextBox x:Name="txtFirstName" Text="{x:Bind Contact.FirstName, Mode=TwoWay}" />
 
-            <TextBlock Text="Initials" Style="{ThemeResource BodyTextBlockStyle}" Margin="4,16,4,4" />
+            <TextBlock Text="Initials" Style="{ThemeResource FormLabelStyle}" />
             <TextBox x:Name="txtInitials" Text="{x:Bind Contact.Initials, Mode=TwoWay}" />
 
-            <TextBlock Text="Last name" Style="{ThemeResource BodyTextBlockStyle}" Margin="4,16,4,4" />
+            <TextBlock Text="Last name" Style="{ThemeResource FormLabelStyle}" />
             <TextBox x:Name="txtLastName" Text="{x:Bind Contact.LastName, Mode=TwoWay}" />
 
         </StackPanel>

@@ -22,7 +22,7 @@
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="0">
-                <TextBlock Text="Container" Style="{ThemeResource BodyTextBlockStyle}" Margin="4,16,4,4" />
+                <TextBlock Text="Container" Style="{ThemeResource FormLabelStyle}" />
                 <controls:DirectoryControl DistinguishedName="{x:Bind DistinguishedName}" Margin="0,4,0,16" HorizontalAlignment="Stretch" />
             </StackPanel>
             
@@ -38,16 +38,16 @@
                     <TextBlock Text="Display name" Style="{ThemeResource BodyTextBlockStyle}" Margin="4" />
                     <TextBox x:Name="txtDisplayName" Text="{x:Bind User.DisplayName, Mode=TwoWay}" KeyUp="txtDisplayName_KeyUp" />
 
-                    <TextBlock Text="First name" Style="{ThemeResource BodyTextBlockStyle}" Margin="4,16,4,4" />
+                    <TextBlock Text="First name" Style="{ThemeResource FormLabelStyle}" />
                     <TextBox x:Name="txtFirstName" Text="{x:Bind User.FirstName, Mode=TwoWay}" />
 
-                    <TextBlock Text="Initials" Style="{ThemeResource BodyTextBlockStyle}" Margin="4,16,4,4" />
+                    <TextBlock Text="Initials" Style="{ThemeResource FormLabelStyle}" />
                     <TextBox x:Name="txtInitials" Text="{x:Bind User.Initials, Mode=TwoWay}" />
 
-                    <TextBlock Text="Last name" Style="{ThemeResource BodyTextBlockStyle}" Margin="4,16,4,4" />
+                    <TextBlock Text="Last name" Style="{ThemeResource FormLabelStyle}" />
                     <TextBox x:Name="txtLastName" Text="{x:Bind User.LastName, Mode=TwoWay}" />
 
-                    <TextBlock Text="Account name" Style="{ThemeResource BodyTextBlockStyle}" Margin="4,16,4,4" />
+                    <TextBlock Text="Account name" Style="{ThemeResource FormLabelStyle}" />
                     <TextBox x:Name="txtAccountName" Text="{x:Bind User.SamAccountName, Mode=TwoWay}" />
 
                 </StackPanel>
@@ -57,7 +57,7 @@
                     <TextBlock Text="Password" Style="{ThemeResource BodyTextBlockStyle}" Margin="4" />
                     <PasswordBox x:Name="txtPassword" Password="{x:Bind Password, Mode=TwoWay}" />
 
-                    <TextBlock Text="Confirm password" Style="{ThemeResource BodyTextBlockStyle}" Margin="4,16,4,4" />
+                    <TextBlock Text="Confirm password" Style="{ThemeResource FormLabelStyle}" />
                     <PasswordBox x:Name="txtConfirmPassword" />
 
                     <ToggleSwitch x:Name="chkUserMustChangePassword" Header="User must change password at next logon" Margin="4,16,4,4" IsOn="True" Toggled="chkUserMustChangePassword_Toggled" />

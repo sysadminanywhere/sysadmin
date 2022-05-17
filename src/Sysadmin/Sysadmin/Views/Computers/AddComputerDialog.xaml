@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
-            <TextBlock Text="Container" Style="{ThemeResource BodyTextBlockStyle}" Margin="4,16,4,4" />
+            <TextBlock Text="Container"  Style="{ThemeResource FormLabelStyle}" />
             <controls:DirectoryControl DistinguishedName="{x:Bind DistinguishedName}" Margin="0,4,0,16" HorizontalAlignment="Stretch" />
         </StackPanel>
 
@@ -28,7 +28,7 @@
             <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Margin="4" Text="Name" />
             <TextBox Text="{x:Bind Computer.CN, Mode=TwoWay}" />
 
-            <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Margin="4,16,4,4" Text="Description" />
+            <TextBlock  Style="{ThemeResource FormLabelStyle}" Text="Description" />
             <TextBox Text="{x:Bind Computer.Description, Mode=TwoWay}" />
 
             <ToggleSwitch Header="Account enabled" Margin="4,16,4,4" IsOn="{x:Bind IsAccountEnabled, Mode=TwoWay}" />

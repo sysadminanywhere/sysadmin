@@ -17,7 +17,7 @@
             <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Margin="4" Text="Description" />
             <TextBox Text="{x:Bind Computer.Description, Mode=TwoWay}" />
 
-            <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Margin="4,16,4,4" Text="Location" />
+            <TextBlock  Style="{ThemeResource FormLabelStyle}" Text="Location" />
             <TextBox Text="{x:Bind Computer.Location, Mode=TwoWay}" />
         </StackPanel>
     </Grid>

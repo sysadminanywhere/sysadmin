@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
-            <TextBlock Text="Container" Style="{ThemeResource BodyTextBlockStyle}" Margin="4,16,4,4" />
+            <TextBlock Text="Container" Style="{ThemeResource FormLabelStyle}" />
             <controls:DirectoryControl DistinguishedName="{x:Bind DistinguishedName}" Margin="0,4,0,16" HorizontalAlignment="Stretch" />
         </StackPanel>
 
@@ -32,14 +32,14 @@
             <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Margin="4,16,4,4" Text="Description" Padding="0,2,0,0" />
             <TextBox Text="{x:Bind Group.Description, Mode=TwoWay}" />
 
-            <TextBlock Text="Group scope" Style="{ThemeResource BodyTextBlockStyle}" Margin="4,16,4,4" />
+            <TextBlock Text="Group scope" Style="{ThemeResource FormLabelStyle}" />
             <ComboBox x:Name="cmbScope" Margin="4" SelectedIndex="0">
                 <ComboBoxItem Content="Global" />
                 <ComboBoxItem Content="Local" />
                 <ComboBoxItem Content="Universal" />
             </ComboBox>
 
-            <TextBlock Text="Group type" Style="{ThemeResource BodyTextBlockStyle}" Margin="4,16,4,4" />
+            <TextBlock Text="Group type" Style="{ThemeResource FormLabelStyle}" />
             <StackPanel Margin="4">
                 <RadioButton x:Name="radSecurity" Content="Security" IsChecked="True" />
                 <RadioButton x:Name="radDistribution" Content="Distribution"/>
