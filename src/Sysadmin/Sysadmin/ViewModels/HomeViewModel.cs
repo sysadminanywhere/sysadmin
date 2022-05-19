@@ -2,7 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using SysAdmin.ActiveDirectory;
-using SysAdmin.ActiveDirectory.Models;
 using SysAdmin.ActiveDirectory.Services.Ldap;
 using SysAdmin.Models;
 using SysAdmin.Services;
@@ -10,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SysAdmin.ViewModels
