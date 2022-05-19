@@ -56,42 +56,50 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock 
-            Margin="24"
-            Grid.Row="0" 
-            Text="Groups"
-            Style="{StaticResource TitleTextBlockStyle}"/>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <CommandBar Margin="24" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right">
-            <AppBarElementContainer VerticalAlignment="Center">
-                <AutoSuggestBox QueryIcon="Find" MinWidth="200" PlaceholderText="Search" TextChanged="AutoSuggestBox_TextChanged" />
-            </AppBarElementContainer>
-            <AppBarSeparator />
-            <AppBarButton Icon="Add" Label="Add" Command="{x:Bind ViewModel.AddCommand}" CommandParameter="{x:Bind groupsPage.Content.XamlRoot}"/>
-            <AppBarSeparator />
-            <AppBarButton Icon="Sort" Label="Sort">
-                <AppBarButton.Flyout>
-                    <MenuFlyout x:Name="mnuSort">
-                        <ToggleMenuFlyoutItem x:Name="mnuSortAsc" Text="By name (A-Z)" Command="{x:Bind ViewModel.SortAscCommand}" Click="mnuSort_Click" />
-                        <ToggleMenuFlyoutItem x:Name="mnuSortDesc" Text="By name (Z-A)" Command="{x:Bind ViewModel.SortDescCommand}" Click="mnuSort_Click" />
-                    </MenuFlyout>
-                </AppBarButton.Flyout>
-            </AppBarButton>
-            <AppBarButton Icon="Filter" Label="Filter">
-                <AppBarButton.Flyout>
-                    <MenuFlyout x:Name="mnuFilter">
-                        <ToggleMenuFlyoutItem x:Name="mnuFilterAll" Text="All" IsChecked="True" Click="mnuFilter_Click" />
-                        <ToggleMenuFlyoutItem x:Name="mnuFilterGlobalDistribution" Text="Global distribution" Click="mnuFilter_Click" />
-                        <ToggleMenuFlyoutItem x:Name="mnuFilterDomainLocalDistribution" Text="Domain local distribution" Click="mnuFilter_Click" />
-                        <ToggleMenuFlyoutItem x:Name="mnuFilterUniversalDistribution" Text="Universal distribution" Click="mnuFilter_Click" />
-                        <ToggleMenuFlyoutItem x:Name="mnuFilterGlobalSecurity" Text="Global security" Click="mnuFilter_Click" />
-                        <ToggleMenuFlyoutItem x:Name="mnuFilterDomainLocalSecurity" Text="Domain local security" Click="mnuFilter_Click" />
-                        <ToggleMenuFlyoutItem x:Name="mnuFilterUniversalSecurity" Text="Universal security" Click="mnuFilter_Click" />
-                        <ToggleMenuFlyoutItem x:Name="mnuFilterBuiltInGroup" Text="BuiltIn" Click="mnuFilter_Click" />
-                    </MenuFlyout>
-                </AppBarButton.Flyout>
-            </AppBarButton>
-        </CommandBar>
+            <TextBlock 
+                Margin="24"
+                Grid.Column="0" 
+                Text="Groups"
+                Style="{StaticResource TitleTextBlockStyle}"/>
+
+            <CommandBar Margin="24" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Column="1">
+                <AppBarElementContainer VerticalAlignment="Center">
+                    <AutoSuggestBox QueryIcon="Find" MinWidth="200" PlaceholderText="Search" TextChanged="AutoSuggestBox_TextChanged" />
+                </AppBarElementContainer>
+                <AppBarSeparator />
+                <AppBarButton Icon="Add" Label="Add" Command="{x:Bind ViewModel.AddCommand}" CommandParameter="{x:Bind groupsPage.Content.XamlRoot}"/>
+                <AppBarSeparator />
+                <AppBarButton Icon="Sort" Label="Sort">
+                    <AppBarButton.Flyout>
+                        <MenuFlyout x:Name="mnuSort">
+                            <ToggleMenuFlyoutItem x:Name="mnuSortAsc" Text="By name (A-Z)" Command="{x:Bind ViewModel.SortAscCommand}" Click="mnuSort_Click" />
+                            <ToggleMenuFlyoutItem x:Name="mnuSortDesc" Text="By name (Z-A)" Command="{x:Bind ViewModel.SortDescCommand}" Click="mnuSort_Click" />
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarButton Icon="Filter" Label="Filter">
+                    <AppBarButton.Flyout>
+                        <MenuFlyout x:Name="mnuFilter">
+                            <ToggleMenuFlyoutItem x:Name="mnuFilterAll" Text="All" IsChecked="True" Click="mnuFilter_Click" />
+                            <ToggleMenuFlyoutItem x:Name="mnuFilterGlobalDistribution" Text="Global distribution" Click="mnuFilter_Click" />
+                            <ToggleMenuFlyoutItem x:Name="mnuFilterDomainLocalDistribution" Text="Domain local distribution" Click="mnuFilter_Click" />
+                            <ToggleMenuFlyoutItem x:Name="mnuFilterUniversalDistribution" Text="Universal distribution" Click="mnuFilter_Click" />
+                            <ToggleMenuFlyoutItem x:Name="mnuFilterGlobalSecurity" Text="Global security" Click="mnuFilter_Click" />
+                            <ToggleMenuFlyoutItem x:Name="mnuFilterDomainLocalSecurity" Text="Domain local security" Click="mnuFilter_Click" />
+                            <ToggleMenuFlyoutItem x:Name="mnuFilterUniversalSecurity" Text="Universal security" Click="mnuFilter_Click" />
+                            <ToggleMenuFlyoutItem x:Name="mnuFilterBuiltInGroup" Text="BuiltIn" Click="mnuFilter_Click" />
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+            </CommandBar>
+
+        </Grid>
 
         <ListView
             Grid.Row="1"

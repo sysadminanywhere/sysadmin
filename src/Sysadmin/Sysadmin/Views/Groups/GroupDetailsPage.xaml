@@ -21,38 +21,46 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel 
-            Margin="24"
-            Grid.Row="0" 
-            Orientation="Horizontal" 
-            HorizontalAlignment="Stretch">
-            
-            <FontIcon
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel 
+                Margin="24"
+                Grid.Column="0" 
+                Orientation="Horizontal" 
+                HorizontalAlignment="Stretch">
+
+                <FontIcon
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontSize="32"
                     Glyph="&#xE902;" />
 
-            <StackPanel VerticalAlignment="Center">
-                <TextBlock 
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock 
                     Text="{x:Bind ViewModel.Group.CN, Mode=OneWay}"
                     Style="{StaticResource TitleDetailPageStyle}"/>
 
-                <TextBlock 
+                    <TextBlock 
                     Visibility="{x:Bind ViewModel.Group.Description, Mode=OneWay, Converter={StaticResource EmptyToCollapsedConverter}}"
                     Text="{x:Bind ViewModel.Group.Description, Mode=OneWay}"
                     Style="{StaticResource SubTitleDetailPageStyle}"/>
+                </StackPanel>
+
             </StackPanel>
 
-        </StackPanel>
+            <CommandBar Margin="24" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Column="1">
+                <AppBarButton Icon="Edit" Label="Edit" Command="{x:Bind ViewModel.ModifyCommand}" CommandParameter="{x:Bind groupDetailsPage.Content.XamlRoot}"/>
+                <AppBarSeparator/>
+                <AppBarButton Icon="AllApps" Label="Properties" Click="AppBarButton_Click"/>
+                <AppBarSeparator />
+                <AppBarButton Icon="Delete" Label="Delete" Command="{x:Bind ViewModel.DeleteCommand}" CommandParameter="{x:Bind groupDetailsPage.Content.XamlRoot}"/>
+            </CommandBar>
 
-        <CommandBar Margin="24" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Row="0">
-            <AppBarButton Icon="Edit" Label="Edit" Command="{x:Bind ViewModel.ModifyCommand}" CommandParameter="{x:Bind groupDetailsPage.Content.XamlRoot}"/>
-            <AppBarSeparator/>
-            <AppBarButton Icon="AllApps" Label="Properties" Click="AppBarButton_Click"/>
-            <AppBarSeparator />
-            <AppBarButton Icon="Delete" Label="Delete" Command="{x:Bind ViewModel.DeleteCommand}" CommandParameter="{x:Bind groupDetailsPage.Content.XamlRoot}"/>
-        </CommandBar>
+        </Grid>
 
         <Grid 
             VerticalAlignment="Top"

@@ -13,57 +13,65 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel 
-            Margin="24"
-            Grid.Row="0" 
-            Orientation="Horizontal" 
-            HorizontalAlignment="Stretch">
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-            <FontIcon
+            <StackPanel 
+                Margin="24"
+                Grid.Column="0" 
+                Orientation="Horizontal" 
+                HorizontalAlignment="Stretch">
+
+                <FontIcon
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontSize="32"
                     Glyph="&#xE9F9;" />
 
-            <StackPanel VerticalAlignment="Center">
-                <TextBlock 
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock 
                     Text="{x:Bind Title, Mode=OneWay}"
                     Style="{StaticResource TitleDetailPageStyle}"/>
 
-                <TextBlock 
+                    <TextBlock 
                     Text="{x:Bind Description, Mode=OneWay}"
                     Style="{StaticResource SubTitleDetailPageStyle}"/>
+                </StackPanel>
+
             </StackPanel>
 
-        </StackPanel>
+            <CommandBar Margin="24" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Column="1">
+                <AppBarButton x:Name="First" Click="First_Click">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE892;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton x:Name="Previous" Click="Previous_Click">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE76B;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarElementContainer Visibility="Collapsed">
+                    <TextBox x:Name="PageNumber" Height="20" Margin="0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="50" KeyDown="PageNumber_KeyDown"/>
+                </AppBarElementContainer>
+                <AppBarButton x:Name="Next" Click="Next_Click">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE76C;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton x:Name="Last" Click="Last_Click">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE893;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarSeparator/>
+                <AppBarButton Icon="Save" Label="Export" Click="ExportButton_Click" />
+            </CommandBar>
 
-        <CommandBar Margin="24" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Row="0">
-            <AppBarButton x:Name="First" Click="First_Click">
-                <AppBarButton.Icon>
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE892;"/>
-                </AppBarButton.Icon>
-            </AppBarButton>
-            <AppBarButton x:Name="Previous" Click="Previous_Click">
-                <AppBarButton.Icon>
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE76B;"/>
-                </AppBarButton.Icon>
-            </AppBarButton>
-            <AppBarElementContainer Visibility="Collapsed">
-                <TextBox x:Name="PageNumber" Height="20" Margin="0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="50" KeyDown="PageNumber_KeyDown"/>
-            </AppBarElementContainer>
-            <AppBarButton x:Name="Next" Click="Next_Click">
-                <AppBarButton.Icon>
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE76C;"/>
-                </AppBarButton.Icon>
-            </AppBarButton>
-            <AppBarButton x:Name="Last" Click="Last_Click">
-                <AppBarButton.Icon>
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE893;"/>
-                </AppBarButton.Icon>
-            </AppBarButton>
-            <AppBarSeparator/>
-            <AppBarButton Icon="Save" Label="Export" Click="ExportButton_Click" />
-        </CommandBar>
+        </Grid>
 
         <ScrollViewer VerticalScrollBarVisibility="Visible" 
                       Padding="10"

@@ -23,6 +23,7 @@
     <None Remove="Views\Computers\Management\ProcessesPage.xaml" />
     <None Remove="Views\Computers\Management\ServicesPage.xaml" />
     <None Remove="Views\Computers\Management\SoftwarePage.xaml" />
+    <None Remove="Views\RenameDialog.xaml" />
     <None Remove="Views\SelectDirectoryDialog.xaml" />
     <None Remove="Views\Users\ResetPasswordDialog.xaml" />
   </ItemGroup>
@@ -86,6 +87,9 @@
   <ItemGroup>
     <Page Update="Controls\DirectoryTreeControl.xaml">
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Views\RenameDialog.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
   </ItemGroup>
 

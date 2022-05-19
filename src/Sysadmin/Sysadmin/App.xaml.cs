@@ -11,6 +11,7 @@ using SysAdmin.ActiveDirectory.Services.Ldap;
 using SysAdmin.Controls;
 using SysAdmin.Services;
 using SysAdmin.Services.Dialogs;
+using SysAdmin.Views;
 using SysAdmin.Views.Computers;
 using SysAdmin.Views.Contacts;
 using SysAdmin.Views.Groups;
@@ -96,6 +97,7 @@ namespace SysAdmin
             services.AddTransient<IResetPasswordDialog, ResetPasswordDialog>();
 
             services.AddTransient<IQuestionDialogService, QuestionDialog>();
+            services.AddTransient<IRenameDialogService, RenameDialog>();
 
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<INotificationService, NotificationService>();
