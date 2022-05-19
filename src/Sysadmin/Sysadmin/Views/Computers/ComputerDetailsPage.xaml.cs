@@ -108,5 +108,10 @@ namespace SysAdmin.Views.Computers
             else
                 await ViewModel.Shutdown();
         }
+
+        private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(ADPropertiesPage), ViewModel.Computer.DistinguishedName);
+        }
     }
 }

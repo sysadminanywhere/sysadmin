@@ -17,6 +17,7 @@
   <ItemGroup>
     <None Remove="Controls\DirectoryControl.xaml" />
     <None Remove="Controls\DirectoryTreeControl.xaml" />
+    <None Remove="Views\ADPropertiesPage.xaml" />
     <None Remove="Views\Computers\Management\EventsPage.xaml" />
     <None Remove="Views\Computers\Management\HardwarePage.xaml" />
     <None Remove="Views\Computers\Management\ProcessesPage.xaml" />
@@ -44,6 +45,12 @@
     <ProjectReference Include="..\..\FastReport.ReportBuilder\FastReport.ReportBuilder.csproj" />
     <ProjectReference Include="..\..\SysAdmin.ActiveDirectory\SysAdmin.ActiveDirectory.csproj" />
     <ProjectReference Include="..\..\Sysadmin.WMI\Sysadmin.WMI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\ADPropertiesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <ItemGroup>

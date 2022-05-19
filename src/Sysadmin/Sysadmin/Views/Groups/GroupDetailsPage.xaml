@@ -48,6 +48,8 @@
 
         <CommandBar Margin="24" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Row="0">
             <AppBarButton Icon="Edit" Label="Edit" Command="{x:Bind ViewModel.ModifyCommand}" CommandParameter="{x:Bind groupDetailsPage.Content.XamlRoot}"/>
+            <AppBarSeparator/>
+            <AppBarButton Icon="AllApps" Label="Properties" Click="AppBarButton_Click"/>
             <AppBarSeparator />
             <AppBarButton Icon="Delete" Label="Delete" Command="{x:Bind ViewModel.DeleteCommand}" CommandParameter="{x:Bind groupDetailsPage.Content.XamlRoot}"/>
         </CommandBar>

@@ -45,6 +45,8 @@
         </StackPanel>
 
         <CommandBar Margin="24" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Row="0">
+            <AppBarSeparator/>
+            <AppBarButton Icon="AllApps" Label="Properties" Click="AppBarButton_Click"/>
             <AppBarSeparator />
             <AppBarButton Icon="Delete" Label="Delete" Command="{x:Bind ViewModel.DeleteCommand}" CommandParameter="{x:Bind printerDetailsPage.Content.XamlRoot}"/>
         </CommandBar>

@@ -129,5 +129,9 @@ namespace SysAdmin.Views.Users
             }
         }
 
+        private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(ADPropertiesPage), ViewModel.User.DistinguishedName);
+        }
     }
 }
