@@ -50,5 +50,10 @@ namespace SysAdmin.Views.Groups
         {
             await ViewModel.Get(ViewModel.Group.CN);
         }
+
+        private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(ADPropertiesPage), ViewModel.Group.DistinguishedName);
+        }
     }
 }

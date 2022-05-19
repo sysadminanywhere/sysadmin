@@ -42,5 +42,9 @@ namespace SysAdmin.Views.Contacts
 
         }
 
+        private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(ADPropertiesPage), ViewModel.Contact.DistinguishedName);
+        }
     }
 }

@@ -62,6 +62,8 @@
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
+            <AppBarSeparator/>
+            <AppBarButton Icon="AllApps" Label="Properties" Click="AppBarButton_Click"/>
             <AppBarSeparator />
             <AppBarButton Icon="Delete" Label="Delete" Command="{x:Bind ViewModel.DeleteCommand}" CommandParameter="{x:Bind computerDetailsPage.Content.XamlRoot}"/>
         </CommandBar>

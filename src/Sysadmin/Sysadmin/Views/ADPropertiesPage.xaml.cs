@@ -18,33 +18,31 @@ using Windows.Foundation.Collections;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace SysAdmin.Views.Printers
+namespace SysAdmin.Views
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class PrinterDetailsPage : Page
+    public sealed partial class ADPropertiesPage : Page
     {
 
-        public PrintersViewModel ViewModel { get; } = new PrintersViewModel();
+        public ADPropertiesViewModel ViewModel { get; } = new ADPropertiesViewModel();
 
-        public PrinterDetailsPage()
+        public ADPropertiesPage()
         {
             this.InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            if (e.Parameter is PrinterEntry)
-                ViewModel.Printer = (PrinterEntry)e.Parameter;
-
+            if (e.Parameter is string)
+            {
+                ViewModel.DistinguishedName = e.Parameter.ToString();
+                await ViewModel.LoadAsync();
+            }
         }
 
-        private void AppBarButton_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(ADPropertiesPage), ViewModel.Printer.DistinguishedName);
-        }
     }
 }
