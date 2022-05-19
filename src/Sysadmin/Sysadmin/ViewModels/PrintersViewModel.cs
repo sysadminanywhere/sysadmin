@@ -2,7 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
-using SysAdmin.ActiveDirectory;
 using SysAdmin.ActiveDirectory.Models;
 using SysAdmin.ActiveDirectory.Repositories;
 using SysAdmin.ActiveDirectory.Services.Ldap;
@@ -19,7 +18,7 @@ namespace SysAdmin.ViewModels
     public class PrintersViewModel : ObservableObject
     {
 
-        public PrinterEntry Printer { get; set; }= new PrinterEntry();
+        public PrinterEntry Printer { get; set; } = new PrinterEntry();
         public ObservableCollection<PrinterEntry> Printers { get; private set; } = new ObservableCollection<PrinterEntry>();
 
         public RelayCommand<object> DeleteCommand { get; private set; }
@@ -75,7 +74,7 @@ namespace SysAdmin.ViewModels
                 Printers = new ObservableCollection<PrinterEntry>(cache.Where(c => c.CN.ToUpper().StartsWith(searchText.ToUpper())));
             }
 
-            if(isAsc)
+            if (isAsc)
                 Printers = new ObservableCollection<PrinterEntry>(Printers.OrderBy(c => c.CN));
             else
                 Printers = new ObservableCollection<PrinterEntry>(Printers.OrderByDescending(c => c.CN));

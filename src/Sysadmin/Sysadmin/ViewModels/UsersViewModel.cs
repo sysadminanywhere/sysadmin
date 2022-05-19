@@ -130,7 +130,7 @@ namespace SysAdmin.ViewModels
                     break;
             }
 
-            if(isAsc)
+            if (isAsc)
                 Users = new ObservableCollection<UserEntry>(Users.OrderBy(c => c.CN));
             else
                 Users = new ObservableCollection<UserEntry>(Users.OrderByDescending(c => c.CN));

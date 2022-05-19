@@ -134,7 +134,7 @@ namespace SysAdmin.ViewModels
                     break;
             }
 
-            if(isAsc)
+            if (isAsc)
                 Groups = new ObservableCollection<GroupEntry>(Groups.OrderBy(c => c.CN));
             else
                 Groups = new ObservableCollection<GroupEntry>(Groups.OrderByDescending(c => c.CN));

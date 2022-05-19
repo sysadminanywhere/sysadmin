@@ -1,25 +1,12 @@
-﻿using FastReport;
-using FastReport.Data;
-using FastReport.Export.PdfSimple;
-using FastReport.ReportBuilder;
-using FastReport.Utils;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
-using SysAdmin.ActiveDirectory.Models;
-using SysAdmin.ActiveDirectory.Repositories;
-using SysAdmin.ActiveDirectory.Services.Ldap;
-using SysAdmin.Models;
 using SysAdmin.Services;
 using SysAdmin.Services.Reports;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SysAdmin.ViewModels
 {

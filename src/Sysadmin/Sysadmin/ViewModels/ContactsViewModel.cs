@@ -21,7 +21,7 @@ namespace SysAdmin.ViewModels
 
         public ContactEntry Contact { get; set; } = new ContactEntry();
         public ObservableCollection<ContactEntry> Contacts { get; private set; } = new ObservableCollection<ContactEntry>();
-        
+
         public RelayCommand<object> AddCommand { get; private set; }
         public RelayCommand<object> ModifyCommand { get; private set; }
         public RelayCommand<object> DeleteCommand { get; private set; }
@@ -79,7 +79,7 @@ namespace SysAdmin.ViewModels
                 Contacts = new ObservableCollection<ContactEntry>(cache.Where(c => c.CN.ToUpper().StartsWith(searchText.ToUpper())));
             }
 
-            if(isAsc)
+            if (isAsc)
                 Contacts = new ObservableCollection<ContactEntry>(Contacts.OrderBy(c => c.CN));
             else
                 Contacts = new ObservableCollection<ContactEntry>(Contacts.OrderByDescending(c => c.CN));
