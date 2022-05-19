@@ -14,33 +14,41 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel 
-            Margin="24"
-            Grid.Row="0" 
-            Orientation="Horizontal" 
-            HorizontalAlignment="Stretch">
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-            <FontIcon
+            <StackPanel 
+                Margin="24"
+                Grid.Column="0" 
+                Orientation="Horizontal" 
+                HorizontalAlignment="Stretch">
+
+                <FontIcon
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontSize="32"
                     Glyph="&#xED35;" />
 
-            <StackPanel VerticalAlignment="Center">
-                <TextBlock 
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock 
                     Text="Software"
                     Style="{StaticResource TitleDetailPageStyle}"/>
 
-                <TextBlock 
+                    <TextBlock 
                     Text="{x:Bind Computer.CN, Mode=OneWay}"
                     Style="{StaticResource SubTitleDetailPageStyle}"/>
+                </StackPanel>
+
             </StackPanel>
 
-        </StackPanel>
+            <CommandBar Margin="24" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Column="1">
+                <AppBarButton Icon="Refresh" Label="Refresh" Click="AppBarButton_Click" />
+            </CommandBar>
 
-        <CommandBar Margin="24" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right">
-            <AppBarButton Icon="Refresh" Label="Refresh" Click="AppBarButton_Click" />
-        </CommandBar>
+        </Grid>
 
         <controls:DataGrid
             Grid.Row="1"

@@ -20,53 +20,60 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel 
-            Margin="24"
-            Grid.Row="0" 
-            Orientation="Horizontal" 
-            HorizontalAlignment="Stretch">
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-            <FontIcon
+            <StackPanel 
+                Margin="24"
+                Grid.Column="0"
+                Orientation="Horizontal" 
+                HorizontalAlignment="Stretch">
+
+                <FontIcon
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontSize="32"
                     Glyph="&#xE977;" />
 
-            <StackPanel VerticalAlignment="Center">
-                <TextBlock 
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock 
                     Text="{x:Bind ViewModel.Computer.CN, Mode=OneWay}"
                     Style="{StaticResource TitleDetailPageStyle}"/>
 
-                <TextBlock 
+                    <TextBlock 
                     Visibility="{x:Bind ViewModel.Computer.Description, Mode=OneWay, Converter={StaticResource EmptyToCollapsedConverter}}"
                     Text="{x:Bind ViewModel.Computer.Description, Mode=OneWay}"
                     Style="{StaticResource SubTitleDetailPageStyle}"/>
+                </StackPanel>
+
             </StackPanel>
 
-        </StackPanel>
-
-        <CommandBar Margin="24" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Row="0">
-            <AppBarButton Icon="Edit" Label="Edit" Command="{x:Bind ViewModel.ModifyCommand}" CommandParameter="{x:Bind computerDetailsPage.Content.XamlRoot}"/>
-            <AppBarSeparator />
-            <AppBarButton Icon="Manage" Label="Managenent">
-                <AppBarButton.Flyout>
-                    <MenuFlyout>
-                        <MenuFlyoutItem x:Name="mnuProcesses" Text="Processes" Click="mnuProcesses_Click" />
-                        <MenuFlyoutItem x:Name="mnuServices" Text="Services" Click="mnuServices_Click" />
-                        <MenuFlyoutItem x:Name="mnuEvents" Text="Events" Click="mnuEvents_Click" />
-                        <MenuFlyoutItem x:Name="mnuSoftware" Text="Software" Click="mnuSoftware_Click" />
-                        <MenuFlyoutItem x:Name="mnuHardware" Text="Hardware" Click="mnuHardware_Click" />
-                        <MenuFlyoutSeparator/>
-                        <MenuFlyoutItem x:Name="mnuRestart" Text="Reboot" Click="mnuRestart_Click" />
-                        <MenuFlyoutItem x:Name="mnuShutdown" Text="Shutdown" Click="mnuShutdown_Click" />
-                    </MenuFlyout>
-                </AppBarButton.Flyout>
-            </AppBarButton>
-            <AppBarSeparator/>
-            <AppBarButton Icon="AllApps" Label="Properties" Click="AppBarButton_Click"/>
-            <AppBarSeparator />
-            <AppBarButton Icon="Delete" Label="Delete" Command="{x:Bind ViewModel.DeleteCommand}" CommandParameter="{x:Bind computerDetailsPage.Content.XamlRoot}"/>
-        </CommandBar>
+            <CommandBar Margin="24" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Column="1">
+                <AppBarButton Icon="Edit" Label="Edit" Command="{x:Bind ViewModel.ModifyCommand}" CommandParameter="{x:Bind computerDetailsPage.Content.XamlRoot}"/>
+                <AppBarSeparator />
+                <AppBarButton Icon="Manage" Label="Managenent">
+                    <AppBarButton.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem x:Name="mnuProcesses" Text="Processes" Click="mnuProcesses_Click" />
+                            <MenuFlyoutItem x:Name="mnuServices" Text="Services" Click="mnuServices_Click" />
+                            <MenuFlyoutItem x:Name="mnuEvents" Text="Events" Click="mnuEvents_Click" />
+                            <MenuFlyoutItem x:Name="mnuSoftware" Text="Software" Click="mnuSoftware_Click" />
+                            <MenuFlyoutItem x:Name="mnuHardware" Text="Hardware" Click="mnuHardware_Click" />
+                            <MenuFlyoutSeparator/>
+                            <MenuFlyoutItem x:Name="mnuRestart" Text="Reboot" Click="mnuRestart_Click" />
+                            <MenuFlyoutItem x:Name="mnuShutdown" Text="Shutdown" Click="mnuShutdown_Click" />
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarSeparator/>
+                <AppBarButton Icon="AllApps" Label="Properties" Click="AppBarButton_Click"/>
+                <AppBarSeparator />
+                <AppBarButton Icon="Delete" Label="Delete" Command="{x:Bind ViewModel.DeleteCommand}" CommandParameter="{x:Bind computerDetailsPage.Content.XamlRoot}"/>
+            </CommandBar>
+        </Grid>
 
         <Grid 
             VerticalAlignment="Top"

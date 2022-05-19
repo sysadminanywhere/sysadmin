@@ -20,37 +20,45 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
             <StackPanel 
                 Margin="24"
-                Grid.Row="0" 
+                Grid.Column="0" 
                 Orientation="Horizontal" 
                 HorizontalAlignment="Stretch">
 
-            <PersonPicture x:Name="personPicture" Width="32" Height="32" DisplayName="{x:Bind ViewModel.User.DisplayName, Mode=OneWay}" />
+                <PersonPicture x:Name="personPicture" Width="32" Height="32" DisplayName="{x:Bind ViewModel.User.DisplayName, Mode=OneWay}" />
 
-            <StackPanel VerticalAlignment="Center">
-                <TextBlock 
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock 
                     Text="{x:Bind ViewModel.User.CN, Mode=OneWay}"
                     Style="{StaticResource TitleDetailPageStyle}"/>
 
-                <TextBlock 
+                    <TextBlock 
                     Visibility="{x:Bind ViewModel.User.Description, Mode=OneWay, Converter={StaticResource EmptyToCollapsedConverter}}"
                     Text="{x:Bind ViewModel.User.Description, Mode=OneWay}"
                     Style="{StaticResource SubTitleDetailPageStyle}"/>
+                </StackPanel>
+
             </StackPanel>
 
-        </StackPanel>
+            <CommandBar Margin="24" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Column="1">
+                <AppBarButton Icon="Edit" Label="Edit" Command="{x:Bind ViewModel.ModifyCommand}" CommandParameter="{x:Bind userDetailsPage.Content.XamlRoot}"/>
+                <AppBarButton Icon="Contact2" Label="Photo" Click="PhotoBarButton_Click" />
+                <AppBarButton Icon="Manage" Label="Options" Command="{x:Bind ViewModel.OptionsCommand}" CommandParameter="{x:Bind userDetailsPage.Content.XamlRoot}"/>
+                <AppBarButton Icon="SetLockScreen" Label="Reset password" Command="{x:Bind ViewModel.ResetPasswordCommand}" CommandParameter="{x:Bind userDetailsPage.Content.XamlRoot}"/>
+                <AppBarSeparator/>
+                <AppBarButton Icon="AllApps" Label="Properties" Click="AppBarButton_Click"/>
+                <AppBarSeparator />
+                <AppBarButton Icon="Delete" Label="Delete" Command="{x:Bind ViewModel.DeleteCommand}" CommandParameter="{x:Bind userDetailsPage.Content.XamlRoot}"/>
+            </CommandBar>
 
-        <CommandBar Margin="24" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Row="0">
-            <AppBarButton Icon="Edit" Label="Edit" Command="{x:Bind ViewModel.ModifyCommand}" CommandParameter="{x:Bind userDetailsPage.Content.XamlRoot}"/>
-            <AppBarButton Icon="Contact2" Label="Photo" Click="PhotoBarButton_Click" />
-            <AppBarButton Icon="Manage" Label="Options" Command="{x:Bind ViewModel.OptionsCommand}" CommandParameter="{x:Bind userDetailsPage.Content.XamlRoot}"/>
-            <AppBarButton Icon="SetLockScreen" Label="Reset password" Command="{x:Bind ViewModel.ResetPasswordCommand}" CommandParameter="{x:Bind userDetailsPage.Content.XamlRoot}"/>
-            <AppBarSeparator/>
-            <AppBarButton Icon="AllApps" Label="Properties" Click="AppBarButton_Click"/>
-            <AppBarSeparator />
-            <AppBarButton Icon="Delete" Label="Delete" Command="{x:Bind ViewModel.DeleteCommand}" CommandParameter="{x:Bind userDetailsPage.Content.XamlRoot}"/>
-        </CommandBar>
+        </Grid>
 
         <Grid 
             VerticalAlignment="Top"

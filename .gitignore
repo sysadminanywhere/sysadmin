@@ -19,3 +19,5 @@ src/Sysadmin/Sysadmin (Package)/SysAdmin (Package).wapproj.user
 src/Sysadmin.WMI/bin
 src/Sysadmin.WMI/obj
 src/Sysadmin/Sysadmin (Package)/SysAdmin (Package).wapproj.user
+*.user
+src/Sysadmin/Sysadmin/SysAdmin.csproj.user

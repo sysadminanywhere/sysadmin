@@ -19,37 +19,45 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel 
-            Margin="24"
-            Grid.Row="0" 
-            Orientation="Horizontal" 
-            HorizontalAlignment="Stretch">
-            
-            <FontIcon
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel 
+                Grid.Column="0" 
+                Orientation="Horizontal" 
+                Margin="24"
+                HorizontalAlignment="Stretch">
+
+                <FontIcon
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontSize="32"
                     Glyph="&#xE749;" />
 
-            <StackPanel VerticalAlignment="Center">
-                <TextBlock 
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock 
                     Text="{x:Bind ViewModel.Printer.CN, Mode=OneWay}"
                     Style="{StaticResource TitleDetailPageStyle}"/>
 
-                <TextBlock 
+                    <TextBlock 
                     Visibility="{x:Bind ViewModel.Printer.Description, Converter={StaticResource EmptyToCollapsedConverter}}"
                     Text="{x:Bind ViewModel.Printer.Description, Mode=OneWay}"
                     Style="{StaticResource SubTitleDetailPageStyle}"/>
+                </StackPanel>
+
             </StackPanel>
 
-        </StackPanel>
+            <CommandBar Margin="24" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Column="1">
+                <AppBarSeparator/>
+                <AppBarButton Icon="AllApps" Label="Properties" Click="AppBarButton_Click"/>
+                <AppBarSeparator />
+                <AppBarButton Icon="Delete" Label="Delete" Command="{x:Bind ViewModel.DeleteCommand}" CommandParameter="{x:Bind printerDetailsPage.Content.XamlRoot}"/>
+            </CommandBar>
 
-        <CommandBar Margin="24" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Row="0">
-            <AppBarSeparator/>
-            <AppBarButton Icon="AllApps" Label="Properties" Click="AppBarButton_Click"/>
-            <AppBarSeparator />
-            <AppBarButton Icon="Delete" Label="Delete" Command="{x:Bind ViewModel.DeleteCommand}" CommandParameter="{x:Bind printerDetailsPage.Content.XamlRoot}"/>
-        </CommandBar>
+        </Grid>
 
         <Grid 
             VerticalAlignment="Top"
