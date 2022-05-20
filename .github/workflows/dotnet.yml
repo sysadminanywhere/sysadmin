@@ -20,4 +20,4 @@ jobs:
     - name: setup-msbuild
       uses: microsoft/setup-msbuild@v1.1
     - name: Build
-      run: MSBuild.exe '/src/Sysadmin.sln' /p:Platform=x86 -t:restore /t:Rebuild
+      run: MSBuild.exe /src/Sysadmin/Sysadmin/SysAdmin.csproj /p:Platform=x86 -t:restore /t:Rebuild
