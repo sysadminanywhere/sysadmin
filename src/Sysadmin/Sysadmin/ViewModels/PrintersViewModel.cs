@@ -21,7 +21,7 @@ namespace SysAdmin.ViewModels
         public PrinterEntry Printer { get; set; } = new PrinterEntry();
         public ObservableCollection<PrinterEntry> Printers { get; private set; } = new ObservableCollection<PrinterEntry>();
 
-        public RelayCommand<object> DeleteCommand { get; private set; }
+        public RelayCommand DeleteCommand { get; private set; }
         public RelayCommand<string> SearchCommand { get; private set; }
 
         INavigationService navigation = App.Current.Services.GetService<INavigationService>();
@@ -33,16 +33,16 @@ namespace SysAdmin.ViewModels
         private string searchText = string.Empty;
         private bool isAsc = true;
 
-        public RelayCommand<object> SortAscCommand { get; private set; }
-        public RelayCommand<object> SortDescCommand { get; private set; }
+        public RelayCommand SortAscCommand { get; private set; }
+        public RelayCommand SortDescCommand { get; private set; }
 
         public PrintersViewModel()
         {
-            DeleteCommand = new RelayCommand<object>((xaml) => DeletePrinter(xaml));
+            DeleteCommand = new RelayCommand(() => DeletePrinter());
             SearchCommand = new RelayCommand<string>((text) => SearchPrinters(text));
 
-            SortAscCommand = new RelayCommand<object>((xaml) => SortAsc());
-            SortDescCommand = new RelayCommand<object>((xaml) => SortDesc());
+            SortAscCommand = new RelayCommand(() => SortAsc());
+            SortDescCommand = new RelayCommand(() => SortDesc());
         }
 
         private void SearchPrinters(string text)
@@ -82,10 +82,10 @@ namespace SysAdmin.ViewModels
             OnPropertyChanged(nameof(Printers));
         }
 
-        private async void DeletePrinter(object xaml)
+        private async void DeletePrinter()
         {
             IQuestionDialogService dialog = App.Current.Services.GetService<IQuestionDialogService>();
-            var result = await dialog.ShowDialog(xaml, "Delete", "Are you sure you want to delete this printer?");
+            var result = await dialog.ShowDialog("Delete", "Are you sure you want to delete this printer?");
             if (result == true)
             {
                 busyService.Busy();

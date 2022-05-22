@@ -22,13 +22,13 @@ namespace SysAdmin.ViewModels
         public ContactEntry Contact { get; set; } = new ContactEntry();
         public ObservableCollection<ContactEntry> Contacts { get; private set; } = new ObservableCollection<ContactEntry>();
 
-        public RelayCommand<object> AddCommand { get; private set; }
-        public RelayCommand<object> ModifyCommand { get; private set; }
-        public RelayCommand<object> DeleteCommand { get; private set; }
+        public RelayCommand AddCommand { get; private set; }
+        public RelayCommand ModifyCommand { get; private set; }
+        public RelayCommand DeleteCommand { get; private set; }
         public RelayCommand<string> SearchCommand { get; private set; }
 
-        public RelayCommand<object> SortAscCommand { get; private set; }
-        public RelayCommand<object> SortDescCommand { get; private set; }
+        public RelayCommand SortAscCommand { get; private set; }
+        public RelayCommand SortDescCommand { get; private set; }
 
         INavigationService navigation = App.Current.Services.GetService<INavigationService>();
         INotificationService notification = App.Current.Services.GetService<INotificationService>();
@@ -41,13 +41,13 @@ namespace SysAdmin.ViewModels
 
         public ContactsViewModel()
         {
-            AddCommand = new RelayCommand<object>((xaml) => AddContact(xaml));
-            ModifyCommand = new RelayCommand<object>((xaml) => ModifyContact(xaml));
-            DeleteCommand = new RelayCommand<object>((xaml) => DeleteContact(xaml));
+            AddCommand = new RelayCommand(() => AddContact());
+            ModifyCommand = new RelayCommand(() => ModifyContact());
+            DeleteCommand = new RelayCommand(() => DeleteContact());
             SearchCommand = new RelayCommand<string>((text) => SearchContacts(text));
 
-            SortAscCommand = new RelayCommand<object>((xaml) => SortAsc());
-            SortDescCommand = new RelayCommand<object>((xaml) => SortDesc());
+            SortAscCommand = new RelayCommand(() => SortAsc());
+            SortDescCommand = new RelayCommand(() => SortDesc());
         }
 
         private void SearchContacts(string text)
@@ -87,10 +87,10 @@ namespace SysAdmin.ViewModels
             OnPropertyChanged(nameof(Contacts));
         }
 
-        private async void AddContact(object xaml)
+        private async void AddContact()
         {
             IAddContactDialogService dialog = App.Current.Services.GetService<IAddContactDialogService>();
-            var result = await dialog.ShowDialog(await GetDefaultContainer(), xaml);
+            var result = await dialog.ShowDialog(await GetDefaultContainer());
             if (result == true)
             {
                 busyService.Busy();
@@ -114,11 +114,11 @@ namespace SysAdmin.ViewModels
             busyService.Idle();
         }
 
-        private async void ModifyContact(object xaml)
+        private async void ModifyContact()
         {
             IEditContactDialogService dialog = App.Current.Services.GetService<IEditContactDialogService>();
             dialog.Contact = Contact;
-            var result = await dialog.ShowDialog(xaml);
+            var result = await dialog.ShowDialog();
             if (result == true)
             {
                 busyService.Busy();
@@ -142,10 +142,10 @@ namespace SysAdmin.ViewModels
             busyService.Idle();
         }
 
-        private async void DeleteContact(object xaml)
+        private async void DeleteContact()
         {
             IQuestionDialogService dialog = App.Current.Services.GetService<IQuestionDialogService>();
-            var result = await dialog.ShowDialog(xaml, "Delete", "Are you sure you want to delete this contact?");
+            var result = await dialog.ShowDialog("Delete", "Are you sure you want to delete this contact?");
             if (result == true)
             {
                 busyService.Busy();

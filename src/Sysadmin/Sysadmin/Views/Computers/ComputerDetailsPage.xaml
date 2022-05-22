@@ -7,7 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:SysAdmin.Converters"
     xmlns:controls="using:SysAdmin.Controls"
-    x:Name="computerDetailsPage"
     mc:Ignorable="d">
     <Page.Resources>
         <converters:EmptyToCollapsedConverter x:Key="EmptyToCollapsedConverter"/>
@@ -52,7 +51,7 @@
             </StackPanel>
 
             <CommandBar Margin="24" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Column="1">
-                <AppBarButton Icon="Edit" Label="Edit" Command="{x:Bind ViewModel.ModifyCommand}" CommandParameter="{x:Bind computerDetailsPage.Content.XamlRoot}"/>
+                <AppBarButton Icon="Edit" Label="Edit" Command="{x:Bind ViewModel.ModifyCommand}"/>
                 <AppBarSeparator />
                 <AppBarButton Icon="Manage" Label="Managenent">
                     <AppBarButton.Flyout>
@@ -71,7 +70,7 @@
                 <AppBarSeparator/>
                 <AppBarButton Icon="AllApps" Label="Properties" Click="AppBarButton_Click"/>
                 <AppBarSeparator />
-                <AppBarButton Icon="Delete" Label="Delete" Command="{x:Bind ViewModel.DeleteCommand}" CommandParameter="{x:Bind computerDetailsPage.Content.XamlRoot}"/>
+                <AppBarButton Icon="Delete" Label="Delete" Command="{x:Bind ViewModel.DeleteCommand}"/>
             </CommandBar>
         </Grid>
 

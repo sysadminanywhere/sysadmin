@@ -8,7 +8,7 @@ namespace SysAdmin.Controls
 {
     public class QuestionDialog : IQuestionDialogService
     {
-        public async Task<bool?> ShowDialog(object xamlRoot, string title, string message)
+        public async Task<bool?> ShowDialog(string title, string message)
         {
             ContentDialog dialog = new ContentDialog();
             dialog.Title = title;
@@ -16,7 +16,8 @@ namespace SysAdmin.Controls
             dialog.CloseButtonText = "No";
             dialog.DefaultButton = ContentDialogButton.Close;
             dialog.Content = message;
-            dialog.XamlRoot = (XamlRoot)xamlRoot;
+
+            dialog.XamlRoot = App.GetMainWindow().Content.XamlRoot;
 
             var result = await dialog.ShowAsync();
 

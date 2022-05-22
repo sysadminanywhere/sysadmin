@@ -8,6 +8,6 @@ namespace SysAdmin.Services.Dialogs
 
         GroupEntry Group { get; set; }
 
-        Task<bool?> ShowDialog(object xamlRoot);
+        Task<bool?> ShowDialog();
     }
 }

@@ -29,14 +29,14 @@ namespace SysAdmin.ViewModels
         public ComputerEntry Computer { get; set; } = new ComputerEntry();
         public ObservableCollection<ComputerEntry> Computers { get; private set; } = new ObservableCollection<ComputerEntry>();
 
-        public RelayCommand<object> AddCommand { get; private set; }
-        public RelayCommand<object> ModifyCommand { get; private set; }
-        public RelayCommand<object> DeleteCommand { get; private set; }
+        public RelayCommand AddCommand { get; private set; }
+        public RelayCommand ModifyCommand { get; private set; }
+        public RelayCommand DeleteCommand { get; private set; }
         public RelayCommand<string> SearchCommand { get; private set; }
         public RelayCommand<Filters> FilterCommand { get; private set; }
 
-        public RelayCommand<object> SortAscCommand { get; private set; }
-        public RelayCommand<object> SortDescCommand { get; private set; }
+        public RelayCommand SortAscCommand { get; private set; }
+        public RelayCommand SortDescCommand { get; private set; }
 
         INavigationService navigation = App.Current.Services.GetService<INavigationService>();
         INotificationService notification = App.Current.Services.GetService<INotificationService>();
@@ -50,14 +50,14 @@ namespace SysAdmin.ViewModels
 
         public ComputersViewModel()
         {
-            AddCommand = new RelayCommand<object>((xaml) => AddComputer(xaml));
-            ModifyCommand = new RelayCommand<object>((xaml) => ModifyComputer(xaml));
-            DeleteCommand = new RelayCommand<object>((xaml) => DeleteComputer(xaml));
+            AddCommand = new RelayCommand(() => AddComputer());
+            ModifyCommand = new RelayCommand(() => ModifyComputer());
+            DeleteCommand = new RelayCommand(() => DeleteComputer());
             SearchCommand = new RelayCommand<string>((text) => SearchComputers(text));
             FilterCommand = new RelayCommand<Filters>((filter) => FilterComputers(filter));
 
-            SortAscCommand = new RelayCommand<object>((xaml) => SortAsc());
-            SortDescCommand = new RelayCommand<object>((xaml) => SortDesc());
+            SortAscCommand = new RelayCommand(() => SortAsc());
+            SortDescCommand = new RelayCommand(() => SortDesc());
         }
 
         private void FilterComputers(Filters filter)
@@ -118,10 +118,10 @@ namespace SysAdmin.ViewModels
             OnPropertyChanged(nameof(Computers));
         }
 
-        private async void AddComputer(object xaml)
+        private async void AddComputer()
         {
             IAddComputerDialogService dialog = App.Current.Services.GetService<IAddComputerDialogService>();
-            var result = await dialog.ShowDialog(await GetDefaultContainer(), xaml);
+            var result = await dialog.ShowDialog(await GetDefaultContainer());
             if (result == true)
             {
                 busyService.Busy();
@@ -145,11 +145,11 @@ namespace SysAdmin.ViewModels
             busyService.Idle();
         }
 
-        private async void ModifyComputer(object xaml)
+        private async void ModifyComputer()
         {
             IEditComputerDialogService dialog = App.Current.Services.GetService<IEditComputerDialogService>();
             dialog.Computer = Computer;
-            var result = await dialog.ShowDialog(xaml);
+            var result = await dialog.ShowDialog();
             if (result == true)
             {
                 busyService.Idle();
@@ -173,10 +173,10 @@ namespace SysAdmin.ViewModels
             busyService.Idle();
         }
 
-        private async void DeleteComputer(object xaml)
+        private async void DeleteComputer()
         {
             IQuestionDialogService dialog = App.Current.Services.GetService<IQuestionDialogService>();
-            var result = await dialog.ShowDialog(xaml, "Delete", "Are you sure you want to delete this computer?");
+            var result = await dialog.ShowDialog("Delete", "Are you sure you want to delete this computer?");
             if (result == true)
             {
                 busyService.Busy();

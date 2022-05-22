@@ -11,6 +11,6 @@ namespace SysAdmin.Services.Dialogs
 
         string DistinguishedName { get; set; }
 
-        Task<bool?> ShowDialog(string distinguishedName, object xamlRoot);
+        Task<bool?> ShowDialog(string distinguishedName);
     }
 }

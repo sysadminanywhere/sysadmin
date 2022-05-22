@@ -10,7 +10,7 @@ namespace SysAdmin.Services.Dialogs
 
         string Password { get; set; }
 
-        Task<bool?> ShowDialog(object xamlRoot);
+        Task<bool?> ShowDialog();
 
     }
 }

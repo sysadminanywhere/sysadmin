@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:SysAdmin.Converters"
-    x:Name="printerDetailsPage"
     mc:Ignorable="d">
     <Page.Resources>
         <converters:EmptyToCollapsedConverter x:Key="EmptyToCollapsedConverter"/>
@@ -54,7 +53,7 @@
                 <AppBarSeparator/>
                 <AppBarButton Icon="AllApps" Label="Properties" Click="AppBarButton_Click"/>
                 <AppBarSeparator />
-                <AppBarButton Icon="Delete" Label="Delete" Command="{x:Bind ViewModel.DeleteCommand}" CommandParameter="{x:Bind printerDetailsPage.Content.XamlRoot}"/>
+                <AppBarButton Icon="Delete" Label="Delete" Command="{x:Bind ViewModel.DeleteCommand}"/>
             </CommandBar>
 
         </Grid>

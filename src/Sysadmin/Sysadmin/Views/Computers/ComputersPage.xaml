@@ -7,7 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:entries="using:SysAdmin.ActiveDirectory.Models"
     xmlns:converters="using:SysAdmin.Converters"
-    x:Name="computersPage"
     mc:Ignorable="d">
     <Page.Resources>
 
@@ -74,7 +73,7 @@
                     <AutoSuggestBox QueryIcon="Find" MinWidth="200" PlaceholderText="Search" TextChanged="AutoSuggestBox_TextChanged" />
                 </AppBarElementContainer>
                 <AppBarSeparator />
-                <AppBarButton Icon="Add" Label="Add" Command="{x:Bind ViewModel.AddCommand}" CommandParameter="{x:Bind computersPage.Content.XamlRoot}"/>
+                <AppBarButton Icon="Add" Label="Add" Command="{x:Bind ViewModel.AddCommand}"/>
                 <AppBarSeparator />
                 <AppBarButton Icon="Sort" Label="Sort">
                     <AppBarButton.Flyout>

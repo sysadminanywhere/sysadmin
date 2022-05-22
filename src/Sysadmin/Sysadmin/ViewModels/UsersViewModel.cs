@@ -33,11 +33,11 @@ namespace SysAdmin.ViewModels
         public UserEntry User { get; set; } = new UserEntry();
         public ObservableCollection<UserEntry> Users { get; private set; } = new ObservableCollection<UserEntry>();
 
-        public RelayCommand<object> AddCommand { get; private set; }
-        public RelayCommand<object> ResetPasswordCommand { get; private set; }
-        public RelayCommand<object> ModifyCommand { get; private set; }
-        public RelayCommand<object> DeleteCommand { get; private set; }
-        public RelayCommand<object> OptionsCommand { get; private set; }
+        public RelayCommand AddCommand { get; private set; }
+        public RelayCommand ResetPasswordCommand { get; private set; }
+        public RelayCommand ModifyCommand { get; private set; }
+        public RelayCommand DeleteCommand { get; private set; }
+        public RelayCommand OptionsCommand { get; private set; }
         public RelayCommand<string> SearchCommand { get; private set; }
         public RelayCommand<Filters> FilterCommand { get; private set; }
 
@@ -51,21 +51,21 @@ namespace SysAdmin.ViewModels
         private string searchText = string.Empty;
         private bool isAsc = true;
 
-        public RelayCommand<object> SortAscCommand { get; private set; }
-        public RelayCommand<object> SortDescCommand { get; private set; }
+        public RelayCommand SortAscCommand { get; private set; }
+        public RelayCommand SortDescCommand { get; private set; }
 
         public UsersViewModel()
         {
-            AddCommand = new RelayCommand<object>((xaml) => AddUser(xaml));
-            ResetPasswordCommand = new RelayCommand<object>((xaml) => ResetUserPassword(xaml));
-            ModifyCommand = new RelayCommand<object>((xaml) => ModifyUser(xaml));
-            DeleteCommand = new RelayCommand<object>((xaml) => DeleteUser(xaml));
-            OptionsCommand = new RelayCommand<object>((xaml) => UserOptions(xaml));
+            AddCommand = new RelayCommand(() => AddUser());
+            ResetPasswordCommand = new RelayCommand(() => ResetUserPassword());
+            ModifyCommand = new RelayCommand(() => ModifyUser());
+            DeleteCommand = new RelayCommand(() => DeleteUser());
+            OptionsCommand = new RelayCommand(() => UserOptions());
             SearchCommand = new RelayCommand<string>((text) => SearchUsers(text));
             FilterCommand = new RelayCommand<Filters>((filter) => FilterUsers(filter));
 
-            SortAscCommand = new RelayCommand<object>((xaml) => SortAsc());
-            SortDescCommand = new RelayCommand<object>((xaml) => SortDesc());
+            SortAscCommand = new RelayCommand(() => SortAsc());
+            SortDescCommand = new RelayCommand(() => SortDesc());
         }
 
         private void FilterUsers(Filters filter)
@@ -138,10 +138,10 @@ namespace SysAdmin.ViewModels
             OnPropertyChanged(nameof(Users));
         }
 
-        private async void AddUser(object xaml)
+        private async void AddUser()
         {
             IAddUserDialogService dialog = App.Current.Services.GetService<IAddUserDialogService>();
-            var result = await dialog.ShowDialog(await GetDefaultContainer(), xaml);
+            var result = await dialog.ShowDialog(await GetDefaultContainer());
             if (result == true)
             {
                 busyService.Busy();
@@ -165,14 +165,14 @@ namespace SysAdmin.ViewModels
             busyService.Idle();
         }
 
-        private async void ResetUserPassword(object xaml)
+        private async void ResetUserPassword()
         {
             IResetPasswordDialog dialog = App.Current.Services.GetService<IResetPasswordDialog>();
 
             if (ApplicationData.Current.LocalSettings.Values["UserDefaultPassword"] != null)
                 dialog.Password = ApplicationData.Current.LocalSettings.Values["UserDefaultPassword"].ToString();
 
-            var result = await dialog.ShowDialog(xaml);
+            var result = await dialog.ShowDialog();
             if (result == true)
             {
                 busyService.Busy();
@@ -196,11 +196,11 @@ namespace SysAdmin.ViewModels
             busyService.Idle();
         }
 
-        private async void ModifyUser(object xaml)
+        private async void ModifyUser()
         {
             IEditUserDialogService dialog = App.Current.Services.GetService<IEditUserDialogService>();
             dialog.User = User;
-            var result = await dialog.ShowDialog(xaml);
+            var result = await dialog.ShowDialog();
             if (result == true)
             {
                 busyService.Busy();
@@ -224,10 +224,10 @@ namespace SysAdmin.ViewModels
             busyService.Idle();
         }
 
-        private async void DeleteUser(object xaml)
+        private async void DeleteUser()
         {
             IQuestionDialogService dialog = App.Current.Services.GetService<IQuestionDialogService>();
-            var result = await dialog.ShowDialog(xaml, "Delete", "Are you sure you want to delete this user?");
+            var result = await dialog.ShowDialog("Delete", "Are you sure you want to delete this user?");
             if (result == true)
             {
                 busyService.Busy();
@@ -251,11 +251,11 @@ namespace SysAdmin.ViewModels
             busyService.Idle();
         }
 
-        private async void UserOptions(object xaml)
+        private async void UserOptions()
         {
             IUserOptionsDialogService dialog = App.Current.Services.GetService<IUserOptionsDialogService>();
             dialog.User = User;
-            var result = await dialog.ShowDialog(xaml);
+            var result = await dialog.ShowDialog();
             if (result == true)
             {
                 busyService.Busy();

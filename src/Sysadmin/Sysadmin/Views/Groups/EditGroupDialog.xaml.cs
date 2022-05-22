@@ -20,9 +20,10 @@ namespace SysAdmin.Views.Groups
             this.InitializeComponent();
         }
 
-        public async Task<bool?> ShowDialog(object xamlRoot)
+        public async Task<bool?> ShowDialog()
         {
-            this.XamlRoot = (XamlRoot)xamlRoot;
+            this.XamlRoot = App.GetMainWindow().Content.XamlRoot;
+
             var result = await this.ShowAsync();
 
             if (result == ContentDialogResult.Primary)

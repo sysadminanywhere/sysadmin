@@ -13,6 +13,6 @@ namespace SysAdmin.Services.Dialogs
         bool IsAccountDisabled { get; set; }
         bool IsMustChangePassword { get; set; }
 
-        Task<bool?> ShowDialog(object xamlRoot);
+        Task<bool?> ShowDialog();
     }
 }

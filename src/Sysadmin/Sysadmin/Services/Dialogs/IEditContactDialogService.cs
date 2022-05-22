@@ -8,6 +8,6 @@ namespace SysAdmin.Services.Dialogs
 
         ContactEntry Contact { get; set; }
 
-        Task<bool?> ShowDialog(object xamlRoot);
+        Task<bool?> ShowDialog();
     }
 }
