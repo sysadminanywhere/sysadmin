@@ -7,7 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:SysAdmin.Converters"
     xmlns:controls="using:SysAdmin.Controls"
-    x:Name="userDetailsPage"
     mc:Ignorable="d">
     <Page.Resources>
         <converters:EmptyToCollapsedConverter x:Key="EmptyToCollapsedConverter"/>
@@ -48,14 +47,14 @@
             </StackPanel>
 
             <CommandBar Margin="24" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Column="1">
-                <AppBarButton Icon="Edit" Label="Edit" Command="{x:Bind ViewModel.ModifyCommand}" CommandParameter="{x:Bind userDetailsPage.Content.XamlRoot}"/>
+                <AppBarButton Icon="Edit" Label="Edit" Command="{x:Bind ViewModel.ModifyCommand}"/>
                 <AppBarButton Icon="Contact2" Label="Photo" Click="PhotoBarButton_Click" />
-                <AppBarButton Icon="Manage" Label="Options" Command="{x:Bind ViewModel.OptionsCommand}" CommandParameter="{x:Bind userDetailsPage.Content.XamlRoot}"/>
-                <AppBarButton Icon="SetLockScreen" Label="Reset password" Command="{x:Bind ViewModel.ResetPasswordCommand}" CommandParameter="{x:Bind userDetailsPage.Content.XamlRoot}"/>
+                <AppBarButton Icon="Manage" Label="Options" Command="{x:Bind ViewModel.OptionsCommand}"/>
+                <AppBarButton Icon="SetLockScreen" Label="Reset password" Command="{x:Bind ViewModel.ResetPasswordCommand}"/>
                 <AppBarSeparator/>
                 <AppBarButton Icon="AllApps" Label="Properties" Click="AppBarButton_Click"/>
                 <AppBarSeparator />
-                <AppBarButton Icon="Delete" Label="Delete" Command="{x:Bind ViewModel.DeleteCommand}" CommandParameter="{x:Bind userDetailsPage.Content.XamlRoot}"/>
+                <AppBarButton Icon="Delete" Label="Delete" Command="{x:Bind ViewModel.DeleteCommand}"/>
             </CommandBar>
 
         </Grid>

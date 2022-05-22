@@ -21,9 +21,10 @@ namespace SysAdmin.Views
             this.InitializeComponent();
         }
 
-        public async Task<bool?> ShowDialog(string distinguishedName, string cn, object xamlRoot)
+        public async Task<bool?> ShowDialog(string distinguishedName, string cn)
         {
-            this.XamlRoot = (XamlRoot)xamlRoot;
+            this.XamlRoot = App.GetMainWindow().Content.XamlRoot;
+
             var result = await this.ShowAsync();
 
             if (result == ContentDialogResult.Primary)

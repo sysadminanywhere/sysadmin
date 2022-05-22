@@ -54,11 +54,12 @@ namespace SysAdmin.Views.Users
             }
         }
 
-        public async Task<bool?> ShowDialog(object xamlRoot)
+        public async Task<bool?> ShowDialog()
         {
             Init();
 
-            this.XamlRoot = (XamlRoot)xamlRoot;
+            this.XamlRoot = App.GetMainWindow().Content.XamlRoot;
+
             var result = await this.ShowAsync();
 
             if (result == ContentDialogResult.Primary)

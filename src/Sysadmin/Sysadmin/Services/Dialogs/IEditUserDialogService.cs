@@ -8,6 +8,6 @@ namespace SysAdmin.Services.Dialogs
 
         UserEntry User { get; set; }
 
-        Task<bool?> ShowDialog(object xamlRoot);
+        Task<bool?> ShowDialog();
     }
 }

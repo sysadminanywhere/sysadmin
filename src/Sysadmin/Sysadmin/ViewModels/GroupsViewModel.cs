@@ -33,14 +33,14 @@ namespace SysAdmin.ViewModels
         public GroupEntry Group { get; set; } = new GroupEntry();
         public ObservableCollection<GroupEntry> Groups { get; private set; } = new ObservableCollection<GroupEntry>();
 
-        public RelayCommand<object> AddCommand { get; private set; }
-        public RelayCommand<object> ModifyCommand { get; private set; }
-        public RelayCommand<object> DeleteCommand { get; private set; }
+        public RelayCommand AddCommand { get; private set; }
+        public RelayCommand ModifyCommand { get; private set; }
+        public RelayCommand DeleteCommand { get; private set; }
         public RelayCommand<string> SearchCommand { get; private set; }
         public RelayCommand<Filters> FilterCommand { get; private set; }
 
-        public RelayCommand<object> SortAscCommand { get; private set; }
-        public RelayCommand<object> SortDescCommand { get; private set; }
+        public RelayCommand SortAscCommand { get; private set; }
+        public RelayCommand SortDescCommand { get; private set; }
 
         INavigationService navigation = App.Current.Services.GetService<INavigationService>();
         INotificationService notification = App.Current.Services.GetService<INotificationService>();
@@ -54,14 +54,14 @@ namespace SysAdmin.ViewModels
 
         public GroupsViewModel()
         {
-            AddCommand = new RelayCommand<object>((xaml) => AddGroup(xaml));
-            ModifyCommand = new RelayCommand<object>((xaml) => ModifyGroup(xaml));
-            DeleteCommand = new RelayCommand<object>((xaml) => DeleteGroup(xaml));
+            AddCommand = new RelayCommand(() => AddGroup());
+            ModifyCommand = new RelayCommand(() => ModifyGroup());
+            DeleteCommand = new RelayCommand(() => DeleteGroup());
             SearchCommand = new RelayCommand<string>((text) => SearchGroups(text));
             FilterCommand = new RelayCommand<Filters>((filter) => FilterGroups(filter));
 
-            SortAscCommand = new RelayCommand<object>((xaml) => SortAsc());
-            SortDescCommand = new RelayCommand<object>((xaml) => SortDesc());
+            SortAscCommand = new RelayCommand(() => SortAsc());
+            SortDescCommand = new RelayCommand(() => SortDesc());
         }
 
         private void FilterGroups(Filters filter)
@@ -142,10 +142,10 @@ namespace SysAdmin.ViewModels
             OnPropertyChanged(nameof(Groups));
         }
 
-        private async void AddGroup(object xaml)
+        private async void AddGroup()
         {
             IAddGroupDialogService dialog = App.Current.Services.GetService<IAddGroupDialogService>();
-            var result = await dialog.ShowDialog(await GetDefaultContainer(), xaml);
+            var result = await dialog.ShowDialog(await GetDefaultContainer());
             if (result == true)
             {
                 busyService.Busy();
@@ -169,11 +169,11 @@ namespace SysAdmin.ViewModels
             busyService.Idle();
         }
 
-        private async void ModifyGroup(object xaml)
+        private async void ModifyGroup()
         {
             IEditGroupDialogService dialog = App.Current.Services.GetService<IEditGroupDialogService>();
             dialog.Group = Group;
-            var result = await dialog.ShowDialog(xaml);
+            var result = await dialog.ShowDialog();
             if (result == true)
             {
                 busyService.Busy();
@@ -197,10 +197,10 @@ namespace SysAdmin.ViewModels
             busyService.Idle();
         }
 
-        private async void DeleteGroup(object xaml)
+        private async void DeleteGroup()
         {
             IQuestionDialogService dialog = App.Current.Services.GetService<IQuestionDialogService>();
-            var result = await dialog.ShowDialog(xaml, "Delete", "Are you sure you want to delete this group?");
+            var result = await dialog.ShowDialog("Delete", "Are you sure you want to delete this group?");
             if (result == true)
             {
                 busyService.Busy();
