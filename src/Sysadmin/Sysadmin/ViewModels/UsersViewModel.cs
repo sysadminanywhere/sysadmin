@@ -44,6 +44,7 @@ namespace SysAdmin.ViewModels
         INavigationService navigation = App.Current.Services.GetService<INavigationService>();
         INotificationService notification = App.Current.Services.GetService<INotificationService>();
         IBusyService busyService = App.Current.Services.GetService<IBusyService>();
+        ISettingsService settings = App.Current.Services.GetService<ISettingsService>();
 
         private List<UserEntry> cache;
 
@@ -169,8 +170,7 @@ namespace SysAdmin.ViewModels
         {
             IResetPasswordDialog dialog = App.Current.Services.GetService<IResetPasswordDialog>();
 
-            if (ApplicationData.Current.LocalSettings.Values["UserDefaultPassword"] != null)
-                dialog.Password = ApplicationData.Current.LocalSettings.Values["UserDefaultPassword"].ToString();
+            dialog.Password = settings.UserDefaultPassword;
 
             var result = await dialog.ShowDialog();
             if (result == true)

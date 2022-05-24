@@ -1,6 +1,8 @@
-﻿using Microsoft.UI.Xaml;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using SysAdmin.ActiveDirectory.Models;
+using SysAdmin.Services;
 using SysAdmin.Services.Dialogs;
 using System;
 using System.Threading.Tasks;
@@ -18,14 +20,13 @@ namespace SysAdmin.Views.Users
 
         public string Password { get; set; }
 
+        ISettingsService settings = App.Current.Services.GetService<ISettingsService>();
+
         public ResetPasswordDialog()
         {
             this.InitializeComponent();
 
-            if (ApplicationData.Current.LocalSettings.Values["UserDefaultPassword"] != null)
-            {
-                Password = ApplicationData.Current.LocalSettings.Values["UserDefaultPassword"].ToString();
-            }
+            Password = settings.UserDefaultPassword;
         }
 
         public async Task<bool?> ShowDialog()

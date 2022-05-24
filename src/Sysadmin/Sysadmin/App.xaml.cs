@@ -31,20 +31,19 @@ namespace SysAdmin
             Services = ConfigureServices();
             this.InitializeComponent();
 
+            ISettingsService settings = App.Current.Services.GetService<ISettingsService>();
+
             // Get theme choice from LocalSettings.
-            object value = ApplicationData.Current.LocalSettings.Values["ThemeSetting"];
+            App.Current.RequestedTheme = (ApplicationTheme)settings.ThemeSetting;
 
-            if (value != null)
-                App.Current.RequestedTheme = (ApplicationTheme)(int)value;
+            if (settings.UserDisplayNameFormat == null)
+                settings.UserDisplayNameFormat = @"(?<FirstName>\S+) (?<LastName>\S+)";
 
-            if (ApplicationData.Current.LocalSettings.Values["UserDisplayNameFormat"] == null)
-                ApplicationData.Current.LocalSettings.Values["UserDisplayNameFormat"] = @"(?<FirstName>\S+) (?<LastName>\S+)";
+            if (settings.UserLoginPattern == null)
+                settings.UserLoginPattern = @"(?<FirstName>\S+) (?<LastName>\S+)";
 
-            if (ApplicationData.Current.LocalSettings.Values["UserLoginPattern"] == null)
-                ApplicationData.Current.LocalSettings.Values["UserLoginPattern"] = @"(?<FirstName>\S+) (?<LastName>\S+)";
-
-            if (ApplicationData.Current.LocalSettings.Values["UserLoginFormat"] == null)
-                ApplicationData.Current.LocalSettings.Values["UserLoginFormat"] = @"${FirstName}.${LastName}";
+            if (settings.UserLoginFormat == null)
+                settings.UserLoginFormat = @"${FirstName}.${LastName}";
         }
 
         /// <summary>
@@ -87,6 +86,8 @@ namespace SysAdmin
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<INotificationService, NotificationService>();
             services.AddSingleton<IBusyService, BusyService>();
+
+            services.AddSingleton<ISettingsService, SettingsService>();
 
             return services.BuildServiceProvider();
         }
