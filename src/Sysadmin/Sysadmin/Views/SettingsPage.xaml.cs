@@ -1,5 +1,7 @@
-﻿using Microsoft.UI.Xaml;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using SysAdmin.Services;
 using Windows.Storage;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -12,6 +14,8 @@ namespace SysAdmin.Views
     /// </summary>
     public sealed partial class SettingsPage : Page
     {
+
+        ISettingsService settings = App.Current.Services.GetService<ISettingsService>();
 
         public string Version
         {
@@ -31,7 +35,7 @@ namespace SysAdmin.Views
 
         private void ToggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
-            ApplicationData.Current.LocalSettings.Values["ThemeSetting"] = ((ToggleSwitch)sender).IsOn ? 0 : 1;
+            settings.ThemeSetting = ((ToggleSwitch)sender).IsOn ? 0 : 1;
         }
 
         private void ToggleSwitch_Loaded(object sender, RoutedEventArgs e)
@@ -46,23 +50,23 @@ namespace SysAdmin.Views
                 switch (cmbDisplayNamePattern.SelectedIndex)
                 {
                     case 0: // First Last (e.g. Homer Simpson)
-                        ApplicationData.Current.LocalSettings.Values["UserDisplayNameFormat"] = @"(?<FirstName>\S+) (?<LastName>\S+)";
+                        settings.UserDisplayNameFormat = @"(?<FirstName>\S+) (?<LastName>\S+)";
                         break;
 
                     case 1: // Last First (e.g. Simpson Homer)
-                        ApplicationData.Current.LocalSettings.Values["UserDisplayNameFormat"] = @"(?<LastName>\S+) (?<FirstName>\S+)";
+                        settings.UserDisplayNameFormat = @"(?<LastName>\S+) (?<FirstName>\S+)";
                         break;
 
                     case 2: // First Middle Last (e.g. Homer Jay Simpson)
-                        ApplicationData.Current.LocalSettings.Values["UserDisplayNameFormat"] = @"(?<FirstName>\S+) (?<Middle>\S+) (?<LastName>\S+)";
+                        settings.UserDisplayNameFormat = @"(?<FirstName>\S+) (?<Middle>\S+) (?<LastName>\S+)";
                         break;
 
                     case 3: // Last First Middle (e.g. Simpson Homer Jay)
-                        ApplicationData.Current.LocalSettings.Values["UserDisplayNameFormat"] = @"(?<LastName>\S+) (?<FirstName>\S+) (?<Middle>\S+)";
+                        settings.UserDisplayNameFormat = @"(?<LastName>\S+) (?<FirstName>\S+) (?<Middle>\S+)";
                         break;
 
                     default: // None
-                        ApplicationData.Current.LocalSettings.Values["UserDisplayNameFormat"] = string.Empty;
+                        settings.UserDisplayNameFormat = string.Empty;
                         break;
                 }
 
@@ -78,33 +82,33 @@ namespace SysAdmin.Views
                 switch (cmbLoginPattern.SelectedIndex)
                 {
                     case 0: // FLast (e.g. hsimpson)
-                        ApplicationData.Current.LocalSettings.Values["UserLoginPattern"] = @"(?<FirstName>\S)\S+ (?<LastName>\S+)";
-                        ApplicationData.Current.LocalSettings.Values["UserLoginFormat"] = @"${FirstName}${LastName}";
+                        settings.UserLoginPattern = @"(?<FirstName>\S)\S+ (?<LastName>\S+)";
+                        settings.UserLoginFormat = @"${FirstName}${LastName}";
                         break;
 
                     case 1: // F.Last (e.g. h.simpson)
-                        ApplicationData.Current.LocalSettings.Values["UserLoginPattern"] = @"(?<FirstName>\S)\S+ (?<LastName>\S+)";
-                        ApplicationData.Current.LocalSettings.Values["UserLoginFormat"] = @"${FirstName}.${LastName}";
+                        settings.UserLoginPattern = @"(?<FirstName>\S)\S+ (?<LastName>\S+)";
+                        settings.UserLoginFormat = @"${FirstName}.${LastName}";
                         break;
 
                     case 2: // First.Last (e.g. homer.simpson)
-                        ApplicationData.Current.LocalSettings.Values["UserLoginPattern"] = @"(?<FirstName>\S+) (?<LastName>\S+)";
-                        ApplicationData.Current.LocalSettings.Values["UserLoginFormat"] = @"${FirstName}.${LastName}";
+                        settings.UserLoginPattern = @"(?<FirstName>\S+) (?<LastName>\S+)";
+                        settings.UserLoginFormat = @"${FirstName}.${LastName}";
                         break;
 
                     case 3: // Last (e.g. simpson)
-                        ApplicationData.Current.LocalSettings.Values["UserLoginPattern"] = @"(?<FirstName>\S+) (?<LastName>\S+)";
-                        ApplicationData.Current.LocalSettings.Values["UserLoginFormat"] = @"${ LastName}";
+                        settings.UserLoginPattern = @"(?<FirstName>\S+) (?<LastName>\S+)";
+                        settings.UserLoginFormat = @"${ LastName}";
                         break;
 
                     case 4: // LastF (e.g. simpsonh)
-                        ApplicationData.Current.LocalSettings.Values["UserLoginPattern"] = @"(?<FirstName>\S)\S+ (?<LastName>\S+)";
-                        ApplicationData.Current.LocalSettings.Values["UserLoginFormat"] = @"${LastName}${FirstName}";
+                        settings.UserLoginPattern = @"(?<FirstName>\S)\S+ (?<LastName>\S+)";
+                        settings.UserLoginFormat = @"${LastName}${FirstName}";
                         break;
 
                     default: // None
-                        ApplicationData.Current.LocalSettings.Values["UserLoginPattern"] = string.Empty;
-                        ApplicationData.Current.LocalSettings.Values["UserLoginFormat"] = string.Empty;
+                        settings.UserLoginPattern = string.Empty;
+                        settings.UserLoginFormat = string.Empty;
                         break;
                 }
 
@@ -114,16 +118,16 @@ namespace SysAdmin.Views
 
         private void txtDefaultPassword_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ApplicationData.Current.LocalSettings.Values["UserDefaultPassword"] = txtDefaultPassword.Text;
+            settings.UserDefaultPassword = txtDefaultPassword.Text;
         }
 
         private void Patterns()
         {
             try
             {
-                if (ApplicationData.Current.LocalSettings.Values["UserDisplayNameFormat"] != null)
+                if (settings.UserDisplayNameFormat != null)
                 {
-                    switch (ApplicationData.Current.LocalSettings.Values["UserDisplayNameFormat"].ToString())
+                    switch (settings.UserDisplayNameFormat.ToString())
                     {
                         case @"(?<FirstName>\S+) (?<LastName>\S+)":
                             cmbDisplayNamePattern.SelectedIndex = 0;
@@ -147,25 +151,25 @@ namespace SysAdmin.Views
                     }
                 }
 
-                if (ApplicationData.Current.LocalSettings.Values["UserLoginPattern"] != null && ApplicationData.Current.LocalSettings.Values["UserLoginFormat"] != null)
+                if (settings.UserLoginPattern != null && settings.UserLoginFormat != null)
                 {
-                    if (ApplicationData.Current.LocalSettings.Values["UserLoginPattern"].ToString() == @"(?<FirstName>\S)\S+ (?<LastName>\S+)" & ApplicationData.Current.LocalSettings.Values["UserLoginFormat"].ToString() == @"${FirstName}${LastName}")
+                    if (settings.UserLoginPattern == @"(?<FirstName>\S)\S+ (?<LastName>\S+)" & settings.UserLoginFormat == @"${FirstName}${LastName}")
                     {
                         cmbLoginPattern.SelectedIndex = 0;
                     }
-                    else if (ApplicationData.Current.LocalSettings.Values["UserLoginPattern"].ToString() == @"(?<FirstName>\S)\S+ (?<LastName>\S+)" & ApplicationData.Current.LocalSettings.Values["UserLoginFormat"].ToString() == @"${FirstName}.${LastName}")
+                    else if (settings.UserLoginPattern == @"(?<FirstName>\S)\S+ (?<LastName>\S+)" & settings.UserLoginFormat == @"${FirstName}.${LastName}")
                     {
                         cmbLoginPattern.SelectedIndex = 1;
                     }
-                    else if (ApplicationData.Current.LocalSettings.Values["UserLoginPattern"].ToString() == @"(?<FirstName>\S+) (?<LastName>\S+)" & ApplicationData.Current.LocalSettings.Values["UserLoginFormat"].ToString() == @"${FirstName}.${LastName}")
+                    else if (settings.UserLoginPattern == @"(?<FirstName>\S+) (?<LastName>\S+)" & settings.UserLoginFormat == @"${FirstName}.${LastName}")
                     {
                         cmbLoginPattern.SelectedIndex = 2;
                     }
-                    else if (ApplicationData.Current.LocalSettings.Values["UserLoginPattern"].ToString() == @"(?<FirstName>\S+) (?<LastName>\S+)" & ApplicationData.Current.LocalSettings.Values["UserLoginFormat"].ToString() == @"${LastName}")
+                    else if (settings.UserLoginPattern == @"(?<FirstName>\S+) (?<LastName>\S+)" & settings.UserLoginFormat == @"${LastName}")
                     {
                         cmbLoginPattern.SelectedIndex = 3;
                     }
-                    else if (ApplicationData.Current.LocalSettings.Values["UserLoginPattern"].ToString() == @"(?<FirstName>\S)\S+ (?<LastName>\S+)" & ApplicationData.Current.LocalSettings.Values["UserLoginFormat"].ToString() == @"${LastName}${FirstName}")
+                    else if (settings.UserLoginPattern == @"(?<FirstName>\S)\S+ (?<LastName>\S+)" & settings.UserLoginFormat == @"${LastName}${FirstName}")
                     {
                         cmbLoginPattern.SelectedIndex = 4;
                     }
@@ -175,8 +179,7 @@ namespace SysAdmin.Views
                     }
                 }
 
-                if (ApplicationData.Current.LocalSettings.Values["UserDefaultPassword"] != null)
-                    txtDefaultPassword.Text = ApplicationData.Current.LocalSettings.Values["UserDefaultPassword"].ToString();
+                txtDefaultPassword.Text = settings.UserDefaultPassword;
             }
             catch { }
         }

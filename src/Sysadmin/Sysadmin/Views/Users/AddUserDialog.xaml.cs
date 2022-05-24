@@ -1,6 +1,8 @@
-﻿using Microsoft.UI.Xaml;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using SysAdmin.ActiveDirectory.Models;
+using SysAdmin.Services;
 using SysAdmin.Services.Dialogs;
 using System;
 using System.Text.RegularExpressions;
@@ -15,9 +17,7 @@ namespace SysAdmin.Views.Users
     public sealed partial class AddUserDialog : ContentDialog, IAddUserDialogService
     {
 
-        private string UserDisplayNameFormat = ApplicationData.Current.LocalSettings.Values["UserDisplayNameFormat"].ToString();
-        private string UserLoginFormat = ApplicationData.Current.LocalSettings.Values["UserLoginFormat"].ToString();
-        private string UserLoginPattern = ApplicationData.Current.LocalSettings.Values["UserLoginPattern"].ToString();
+        ISettingsService settings = App.Current.Services.GetService<ISettingsService>();
 
         public UserEntry User { get; set; } = new UserEntry();
 
@@ -33,9 +33,9 @@ namespace SysAdmin.Views.Users
         {
             this.InitializeComponent();
 
-            if (ApplicationData.Current.LocalSettings.Values["UserDefaultPassword"] != null)
+            if (!string.IsNullOrEmpty(settings.UserDefaultPassword))
             {
-                Password = ApplicationData.Current.LocalSettings.Values["UserDefaultPassword"].ToString();
+                Password = settings.UserDefaultPassword;
                 txtConfirmPassword.Password = Password;
             }
         }
@@ -109,24 +109,24 @@ namespace SysAdmin.Views.Users
                 string _DisplayNameValue = txtDisplayName.Text;
                 string _DisplayNameValue2 = string.Empty;
 
-                if (UserDisplayNameFormat.Contains("<FirstName>"))
+                if (settings.UserDisplayNameFormat.Contains("<FirstName>"))
                 {
-                    txtFirstName.Text = Regex.Replace(_DisplayNameValue, UserDisplayNameFormat, "${FirstName}");
+                    txtFirstName.Text = Regex.Replace(_DisplayNameValue, settings.UserDisplayNameFormat, "${FirstName}");
                     _DisplayNameValue2 += txtFirstName.Text;
                 }
 
-                if (UserDisplayNameFormat.Contains("<Middle>"))
+                if (settings.UserDisplayNameFormat.Contains("<Middle>"))
                 {
-                    txtInitials.Text = Regex.Replace(_DisplayNameValue, UserDisplayNameFormat, "${Middle}");
+                    txtInitials.Text = Regex.Replace(_DisplayNameValue, settings.UserDisplayNameFormat, "${Middle}");
                 }
 
-                if (UserDisplayNameFormat.Contains("<LastName>"))
+                if (settings.UserDisplayNameFormat.Contains("<LastName>"))
                 {
-                    txtLastName.Text = Regex.Replace(_DisplayNameValue, UserDisplayNameFormat, "${LastName}");
+                    txtLastName.Text = Regex.Replace(_DisplayNameValue, settings.UserDisplayNameFormat, "${LastName}");
                     _DisplayNameValue2 += " " + txtLastName.Text;
                 }
 
-                txtAccountName.Text = Regex.Replace(_DisplayNameValue2, UserLoginPattern, UserLoginFormat).ToLower();
+                txtAccountName.Text = Regex.Replace(_DisplayNameValue2, settings.UserLoginPattern, settings.UserLoginFormat).ToLower();
 
             }
             catch { }

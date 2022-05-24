@@ -1,6 +1,8 @@
-﻿using Microsoft.UI.Xaml;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using SysAdmin.ActiveDirectory.Services.Ldap;
+using SysAdmin.Services;
 using SysAdmin.ViewModels;
 using System;
 using Windows.Storage;
@@ -20,26 +22,28 @@ namespace SysAdmin.Views
         public event EventHandler Connected;
         public event EventHandler Error;
 
+        ISettingsService settings = App.Current.Services.GetService<ISettingsService>();
+
         public LoginViewModel ViewModel { get; } = new LoginViewModel();
 
         public LoginPage()
         {
             this.InitializeComponent();
 
-            if (ApplicationData.Current.LocalSettings.Values["ServerName"] != null)
-                serverName.Text = ApplicationData.Current.LocalSettings.Values["ServerName"].ToString();
+            if (settings.ServerName != null)
+                serverName.Text = settings.ServerName;
 
-            if (ApplicationData.Current.LocalSettings.Values["UserNameOther"] != null)
-                userNameOther.Text = ApplicationData.Current.LocalSettings.Values["UserNameOther"].ToString();
+            if (settings.UserNameOther != null)
+                userNameOther.Text = settings.UserNameOther;
 
-            if (ApplicationData.Current.LocalSettings.Values["UserNameCredentials"] != null)
-                userNameCredentials.Text = ApplicationData.Current.LocalSettings.Values["UserNameCredentials"].ToString();
+            if (settings.UserNameCredentials != null)
+                userNameCredentials.Text = settings.UserNameCredentials;
 
-            if (ApplicationData.Current.LocalSettings.Values["ServerPort"] != null)
-                serverPort.Value = int.Parse(ApplicationData.Current.LocalSettings.Values["ServerPort"].ToString());
+            if (settings.ServerPort != null)
+                serverPort.Value = (int)settings.ServerPort;
 
-            if (ApplicationData.Current.LocalSettings.Values["IsSSL"] != null)
-                sslCheck.IsChecked = bool.Parse(ApplicationData.Current.LocalSettings.Values["IsSSL"].ToString());
+            if (settings.IsSSL != null)
+                sslCheck.IsChecked = settings.IsSSL;
         }
 
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -84,11 +88,11 @@ namespace SysAdmin.Views
 
             if (isConnected)
             {
-                ApplicationData.Current.LocalSettings.Values["ServerName"] = serverName.Text;
-                ApplicationData.Current.LocalSettings.Values["UserNameOther"] = userNameOther.Text;
-                ApplicationData.Current.LocalSettings.Values["UserNameCredentials"] = userNameCredentials.Text;
-                ApplicationData.Current.LocalSettings.Values["ServerPort"] = serverPort.Value;
-                ApplicationData.Current.LocalSettings.Values["IsSSL"] = sslCheck.IsChecked;
+                settings.ServerName = serverName.Text;
+                settings.UserNameOther = userNameOther.Text;
+                settings.UserNameCredentials = userNameCredentials.Text;
+                settings.ServerPort = (int)serverPort.Value;
+                settings.IsSSL = sslCheck.IsChecked;
 
                 Connected?.Invoke(this, EventArgs.Empty);
             }
