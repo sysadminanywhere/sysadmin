@@ -62,6 +62,8 @@
                             <MenuFlyoutItem x:Name="mnuSoftware" Text="Software" Click="mnuSoftware_Click" />
                             <MenuFlyoutItem x:Name="mnuHardware" Text="Hardware" Click="mnuHardware_Click" />
                             <MenuFlyoutSeparator/>
+                            <MenuFlyoutItem x:Name="mnuPerformance" Text="Performance" Click="mnuPerformance_Click" />
+                            <MenuFlyoutSeparator/>
                             <MenuFlyoutItem x:Name="mnuRestart" Text="Reboot" Click="mnuRestart_Click" />
                             <MenuFlyoutItem x:Name="mnuShutdown" Text="Shutdown" Click="mnuShutdown_Click" />
                         </MenuFlyout>

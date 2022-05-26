@@ -103,5 +103,13 @@ namespace SysAdmin.Views.Computers
         {
             Frame.Navigate(typeof(ADPropertiesPage), ViewModel.Computer.DistinguishedName);
         }
+
+        private void mnuPerformance_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(ViewModel.Computer.DnsHostName))
+                notification.ShowErrorMessage("DNS address of the computer is incorrect!");
+            else
+                Frame.Navigate(typeof(PerformancePage), ViewModel.Computer);
+        }
     }
 }
