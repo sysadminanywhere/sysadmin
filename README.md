@@ -7,6 +7,19 @@ Sysadmin makes easier to administer multidomain Active Directory-based networks 
 
 ![Sysadmin Screenshot](Images/screen02.png)
 
+### Features
+
+- Add, edit and delete objects in Active Directory
+- View software and hardware
+- Events, processes, services on computers
+- Add and delete objects from groups
+- Reset a user's password
+- Add photos
+- Restart and shutdown remote computers
+- Computers performance
+- Patterns for add new users
+- Reports (20+)
+
 ### Download
 
 [<img alt="Download Sysadmin" src="Images/English_L.png" />](https://www.microsoft.com/store/apps/9WZDNCRDQTWT)
