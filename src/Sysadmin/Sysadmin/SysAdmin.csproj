@@ -20,6 +20,7 @@
     <None Remove="Views\ADPropertiesPage.xaml" />
     <None Remove="Views\Computers\Management\EventsPage.xaml" />
     <None Remove="Views\Computers\Management\HardwarePage.xaml" />
+    <None Remove="Views\Computers\Management\PerformancePage.xaml" />
     <None Remove="Views\Computers\Management\ProcessesPage.xaml" />
     <None Remove="Views\Computers\Management\ServicesPage.xaml" />
     <None Remove="Views\Computers\Management\SoftwarePage.xaml" />
@@ -46,6 +47,12 @@
     <ProjectReference Include="..\..\FastReport.ReportBuilder\FastReport.ReportBuilder.csproj" />
     <ProjectReference Include="..\..\SysAdmin.ActiveDirectory\SysAdmin.ActiveDirectory.csproj" />
     <ProjectReference Include="..\..\Sysadmin.WMI\Sysadmin.WMI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\Computers\Management\PerformancePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <ItemGroup>
