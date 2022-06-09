@@ -86,36 +86,39 @@ namespace SysAdmin.ViewModels
 
         private void SortingAndFiltering()
         {
-            if (string.IsNullOrEmpty(searchText))
+            if (cache != null)
             {
-                Computers = new ObservableCollection<ComputerEntry>(cache);
+                if (string.IsNullOrEmpty(searchText))
+                {
+                    Computers = new ObservableCollection<ComputerEntry>(cache);
+                }
+                else
+                {
+                    Computers = new ObservableCollection<ComputerEntry>(cache.Where(c => c.CN.ToUpper().StartsWith(searchText.ToUpper())));
+                }
+
+                switch (filters)
+                {
+                    case Filters.All:
+                        Computers = new ObservableCollection<ComputerEntry>(Computers);
+                        break;
+
+                    case Filters.AccountEnabled:
+                        Computers = new ObservableCollection<ComputerEntry>(Computers.Where(c => (c.UserControl & UserAccountControls.ACCOUNTDISABLE) != UserAccountControls.ACCOUNTDISABLE));
+                        break;
+
+                    case Filters.AccountDisabled:
+                        Computers = new ObservableCollection<ComputerEntry>(Computers.Where(c => (c.UserControl & UserAccountControls.ACCOUNTDISABLE) == UserAccountControls.ACCOUNTDISABLE));
+                        break;
+                }
+
+                if (isAsc)
+                    Computers = new ObservableCollection<ComputerEntry>(Computers.OrderBy(c => c.CN));
+                else
+                    Computers = new ObservableCollection<ComputerEntry>(Computers.OrderByDescending(c => c.CN));
+
+                OnPropertyChanged(nameof(Computers));
             }
-            else
-            {
-                Computers = new ObservableCollection<ComputerEntry>(cache.Where(c => c.CN.ToUpper().StartsWith(searchText.ToUpper())));
-            }
-
-            switch (filters)
-            {
-                case Filters.All:
-                    Computers = new ObservableCollection<ComputerEntry>(Computers);
-                    break;
-
-                case Filters.AccountEnabled:
-                    Computers = new ObservableCollection<ComputerEntry>(Computers.Where(c => (c.UserControl & UserAccountControls.ACCOUNTDISABLE) != UserAccountControls.ACCOUNTDISABLE));
-                    break;
-
-                case Filters.AccountDisabled:
-                    Computers = new ObservableCollection<ComputerEntry>(Computers.Where(c => (c.UserControl & UserAccountControls.ACCOUNTDISABLE) == UserAccountControls.ACCOUNTDISABLE));
-                    break;
-            }
-
-            if (isAsc)
-                Computers = new ObservableCollection<ComputerEntry>(Computers.OrderBy(c => c.CN));
-            else
-                Computers = new ObservableCollection<ComputerEntry>(Computers.OrderByDescending(c => c.CN));
-
-            OnPropertyChanged(nameof(Computers));
         }
 
         private async void AddComputer()

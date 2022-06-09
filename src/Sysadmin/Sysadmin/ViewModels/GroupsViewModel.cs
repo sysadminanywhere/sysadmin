@@ -90,56 +90,59 @@ namespace SysAdmin.ViewModels
 
         private void SortingAndFiltering()
         {
-            if (string.IsNullOrEmpty(searchText))
+            if (cache != null)
             {
-                Groups = new ObservableCollection<GroupEntry>(cache);
+                if (string.IsNullOrEmpty(searchText))
+                {
+                    Groups = new ObservableCollection<GroupEntry>(cache);
+                }
+                else
+                {
+                    Groups = new ObservableCollection<GroupEntry>(cache.Where(c => c.CN.ToUpper().StartsWith(searchText.ToUpper())));
+                }
+
+                switch (filters)
+                {
+                    case Filters.All:
+                        Groups = new ObservableCollection<GroupEntry>(Groups);
+                        break;
+
+                    case Filters.BuiltIn:
+                        Groups = new ObservableCollection<GroupEntry>(Groups.Where(c => c.GroupType == -2147483643));
+                        break;
+
+                    case Filters.DomainLocalDistribution:
+                        Groups = new ObservableCollection<GroupEntry>(Groups.Where(c => c.GroupType == 4));
+                        break;
+
+                    case Filters.DomainLocalSecurity:
+                        Groups = new ObservableCollection<GroupEntry>(Groups.Where(c => c.GroupType == -2147483644));
+                        break;
+
+                    case Filters.GlobalDistribution:
+                        Groups = new ObservableCollection<GroupEntry>(Groups.Where(c => c.GroupType == 2));
+                        break;
+
+                    case Filters.GlobalSecurity:
+                        Groups = new ObservableCollection<GroupEntry>(Groups.Where(c => c.GroupType == -2147483646));
+                        break;
+
+                    case Filters.UniversalDistribution:
+                        Groups = new ObservableCollection<GroupEntry>(Groups.Where(c => c.GroupType == 8));
+                        break;
+
+                    case Filters.UniversalSecurity:
+                        Groups = new ObservableCollection<GroupEntry>(Groups.Where(c => c.GroupType == -2147483640));
+                        break;
+                }
+
+                if (isAsc)
+                    Groups = new ObservableCollection<GroupEntry>(Groups.OrderBy(c => c.CN));
+                else
+                    Groups = new ObservableCollection<GroupEntry>(Groups.OrderByDescending(c => c.CN));
+
+                OnPropertyChanged(nameof(Groups));
             }
-            else
-            {
-                Groups = new ObservableCollection<GroupEntry>(cache.Where(c => c.CN.ToUpper().StartsWith(searchText.ToUpper())));
-            }
-
-            switch (filters)
-            {
-                case Filters.All:
-                    Groups = new ObservableCollection<GroupEntry>(Groups);
-                    break;
-
-                case Filters.BuiltIn:
-                    Groups = new ObservableCollection<GroupEntry>(Groups.Where(c => c.GroupType == -2147483643));
-                    break;
-
-                case Filters.DomainLocalDistribution:
-                    Groups = new ObservableCollection<GroupEntry>(Groups.Where(c => c.GroupType == 4));
-                    break;
-
-                case Filters.DomainLocalSecurity:
-                    Groups = new ObservableCollection<GroupEntry>(Groups.Where(c => c.GroupType == -2147483644));
-                    break;
-
-                case Filters.GlobalDistribution:
-                    Groups = new ObservableCollection<GroupEntry>(Groups.Where(c => c.GroupType == 2));
-                    break;
-
-                case Filters.GlobalSecurity:
-                    Groups = new ObservableCollection<GroupEntry>(Groups.Where(c => c.GroupType == -2147483646));
-                    break;
-
-                case Filters.UniversalDistribution:
-                    Groups = new ObservableCollection<GroupEntry>(Groups.Where(c => c.GroupType == 8));
-                    break;
-
-                case Filters.UniversalSecurity:
-                    Groups = new ObservableCollection<GroupEntry>(Groups.Where(c => c.GroupType == -2147483640));
-                    break;
-            }
-
-            if (isAsc)
-                Groups = new ObservableCollection<GroupEntry>(Groups.OrderBy(c => c.CN));
-            else
-                Groups = new ObservableCollection<GroupEntry>(Groups.OrderByDescending(c => c.CN));
-
-            OnPropertyChanged(nameof(Groups));
         }
 
         private async void AddGroup()
