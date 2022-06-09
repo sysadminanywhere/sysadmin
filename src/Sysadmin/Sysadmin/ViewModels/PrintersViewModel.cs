@@ -65,21 +65,24 @@ namespace SysAdmin.ViewModels
 
         private void SortingAndFiltering()
         {
-            if (string.IsNullOrEmpty(searchText))
+            if (cache != null)
             {
-                Printers = new ObservableCollection<PrinterEntry>(cache);
-            }
-            else
-            {
-                Printers = new ObservableCollection<PrinterEntry>(cache.Where(c => c.CN.ToUpper().StartsWith(searchText.ToUpper())));
-            }
+                if (string.IsNullOrEmpty(searchText))
+                {
+                    Printers = new ObservableCollection<PrinterEntry>(cache);
+                }
+                else
+                {
+                    Printers = new ObservableCollection<PrinterEntry>(cache.Where(c => c.CN.ToUpper().StartsWith(searchText.ToUpper())));
+                }
 
-            if (isAsc)
-                Printers = new ObservableCollection<PrinterEntry>(Printers.OrderBy(c => c.CN));
-            else
-                Printers = new ObservableCollection<PrinterEntry>(Printers.OrderByDescending(c => c.CN));
+                if (isAsc)
+                    Printers = new ObservableCollection<PrinterEntry>(Printers.OrderBy(c => c.CN));
+                else
+                    Printers = new ObservableCollection<PrinterEntry>(Printers.OrderByDescending(c => c.CN));
 
-            OnPropertyChanged(nameof(Printers));
+                OnPropertyChanged(nameof(Printers));
+            }
         }
 
         private async void DeletePrinter()

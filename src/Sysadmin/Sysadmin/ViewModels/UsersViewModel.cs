@@ -95,48 +95,51 @@ namespace SysAdmin.ViewModels
 
         private void SortingAndFiltering()
         {
-            if (string.IsNullOrEmpty(searchText))
+            if (cache != null)
             {
-                Users = new ObservableCollection<UserEntry>(cache);
+                if (string.IsNullOrEmpty(searchText))
+                {
+                    Users = new ObservableCollection<UserEntry>(cache);
+                }
+                else
+                {
+                    Users = new ObservableCollection<UserEntry>(cache.Where(c => c.CN.ToUpper().StartsWith(searchText.ToUpper())));
+                }
+
+                switch (filters)
+                {
+                    case Filters.All:
+                        Users = new ObservableCollection<UserEntry>(Users);
+                        break;
+
+                    case Filters.AccountEnabled:
+                        Users = new ObservableCollection<UserEntry>(Users.Where(c => (c.UserControl & UserAccountControls.ACCOUNTDISABLE) != UserAccountControls.ACCOUNTDISABLE));
+                        break;
+
+                    case Filters.AccountDisabled:
+                        Users = new ObservableCollection<UserEntry>(Users.Where(c => (c.UserControl & UserAccountControls.ACCOUNTDISABLE) == UserAccountControls.ACCOUNTDISABLE));
+                        break;
+
+                    case Filters.Locked:
+                        Users = new ObservableCollection<UserEntry>(Users.Where(c => c.UserControl == ActiveDirectory.UserAccountControls.LOCKOUT));
+                        break;
+
+                    case Filters.NeverExpires:
+                        Users = new ObservableCollection<UserEntry>(Users.Where(c => c.UserControl == ActiveDirectory.UserAccountControls.DONT_EXPIRE_PASSWD));
+                        break;
+
+                    case Filters.PasswordExpired:
+                        Users = new ObservableCollection<UserEntry>(Users.Where(c => c.UserControl == ActiveDirectory.UserAccountControls.PASSWORD_EXPIRED));
+                        break;
+                }
+
+                if (isAsc)
+                    Users = new ObservableCollection<UserEntry>(Users.OrderBy(c => c.CN));
+                else
+                    Users = new ObservableCollection<UserEntry>(Users.OrderByDescending(c => c.CN));
+
+                OnPropertyChanged(nameof(Users));
             }
-            else
-            {
-                Users = new ObservableCollection<UserEntry>(cache.Where(c => c.CN.ToUpper().StartsWith(searchText.ToUpper())));
-            }
-
-            switch (filters)
-            {
-                case Filters.All:
-                    Users = new ObservableCollection<UserEntry>(Users);
-                    break;
-
-                case Filters.AccountEnabled:
-                    Users = new ObservableCollection<UserEntry>(Users.Where(c => (c.UserControl & UserAccountControls.ACCOUNTDISABLE) != UserAccountControls.ACCOUNTDISABLE));
-                    break;
-
-                case Filters.AccountDisabled:
-                    Users = new ObservableCollection<UserEntry>(Users.Where(c => (c.UserControl & UserAccountControls.ACCOUNTDISABLE) == UserAccountControls.ACCOUNTDISABLE));
-                    break;
-
-                case Filters.Locked:
-                    Users = new ObservableCollection<UserEntry>(Users.Where(c => c.UserControl == ActiveDirectory.UserAccountControls.LOCKOUT));
-                    break;
-
-                case Filters.NeverExpires:
-                    Users = new ObservableCollection<UserEntry>(Users.Where(c => c.UserControl == ActiveDirectory.UserAccountControls.DONT_EXPIRE_PASSWD));
-                    break;
-
-                case Filters.PasswordExpired:
-                    Users = new ObservableCollection<UserEntry>(Users.Where(c => c.UserControl == ActiveDirectory.UserAccountControls.PASSWORD_EXPIRED));
-                    break;
-            }
-
-            if (isAsc)
-                Users = new ObservableCollection<UserEntry>(Users.OrderBy(c => c.CN));
-            else
-                Users = new ObservableCollection<UserEntry>(Users.OrderByDescending(c => c.CN));
-
-            OnPropertyChanged(nameof(Users));
         }
 
         private async void AddUser()

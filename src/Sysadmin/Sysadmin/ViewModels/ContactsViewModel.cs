@@ -70,21 +70,24 @@ namespace SysAdmin.ViewModels
 
         private void SortingAndFiltering()
         {
-            if (string.IsNullOrEmpty(searchText))
+            if (cache != null)
             {
-                Contacts = new ObservableCollection<ContactEntry>(cache);
-            }
-            else
-            {
-                Contacts = new ObservableCollection<ContactEntry>(cache.Where(c => c.CN.ToUpper().StartsWith(searchText.ToUpper())));
-            }
+                if (string.IsNullOrEmpty(searchText))
+                {
+                    Contacts = new ObservableCollection<ContactEntry>(cache);
+                }
+                else
+                {
+                    Contacts = new ObservableCollection<ContactEntry>(cache.Where(c => c.CN.ToUpper().StartsWith(searchText.ToUpper())));
+                }
 
-            if (isAsc)
-                Contacts = new ObservableCollection<ContactEntry>(Contacts.OrderBy(c => c.CN));
-            else
-                Contacts = new ObservableCollection<ContactEntry>(Contacts.OrderByDescending(c => c.CN));
+                if (isAsc)
+                    Contacts = new ObservableCollection<ContactEntry>(Contacts.OrderBy(c => c.CN));
+                else
+                    Contacts = new ObservableCollection<ContactEntry>(Contacts.OrderByDescending(c => c.CN));
 
-            OnPropertyChanged(nameof(Contacts));
+                OnPropertyChanged(nameof(Contacts));
+            }
         }
 
         private async void AddContact()
