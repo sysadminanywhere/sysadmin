@@ -38,7 +38,7 @@
     <PackageReference Include="FastReport.OpenSource.Export.PdfSimple" Version="2022.2.11" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.1" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.3" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.1" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
