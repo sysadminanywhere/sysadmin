@@ -80,9 +80,6 @@ namespace Sysadmin.WMI.Services
             if (queryString == null)
                 throw new ArgumentNullException(nameof(queryString));
 
-            if (queryString == null)
-                throw new ArgumentNullException(nameof(queryString));
-
             if (methodName == null)
                 throw new ArgumentNullException(nameof(methodName));
 
