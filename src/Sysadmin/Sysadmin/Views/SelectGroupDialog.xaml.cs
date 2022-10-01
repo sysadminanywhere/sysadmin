@@ -32,7 +32,7 @@ namespace SysAdmin.Views
             }
         }
 
-        private List<GroupEntry> cache;
+        private List<GroupEntry> cache = new List<GroupEntry>();
 
 
         public SelectGroupDialog()
