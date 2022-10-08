@@ -50,7 +50,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.3">
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.5">
       <IncludeAssets>build</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.1">
