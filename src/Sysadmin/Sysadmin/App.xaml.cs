@@ -10,7 +10,10 @@ using SysAdmin.Views.Contacts;
 using SysAdmin.Views.Groups;
 using SysAdmin.Views.Users;
 using System;
-using Windows.Storage;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -28,6 +31,9 @@ namespace SysAdmin
         /// </summary>
         public App()
         {
+
+            AppCenter.Start("", typeof(Analytics), typeof(Crashes));
+
             Services = ConfigureServices();
             this.InitializeComponent();
 
