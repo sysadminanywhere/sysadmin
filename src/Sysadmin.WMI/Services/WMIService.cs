@@ -53,20 +53,25 @@ namespace Sysadmin.WMI.Services
             {
                 List<Dictionary<string, object>> lst = new List<Dictionary<string, object>>();
 
-                using (ManagementObjectSearcher query = new ManagementObjectSearcher(managementScope, new SelectQuery(queryString)))
+                try
                 {
-                    foreach (ManagementObject service in query.Get())
+                    using (ManagementObjectSearcher query = new ManagementObjectSearcher(managementScope, new SelectQuery(queryString)))
                     {
-                        Dictionary<string, object> keyValues = new Dictionary<string, object>();
-
-                        foreach (PropertyData data in service.Properties)
+                        foreach (ManagementObject service in query.Get())
                         {
-                            keyValues.Add(data.Name, data.Value);
-                        }
+                            Dictionary<string, object> keyValues = new Dictionary<string, object>();
 
-                        lst.Add(keyValues);
+                            foreach (PropertyData data in service.Properties)
+                            {
+                                keyValues.Add(data.Name, data.Value);
+                            }
+
+                            lst.Add(keyValues);
+                        }
                     }
                 }
+                catch { }
+
                 return lst;
             }
             else
