@@ -55,6 +55,20 @@ namespace Sysadmin
                 services.AddScoped<Views.Pages.SettingsPage>();
                 services.AddScoped<ViewModels.SettingsViewModel>();
 
+                services.AddScoped<Views.Pages.ComputersPage>();
+                services.AddScoped<Views.Pages.ContactsPage>();
+                services.AddScoped<Views.Pages.GroupsPage>();
+                services.AddScoped<Views.Pages.PrintersPage>();
+                services.AddScoped<Views.Pages.ReportsPage>();
+                services.AddScoped<Views.Pages.UsersPage>();
+
+                services.AddScoped<ViewModels.ComputersViewModel>();
+                services.AddScoped<ViewModels.ContactsViewModel>();
+                services.AddScoped<ViewModels.GroupsViewModel>();
+                services.AddScoped<ViewModels.PrintersViewModel>();
+                services.AddScoped<ViewModels.ReportsViewModel>();
+                services.AddScoped<ViewModels.UsersViewModel>();
+
                 services.AddSingleton<ISettingsService, SettingsService>();
 
                 // Configuration

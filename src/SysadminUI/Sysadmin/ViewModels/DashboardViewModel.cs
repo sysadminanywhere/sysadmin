@@ -6,8 +6,6 @@ namespace Sysadmin.ViewModels
 {
     public partial class DashboardViewModel : ObservableObject, INavigationAware
     {
-        [ObservableProperty]
-        private int _counter = 0;
 
         public void OnNavigatedTo()
         {
@@ -17,10 +15,5 @@ namespace Sysadmin.ViewModels
         {
         }
 
-        [RelayCommand]
-        private void OnCounterIncrement()
-        {
-            Counter++;
-        }
     }
 }

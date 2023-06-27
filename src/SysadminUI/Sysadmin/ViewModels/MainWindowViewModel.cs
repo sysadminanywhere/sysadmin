@@ -48,42 +48,42 @@ namespace Sysadmin.ViewModels
                     Content = "Users",
                     PageTag = "users",
                     Icon = SymbolRegular.Person24,
-                    PageType = typeof(Views.Pages.DataPage)
+                    PageType = typeof(Views.Pages.UsersPage)
                 },
                 new NavigationItem()
                 {
                     Content = "Computers",
                     PageTag = "computers",
                     Icon = SymbolRegular.Desktop24,
-                    PageType = typeof(Views.Pages.DataPage)
+                    PageType = typeof(Views.Pages.ComputersPage)
                 },
                 new NavigationItem()
                 {
                     Content = "Groups",
                     PageTag = "groups",
                     Icon = SymbolRegular.People24,
-                    PageType = typeof(Views.Pages.DataPage)
+                    PageType = typeof(Views.Pages.GroupsPage)
                 },
                 new NavigationItem()
                 {
                     Content = "Printers",
                     PageTag = "printers",
                     Icon = SymbolRegular.Print24,
-                    PageType = typeof(Views.Pages.DataPage)
+                    PageType = typeof(Views.Pages.PrintersPage)
                 },
                 new NavigationItem()
                 {
                     Content = "Contacts",
                     PageTag = "contacts",
                     Icon = SymbolRegular.ContactCard24,
-                    PageType = typeof(Views.Pages.DataPage)
+                    PageType = typeof(Views.Pages.ContactsPage)
                 },
                 new NavigationItem()
                 {
                     Content = "Reports",
                     PageTag = "reports",
                     Icon = SymbolRegular.ChartMultiple24,
-                    PageType = typeof(Views.Pages.DataPage)
+                    PageType = typeof(Views.Pages.ReportsPage)
                 }
             };
 
