@@ -48,9 +48,6 @@ namespace Sysadmin.ViewModels
         {
             _stateService.IsLoggedIn = true;
 
-            Views.Windows.MainWindow mainWindow = Application.Current.Windows.OfType<Views.Windows.MainWindow>().First();
-            mainWindow.InitializeComponent();
-
             _navigationService.Navigate(typeof(Views.Pages.DashboardPage));
         }
 
