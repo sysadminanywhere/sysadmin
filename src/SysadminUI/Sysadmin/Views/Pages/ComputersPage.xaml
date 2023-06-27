@@ -6,9 +6,10 @@
     xmlns:local="clr-namespace:Sysadmin.Views.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:Sysadmin.Models"
+    xmlns:entities="clr-namespace:SysAdmin.ActiveDirectory.Models;assembly=SysAdmin.ActiveDirectory"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    Title="DataPage"
-    d:DataContext="{d:DesignInstance local:DataPage,
+    Title="Computers"
+    d:DataContext="{d:DesignInstance local:ComputersPage,
                                      IsDesignTimeCreatable=False}"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -17,7 +18,12 @@
     mc:Ignorable="d">
 
     <Grid Margin="56,0">
-        <ListView
-            x:Name="computers" />
+        <ListView  ItemsSource="{Binding ViewModel.Computers, Mode=OneWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate DataType="{x:Type entities:ComputerEntry}" >
+                        <TextBlock Margin="8,4" Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </ui:UiPage>

@@ -15,7 +15,7 @@
 	<Copyright>Copyright 2015-2023 Sysadmin Anywhere - All Rights Reserved</Copyright>
 	<Company>Sysadmin Anywhere</Company>
 	<Authors>Sysadmin Anywhere</Authors>
-    <PackageProjectUrl>https://sysadminanywhere.com/</PackageProjectUrl>
+    <PackageProjectUrl>https://sysadminanywhere.com</PackageProjectUrl>
 	<RepositoryUrl>https://github.com/sysadminanywhere/sysadmin</RepositoryUrl>
   </PropertyGroup>
 

@@ -13,10 +13,8 @@ namespace Sysadmin.ViewModels
     {
         private bool _isInitialized = false;
 
-        //[ObservableProperty]
-        //private IEnumerable<DataColor> _colors;
-
-        public ObservableCollection<ComputerEntry> Computers { get; private set; } = new ObservableCollection<ComputerEntry>();
+        [ObservableProperty]
+        private IEnumerable<ComputerEntry> _computers;
 
         public void OnNavigatedTo()
         {
@@ -30,6 +28,8 @@ namespace Sysadmin.ViewModels
 
         private void InitializeViewModel()
         {
+            Computers = new ObservableCollection<ComputerEntry>();
+
             _isInitialized = true;
         }
     }

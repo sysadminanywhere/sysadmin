@@ -7,8 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:Sysadmin.Models"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    Title="DataPage"
-    d:DataContext="{d:DesignInstance local:DataPage,
+    Title="Reports"
+    d:DataContext="{d:DesignInstance local:ReportsPage,
                                      IsDesignTimeCreatable=False}"
     d:DesignHeight="450"
     d:DesignWidth="800"
