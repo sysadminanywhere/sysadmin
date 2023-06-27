@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Extensions.DependencyInjection;
+using Sysadmin.Services;
 using System;
 using System.Collections.ObjectModel;
 using Wpf.Ui.Common;
@@ -24,13 +26,17 @@ namespace Sysadmin.ViewModels
         [ObservableProperty]
         private ObservableCollection<MenuItem> _trayMenuItems = new();
 
-        public MainWindowViewModel(INavigationService navigationService)
+        private IStateService _stateService;
+
+        public MainWindowViewModel(INavigationService navigationService, IServiceProvider serviceProvider)
         {
+            _stateService = serviceProvider.GetService<IStateService>();
+
             if (!_isInitialized)
                 InitializeViewModel();
         }
 
-        private void InitializeViewModel()
+        public void InitializeViewModel()
         {
             ApplicationTitle = "Sysadmin";
 
@@ -38,52 +44,67 @@ namespace Sysadmin.ViewModels
             {
                 new NavigationItem()
                 {
+                    Content = "Login",
+                    PageTag = "login",
+                    Icon = SymbolRegular.PeopleAudience24,
+                    PageType = typeof(Views.Pages.LoginPage),
+                    Visibility = _stateService.IsLoggedIn ? System.Windows.Visibility.Collapsed: System.Windows.Visibility.Visible
+                },
+                new NavigationItem()
+                {
                     Content = "Home",
                     PageTag = "dashboard",
                     Icon = SymbolRegular.Home24,
-                    PageType = typeof(Views.Pages.DashboardPage)
+                    PageType = typeof(Views.Pages.DashboardPage), 
+                    Visibility = _stateService.IsLoggedIn ? System.Windows.Visibility.Visible: System.Windows.Visibility.Collapsed
                 },
                 new NavigationItem()
                 {
                     Content = "Users",
                     PageTag = "users",
                     Icon = SymbolRegular.Person24,
-                    PageType = typeof(Views.Pages.UsersPage)
+                    PageType = typeof(Views.Pages.UsersPage),
+                    Visibility = _stateService.IsLoggedIn ? System.Windows.Visibility.Visible: System.Windows.Visibility.Collapsed
                 },
                 new NavigationItem()
                 {
                     Content = "Computers",
                     PageTag = "computers",
                     Icon = SymbolRegular.Desktop24,
-                    PageType = typeof(Views.Pages.ComputersPage)
+                    PageType = typeof(Views.Pages.ComputersPage),
+                    Visibility = _stateService.IsLoggedIn ? System.Windows.Visibility.Visible: System.Windows.Visibility.Collapsed
                 },
                 new NavigationItem()
                 {
                     Content = "Groups",
                     PageTag = "groups",
                     Icon = SymbolRegular.People24,
-                    PageType = typeof(Views.Pages.GroupsPage)
+                    PageType = typeof(Views.Pages.GroupsPage),
+                    Visibility = _stateService.IsLoggedIn ? System.Windows.Visibility.Visible: System.Windows.Visibility.Collapsed
                 },
                 new NavigationItem()
                 {
                     Content = "Printers",
                     PageTag = "printers",
                     Icon = SymbolRegular.Print24,
-                    PageType = typeof(Views.Pages.PrintersPage)
+                    PageType = typeof(Views.Pages.PrintersPage),
+                    Visibility = _stateService.IsLoggedIn ? System.Windows.Visibility.Visible: System.Windows.Visibility.Collapsed
                 },
                 new NavigationItem()
                 {
                     Content = "Contacts",
                     PageTag = "contacts",
                     Icon = SymbolRegular.ContactCard24,
-                    PageType = typeof(Views.Pages.ContactsPage)
+                    PageType = typeof(Views.Pages.ContactsPage),
+                    Visibility = _stateService.IsLoggedIn ? System.Windows.Visibility.Visible: System.Windows.Visibility.Collapsed
                 },
                 new NavigationItem()
                 {
                     Content = "Reports",
                     PageTag = "reports",
                     Icon = SymbolRegular.ChartMultiple24,
-                    PageType = typeof(Views.Pages.ReportsPage)
+                    PageType = typeof(Views.Pages.ReportsPage),
+                    Visibility = _stateService.IsLoggedIn ? System.Windows.Visibility.Visible: System.Windows.Visibility.Collapsed
                 }
             };
 
@@ -109,5 +130,6 @@ namespace Sysadmin.ViewModels
 
             _isInitialized = true;
         }
+
     }
 }

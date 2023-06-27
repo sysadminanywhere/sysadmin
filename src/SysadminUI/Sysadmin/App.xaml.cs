@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Sysadmin.Models;
@@ -61,6 +62,7 @@ namespace Sysadmin
                 services.AddScoped<Views.Pages.PrintersPage>();
                 services.AddScoped<Views.Pages.ReportsPage>();
                 services.AddScoped<Views.Pages.UsersPage>();
+                services.AddScoped<Views.Pages.LoginPage>();
 
                 services.AddScoped<ViewModels.ComputersViewModel>();
                 services.AddScoped<ViewModels.ContactsViewModel>();
@@ -68,8 +70,10 @@ namespace Sysadmin
                 services.AddScoped<ViewModels.PrintersViewModel>();
                 services.AddScoped<ViewModels.ReportsViewModel>();
                 services.AddScoped<ViewModels.UsersViewModel>();
+                services.AddScoped<ViewModels.LoginViewModel>();
 
                 services.AddSingleton<ISettingsService, SettingsService>();
+                services.AddSingleton<IStateService, StateService>();
 
                 // Configuration
                 services.Configure<AppConfig>(context.Configuration.GetSection(nameof(AppConfig)));
@@ -111,5 +115,6 @@ namespace Sysadmin
         {
             // For more info see https://docs.microsoft.com/en-us/dotnet/api/system.windows.application.dispatcherunhandledexception?view=windowsdesktop-6.0
         }
+
     }
 }

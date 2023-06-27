@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Sysadmin.Views.Windows;
 using System;
 using System.Linq;
 using System.Threading;
@@ -51,7 +53,16 @@ namespace Sysadmin.Services
                 _navigationWindow = (_serviceProvider.GetService(typeof(INavigationWindow)) as INavigationWindow)!;
                 _navigationWindow!.ShowWindow();
 
-                _navigationWindow.Navigate(typeof(Views.Pages.DashboardPage));
+                IStateService stateService = _serviceProvider.GetService<IStateService>();
+
+                if (stateService.IsLoggedIn)
+                {
+                    _navigationWindow.Navigate(typeof(Views.Pages.DashboardPage));
+                }
+                else
+                {
+                    _navigationWindow.Navigate(typeof(Views.Pages.LoginPage));
+                }
             }
 
             await Task.CompletedTask;
