@@ -9,7 +9,11 @@ namespace SysAdmin.Services
     public interface ISettingsService
     {
 
-        int ThemeSetting { get; set; }
+        void LoadSettings();
+
+        void SaveSettings();
+
+        string ThemeSetting { get; set; }
 
         string UserDisplayNameFormat { get; set; }
 

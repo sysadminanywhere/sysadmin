@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,13 +10,13 @@ namespace SysAdmin.Services
     public class SettingsService : ISettingsService
     {
 
-        private readonly Dictionary<string, string> settings = new Dictionary<string, string>();
+        private Dictionary<string, string> settings = new Dictionary<string, string>();
 
-        public int ThemeSetting
+        public string ThemeSetting
         {
             get
             {
-                return GetIntValue("ThemeSetting", 0);
+                return GetStringValue("ThemeSetting", "");
             }
             set { SetValue("ThemeSetting", value); }
         }
@@ -24,7 +25,7 @@ namespace SysAdmin.Services
         {
             get
             {
-                return GetStringValue("UserDisplayNameFormat", @"(?<FirstName>\S+) (?<LastName>\S+)");
+                return GetStringValue("UserDisplayNameFormat", "(?<FirstName>\\S+) (?<LastName>\\S+)");
             }
             set { SetValue("UserDisplayNameFormat", value); }
         }
@@ -33,7 +34,7 @@ namespace SysAdmin.Services
         {
             get
             {
-                return GetStringValue("UserLoginPattern", @"(?<FirstName>\S+) (?<LastName>\S+)");
+                return GetStringValue("UserLoginPattern", "(?<FirstName>\\S)\\S+ (?<LastName>\\S+)");
             }
             set { SetValue("UserLoginPattern", value); }
         }
@@ -42,7 +43,7 @@ namespace SysAdmin.Services
         {
             get
             {
-                return GetStringValue("UserLoginFormat", @"${FirstName}.${LastName}");
+                return GetStringValue("UserLoginFormat", "${FirstName}${LastName}");
             }
             set { SetValue("UserLoginFormat", value); }
         }
@@ -105,10 +106,18 @@ namespace SysAdmin.Services
 
         public void LoadSettings()
         {
+            try
+            {
+                string json = System.IO.File.ReadAllText("settings.json");
+                settings = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+            }
+            catch { }
         }
 
         public void SaveSettings()
         {
+            string json = JsonConvert.SerializeObject(settings);
+            System.IO.File.WriteAllText("settings.json", json);
         }
 
         private void SetValue(string key, object value)

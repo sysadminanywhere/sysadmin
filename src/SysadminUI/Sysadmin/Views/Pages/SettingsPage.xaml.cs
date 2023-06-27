@@ -12,7 +12,6 @@ namespace Sysadmin.Views.Pages
     public partial class SettingsPage : INavigableView<ViewModels.SettingsViewModel>
     {
 
-        private readonly IServiceProvider serviceProvider;
         ISettingsService settings;
 
         public ViewModels.SettingsViewModel ViewModel
@@ -24,7 +23,6 @@ namespace Sysadmin.Views.Pages
         {
             ViewModel = viewModel;
 
-            this.serviceProvider = serviceProvider;
             settings = serviceProvider.GetService<ISettingsService>();
 
             InitializeComponent();

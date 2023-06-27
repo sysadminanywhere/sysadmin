@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
+using SysAdmin.Services;
 using System;
 using System.Windows.Input;
 using Wpf.Ui.Common.Interfaces;
@@ -10,11 +12,18 @@ namespace Sysadmin.ViewModels
     {
         private bool _isInitialized = false;
 
+        ISettingsService settings;
+
         [ObservableProperty]
         private string _appVersion = String.Empty;
 
         [ObservableProperty]
         private Wpf.Ui.Appearance.ThemeType _currentTheme = Wpf.Ui.Appearance.ThemeType.Unknown;
+
+        public SettingsViewModel(IServiceProvider serviceProvider) 
+        {
+            settings = serviceProvider.GetService<ISettingsService>();
+        }
 
         public void OnNavigatedTo()
         {
@@ -62,6 +71,8 @@ namespace Sysadmin.ViewModels
 
                     break;
             }
+
+            settings.ThemeSetting = parameter;
         }
     }
 }
