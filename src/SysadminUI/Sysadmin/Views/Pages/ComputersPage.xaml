@@ -17,6 +17,7 @@
     mc:Ignorable="d">
 
     <Grid Margin="56,0">
-
+        <ListView
+            x:Name="computers" />
     </Grid>
 </ui:UiPage>

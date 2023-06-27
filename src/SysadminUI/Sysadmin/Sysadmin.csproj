@@ -20,8 +20,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="applicationIcon.ico" />
     <Resource Include="Assets\StoreLogo.ico" />
+    <Content Include="applicationIcon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="applicationIcon.ico" />
     <None Remove="Assets\StoreLogo.ico" />
   </ItemGroup>
 
