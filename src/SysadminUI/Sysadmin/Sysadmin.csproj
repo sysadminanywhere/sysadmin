@@ -8,6 +8,15 @@
     <UseWPF>true</UseWPF>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>applicationIcon.ico</ApplicationIcon>
+    <Title>Sysadmin</Title>
+	<AssemblyVersion>10.0.0</AssemblyVersion>
+	<Version>10.0.0</Version>
+	<FileVersion>10.0.0</FileVersion>
+	<Copyright>Copyright 2015-2023 Sysadmin Anywhere - All Rights Reserved</Copyright>
+	<Company>Sysadmin Anywhere</Company>
+	<Authors>Sysadmin Anywhere</Authors>
+    <PackageProjectUrl>https://sysadminanywhere.com/</PackageProjectUrl>
+	<RepositoryUrl>https://github.com/sysadminanywhere/sysadmin</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +32,11 @@
 
   <ItemGroup>
     <None Remove="Assets\StoreLogo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\SysAdmin.ActiveDirectory\SysAdmin.ActiveDirectory.csproj" />
+    <ProjectReference Include="..\..\Sysadmin.WMI\Sysadmin.WMI.csproj" />
   </ItemGroup>
 
 </Project>
