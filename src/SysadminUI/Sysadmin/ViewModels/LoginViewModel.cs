@@ -20,12 +20,15 @@ namespace Sysadmin.ViewModels
 
         private INavigationService _navigationService;
 
-        private IStateService _stateService;
+        private IStateService stateService;
 
-        public LoginViewModel(INavigationService navigationService, IServiceProvider serviceProvider)
+        private MainWindowViewModel mainWindowViewModel;
+
+        public LoginViewModel(INavigationService navigationService, IStateService stateService, MainWindowViewModel mainWindowViewModel)
         {
             _navigationService = navigationService;
-            _stateService = serviceProvider.GetService<IStateService>();
+            this.stateService = stateService;
+            this.mainWindowViewModel = mainWindowViewModel;
         }
 
         public void OnNavigatedTo()
@@ -46,7 +49,9 @@ namespace Sysadmin.ViewModels
         [RelayCommand]
         private void OnLogin()
         {
-            _stateService.IsLoggedIn = true;
+            stateService.IsLoggedIn = true;
+
+            mainWindowViewModel.InitializeViewModel();
 
             _navigationService.Navigate(typeof(Views.Pages.DashboardPage));
         }

@@ -12,7 +12,7 @@ namespace Sysadmin.ViewModels
     {
         private bool _isInitialized = false;
 
-        ISettingsService settings;
+        private ISettingsService settings;
 
         [ObservableProperty]
         private string _appVersion = String.Empty;
@@ -20,9 +20,9 @@ namespace Sysadmin.ViewModels
         [ObservableProperty]
         private Wpf.Ui.Appearance.ThemeType _currentTheme = Wpf.Ui.Appearance.ThemeType.Unknown;
 
-        public SettingsViewModel(IServiceProvider serviceProvider) 
+        public SettingsViewModel(ISettingsService settings) 
         {
-            settings = serviceProvider.GetService<ISettingsService>();
+            this.settings = settings;
         }
 
         public void OnNavigatedTo()
