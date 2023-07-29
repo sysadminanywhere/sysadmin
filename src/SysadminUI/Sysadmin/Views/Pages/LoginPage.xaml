@@ -6,7 +6,8 @@
     xmlns:local="clr-namespace:Sysadmin.Views.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:Sysadmin.Models"
-    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml" 
+    xmlns:converters="clr-namespace:SysAdmin.Converters"
     Title="Login"
     d:DataContext="{d:DesignInstance local:LoginPage,
                                      IsDesignTimeCreatable=False}"
@@ -15,8 +16,81 @@
     d:Background="{DynamicResource ApplicationBackgroundBrush}"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
+    <Page.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </Page.Resources>
 
-    <Grid Margin="56,0">
-        <ui:Button Grid.Column="0" Command="{Binding ViewModel.LoginCommand, Mode=OneWay}" Content="Click me!" Icon="Fluent24" />
+    <Grid x:Name="gridLogin"
+          Width="400" 
+          HorizontalAlignment="Center" 
+          VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TabControl Grid.Row="1" HorizontalAlignment="Stretch">
+            <TabItem Header="Simple">
+
+                <StackPanel HorizontalAlignment="Stretch" Margin="8">
+
+                    <TextBlock Text="Connect to current domain" Margin="0,16,0,0" />
+
+                    <ui:ToggleSwitch x:Name="toggleSwitch" Content="Credentials" Margin="4,16,4,4" IsChecked="False" />
+
+                    <StackPanel Visibility="{Binding IsChecked, ElementName=toggleSwitch, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <TextBlock Text="User name" Margin="0,16,0,4" />
+                        <TextBox x:Name="userNameCredentials" />
+
+                        <TextBlock Text="Password" Margin="0,16,0,4" />
+                        <PasswordBox x:Name="passwordCredentials" Margin="0,0,0,16" />
+                    </StackPanel>
+
+                </StackPanel>
+
+            </TabItem>
+
+            <TabItem Header="Advanced">
+
+                <StackPanel HorizontalAlignment="Stretch" Margin="8">
+
+                    <TextBlock Text="Connect to other domain" Margin="0,16,0,4"/>
+
+                    <TextBlock Text="Server" Margin="0,16,0,4"/>
+                    <TextBox x:Name="serverName" />
+
+                    <StackPanel Orientation="Horizontal" Margin="0,16,0,4">
+                        <TextBlock Text="Port" 
+                                    VerticalAlignment="Center"
+                                    Margin="0,0,4,0" />
+                        <ui:TextBox Text="389" />
+
+                        <TextBlock Text="SSL" 
+                                    VerticalAlignment="Center"
+                                    Margin="30,0,4,0" />
+                        <CheckBox x:Name="sslCheck" IsChecked="False" />
+                    </StackPanel>
+
+                    <TextBlock Text="User name" Margin="0,16,0,4"/>
+                    <TextBox x:Name="userNameOther" />
+
+                    <TextBlock Text="Password" Margin="0,16,0,4"/>
+                    <PasswordBox x:Name="passwordOther" Margin="0,0,0,16" />
+
+                </StackPanel>
+
+            </TabItem>
+        </TabControl>
+
+        <Button Content="Login"
+                    Grid.Row="2"
+                    Margin="4,16,4,4" 
+                    HorizontalAlignment="Right" Command="{Binding ViewModel.LoginCommand, Mode=OneWay}"/>
+
     </Grid>
+
+    <!--<Grid Margin="56,0">
+        <ui:Button Grid.Column="0" Command="{Binding ViewModel.LoginCommand, Mode=OneWay}" Content="Click me!" Icon="Fluent24" />
+    </Grid>-->
 </ui:UiPage>
