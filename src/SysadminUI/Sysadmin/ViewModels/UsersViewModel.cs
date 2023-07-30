@@ -1,8 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Sysadmin.Models;
-using System;
-using System.Collections.Generic;
-using System.Windows.Media;
+using CommunityToolkit.Mvvm.Input;
 using Wpf.Ui.Common.Interfaces;
 
 namespace Sysadmin.ViewModels
@@ -11,8 +8,11 @@ namespace Sysadmin.ViewModels
     {
         private bool _isInitialized = false;
 
-        //[ObservableProperty]
-        //private IEnumerable<DataColor> _colors;
+        [ObservableProperty]
+        private bool _sortAsc = true;
+
+        [ObservableProperty]
+        private bool _sortDesc = false;
 
         public void OnNavigatedTo()
         {
@@ -28,5 +28,26 @@ namespace Sysadmin.ViewModels
         {
             _isInitialized = true;
         }
+
+        [RelayCommand]
+        private void OnAdd()
+        {
+            SortAsc = true;
+        }
+
+        [RelayCommand]
+        private void OnSortAsc()
+        {
+            SortAsc = true;
+            SortDesc = false;
+        }
+
+        [RelayCommand]
+        private void OnSortDesc()
+        {
+            SortAsc = false;
+            SortDesc = true;
+        }
+
     }
 }

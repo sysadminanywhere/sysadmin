@@ -16,7 +16,60 @@
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
 
-    <Grid Margin="56,0">
+    <Grid Margin="16,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock 
+                Margin="24"
+                Grid.Column="0" 
+                Text="Users"
+                Style="{StaticResource TitleTextBlockStyle}"/>
+
+            <Menu Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent">
+                <ui:AutoSuggestBox MinWidth="200" Icon="Search12" PlaceholderText="Search..."/>
+                <ui:MenuItem Command="{Binding ViewModel.AddCommand}">
+                    <ui:MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <ui:SymbolIcon Symbol="Add12" Margin="0,0,8,0" />
+                            <TextBlock>Add</TextBlock>
+                        </StackPanel>
+                    </ui:MenuItem.Header>
+                </ui:MenuItem>
+                <ui:MenuItem>
+                    <ui:MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <ui:SymbolIcon Symbol="ArrowSort16" Margin="0,0,8,0" />
+                            <TextBlock>Sort</TextBlock>
+                        </StackPanel>
+                    </ui:MenuItem.Header>
+                    <ui:MenuItem Header="By name (A-Z)" IsCheckable="True" IsChecked="{Binding ViewModel.SortAsc, Mode=TwoWay}" Command="{Binding ViewModel.SortAscCommand}"/>
+                    <ui:MenuItem Header="By name (Z-A)" IsCheckable="True" IsChecked="{Binding ViewModel.SortDesc, Mode=TwoWay}" Command="{Binding ViewModel.SortDescCommand}"/>
+                </ui:MenuItem>
+                <ui:MenuItem>
+                    <ui:MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <ui:SymbolIcon Symbol="Filter12" Margin="0,0,8,0" />
+                            <TextBlock>Filter</TextBlock>
+                        </StackPanel>
+                    </ui:MenuItem.Header>
+                    <ui:MenuItem Header="All" IsCheckable="True" IsChecked="True" />
+                    <ui:MenuItem Header="Enabled" IsCheckable="True" />
+                    <ui:MenuItem Header="Disabled" IsCheckable="True" />
+                    <ui:MenuItem Header="Locked" IsCheckable="True" />
+                    <ui:MenuItem Header="Expired" IsCheckable="True" />
+                    <ui:MenuItem Header="Never expires" IsCheckable="True" />
+                </ui:MenuItem>
+            </Menu>
+
+        </Grid>
     </Grid>
 </ui:UiPage>
