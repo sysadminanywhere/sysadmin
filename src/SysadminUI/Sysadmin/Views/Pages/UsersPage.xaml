@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:Sysadmin.Models"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:converters="clr-namespace:SysAdmin.Converters"
     Title="Users"
     d:DataContext="{d:DesignInstance local:UsersPage,
                                      IsDesignTimeCreatable=False}"
@@ -15,6 +16,42 @@
     d:Background="{DynamicResource ApplicationBackgroundBrush}"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
+    <Page.Resources>
+
+        <converters:EmptyToCollapsedConverter x:Key="EmptyToCollapsedConverter"/>
+
+        <DataTemplate x:Key="ListViewTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ui:SymbolIcon 
+                    Width="32" 
+                    Height="32" 
+                    Margin="6"
+                    Grid.RowSpan="2"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Symbol="Person24"/>
+                <TextBlock 
+                    Grid.Column="1"
+                    Text="{Binding CN}"
+                    Margin="0,6,0,0"/>
+                <TextBlock  
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Visibility="{Binding Description, Converter={StaticResource EmptyToCollapsedConverter}}"
+                    Text="{Binding Description}"
+                    Margin="0,0,0,6"/>
+            </Grid>
+        </DataTemplate>
+
+    </Page.Resources>
 
     <Grid Margin="16,0">
         <Grid.RowDefinitions>
@@ -44,32 +81,39 @@
                         </StackPanel>
                     </ui:MenuItem.Header>
                 </ui:MenuItem>
-                <ui:MenuItem>
+                <ui:MenuItem x:Name="mnuSort">
                     <ui:MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <ui:SymbolIcon Symbol="ArrowSort16" Margin="0,0,8,0" />
                             <TextBlock>Sort</TextBlock>
                         </StackPanel>
                     </ui:MenuItem.Header>
-                    <ui:MenuItem Header="By name (A-Z)" IsCheckable="True" IsChecked="{Binding ViewModel.SortAsc, Mode=TwoWay}" Command="{Binding ViewModel.SortAscCommand}"/>
-                    <ui:MenuItem Header="By name (Z-A)" IsCheckable="True" IsChecked="{Binding ViewModel.SortDesc, Mode=TwoWay}" Command="{Binding ViewModel.SortDescCommand}"/>
+                    <ui:MenuItem Tag="asc" Header="By name (A-Z)" IsCheckable="True" IsChecked="True" Command="{Binding ViewModel.SortCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" Click="MenuSort_Click"/>
+                    <ui:MenuItem Tag="desc" Header="By name (Z-A)" IsCheckable="True" Command="{Binding ViewModel.SortCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" Click="MenuSort_Click"/>
                 </ui:MenuItem>
-                <ui:MenuItem>
+                <ui:MenuItem x:Name="mnuFilter">
                     <ui:MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <ui:SymbolIcon Symbol="Filter12" Margin="0,0,8,0" />
                             <TextBlock>Filter</TextBlock>
                         </StackPanel>
                     </ui:MenuItem.Header>
-                    <ui:MenuItem Header="All" IsCheckable="True" IsChecked="True" />
-                    <ui:MenuItem Header="Enabled" IsCheckable="True" />
-                    <ui:MenuItem Header="Disabled" IsCheckable="True" />
-                    <ui:MenuItem Header="Locked" IsCheckable="True" />
-                    <ui:MenuItem Header="Expired" IsCheckable="True" />
-                    <ui:MenuItem Header="Never expires" IsCheckable="True" />
+                    <ui:MenuItem Tag="all" Header="All" IsCheckable="True" IsChecked="True" Click="MenuFilter_Click" />
+                    <ui:MenuItem Tag="enabled" Header="Enabled" IsCheckable="True" Click="MenuFilter_Click" />
+                    <ui:MenuItem Tag="disabled" Header="Disabled" IsCheckable="True" Click="MenuFilter_Click" />
+                    <ui:MenuItem Tag="locked" Header="Locked" IsCheckable="True" Click="MenuFilter_Click" />
+                    <ui:MenuItem Tag="expired" Header="Expired" IsCheckable="True" Click="MenuFilter_Click" />
+                    <ui:MenuItem Tag="never_expires" Header="Never expires" IsCheckable="True" Click="MenuFilter_Click" />
                 </ui:MenuItem>
             </Menu>
 
         </Grid>
+
+        <ListView
+            Grid.Row="1"
+            x:Name="users"
+            ItemTemplate="{StaticResource ListViewTemplate}"
+            ItemsSource="{Binding ViewModel.Users, Mode=OneWay}" />
+
     </Grid>
 </ui:UiPage>
