@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SysAdmin.Services
 {
@@ -94,6 +91,22 @@ namespace SysAdmin.Services
             set { SetValue("IsSSL", value); }
         }
 
+        public int LoginSelectedIndex 
+        {
+            get
+            {
+                return GetIntValue("LoginSelectedIndex", 0);
+            }
+            set { SetValue("LoginSelectedIndex", value); }
+        }
+        public bool LoginUseCredentials 
+        {
+            get
+            {
+                return GetBooleanValue("LoginUseCredentials", false);
+            }
+            set { SetValue("LoginUseCredentials", value); }
+        }
 
         public void LoadSettings()
         {
@@ -138,7 +151,7 @@ namespace SysAdmin.Services
             if (value == null)
                 return defaultvalue;
             else
-                return (int)value;
+                return int.Parse(value.ToString());
         }
 
         private string GetStringValue(string key, string defaultvalue = "")
@@ -158,7 +171,7 @@ namespace SysAdmin.Services
             if (value == null)
                 return defaultvalue;
             else
-                return (bool)value;
+                return Boolean.Parse(value.ToString());
         }
 
     }

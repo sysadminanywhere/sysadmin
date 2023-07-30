@@ -5,7 +5,7 @@
     xmlns:local="clr-namespace:Sysadmin.Views.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    Title="DashboardPage"
+    Title="Dashboard"
     d:DataContext="{d:DesignInstance local:DashboardPage, IsDesignTimeCreatable=False}"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -13,10 +13,101 @@
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
 
-    <Grid Margin="56,0" VerticalAlignment="Top">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
+    <Grid Margin="16,0" VerticalAlignment="Top">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel 
+            Margin="24"
+            Grid.Row="0" 
+            Orientation="Horizontal" 
+            HorizontalAlignment="Stretch">
+
+            <ui:FontIcon
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="32"
+                    Glyph="&#xEC26;" />
+
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock 
+                    Text="{Binding ViewModel.DomainName, Mode=OneWay}"
+                    Style="{StaticResource TitleDetailPageStyle}"/>
+            </StackPanel>
+
+        </StackPanel>
+
+        <Grid 
+            VerticalAlignment="Top"
+            Grid.Row="1" 
+            Margin="24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="0" Grid.Column="0" Text="Distinguished name" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="0" Grid.Column="1" Text="{Binding ViewModel.DistinguishedName, Mode=OneWay}" />
+
+        </Grid>
+
+        <Grid 
+            VerticalAlignment="Top"
+            Grid.Row="2" 
+            Margin="24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="0" Grid.Column="0" Text="Computers" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="0" Grid.Column="1" Text="{Binding ViewModel.ComputersCount, Mode=OneWay}" />
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="1" Grid.Column="0" Text="Users" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="1" Grid.Column="1" Text="{Binding ViewModel.UsersCount, Mode=OneWay}" />
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="2" Grid.Column="0" Text="Groups" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="2" Grid.Column="1" Text="{Binding ViewModel.GroupsCount, Mode=OneWay}" />
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="3" Grid.Column="0" Text="Printers" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="3" Grid.Column="1" Text="{Binding ViewModel.PrintersCount, Mode=OneWay}" />
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="4" Grid.Column="0" Text="Contacts" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="4" Grid.Column="1" Text="{Binding ViewModel.ContactsCount, Mode=OneWay}" />
+        </Grid>
+
+        <StackPanel Grid.Row="3" Margin="24">
+            <TextBlock Text="Audit" Style="{StaticResource TableDetailValueStyle}" Margin="4,16,4,4" />
+            <ui:DataGrid
+                IsTabStop="False"
+                CanUserSortColumns="True"
+                AutoGenerateColumns="False"
+                IsReadOnly="True"
+                GridLinesVisibility="Horizontal"
+                ItemsSource="{Binding ViewModel.AuditList, Mode=OneWay}" 
+                CanUserResizeColumns="True">
+                <ui:DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding CN}" Header="Name" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                    <DataGridTextColumn Binding="{Binding DistinguishedName}" Header="Distinguished name" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                    <DataGridTextColumn Binding="{Binding Action}" Header="Action" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                    <DataGridTextColumn Binding="{Binding Date}" Header="Date" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                </ui:DataGrid.Columns>
+            </ui:DataGrid>
+        </StackPanel>
+
     </Grid>
 </ui:UiPage>

@@ -11,7 +11,7 @@
     Title="Login"
     d:DataContext="{d:DesignInstance local:LoginPage,
                                      IsDesignTimeCreatable=False}"
-    d:DesignHeight="450"
+    d:DesignHeight="500"
     d:DesignWidth="800"
     d:Background="{DynamicResource ApplicationBackgroundBrush}"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -30,20 +30,20 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TabControl Grid.Row="1" HorizontalAlignment="Stretch" SelectedIndex="{Binding ViewModel.SelectedIndex}">
+        <TabControl Grid.Row="1" HorizontalAlignment="Stretch" SelectedIndex="{Binding ViewModel.SelectedIndex, Mode=TwoWay}">
             <TabItem Header="Simple">
 
-                <StackPanel HorizontalAlignment="Stretch">
+                <StackPanel HorizontalAlignment="Stretch" Margin="8">
 
-                    <TextBlock Text="Connect to current domain" Margin="0,16,0,0" />
+                    <TextBlock Text="Connect to current domain" Margin="0,16,0,0" Style="{StaticResource FormDescriptionStyle}" />
 
-                    <ui:ToggleSwitch x:Name="toggleSwitch" Content="Credentials" Margin="4,16,4,16" IsChecked="{Binding ViewModel.UseCredentials}" />
+                    <ui:ToggleSwitch x:Name="toggleSwitch" Content="Credentials" Margin="4,16,4,16" IsChecked="{Binding ViewModel.UseCredentials, Mode=TwoWay}" />
 
                     <StackPanel Visibility="{Binding IsChecked, ElementName=toggleSwitch, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
-                        <TextBlock Text="User name" Margin="0,0,0,4" />
+                        <TextBlock Text="User name" Margin="0,0,0,4" Style="{StaticResource FormLabelStyle}"/>
                         <TextBox x:Name="userNameCredentials" Text="{Binding ViewModel.UserName}" />
 
-                        <TextBlock Text="Password" Margin="0,16,0,4" />
+                        <TextBlock Text="Password" Margin="0,16,0,4" Style="{StaticResource FormLabelStyle}"/>
                         <PasswordBox x:Name="passwordCredentials" Margin="0,0,0,16" PasswordChanged="password_PasswordChanged" />
                     </StackPanel>
 
@@ -55,27 +55,29 @@
 
                 <StackPanel HorizontalAlignment="Stretch" Margin="8">
 
-                    <TextBlock Text="Connect to other domain" Margin="0,16,0,4"/>
+                    <TextBlock Text="Connect to other domain" Margin="0,16,0,4" Style="{StaticResource FormDescriptionStyle}"/>
 
-                    <TextBlock Text="Server" Margin="0,16,0,4"/>
+                    <TextBlock Text="Server" Margin="0,16,0,4" Style="{StaticResource FormLabelStyle}"/>
                     <TextBox x:Name="serverName" Text="{Binding ViewModel.ServerName}" />
 
                     <StackPanel Orientation="Horizontal" Margin="0,16,0,4">
                         <TextBlock Text="Port" 
+                                   Style="{StaticResource FormLabelStyle}"
                                     VerticalAlignment="Center"
                                     Margin="0,0,4,0" />
                         <ui:TextBox Text="{Binding ViewModel.Port}" />
 
                         <TextBlock Text="SSL" 
+                                   Style="{StaticResource FormLabelStyle}"
                                     VerticalAlignment="Center"
                                     Margin="30,0,4,0" />
                         <CheckBox x:Name="sslCheck" IsChecked="{Binding ViewModel.Ssl}" />
                     </StackPanel>
 
-                    <TextBlock Text="User name" Margin="0,16,0,4"/>
+                    <TextBlock Text="User name" Margin="0,16,0,4" Style="{StaticResource FormLabelStyle}"/>
                     <TextBox x:Name="userNameOther" Text="{Binding ViewModel.UserName}" />
 
-                    <TextBlock Text="Password" Margin="0,16,0,4"/>
+                    <TextBlock Text="Password" Margin="0,16,0,4" Style="{StaticResource FormLabelStyle}"/>
                     <PasswordBox x:Name="passwordOther" Margin="0,0,0,16" PasswordChanged="password_PasswordChanged" />
 
                 </StackPanel>
@@ -83,10 +85,12 @@
             </TabItem>
         </TabControl>
 
-        <Button Content="Login"
+        <ui:Button Content="Login"
                     Grid.Row="2"
                     Margin="4,16,4,4" 
-                    HorizontalAlignment="Right" Command="{Binding ViewModel.LoginCommand, Mode=OneWay}"/>
+                    HorizontalAlignment="Right" 
+                    Appearance="Primary"
+                    Command="{Binding ViewModel.LoginCommand, Mode=OneWay}"/>
 
     </Grid>
 

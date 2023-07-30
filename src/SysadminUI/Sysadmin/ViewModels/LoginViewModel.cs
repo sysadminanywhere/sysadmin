@@ -56,6 +56,14 @@ namespace Sysadmin.ViewModels
         {
             if (!_isInitialized)
                 InitializeViewModel();
+
+            SelectedIndex = settingsService.LoginSelectedIndex;
+            UseCredentials = settingsService.LoginUseCredentials;
+
+            ServerName = settingsService.ServerName;
+            UserName = settingsService.UserName;
+            Port = settingsService.ServerPort.ToString();
+            Ssl = settingsService.IsSSL;
         }
 
         public void OnNavigatedFrom()
@@ -118,6 +126,9 @@ namespace Sysadmin.ViewModels
 
             if (isConnected)
             {
+                settingsService.LoginSelectedIndex = SelectedIndex;
+                settingsService.LoginUseCredentials = UseCredentials;
+
                 settingsService.ServerName = ServerName;
                 settingsService.UserName = UserName;
                 settingsService.ServerPort = int.Parse(Port);

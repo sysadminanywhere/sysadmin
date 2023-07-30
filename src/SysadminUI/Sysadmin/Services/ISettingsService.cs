@@ -32,5 +32,9 @@ namespace SysAdmin.Services
 
         bool IsSSL { get; set; }
 
+        int LoginSelectedIndex { get; set; }
+
+        bool LoginUseCredentials { get; set; }
+
     }
 }

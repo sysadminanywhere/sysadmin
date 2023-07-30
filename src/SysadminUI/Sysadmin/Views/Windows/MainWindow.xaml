@@ -63,13 +63,13 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Frame x:Name="RootFrame" Grid.Row="1" />
-                    <ui:Breadcrumb
+                    <!--<ui:Breadcrumb
                         Grid.Row="0"
                         Margin="56,32"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         FontSize="28"
-                        Navigation="{Binding ElementName=RootNavigation, Mode=OneWay}" />
+                        Navigation="{Binding ElementName=RootNavigation, Mode=OneWay}" />-->
                 </Grid>
             </Border>
         </Grid>
