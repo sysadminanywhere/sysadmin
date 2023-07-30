@@ -43,12 +43,6 @@ namespace Sysadmin.ViewModels
         [ObservableProperty]
         private bool _ssl;
 
-        [ObservableProperty]
-        private bool _showError;
-
-        [ObservableProperty]
-        private bool _showConnecting;
-
 
         public LoginViewModel(INavigationService navigationService, IStateService stateService, MainWindowViewModel mainWindowViewModel, ISettingsService settingsService)
         {
@@ -77,8 +71,6 @@ namespace Sysadmin.ViewModels
         private async void OnLogin()
         {
 
-            ShowConnecting = true;
-
             bool isConnected = false;
 
 
@@ -91,8 +83,8 @@ namespace Sysadmin.ViewModels
                         App.CREDENTIAL = new Credential()
                         {
                             UserName = UserName,
-                            Password = Password.ToString()
-                        };
+                            Password = new System.Net.NetworkCredential(string.Empty, Password).Password
+                    };
                     }
                     else
                     {
@@ -110,7 +102,7 @@ namespace Sysadmin.ViewModels
                     App.CREDENTIAL = new Credential()
                     {
                         UserName = UserName,
-                        Password = Password.ToString()
+                        Password = new System.Net.NetworkCredential(string.Empty, Password).Password
                     };
                     break;
             }
@@ -134,10 +126,6 @@ namespace Sysadmin.ViewModels
                 stateService.IsLoggedIn = true;
                 mainWindowViewModel.InitializeViewModel();
                 _navigationService.Navigate(typeof(Views.Pages.DashboardPage));
-            }
-            else 
-            {
-                ShowError = true;
             }
 
         }

@@ -20,20 +20,6 @@ namespace Sysadmin.Views.Pages
             ViewModel = viewModel;
 
             InitializeComponent();
-
-            ViewModel.PropertyChanging += ViewModel_PropertyChanging;
-        }
-
-        private void ViewModel_PropertyChanging(object? sender, System.ComponentModel.PropertyChangingEventArgs e)
-        {
-            if (e.PropertyName == "ShowError")
-            {
-                snackbarError.Show();
-            }
-            if (e.PropertyName == "ShowConnecting")
-            {
-                snackbarConnecting.Show();
-            }
         }
 
         private void password_PasswordChanged(object sender, System.Windows.RoutedEventArgs e)
