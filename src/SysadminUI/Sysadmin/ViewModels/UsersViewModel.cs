@@ -1,5 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Messaging.Messages;
+using Sysadmin.Messages;
 using SysAdmin.ActiveDirectory.Models;
 using SysAdmin.ActiveDirectory.Repositories;
 using SysAdmin.ActiveDirectory.Services.Ldap;
@@ -90,6 +93,7 @@ namespace Sysadmin.ViewModels
             {
                 UserEntry user = (UserEntry)items.First();
                 _navigationService.Navigate(typeof(Views.Pages.UserPage));
+                WeakReferenceMessenger.Default.Send(new UserSelectededMessage(user));
             }
         }
 

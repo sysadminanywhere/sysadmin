@@ -37,7 +37,7 @@
             <TextBlock 
                 Margin="40,24,24,24"
                 Grid.Column="0" 
-                Text="User"
+                Text="{Binding ViewModel.User.CN}"
                 Style="{StaticResource TitleTextBlockStyle}"/>
 
         </Grid>

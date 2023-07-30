@@ -1,6 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using Sysadmin.Messages;
 using Sysadmin.Models;
+using SysAdmin.ActiveDirectory.Models;
 using System;
 using System.Collections.Generic;
 using System.Windows.Media;
@@ -15,8 +18,8 @@ namespace Sysadmin.ViewModels
 
         private INavigationService _navigationService;
 
-        //[ObservableProperty]
-        //private IEnumerable<DataColor> _colors;
+        [ObservableProperty]
+        private UserEntry _user;
 
         public UserViewModel(INavigationService navigationService)
         {
@@ -27,10 +30,16 @@ namespace Sysadmin.ViewModels
         {
             if (!_isInitialized)
                 InitializeViewModel();
+
+            WeakReferenceMessenger.Default.Register<UserSelectededMessage>(this, (r, m) =>
+            {
+                User = m.Value;
+            });
         }
 
         public void OnNavigatedFrom()
         {
+            WeakReferenceMessenger.Default.Unregister<UserSelectededMessage>(this);
         }
 
         private void InitializeViewModel()
