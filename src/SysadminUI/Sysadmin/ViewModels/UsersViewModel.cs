@@ -4,9 +4,11 @@ using SysAdmin.ActiveDirectory.Models;
 using SysAdmin.ActiveDirectory.Repositories;
 using SysAdmin.ActiveDirectory.Services.Ldap;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using Wpf.Ui.Common.Interfaces;
+using Wpf.Ui.Mvvm.Contracts;
 
 namespace Sysadmin.ViewModels
 {
@@ -14,11 +16,17 @@ namespace Sysadmin.ViewModels
     {
         private bool _isInitialized = false;
 
+        private INavigationService _navigationService;
 
         [ObservableProperty]
         private IEnumerable<UserEntry> _users;
 
         private List<UserEntry> cache;
+
+        public UsersViewModel(INavigationService navigationService)
+        {
+            _navigationService = navigationService;
+        }
 
         public async void OnNavigatedTo()
         {
@@ -72,6 +80,16 @@ namespace Sysadmin.ViewModels
                     break;
                 case "never_expires":
                     break;
+            }
+        }
+
+        [RelayCommand]
+        private void OnSelectedItemsChanged(IEnumerable<object> items)
+        {
+            if (items != null && items.Count() > 0)
+            {
+                UserEntry user = (UserEntry)items.First();
+                _navigationService.Navigate(typeof(Views.Pages.UserPage));
             }
         }
 

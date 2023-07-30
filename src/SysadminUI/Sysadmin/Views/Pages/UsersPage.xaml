@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:Sysadmin.Models"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:converters="clr-namespace:SysAdmin.Converters"
+    xmlns:converters="clr-namespace:SysAdmin.Converters" xmlns:Interactivity="http://schemas.microsoft.com/xaml/behaviors"
     Title="Users"
     d:DataContext="{d:DesignInstance local:UsersPage,
                                      IsDesignTimeCreatable=False}"
@@ -113,7 +113,13 @@
             Grid.Row="1"
             x:Name="users"
             ItemTemplate="{StaticResource ListViewTemplate}"
-            ItemsSource="{Binding ViewModel.Users, Mode=OneWay}" />
+            ItemsSource="{Binding ViewModel.Users, Mode=OneWay}">
+            <Interactivity:Interaction.Triggers>
+                <Interactivity:EventTrigger  EventName="SelectionChanged">
+                    <Interactivity:InvokeCommandAction Command="{Binding ViewModel.SelectedItemsChangedCommand}" CommandParameter="{Binding SelectedItems, ElementName=users}" />
+                </Interactivity:EventTrigger>
+            </Interactivity:Interaction.Triggers>
+        </ListView>
 
     </Grid>
 </ui:UiPage>
