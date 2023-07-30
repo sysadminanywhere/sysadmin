@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Sysadmin.Models;
 using Sysadmin.Services;
+using SysAdmin.ActiveDirectory.Services.Ldap;
 using SysAdmin.Services;
 using System.IO;
 using System.Reflection;
@@ -115,6 +116,9 @@ namespace Sysadmin
         {
             // For more info see https://docs.microsoft.com/en-us/dotnet/api/system.windows.application.dispatcherunhandledexception?view=windowsdesktop-6.0
         }
+
+        public static IServer SERVER = null;
+        public static ICredential CREDENTIAL = null;
 
     }
 }

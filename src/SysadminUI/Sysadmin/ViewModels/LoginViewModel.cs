@@ -1,14 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Extensions.DependencyInjection;
-using Sysadmin.Models;
 using Sysadmin.Services;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Windows;
-using System.Windows.Media;
+using SysAdmin.ActiveDirectory.Services.Ldap;
+using SysAdmin.Services;
+using System.Security;
+using System.Threading.Tasks;
 using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
 
@@ -24,11 +20,42 @@ namespace Sysadmin.ViewModels
 
         private MainWindowViewModel mainWindowViewModel;
 
-        public LoginViewModel(INavigationService navigationService, IStateService stateService, MainWindowViewModel mainWindowViewModel)
+        private ISettingsService settingsService;
+
+        [ObservableProperty]
+        private int _selectedIndex;
+
+        [ObservableProperty]
+        private string _userName;
+
+        [ObservableProperty]
+        private SecureString _password;
+
+        [ObservableProperty]
+        private bool _useCredentials;
+
+        [ObservableProperty]
+        private string _serverName;
+
+        [ObservableProperty]
+        private string _port = "389";
+
+        [ObservableProperty]
+        private bool _ssl;
+
+        [ObservableProperty]
+        private bool _showError;
+
+        [ObservableProperty]
+        private bool _showConnecting;
+
+
+        public LoginViewModel(INavigationService navigationService, IStateService stateService, MainWindowViewModel mainWindowViewModel, ISettingsService settingsService)
         {
             _navigationService = navigationService;
             this.stateService = stateService;
             this.mainWindowViewModel = mainWindowViewModel;
+            this.settingsService = settingsService;
         }
 
         public void OnNavigatedTo()
@@ -47,13 +74,72 @@ namespace Sysadmin.ViewModels
         }
 
         [RelayCommand]
-        private void OnLogin()
+        private async void OnLogin()
         {
-            stateService.IsLoggedIn = true;
 
-            mainWindowViewModel.InitializeViewModel();
+            ShowConnecting = true;
 
-            _navigationService.Navigate(typeof(Views.Pages.DashboardPage));
+            bool isConnected = false;
+
+
+            switch (SelectedIndex)
+            {
+                case 0:
+                    App.SERVER = null;
+                    if (UseCredentials)
+                    {
+                        App.CREDENTIAL = new Credential()
+                        {
+                            UserName = UserName,
+                            Password = Password.ToString()
+                        };
+                    }
+                    else
+                    {
+                        App.CREDENTIAL = null;
+                    }
+                    break;
+
+                case 1:
+                    App.SERVER = new SecureServer()
+                    {
+                        ServerName = ServerName,
+                        Port = int.Parse(Port),
+                        IsSSL = Ssl
+                    };
+                    App.CREDENTIAL = new Credential()
+                    {
+                        UserName = UserName,
+                        Password = Password.ToString()
+                    };
+                    break;
+            }
+
+
+            await Task.Run(() =>
+            {
+                using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
+                {
+                    isConnected = ldap.IsConnected;
+                }
+            });
+
+            if (isConnected)
+            {
+                settingsService.ServerName = ServerName;
+                settingsService.UserName = UserName;
+                settingsService.ServerPort = int.Parse(Port);
+                settingsService.IsSSL = Ssl;
+
+                stateService.IsLoggedIn = true;
+                mainWindowViewModel.InitializeViewModel();
+                _navigationService.Navigate(typeof(Views.Pages.DashboardPage));
+            }
+            else 
+            {
+                ShowError = true;
+            }
+
         }
 
     }

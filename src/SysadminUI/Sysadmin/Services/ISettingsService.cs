@@ -26,9 +26,7 @@ namespace SysAdmin.Services
 
         string ServerName { get; set; }
 
-        string UserNameOther { get; set; }
-
-        string UserNameCredentials { get; set; }
+        string UserName { get; set; }
 
         int ServerPort { get; set; }
 

@@ -20,77 +20,81 @@
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
     </Page.Resources>
 
-    <Grid x:Name="gridLogin"
+    <Grid>
+
+        <Grid x:Name="gridLogin"
           Width="400" 
           HorizontalAlignment="Center" 
           VerticalAlignment="Center">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <TabControl Grid.Row="1" HorizontalAlignment="Stretch">
-            <TabItem Header="Simple">
+            <TabControl Grid.Row="1" HorizontalAlignment="Stretch" SelectedIndex="{Binding ViewModel.SelectedIndex}">
+                <TabItem Header="Simple">
 
-                <StackPanel HorizontalAlignment="Stretch" Margin="8">
+                    <StackPanel HorizontalAlignment="Stretch">
 
-                    <TextBlock Text="Connect to current domain" Margin="0,16,0,0" />
+                        <TextBlock Text="Connect to current domain" Margin="0,16,0,0" />
 
-                    <ui:ToggleSwitch x:Name="toggleSwitch" Content="Credentials" Margin="4,16,4,4" IsChecked="False" />
+                        <ui:ToggleSwitch x:Name="toggleSwitch" Content="Credentials" Margin="4,16,4,16" IsChecked="{Binding ViewModel.UseCredentials}" />
 
-                    <StackPanel Visibility="{Binding IsChecked, ElementName=toggleSwitch, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
-                        <TextBlock Text="User name" Margin="0,16,0,4" />
-                        <TextBox x:Name="userNameCredentials" />
+                        <StackPanel Visibility="{Binding IsChecked, ElementName=toggleSwitch, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <TextBlock Text="User name" Margin="0,0,0,4" />
+                            <TextBox x:Name="userNameCredentials" Text="{Binding ViewModel.UserName}" />
 
-                        <TextBlock Text="Password" Margin="0,16,0,4" />
-                        <PasswordBox x:Name="passwordCredentials" Margin="0,0,0,16" />
+                            <TextBlock Text="Password" Margin="0,16,0,4" />
+                            <PasswordBox x:Name="passwordCredentials" Margin="0,0,0,16" PasswordChanged="password_PasswordChanged" />
+                        </StackPanel>
+
                     </StackPanel>
 
-                </StackPanel>
+                </TabItem>
 
-            </TabItem>
+                <TabItem Header="Advanced">
 
-            <TabItem Header="Advanced">
+                    <StackPanel HorizontalAlignment="Stretch" Margin="8">
 
-                <StackPanel HorizontalAlignment="Stretch" Margin="8">
+                        <TextBlock Text="Connect to other domain" Margin="0,16,0,4"/>
 
-                    <TextBlock Text="Connect to other domain" Margin="0,16,0,4"/>
+                        <TextBlock Text="Server" Margin="0,16,0,4"/>
+                        <TextBox x:Name="serverName" Text="{Binding ViewModel.ServerName}" />
 
-                    <TextBlock Text="Server" Margin="0,16,0,4"/>
-                    <TextBox x:Name="serverName" />
-
-                    <StackPanel Orientation="Horizontal" Margin="0,16,0,4">
-                        <TextBlock Text="Port" 
+                        <StackPanel Orientation="Horizontal" Margin="0,16,0,4">
+                            <TextBlock Text="Port" 
                                     VerticalAlignment="Center"
                                     Margin="0,0,4,0" />
-                        <ui:TextBox Text="389" />
+                            <ui:TextBox Text="{Binding ViewModel.Port}" />
 
-                        <TextBlock Text="SSL" 
+                            <TextBlock Text="SSL" 
                                     VerticalAlignment="Center"
                                     Margin="30,0,4,0" />
-                        <CheckBox x:Name="sslCheck" IsChecked="False" />
+                            <CheckBox x:Name="sslCheck" IsChecked="{Binding ViewModel.Ssl}" />
+                        </StackPanel>
+
+                        <TextBlock Text="User name" Margin="0,16,0,4"/>
+                        <TextBox x:Name="userNameOther" Text="{Binding ViewModel.UserName}" />
+
+                        <TextBlock Text="Password" Margin="0,16,0,4"/>
+                        <PasswordBox x:Name="passwordOther" Margin="0,0,0,16" PasswordChanged="password_PasswordChanged" />
+
                     </StackPanel>
 
-                    <TextBlock Text="User name" Margin="0,16,0,4"/>
-                    <TextBox x:Name="userNameOther" />
+                </TabItem>
+            </TabControl>
 
-                    <TextBlock Text="Password" Margin="0,16,0,4"/>
-                    <PasswordBox x:Name="passwordOther" Margin="0,0,0,16" />
-
-                </StackPanel>
-
-            </TabItem>
-        </TabControl>
-
-        <Button Content="Login"
+            <Button Content="Login"
                     Grid.Row="2"
                     Margin="4,16,4,4" 
                     HorizontalAlignment="Right" Command="{Binding ViewModel.LoginCommand, Mode=OneWay}"/>
 
+        </Grid>
+
+        <ui:Snackbar x:Name="snackbarError" Title="Connection error" Message="Server not available" Appearance="Danger" Timeout="5000" />
+        <ui:Snackbar x:Name="snackbarConnecting" Title="Connecting..." Message="Trying to connect" Appearance="Info" Timeout="5000" />
+
     </Grid>
 
-    <!--<Grid Margin="56,0">
-        <ui:Button Grid.Column="0" Command="{Binding ViewModel.LoginCommand, Mode=OneWay}" Content="Click me!" Icon="Fluent24" />
-    </Grid>-->
 </ui:UiPage>

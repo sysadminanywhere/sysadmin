@@ -16,7 +16,7 @@ namespace SysAdmin.Services
         {
             get
             {
-                return GetStringValue("ThemeSetting", "");
+                return GetStringValue("ThemeSetting", "theme_dark");
             }
             set { SetValue("ThemeSetting", value); }
         }
@@ -67,22 +67,13 @@ namespace SysAdmin.Services
             set { SetValue("ServerName", value); }
         }
 
-        public string UserNameOther
+        public string UserName
         {
             get
             {
-                return GetStringValue("UserNameOther");
+                return GetStringValue("UserName");
             }
-            set { SetValue("UserNameOther", value); }
-        }
-
-        public string UserNameCredentials
-        {
-            get
-            {
-                return GetStringValue("UserNameCredentials");
-            }
-            set { SetValue("UserNameCredentials", value); }
+            set { SetValue("UserName", value); }
         }
 
         public int ServerPort
