@@ -9,7 +9,9 @@ namespace Sysadmin.Services
     public interface  IExchangeService
     {
 
-        object Parameter { get; set; }
+        void SetParameter(object parameter);
+
+        object GetParameter();
 
     }
 }

@@ -8,6 +8,16 @@ namespace Sysadmin.Services
 {
     public class ExchangeService : IExchangeService
     {
-        public object Parameter { get; set; }
+        private object parameter;
+
+        public object GetParameter()
+        {
+            return parameter;
+        }
+
+        public void SetParameter(object parameter)
+        {
+            this.parameter = parameter;
+        }
     }
 }

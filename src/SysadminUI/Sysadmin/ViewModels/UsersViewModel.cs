@@ -91,7 +91,7 @@ namespace Sysadmin.ViewModels
         {
             if (items != null && items.Count() > 0)
             {
-                _exchangeService.Parameter = (UserEntry)items.First();
+                _exchangeService.SetParameter((UserEntry)items.First());
                 _navigationService.Navigate(typeof(Views.Pages.UserPage));
             }
         }

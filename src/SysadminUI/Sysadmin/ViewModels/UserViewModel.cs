@@ -28,7 +28,7 @@ namespace Sysadmin.ViewModels
             if (!_isInitialized)
                 InitializeViewModel();
 
-            User = (UserEntry)_exchangeService.Parameter;
+            User = (UserEntry)_exchangeService.GetParameter();
         }
 
         public void OnNavigatedFrom()
