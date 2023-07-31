@@ -79,13 +79,16 @@ namespace SysAdmin.ActiveDirectory.Services.Ldap
                 DefaultNamingContext = searchEntries[0].DirectoryAttributes["defaultNamingContext"].GetValue<string>();
                 DomainName = DefaultNamingContext.ToUpper().Replace("DC=", "").Replace(",", ".").ToLower();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                ErrorMessage = ex.Message;
                 ldapConnection = null;
             }
         }
 
         public bool IsConnected => ldapConnection != null;
+
+        public string ErrorMessage { get; private set; } = string.Empty;
 
         public async Task<List<LdapEntry>> SearchAsync(string filter)
         {

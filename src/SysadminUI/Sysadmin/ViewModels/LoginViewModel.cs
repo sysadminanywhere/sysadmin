@@ -43,6 +43,9 @@ namespace Sysadmin.ViewModels
         [ObservableProperty]
         private bool _ssl;
 
+        [ObservableProperty]
+        private string _errorMessage;
+
 
         public LoginViewModel(INavigationService navigationService, IStateService stateService, MainWindowViewModel mainWindowViewModel, ISettingsService settingsService)
         {
@@ -80,7 +83,7 @@ namespace Sysadmin.ViewModels
         {
 
             bool isConnected = false;
-
+            string message = string.Empty;
 
             switch (SelectedIndex)
             {
@@ -121,6 +124,7 @@ namespace Sysadmin.ViewModels
                 using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
                 {
                     isConnected = ldap.IsConnected;
+                    message = ldap.ErrorMessage;
                 }
             });
 
@@ -137,6 +141,10 @@ namespace Sysadmin.ViewModels
                 stateService.IsLoggedIn = true;
                 mainWindowViewModel.InitializeViewModel();
                 _navigationService.Navigate(typeof(Views.Pages.DashboardPage));
+            }
+            else
+            {
+                ErrorMessage = message;
             }
 
         }

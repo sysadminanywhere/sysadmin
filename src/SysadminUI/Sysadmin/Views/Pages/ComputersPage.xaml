@@ -17,13 +17,6 @@
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
 
-    <Grid Margin="56,0">
-        <ListView  ItemsSource="{Binding ViewModel.Computers, Mode=OneWay}">
-                <ListView.ItemTemplate>
-                    <DataTemplate DataType="{x:Type entities:ComputerEntry}" >
-                        <TextBlock Margin="8,4" Text="{Binding Name}"/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-        </ListView>
+    <Grid>
     </Grid>
 </ui:UiPage>

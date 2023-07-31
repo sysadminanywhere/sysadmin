@@ -21,6 +21,17 @@ namespace Sysadmin.Views.Pages
             ViewModel = viewModel;
 
             InitializeComponent();
+
+            ViewModel.PropertyChanged += ViewModel_PropertyChanged;
+        }
+
+        private void ViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "ErrorMessage")
+            {
+                snackbar.Message = ViewModel.ErrorMessage;
+                snackbar.Show();
+            }
         }
 
         private void password_PasswordChanged(object sender, System.Windows.RoutedEventArgs e)

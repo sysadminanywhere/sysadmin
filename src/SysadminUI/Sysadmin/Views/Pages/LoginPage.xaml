@@ -20,7 +20,9 @@
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
     </Page.Resources>
 
-    <Grid x:Name="gridLogin"
+    <Grid>
+
+        <Grid x:Name="gridLogin"
           Width="400" 
           HorizontalAlignment="Center" 
           VerticalAlignment="Center">
@@ -91,6 +93,10 @@
                     HorizontalAlignment="Right" 
                     Appearance="Primary"
                     Command="{Binding ViewModel.LoginCommand, Mode=OneWay}"/>
+
+    </Grid>
+
+    <ui:Snackbar VerticalAlignment="Top" x:Name="snackbar" Appearance="Danger" Title="Error" Icon="ErrorCircle12" Message="Connection error" Timeout="5000" />
 
     </Grid>
 
