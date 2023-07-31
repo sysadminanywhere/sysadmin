@@ -1,8 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
-using CommunityToolkit.Mvvm.Messaging.Messages;
-using Sysadmin.Messages;
+using Sysadmin.Services;
 using SysAdmin.ActiveDirectory.Models;
 using SysAdmin.ActiveDirectory.Repositories;
 using SysAdmin.ActiveDirectory.Services.Ldap;
@@ -20,15 +18,17 @@ namespace Sysadmin.ViewModels
         private bool _isInitialized = false;
 
         private INavigationService _navigationService;
+        private IExchangeService _exchangeService;
 
         [ObservableProperty]
         private IEnumerable<UserEntry> _users;
 
         private List<UserEntry> cache;
 
-        public UsersViewModel(INavigationService navigationService)
+        public UsersViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
             _navigationService = navigationService;
+            _exchangeService = exchangeService;
         }
 
         public async void OnNavigatedTo()
@@ -91,9 +91,8 @@ namespace Sysadmin.ViewModels
         {
             if (items != null && items.Count() > 0)
             {
-                UserEntry user = (UserEntry)items.First();
+                _exchangeService.Parameter = (UserEntry)items.First();
                 _navigationService.Navigate(typeof(Views.Pages.UserPage));
-                WeakReferenceMessenger.Default.Send(new UserSelectededMessage(user));
             }
         }
 

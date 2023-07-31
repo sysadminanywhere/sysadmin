@@ -71,7 +71,7 @@
                                    Style="{StaticResource FormLabelStyle}"
                                     VerticalAlignment="Center"
                                     Margin="30,0,4,0" />
-                        <CheckBox x:Name="sslCheck" IsChecked="{Binding ViewModel.Ssl}" />
+                        <CheckBox x:Name="sslCheck" IsChecked="{Binding ViewModel.Ssl}" Checked="sslCheck_Checked" Unchecked="sslCheck_Unchecked" />
                     </StackPanel>
 
                     <TextBlock Text="User name" Margin="0,16,0,4" Style="{StaticResource FormLabelStyle}"/>

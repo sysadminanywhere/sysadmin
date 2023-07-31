@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Sysadmin.Views.Windows;
 using System;
 using System.Linq;
 using System.Threading;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Controls;
 
@@ -29,6 +30,17 @@ namespace Sysadmin.Views.Pages
                 ViewModel.Password = ((System.Windows.Controls.PasswordBox)sender).SecurePassword;
             }
         }
+
+        private void sslCheck_Checked(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Port = "636";
+        }
+
+        private void sslCheck_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Port = "389";
+        }
+
     }
 
 }
