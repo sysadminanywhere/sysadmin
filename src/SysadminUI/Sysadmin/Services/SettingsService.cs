@@ -77,7 +77,7 @@ namespace SysAdmin.Services
         {
             get
             {
-                return GetIntValue("ServerPort");
+                return GetIntValue("ServerPort", 389);
             }
             set { SetValue("ServerPort", value); }
         }

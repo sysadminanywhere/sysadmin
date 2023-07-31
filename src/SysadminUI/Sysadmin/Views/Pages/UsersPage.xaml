@@ -7,7 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:Sysadmin.Models"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:converters="clr-namespace:SysAdmin.Converters" xmlns:Interactivity="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:converters="clr-namespace:SysAdmin.Converters" 
+    xmlns:Interactivity="http://schemas.microsoft.com/xaml/behaviors"
     Title="Users"
     d:DataContext="{d:DesignInstance local:UsersPage,
                                      IsDesignTimeCreatable=False}"
@@ -69,7 +70,7 @@
                 Margin="24"
                 Grid.Column="0" 
                 Text="Users"
-                Style="{StaticResource TitleTextBlockStyle}"/>
+                Style="{StaticResource TitleDetailPageStyle}"/>
 
             <Menu Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent">
                 <ui:AutoSuggestBox MinWidth="200" Icon="Search12" PlaceholderText="Search..."/>

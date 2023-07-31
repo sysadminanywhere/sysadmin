@@ -29,7 +29,7 @@
         <Setter Property="Margin" Value="16,0,0,0"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
-        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontSize" Value="20"/>
     </Style>
 
 
