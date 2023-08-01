@@ -67,7 +67,7 @@
                                    Style="{StaticResource FormLabelStyle}"
                                     VerticalAlignment="Center"
                                     Margin="0,0,4,0" />
-                        <ui:TextBox Text="{Binding ViewModel.Port}" />
+                        <ui:TextBox Text="{Binding ViewModel.Port}" TextChanged="TextBox_TextChanged" />
 
                         <TextBlock Text="SSL" 
                                    Style="{StaticResource FormLabelStyle}"
@@ -87,7 +87,8 @@
             </TabItem>
         </TabControl>
 
-        <ui:Button Content="Login"
+        <ui:Button x:Name="btnLogin"
+                   Content="Login"
                     Grid.Row="2"
                     Margin="4,16,4,4" 
                     HorizontalAlignment="Right" 

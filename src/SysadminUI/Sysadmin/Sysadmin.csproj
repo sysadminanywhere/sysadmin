@@ -42,8 +42,4 @@
     <ProjectReference Include="..\..\Sysadmin.WMI\Sysadmin.WMI.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-  </ItemGroup>
-
 </Project>

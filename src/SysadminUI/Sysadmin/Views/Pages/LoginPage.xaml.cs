@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Windows;
 using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Controls;
@@ -52,6 +53,18 @@ namespace Sysadmin.Views.Pages
             ViewModel.Port = "389";
         }
 
+        private void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (btnLogin != null)
+            {
+                TextBox txt = (TextBox)sender;
+                Regex regex = new Regex("[^0-9]+");
+                if (regex.IsMatch(txt.Text))
+                    btnLogin.IsEnabled = false;
+                else
+                    btnLogin.IsEnabled = true;
+            }
+        }
     }
 
 }
