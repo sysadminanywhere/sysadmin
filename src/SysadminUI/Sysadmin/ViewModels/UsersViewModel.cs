@@ -7,8 +7,8 @@ using SysAdmin.ActiveDirectory.Services.Ldap;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using Wpf.Ui.Common.Interfaces;
+using Wpf.Ui.Controls;
 using Wpf.Ui.Mvvm.Contracts;
 
 namespace Sysadmin.ViewModels

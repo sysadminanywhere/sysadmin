@@ -7,6 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:Sysadmin.Models"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:converters="clr-namespace:SysAdmin.Converters" 
+    xmlns:Interactivity="http://schemas.microsoft.com/xaml/behaviors"
     Title="Reports"
     d:DataContext="{d:DesignInstance local:ReportsPage,
                                      IsDesignTimeCreatable=False}"
@@ -15,8 +17,74 @@
     d:Background="{DynamicResource ApplicationBackgroundBrush}"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
+    <Page.Resources>
 
-    <Grid Margin="56,0">
+        <converters:EmptyToCollapsedConverter x:Key="EmptyToCollapsedConverter"/>
+
+        <DataTemplate x:Key="ListViewTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ui:SymbolIcon 
+                    Width="32" 
+                    Height="32" 
+                    Margin="6"
+                    Grid.RowSpan="2"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Symbol="Person24"/>
+                <TextBlock 
+                    Grid.Column="1"
+                    Text="{Binding CN}"
+                    Margin="0,6,0,0"/>
+                <TextBlock  
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Visibility="{Binding Description, Converter={StaticResource EmptyToCollapsedConverter}}"
+                    Text="{Binding Description}"
+                    Margin="0,0,0,6"/>
+            </Grid>
+        </DataTemplate>
+
+    </Page.Resources>
+
+    <Grid Margin="16,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock 
+                Margin="24"
+                Grid.Column="0" 
+                Text="Reports"
+                Style="{StaticResource TitleDetailPageStyle}"/>
+
+        </Grid>
+
+        <ListView
+            Grid.Row="1"
+            x:Name="users"
+            ItemTemplate="{StaticResource ListViewTemplate}"
+            ItemsSource="{Binding ViewModel.Users, Mode=OneWay}">
+            <Interactivity:Interaction.Triggers>
+                <Interactivity:EventTrigger  EventName="SelectionChanged">
+                    <Interactivity:InvokeCommandAction Command="{Binding ViewModel.SelectedItemsChangedCommand}" CommandParameter="{Binding SelectedItems, ElementName=users}" />
+                </Interactivity:EventTrigger>
+            </Interactivity:Interaction.Triggers>
+        </ListView>
 
     </Grid>
 </ui:UiPage>
