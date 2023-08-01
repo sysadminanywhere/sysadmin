@@ -25,6 +25,9 @@ namespace Sysadmin.ViewModels
 
         private List<GroupEntry> cache;
 
+        [ObservableProperty]
+        private bool _isBusy;
+
         public GroupsViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
             _navigationService = navigationService;
@@ -91,13 +94,16 @@ namespace Sysadmin.ViewModels
         {
             if (items != null && items.Count() > 0)
             {
-                _exchangeService.SetParameter((UserEntry)items.First());
-                _navigationService.Navigate(typeof(Views.Pages.UserPage));
+                _exchangeService.SetParameter((GroupEntry)items.First());
+                _navigationService.Navigate(typeof(Views.Pages.GroupPage));
             }
         }
 
         public async Task ListAsync()
         {
+
+            IsBusy = true;
+
             await Task.Run(async () =>
             {
                 using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
@@ -111,6 +117,8 @@ namespace Sysadmin.ViewModels
                     }
                 }
             });
+
+            IsBusy = false;
         }
 
 

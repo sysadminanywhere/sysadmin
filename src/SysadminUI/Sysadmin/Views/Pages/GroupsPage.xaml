@@ -20,7 +20,8 @@
     <Page.Resources>
 
         <converters:EmptyToCollapsedConverter x:Key="EmptyToCollapsedConverter"/>
-
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        
         <DataTemplate x:Key="ListViewTemplate">
             <Grid>
                 <Grid.RowDefinitions>
@@ -32,23 +33,18 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <ui:SymbolIcon 
-                    Width="32" 
-                    Height="32" 
-                    Margin="6"
                     Grid.RowSpan="2"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    Symbol="Person24"/>
+                    Symbol="People24"/>
                 <TextBlock 
                     Grid.Column="1"
                     Text="{Binding CN}"
-                    Margin="0,6,0,0"/>
+                    Style="{StaticResource ListNameStyle}" />
                 <TextBlock  
                     Grid.Column="1"
                     Grid.Row="1"
                     Visibility="{Binding Description, Converter={StaticResource EmptyToCollapsedConverter}}"
                     Text="{Binding Description}"
-                    Margin="0,0,0,6"/>
+                    Style="{StaticResource ListDescriptionStyle}" />
             </Grid>
         </DataTemplate>
 
@@ -121,6 +117,8 @@
                 </Interactivity:EventTrigger>
             </Interactivity:Interaction.Triggers>
         </ListView>
+
+        <ui:ProgressRing IsIndeterminate="True" Grid.Row="1" Visibility="{Binding ViewModel.IsBusy, Converter={StaticResource BoolToVisibilityConverter}}" Margin="2,179,-2,179" />
 
     </Grid>
 </ui:UiPage>

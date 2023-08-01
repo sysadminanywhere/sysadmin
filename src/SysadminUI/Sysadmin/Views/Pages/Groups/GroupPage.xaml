@@ -1,5 +1,5 @@
 ﻿<ui:UiPage
-    x:Class="Sysadmin.Views.Pages.UserPage"
+    x:Class="Sysadmin.Views.Pages.GroupPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,7 +8,7 @@
     xmlns:converters="clr-namespace:SysAdmin.Converters"
     xmlns:models="clr-namespace:Sysadmin.Models"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    Title="User"
+    Title="Group"
     d:DataContext="{d:DesignInstance local:UserPage,
                                      IsDesignTimeCreatable=False}"
     d:DesignHeight="450"
@@ -44,13 +44,13 @@
                 Margin="40,24,24,24">
 
                 <TextBlock                
-                    Text="{Binding ViewModel.User.CN}"
+                    Text="{Binding ViewModel.Group.CN}"
                     Style="{StaticResource TitleTextBlockStyle}"/>
 
                 <TextBlock 
-                    Visibility="{Binding ViewModel.User.Description, Mode=OneWay, Converter={StaticResource EmptyToCollapsedConverter}}"
-                    Text="{Binding ViewModel.User.Description, Mode=OneWay}"
-                    Style="{StaticResource SubTitleDetailPageStyle}"/>
+                    Visibility="{Binding ViewModel.Group.Description, Mode=OneWay, Converter={StaticResource EmptyToCollapsedConverter}}"
+                    Text="{Binding ViewModel.Group.Description, Mode=OneWay}"
+                    Style="{StaticResource SubTitleDetailPageStyle}" />
             </StackPanel>
 
             <Menu Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent">
@@ -117,42 +117,10 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
             </Grid.RowDefinitions>
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="0" Grid.Column="0" Text="Display name" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="0" Grid.Column="1" Text="{Binding ViewModel.User.DisplayName, Mode=OneWay}" />
-
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="1" Grid.Column="0" Text="Company" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="1" Grid.Column="1" Text="{Binding ViewModel.User.Company, Mode=OneWay}" />
-
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="2" Grid.Column="0" Text="Title" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="2" Grid.Column="1" Text="{Binding ViewModel.User.Title, Mode=OneWay}" />
-
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="3" Grid.Column="0" Text="Email" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="3" Grid.Column="1" Text="{Binding ViewModel.User.EmailAddress, Mode=OneWay}" />
-
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="4" Grid.Column="0" Text="Mobile phone" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="4" Grid.Column="1" Text="{Binding ViewModel.User.MobilePhone, Mode=OneWay}" />
-
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="5" Grid.Column="0" Text="Office phone" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="5" Grid.Column="1" Text="{Binding ViewModel.User.OfficePhone, Mode=OneWay}" />
-
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="6" Grid.Column="0" Text="Home phone" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="6" Grid.Column="1" Text="{Binding ViewModel.User.HomePhone, Mode=OneWay}" />
-
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="7" Grid.Column="0" Text="Last logon" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="7" Grid.Column="1" Text="{Binding ViewModel.User.LastLogon, Mode=OneWay}" />
-
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="8" Grid.Column="0" Text="Last password set" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="8" Grid.Column="1" Text="{Binding ViewModel.User.PasswordLastSet, Mode=OneWay}" />
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="0" Grid.Column="0" Text="Group type" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="0" Grid.Column="1" Text="{Binding ViewModel.Group.ADGroupType, Mode=OneWay}" />
         </Grid>
 
     </Grid>

@@ -23,6 +23,9 @@ namespace Sysadmin.ViewModels
         [ObservableProperty]
         private IEnumerable<UserEntry> _users;
 
+        [ObservableProperty]
+        private bool _isBusy;
+
         private List<UserEntry> cache;
 
         public UsersViewModel(INavigationService navigationService, IExchangeService exchangeService)
@@ -98,6 +101,9 @@ namespace Sysadmin.ViewModels
 
         public async Task ListAsync()
         {
+
+            IsBusy = true;
+
             await Task.Run(async () =>
             {
                 using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
@@ -111,6 +117,8 @@ namespace Sysadmin.ViewModels
                     }
                 }
             });
+
+            IsBusy = false;
         }
 
 

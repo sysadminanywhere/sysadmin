@@ -66,6 +66,10 @@ namespace Sysadmin
                 services.AddScoped<Views.Pages.UsersPage>();
                 services.AddScoped<Views.Pages.LoginPage>();
                 services.AddScoped<Views.Pages.UserPage>();
+                services.AddScoped<Views.Pages.ComputerPage>();
+                services.AddScoped<Views.Pages.ContactPage>();
+                services.AddScoped<Views.Pages.GroupPage>();
+                services.AddScoped<Views.Pages.PrinterPage>();
 
                 services.AddScoped<ViewModels.ComputersViewModel>();
                 services.AddScoped<ViewModels.ContactsViewModel>();
@@ -75,6 +79,10 @@ namespace Sysadmin
                 services.AddScoped<ViewModels.UsersViewModel>();
                 services.AddScoped<ViewModels.LoginViewModel>();
                 services.AddScoped<ViewModels.UserViewModel>();
+                services.AddScoped<ViewModels.ComputerViewModel>();
+                services.AddScoped<ViewModels.ContactViewModel>();
+                services.AddScoped<ViewModels.GroupViewModel>();
+                services.AddScoped<ViewModels.PrinterViewModel>();
 
                 services.AddSingleton<ISettingsService, SettingsService>();
                 services.AddSingleton<IStateService, StateService>();
