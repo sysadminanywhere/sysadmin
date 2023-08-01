@@ -87,6 +87,7 @@ namespace Sysadmin
                 services.AddSingleton<ISettingsService, SettingsService>();
                 services.AddSingleton<IStateService, StateService>();
                 services.AddSingleton<IExchangeService, ExchangeService>();
+                services.AddSingleton<IWindowService, WindowService>();
 
                 // Configuration
                 services.Configure<AppConfig>(context.Configuration.GetSection(nameof(AppConfig)));

@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Sysadmin.Services;
+using Sysadmin.Views.Pages;
 using SysAdmin.ActiveDirectory.Models;
 using SysAdmin.ActiveDirectory.Repositories;
 using SysAdmin.ActiveDirectory.Services.Ldap;
@@ -19,6 +20,7 @@ namespace Sysadmin.ViewModels
 
         private INavigationService _navigationService;
         private IExchangeService _exchangeService;
+        private IWindowService _windowService;
 
         [ObservableProperty]
         private IEnumerable<ComputerEntry> _computers;
@@ -28,10 +30,11 @@ namespace Sysadmin.ViewModels
         [ObservableProperty]
         private bool _isBusy;
 
-        public ComputersViewModel(INavigationService navigationService, IExchangeService exchangeService)
+        public ComputersViewModel(INavigationService navigationService, IExchangeService exchangeService, IWindowService windowService)
         {
             _navigationService = navigationService;
             _exchangeService = exchangeService;
+            _windowService = windowService;
         }
 
         public async void OnNavigatedTo()
@@ -54,7 +57,7 @@ namespace Sysadmin.ViewModels
         [RelayCommand]
         private void OnAdd()
         {
-
+            _windowService.AddComputerWindow();
         }
 
         [RelayCommand]

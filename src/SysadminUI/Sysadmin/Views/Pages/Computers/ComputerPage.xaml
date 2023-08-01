@@ -54,7 +54,7 @@
             </StackPanel>
 
             <Menu Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent">
-                <ui:MenuItem Command="{Binding ViewModel.AddCommand}">
+                <ui:MenuItem Command="{Binding ViewModel.EditCommand}">
                     <ui:MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <ui:SymbolIcon Symbol="Edit16" Margin="0,0,8,0" />

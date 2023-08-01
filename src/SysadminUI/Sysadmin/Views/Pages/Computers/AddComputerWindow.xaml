@@ -1,0 +1,36 @@
+﻿<ui:UiWindow x:Class="Sysadmin.Views.Pages.Computers.AddComputerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:local="clr-namespace:Sysadmin.Views.Pages.Computers"
+        mc:Ignorable="d"
+        Title="Add Computer"
+        ExtendsContentIntoTitleBar="True"
+        WindowBackdropType="Mica"
+        WindowCornerPreference="Round"
+        SizeToContent="WidthAndHeight" 
+        WindowStartupLocation="CenterScreen" 
+        ResizeMode="NoResize">
+    
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Add computer" Style="{StaticResource FormTitleStyle}" />
+
+        <TextBlock Grid.Row="1" Style="{StaticResource FormLabelStyle}">Введите пароль:</TextBlock>
+        <TextBox Name="passwordBox" Grid.Row="2" MinWidth="250">Пароль</TextBox>
+
+        <WrapPanel Grid.Row="3" HorizontalAlignment="Right" Margin="0,15,0,0" VerticalAlignment="Bottom">
+            <ui:Button Appearance="Primary" IsDefault="True" MinWidth="60" Margin="0,0,10,0">OK</ui:Button>
+            <ui:Button Appearance="Secondary" IsCancel="True" MinWidth="60">Отмена</ui:Button>
+        </WrapPanel>
+
+    </Grid>
+</ui:UiWindow>
