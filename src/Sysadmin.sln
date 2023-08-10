@@ -29,6 +29,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sysadmin UI", "Sysadmin UI"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sysadmin", "SysadminUI\Sysadmin\Sysadmin.csproj", "{3A0A75EF-D7F0-4788-A177-F8BED84CDA6A}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupSysadmin", "SetupSysadmin\SetupSysadmin.vdproj", "{B3A3DA23-684A-4F83-B824-6FE813968C32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -153,6 +155,14 @@ Global
 		{3A0A75EF-D7F0-4788-A177-F8BED84CDA6A}.Release|x64.Build.0 = Release|Any CPU
 		{3A0A75EF-D7F0-4788-A177-F8BED84CDA6A}.Release|x86.ActiveCfg = Release|Any CPU
 		{3A0A75EF-D7F0-4788-A177-F8BED84CDA6A}.Release|x86.Build.0 = Release|Any CPU
+		{B3A3DA23-684A-4F83-B824-6FE813968C32}.Debug|Any CPU.ActiveCfg = Debug
+		{B3A3DA23-684A-4F83-B824-6FE813968C32}.Debug|arm64.ActiveCfg = Debug
+		{B3A3DA23-684A-4F83-B824-6FE813968C32}.Debug|x64.ActiveCfg = Debug
+		{B3A3DA23-684A-4F83-B824-6FE813968C32}.Debug|x86.ActiveCfg = Debug
+		{B3A3DA23-684A-4F83-B824-6FE813968C32}.Release|Any CPU.ActiveCfg = Release
+		{B3A3DA23-684A-4F83-B824-6FE813968C32}.Release|arm64.ActiveCfg = Release
+		{B3A3DA23-684A-4F83-B824-6FE813968C32}.Release|x64.ActiveCfg = Release
+		{B3A3DA23-684A-4F83-B824-6FE813968C32}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -165,6 +175,7 @@ Global
 		{AF20EFD2-DE09-4D4B-A277-0046CC20D369} = {011E69B9-B02B-4226-B558-85D222133CCE}
 		{14BD1EBC-81DA-48E5-ACE8-BCFFD16C40C8} = {68C6B0AE-673B-4A5B-8596-6993081E7965}
 		{3A0A75EF-D7F0-4788-A177-F8BED84CDA6A} = {DE43940C-85E0-421D-B2C6-DB1B63DE7908}
+		{B3A3DA23-684A-4F83-B824-6FE813968C32} = {DE43940C-85E0-421D-B2C6-DB1B63DE7908}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ABCBFF47-219B-4192-920A-5F6EEB0CD40F}
