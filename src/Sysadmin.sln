@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SysAdmin", "Sysadmin\Sysadmin\SysAdmin.csproj", "{2C5B188D-2D82-4DC1-872B-A7D4CD7794A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SysAdminOld", "Sysadmin\Sysadmin\SysAdminOld.csproj", "{2C5B188D-2D82-4DC1-872B-A7D4CD7794A4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastReport.ReportBuilder", "FastReport.ReportBuilder\FastReport.ReportBuilder.csproj", "{A966F6A7-9262-4504-9A3D-F77081B901EF}"
 EndProject
