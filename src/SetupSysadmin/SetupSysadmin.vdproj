@@ -13,6 +13,18 @@
 "SccProvider" = "8:"
     "Hierarchy"
     {
+        "Entry"
+        {
+        "MsmKey" = "8:_16A8D45DA2B24B458DE41FD36C7C0F99"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_1AF9D1F871B1461D8F148000BE530F63"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -70,6 +82,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
     }
@@ -102,6 +122,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_16A8D45DA2B24B458DE41FD36C7C0F99"
+            {
+            "SourcePath" = "8:..\\SysadminUI\\Sysadmin\\applicationIcon.ico"
+            "TargetName" = "8:applicationIcon.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_9DAE7AD817864C4AA91187A3D5555D20"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -117,6 +157,17 @@
             "Property" = "8:ProgramMenuFolder"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_38E90385D8EF429086C80B20840AC929"
+                    {
+                    "Name" = "8:Sysadmin Anywhere"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_231F47F9269B4CD4A27CFE01F9A0789B"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_9DAE7AD817864C4AA91187A3D5555D20"
@@ -157,26 +208,26 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:Setup Sysadmin"
-        "ProductCode" = "8:{9E27261D-825D-4831-A0C6-01F72C831288}"
-        "PackageCode" = "8:{98D78A51-53D8-4EB7-8A44-D04D5DD9FC50}"
+        "ProductName" = "8:Sysadmin"
+        "ProductCode" = "8:{CAB2D86D-DF70-434B-A0B7-45896A88AA23}"
+        "PackageCode" = "8:{EAF3BCC1-85EA-4966-9488-F146CE323973}"
         "UpgradeCode" = "8:{C01F9305-86D4-41F7-92DF-68444E0F27E0}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:Default Company Name"
+        "ProductVersion" = "8:10.0.0"
+        "Manufacturer" = "8:Sysadmin Anywhere"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:Setup Sysadmin"
+        "Title" = "8:Sysadmin"
         "Subject" = "8:"
-        "ARPCONTACT" = "8:Default Company Name"
+        "ARPCONTACT" = "8:Sysadmin Anywhere"
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:"
+        "ARPPRODUCTICON" = "8:_16A8D45DA2B24B458DE41FD36C7C0F99"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -279,6 +330,20 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_88CBD49197844C23B30697CCA359DB6D"
+            {
+            "Name" = "8:Sysadmin"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_1AF9D1F871B1461D8F148000BE530F63"
+            "Folder" = "8:_38E90385D8EF429086C80B20840AC929"
+            "WorkingFolder" = "8:_9DAE7AD817864C4AA91187A3D5555D20"
+            "Icon" = "8:_16A8D45DA2B24B458DE41FD36C7C0F99"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {
@@ -678,9 +743,9 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_C7B1C1252B6F4E70ACB89FFF58388A7F"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_1AF9D1F871B1461D8F148000BE530F63"
             {
-            "SourcePath" = "8:"
+            "SourcePath" = "8:..\\SysadminUI\\Sysadmin\\obj\\Release\\net6.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_9DAE7AD817864C4AA91187A3D5555D20"
@@ -698,7 +763,7 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:Release|Any CPU"
+            "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:PublishItems"
             "OutputProjectGuid" = "8:{3A0A75EF-D7F0-4788-A177-F8BED84CDA6A}"
             "ShowKeyOutput" = "11:TRUE"

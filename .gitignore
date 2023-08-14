@@ -27,3 +27,4 @@ src/SysadminUI/Sysadmin/obj
 /src/Sysadmin/Sysadmin (Package)/SysAdmin (Package).assets.cache
 src/SetupSysadmin/Debug
 *.user
+src/SetupSysadmin/Release
