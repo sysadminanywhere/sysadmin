@@ -19,6 +19,7 @@ namespace Sysadmin.ViewModels
 
         private INavigationService _navigationService;
         private IExchangeService _exchangeService;
+        private IWindowService _windowService;
 
         [ObservableProperty]
         private IEnumerable<ContactEntry> _contacts;
@@ -28,10 +29,11 @@ namespace Sysadmin.ViewModels
         [ObservableProperty]
         private bool _isBusy;
 
-        public ContactsViewModel(INavigationService navigationService, IExchangeService exchangeService)
+        public ContactsViewModel(INavigationService navigationService, IExchangeService exchangeService, IWindowService windowService)
         {
             _navigationService = navigationService;
             _exchangeService = exchangeService;
+            _windowService = windowService;
         }
 
         public async void OnNavigatedTo()
@@ -54,7 +56,7 @@ namespace Sysadmin.ViewModels
         [RelayCommand]
         private void OnAdd()
         {
-
+            _windowService.AddContactWindow();
         }
 
         [RelayCommand]

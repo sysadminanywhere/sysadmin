@@ -9,6 +9,8 @@ namespace Sysadmin.Services
     public interface IWindowService
     {
         void AddComputerWindow();
-
+        void AddUserWindow();
+        void AddGroupWindow();
+        void AddContactWindow();
     }
 }

@@ -1,12 +1,12 @@
-﻿<ui:UiWindow x:Class="Sysadmin.Views.Pages.Computers.AddComputerWindow"
+﻿<ui:UiWindow x:Class="Sysadmin.Views.Pages.Groups.AddGroupWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-        xmlns:local="clr-namespace:Sysadmin.Views.Pages.Computers"
+        xmlns:local="clr-namespace:Sysadmin.Views.Pages.Groups"
         mc:Ignorable="d"
-        Title="Add Computer"
+        Title="Add Group"
         ExtendsContentIntoTitleBar="True"
         WindowBackdropType="Mica"
         WindowCornerPreference="Round"
@@ -22,7 +22,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Add computer" Style="{StaticResource FormTitleStyle}" />
+        <TextBlock Grid.Row="0" Text="Add Group" Style="{StaticResource FormTitleStyle}" />
 
         <StackPanel Grid.Row="1">
             <TextBlock Style="{StaticResource FormLabelStyle}">Name</TextBlock>
