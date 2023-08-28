@@ -10,10 +10,11 @@
         ExtendsContentIntoTitleBar="True"
         WindowBackdropType="Mica"
         WindowCornerPreference="Round"
-        SizeToContent="WidthAndHeight" 
-        WindowStartupLocation="CenterScreen" 
-        ResizeMode="NoResize">
-    
+        Width="270" 
+        Height="200" 
+        ResizeMode="NoResize" 
+        WindowStartupLocation="CenterScreen">
+
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
