@@ -2,6 +2,9 @@
 using CommunityToolkit.Mvvm.Input;
 using Sysadmin.Services;
 using SysAdmin.ActiveDirectory.Models;
+using SysAdmin.ActiveDirectory.Repositories;
+using SysAdmin.ActiveDirectory.Services.Ldap;
+using System.Threading.Tasks;
 using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
 
@@ -21,6 +24,8 @@ namespace Sysadmin.ViewModels
         {
             _navigationService = navigationService;
             _exchangeService = exchangeService;
+
+            Computer = new ComputerEntry();
         }
 
         public void OnNavigatedTo()
@@ -45,6 +50,20 @@ namespace Sysadmin.ViewModels
         private void OnClose()
         {
             _navigationService.Navigate(typeof(Views.Pages.ComputersPage));
+        }
+
+        public async Task AddAsync()
+        {
+            await Task.Run(() =>
+            {
+                using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
+                {
+                    using (var computersRepository = new ComputersRepository(ldap))
+                    {
+                        _ = computersRepository.AddAsync(Computer, true);
+                    }
+                }
+            });
         }
 
     }

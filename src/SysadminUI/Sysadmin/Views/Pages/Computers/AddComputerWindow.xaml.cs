@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Controls;
 
 namespace Sysadmin.Views.Pages.Computers
@@ -19,9 +8,25 @@ namespace Sysadmin.Views.Pages.Computers
     /// </summary>
     public partial class AddComputerWindow : UiWindow
     {
-        public AddComputerWindow()
+
+        public ViewModels.ComputerViewModel ViewModel
         {
+            get;
+        }
+
+        public AddComputerWindow(ViewModels.ComputerViewModel viewModel)
+        {
+            ViewModel = viewModel;
+
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ViewModel.AddAsync();
+
+            this.Close();
+        }
     }
+
 }

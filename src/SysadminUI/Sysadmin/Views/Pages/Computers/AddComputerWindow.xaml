@@ -26,14 +26,14 @@
 
         <StackPanel Grid.Row="1">
             <TextBlock Style="{StaticResource FormLabelStyle}">Name</TextBlock>
-            <TextBox MinWidth="250"/>
+            <TextBox Text="{Binding ViewModel.Computer.Name, Mode=TwoWay}" MinWidth="250"/>
 
             <TextBlock Style="{StaticResource FormLabelStyle}">Description</TextBlock>
-            <TextBox MinWidth="250"/>
+            <TextBox Text="{Binding ViewModel.Computer.Description, Mode=TwoWay}" MinWidth="250"/>
         </StackPanel>
 
         <WrapPanel Grid.Row="2" HorizontalAlignment="Right" Margin="0,8,0,0" VerticalAlignment="Bottom">
-            <ui:Button Appearance="Primary" IsDefault="True" MinWidth="60" Margin="0,0,10,0">OK</ui:Button>
+            <ui:Button Appearance="Primary" IsDefault="True" MinWidth="60" Margin="0,0,10,0" Click="Button_Click">OK</ui:Button>
             <ui:Button Appearance="Secondary" IsCancel="True" MinWidth="60">Отмена</ui:Button>
         </WrapPanel>
 
