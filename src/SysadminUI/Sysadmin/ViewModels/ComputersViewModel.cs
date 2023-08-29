@@ -20,7 +20,6 @@ namespace Sysadmin.ViewModels
 
         private INavigationService _navigationService;
         private IExchangeService _exchangeService;
-        private IWindowService _windowService;
 
         [ObservableProperty]
         private IEnumerable<ComputerEntry> _computers;
@@ -30,11 +29,10 @@ namespace Sysadmin.ViewModels
         [ObservableProperty]
         private bool _isBusy;
 
-        public ComputersViewModel(INavigationService navigationService, IExchangeService exchangeService, IWindowService windowService)
+        public ComputersViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
             _navigationService = navigationService;
             _exchangeService = exchangeService;
-            _windowService = windowService;
         }
 
         public async void OnNavigatedTo()
@@ -57,7 +55,7 @@ namespace Sysadmin.ViewModels
         [RelayCommand]
         private void OnAdd()
         {
-            _windowService.AddComputerWindow();
+            _navigationService.Navigate(typeof(Views.Pages.AddComputerPage));
         }
 
         [RelayCommand]

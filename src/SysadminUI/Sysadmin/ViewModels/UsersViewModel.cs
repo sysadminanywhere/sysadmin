@@ -19,7 +19,6 @@ namespace Sysadmin.ViewModels
 
         private INavigationService _navigationService;
         private IExchangeService _exchangeService;
-        private IWindowService _windowService;
 
         [ObservableProperty]
         private IEnumerable<UserEntry> _users;
@@ -29,11 +28,10 @@ namespace Sysadmin.ViewModels
 
         private List<UserEntry> cache;
 
-        public UsersViewModel(INavigationService navigationService, IExchangeService exchangeService, IWindowService windowService)
+        public UsersViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
             _navigationService = navigationService;
             _exchangeService = exchangeService;
-            _windowService = windowService;
         }
 
         public async void OnNavigatedTo()
@@ -56,7 +54,7 @@ namespace Sysadmin.ViewModels
         [RelayCommand]
         private void OnAdd()
         {
-            _windowService.AddUserWindow();
+            _navigationService.Navigate(typeof(Views.Pages.AddUserPage));
         }
 
         [RelayCommand]

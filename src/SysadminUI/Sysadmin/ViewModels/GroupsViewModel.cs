@@ -19,7 +19,6 @@ namespace Sysadmin.ViewModels
 
         private INavigationService _navigationService;
         private IExchangeService _exchangeService;
-        private IWindowService _windowService;
 
         [ObservableProperty]
         private IEnumerable<GroupEntry> _groups;
@@ -29,11 +28,10 @@ namespace Sysadmin.ViewModels
         [ObservableProperty]
         private bool _isBusy;
 
-        public GroupsViewModel(INavigationService navigationService, IExchangeService exchangeService, IWindowService windowService)
+        public GroupsViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
             _navigationService = navigationService;
             _exchangeService = exchangeService;
-            _windowService = windowService;
         }
 
         public async void OnNavigatedTo()
@@ -56,7 +54,7 @@ namespace Sysadmin.ViewModels
         [RelayCommand]
         private void OnAdd()
         {
-            _windowService.AddGroupWindow();
+            _navigationService.Navigate(typeof(Views.Pages.AddGroupPage));
         }
 
         [RelayCommand]

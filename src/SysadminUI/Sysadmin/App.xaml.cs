@@ -70,6 +70,10 @@ namespace Sysadmin
                 services.AddScoped<Views.Pages.ContactPage>();
                 services.AddScoped<Views.Pages.GroupPage>();
                 services.AddScoped<Views.Pages.PrinterPage>();
+                services.AddScoped<Views.Pages.AddComputerPage>();
+                services.AddScoped<Views.Pages.AddContactPage>();
+                services.AddScoped<Views.Pages.AddGroupPage>();
+                services.AddScoped<Views.Pages.AddUserPage>();
 
                 services.AddScoped<ViewModels.ComputersViewModel>();
                 services.AddScoped<ViewModels.ContactsViewModel>();
@@ -87,7 +91,6 @@ namespace Sysadmin
                 services.AddSingleton<ISettingsService, SettingsService>();
                 services.AddSingleton<IStateService, StateService>();
                 services.AddSingleton<IExchangeService, ExchangeService>();
-                services.AddSingleton<IWindowService, WindowService>();
 
                 // Configuration
                 services.Configure<AppConfig>(context.Configuration.GetSection(nameof(AppConfig)));

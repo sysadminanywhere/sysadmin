@@ -1,11 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using LdapForNet;
 using Sysadmin.Services;
 using SysAdmin.ActiveDirectory.Models;
 using SysAdmin.ActiveDirectory.Repositories;
 using SysAdmin.ActiveDirectory.Services.Ldap;
+using System;
 using System.Threading.Tasks;
 using Wpf.Ui.Common.Interfaces;
+using Wpf.Ui.Controls;
 using Wpf.Ui.Mvvm.Contracts;
 
 namespace Sysadmin.ViewModels
@@ -18,14 +21,15 @@ namespace Sysadmin.ViewModels
         private IExchangeService _exchangeService;
 
         [ObservableProperty]
-        private ComputerEntry _computer;
+        private ComputerEntry _computer = new ComputerEntry();
+
+        [ObservableProperty]
+        private string _errorMessage;
 
         public ComputerViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
             _navigationService = navigationService;
             _exchangeService = exchangeService;
-
-            Computer = new ComputerEntry();
         }
 
         public void OnNavigatedTo()
@@ -33,7 +37,8 @@ namespace Sysadmin.ViewModels
             if (!_isInitialized)
                 InitializeViewModel();
 
-            Computer = (ComputerEntry)_exchangeService.GetParameter();
+            if (_exchangeService.GetParameter() is ComputerEntry entry)
+                Computer = entry;
         }
 
         public void OnNavigatedFrom()
@@ -52,19 +57,39 @@ namespace Sysadmin.ViewModels
             _navigationService.Navigate(typeof(Views.Pages.ComputersPage));
         }
 
-        public async Task AddAsync()
+        [RelayCommand]
+        private async Task OnAdd()
         {
-            await Task.Run(() =>
+            try
+            {
+                await Add("", Computer, true);
+                _navigationService.Navigate(typeof(Views.Pages.ComputersPage));
+            }
+            catch (LdapException le)
+            {
+                ErrorMessage = SysAdmin.ActiveDirectory.LdapResult.GetErrorMessageFromResult(le.ResultCode);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+
+        }
+
+        public async Task Add(string distinguishedName, ComputerEntry computer, bool isEnabled)
+        {
+            await Task.Run(async () =>
             {
                 using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
                 {
                     using (var computersRepository = new ComputersRepository(ldap))
                     {
-                        _ = computersRepository.AddAsync(Computer, true);
+                        await computersRepository.AddAsync(distinguishedName, computer, isEnabled);
                     }
                 }
             });
         }
+
 
     }
 }

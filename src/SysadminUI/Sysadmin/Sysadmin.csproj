@@ -46,16 +46,4 @@
     <Folder Include="Helpers\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Views\Pages\Contacts\AddContactWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Views\Pages\Groups\AddGroupWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Views\Pages\Users\AddUserWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
-
 </Project>

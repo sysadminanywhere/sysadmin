@@ -9,7 +9,7 @@
     xmlns:models="clr-namespace:Sysadmin.Models"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="Computer"
-    d:DataContext="{d:DesignInstance local:UserPage,
+    d:DataContext="{d:DesignInstance local:ComputerPage,
                                      IsDesignTimeCreatable=False}"
     d:DesignHeight="450"
     d:DesignWidth="800"
