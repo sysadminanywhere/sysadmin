@@ -2,8 +2,13 @@
 using CommunityToolkit.Mvvm.Input;
 using Sysadmin.Services;
 using SysAdmin.ActiveDirectory.Models;
+using System.Threading.Tasks;
+using System;
 using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
+using LdapForNet;
+using SysAdmin.ActiveDirectory.Services.Ldap;
+using SysAdmin.ActiveDirectory.Repositories;
 
 namespace Sysadmin.ViewModels
 {
@@ -15,7 +20,13 @@ namespace Sysadmin.ViewModels
         private IExchangeService _exchangeService;
 
         [ObservableProperty]
-        private UserEntry _user;
+        private UserEntry _user = new UserEntry();
+
+        [ObservableProperty]
+        private string _password;
+
+        [ObservableProperty]
+        private string _errorMessage;
 
         public UserViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
@@ -28,7 +39,9 @@ namespace Sysadmin.ViewModels
             if (!_isInitialized)
                 InitializeViewModel();
 
-            User = (UserEntry)_exchangeService.GetParameter();
+            if (_exchangeService.GetParameter() is UserEntry entry)
+                User = entry;
+
         }
 
         public void OnNavigatedFrom()
@@ -45,6 +58,39 @@ namespace Sysadmin.ViewModels
         private void OnClose()
         {
             _navigationService.Navigate(typeof(Views.Pages.UsersPage));
+        }
+
+        [RelayCommand]
+        private async Task OnAdd()
+        {
+            try
+            {
+                await Add(User, Password);
+                _navigationService.Navigate(typeof(Views.Pages.UsersPage));
+            }
+            catch (LdapException le)
+            {
+                ErrorMessage = SysAdmin.ActiveDirectory.LdapResult.GetErrorMessageFromResult(le.ResultCode);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+
+        }
+
+        public async Task Add(UserEntry user, String password)
+        {
+            await Task.Run(async () =>
+            {
+                using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
+                {
+                    using (var usersRepository = new UsersRepository(ldap))
+                    {
+                        await usersRepository.AddAsync(user, password);
+                    }
+                }
+            });
         }
 
     }

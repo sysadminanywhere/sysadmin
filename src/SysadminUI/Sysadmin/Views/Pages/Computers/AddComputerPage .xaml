@@ -33,18 +33,20 @@
                     Text="Add computer"
                     Style="{StaticResource TitleTextBlockStyle}"/>
 
-        <StackPanel Grid.Row="1" Margin="24" HorizontalAlignment="Left">
-            <TextBlock Style="{StaticResource FormLabelStyle}">Name</TextBlock>
-            <TextBox Text="{Binding ViewModel.Computer.CN, Mode=TwoWay}" MinWidth="400" />
+        <ScrollViewer Grid.Row="1">
+            <StackPanel Margin="24" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <TextBlock Style="{StaticResource FormLabelStyle}">Name</TextBlock>
+                <TextBox Text="{Binding ViewModel.Computer.CN, Mode=TwoWay}" MinWidth="400" />
 
-            <TextBlock Style="{StaticResource FormLabelStyle}">Description</TextBlock>
-            <TextBox Text="{Binding ViewModel.Computer.Description, Mode=TwoWay}" MinWidth="400"/>
-        </StackPanel>
+                <TextBlock Style="{StaticResource FormLabelStyle}">Description</TextBlock>
+                <TextBox Text="{Binding ViewModel.Computer.Description, Mode=TwoWay}" MinWidth="400"/>
+            </StackPanel>
+        </ScrollViewer>
 
 
         <WrapPanel Grid.Row="2" HorizontalAlignment="Right" Margin="16">
-            <ui:Button Appearance="Primary" IsDefault="True" MinWidth="60" Margin="0,0,8,0" Command="{Binding ViewModel.AddCommand}" >OK</ui:Button>
-            <ui:Button Appearance="Secondary" IsCancel="True" MinWidth="60" Command="{Binding ViewModel.CloseCommand}" >Cancel</ui:Button>
+            <ui:Button Appearance="Primary" IsDefault="True" MinWidth="60" Margin="0,0,8,0" Command="{Binding ViewModel.AddCommand}">OK</ui:Button>
+            <ui:Button Appearance="Secondary" IsCancel="True" MinWidth="60" Command="{Binding ViewModel.CloseCommand}">Cancel</ui:Button>
         </WrapPanel>
 
         <ui:Snackbar Grid.RowSpan="3" VerticalAlignment="Top" x:Name="snackbar" Appearance="Danger" Title="Error" Icon="ErrorCircle12" Message="Error" Timeout="5000" />
