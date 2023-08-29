@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="clr-namespace:SysAdmin.Converters"
     xmlns:models="clr-namespace:Sysadmin.Models"
+    xmlns:controls="clr-namespace:Sysadmin.Controls"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="Add computer"
     d:DataContext="{d:DesignInstance local:AddComputerPage,
@@ -35,11 +36,16 @@
 
         <ScrollViewer Grid.Row="1">
             <StackPanel Margin="24" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <TextBlock Style="{StaticResource FormLabelStyle}" Text="Container" />
+                <controls:DirectoryControl Margin="0,4,0,16" HorizontalAlignment="Stretch" />
+
                 <TextBlock Style="{StaticResource FormLabelStyle}">Name</TextBlock>
                 <TextBox Text="{Binding ViewModel.Computer.CN, Mode=TwoWay}" MinWidth="400" />
 
                 <TextBlock Style="{StaticResource FormLabelStyle}">Description</TextBlock>
                 <TextBox Text="{Binding ViewModel.Computer.Description, Mode=TwoWay}" MinWidth="400"/>
+
+                <ui:ToggleSwitch Content="Account enabled" Margin="0,32,0,0" IsChecked="{Binding ViewModel.IsAccountEnabled, Mode=TwoWay}" />
             </StackPanel>
         </ScrollViewer>
 

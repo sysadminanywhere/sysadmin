@@ -24,6 +24,9 @@ namespace Sysadmin.ViewModels
         private ComputerEntry _computer = new ComputerEntry();
 
         [ObservableProperty]
+        private bool _isAccountEnabled = true;
+
+        [ObservableProperty]
         private string _errorMessage;
 
         public ComputerViewModel(INavigationService navigationService, IExchangeService exchangeService)
@@ -62,7 +65,7 @@ namespace Sysadmin.ViewModels
         {
             try
             {
-                await Add("", Computer, true);
+                await Add("", Computer, IsAccountEnabled);
                 _navigationService.Navigate(typeof(Views.Pages.ComputersPage));
             }
             catch (LdapException le)
