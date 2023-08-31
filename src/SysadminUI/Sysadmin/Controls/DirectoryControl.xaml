@@ -13,12 +13,12 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <TextBox Text="{Binding DistinguishedName, Mode=OneWay}" Grid.Row="0" IsReadOnly="True" Margin="0,0,45,0"/>
+        <TextBox Name="distinguishedName" Grid.Row="0" IsReadOnly="True" Margin="0,0,45,0"/>
 
         <Button x:Name="btnSelect" Content="..." Width="40" HorizontalAlignment="Right" Click="btnSelect_Click"/>
 
         <ui:Flyout Name="flyout">
-            <local:DirectoryTreeControl />
+            <local:DirectoryTreeControl x:Name="directoryTreeControl" SelectedItem="directoryTreeControl_SelectedItem" />
         </ui:Flyout>
 
     </Grid>

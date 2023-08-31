@@ -8,13 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
 
-        <TreeView x:Name="treeView">
-            <TreeView.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Path=Content.Name}"/>
-                </DataTemplate>
-            </TreeView.ItemTemplate>
-        </TreeView>
+        <TreeView x:Name="treeView" />
 
     </Grid>
 </UserControl>
