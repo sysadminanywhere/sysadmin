@@ -24,6 +24,9 @@ namespace Sysadmin.ViewModels
         private ComputerEntry _computer = new ComputerEntry();
 
         [ObservableProperty]
+        private string _distinguishedName;
+
+        [ObservableProperty]
         private bool _isAccountEnabled = true;
 
         [ObservableProperty]
@@ -65,7 +68,7 @@ namespace Sysadmin.ViewModels
         {
             try
             {
-                await Add("", Computer, IsAccountEnabled);
+                await Add(DistinguishedName, Computer, IsAccountEnabled);
                 _navigationService.Navigate(typeof(Views.Pages.ComputersPage));
             }
             catch (LdapException le)

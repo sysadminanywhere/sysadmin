@@ -14,6 +14,16 @@ namespace Sysadmin.Controls
     public partial class DirectoryControl : UserControl
     {
 
+        public static readonly DependencyProperty DistinguishedNameProperty = DependencyProperty.Register(
+            "DistinguishedName", typeof(string),
+            typeof(DirectoryControl)
+            );
+
+        public string DistinguishedName
+        {
+            get => (string)GetValue(DistinguishedNameProperty);
+            set => SetValue(DistinguishedNameProperty, value);
+        }
         public DirectoryControl()
         {
             this.InitializeComponent();
@@ -30,6 +40,7 @@ namespace Sysadmin.Controls
             if (!string.IsNullOrEmpty(DistinguishedName))
             {
                 distinguishedName.Text = DistinguishedName;
+                this.DistinguishedName = DistinguishedName;
             }
 
             flyout.Hide();
