@@ -396,8 +396,6 @@ namespace SysAdmin.ViewModels
             {
                 using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
                 {
-                    var resultWK = await ldap.WellKnownObjectsAsync();
-                    item = resultWK.Where(c => c.StartsWith(ADContainers.ContainerUsers)).First();
                 }
             });
 

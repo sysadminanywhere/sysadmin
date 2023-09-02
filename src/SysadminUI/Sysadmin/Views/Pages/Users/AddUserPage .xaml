@@ -49,26 +49,26 @@
                     <StackPanel Grid.Column="0">
 
                         <TextBlock Style="{StaticResource FormLabelStyle}" Text="Display name" />
-                        <TextBox x:Name="txtDisplayName" Text="{Binding User.DisplayName, Mode=TwoWay}" KeyUp="txtDisplayName_KeyUp"  MinWidth="400" />
+                        <TextBox x:Name="txtDisplayName" Text="{Binding ViewModel.User.DisplayName, Mode=TwoWay}" KeyUp="txtDisplayName_KeyUp"  MinWidth="400" />
 
                         <TextBlock Text="First name" Style="{StaticResource FormLabelStyle}"/>
-                        <TextBox x:Name="txtFirstName" Text="{Binding User.FirstName, Mode=TwoWay}" MinWidth="400" />
+                        <TextBox x:Name="txtFirstName" Text="{Binding ViewModel.User.FirstName, Mode=TwoWay}" MinWidth="400" />
 
                         <TextBlock Text="Initials" Style="{StaticResource FormLabelStyle}"/>
-                        <TextBox x:Name="txtInitials" Text="{Binding User.Initials, Mode=TwoWay}"  MinWidth="400"/>
+                        <TextBox x:Name="txtInitials" Text="{Binding ViewModel.User.Initials, Mode=TwoWay}"  MinWidth="400"/>
 
                         <TextBlock Text="Last name" Style="{StaticResource FormLabelStyle}"/>
-                        <TextBox x:Name="txtLastName" Text="{Binding User.LastName, Mode=TwoWay}" MinWidth="400"/>
+                        <TextBox x:Name="txtLastName" Text="{Binding ViewModel.User.LastName, Mode=TwoWay}" MinWidth="400"/>
 
                         <TextBlock Text="Account name" Style="{StaticResource FormLabelStyle}"/>
-                        <TextBox x:Name="txtAccountName" Text="{Binding User.SamAccountName, Mode=TwoWay}" MinWidth="400"/>
+                        <TextBox x:Name="txtAccountName" Text="{Binding ViewModel.User.SamAccountName, Mode=TwoWay}" MinWidth="400"/>
 
                     </StackPanel>
 
                     <StackPanel Grid.Column="2">
 
                         <TextBlock Text="Password" Style="{StaticResource FormLabelStyle}"/>
-                        <PasswordBox x:Name="txtPassword" MinWidth="400" />
+                        <PasswordBox x:Name="txtPassword" MinWidth="400" PasswordChanged="txtPassword_PasswordChanged" />
 
                         <TextBlock Text="Confirm password" Style="{StaticResource FormLabelStyle}"/>
                         <PasswordBox x:Name="txtConfirmPassword" MinWidth="400" />
@@ -79,7 +79,7 @@
 
                         <ui:ToggleSwitch x:Name="chkPasswordNeverExpires" Content="Password never expires" Margin="4,16,4,4" IsEnabled="False" Checked="chkPasswordNeverExpires_Checked" />
 
-                        <ui:ToggleSwitch x:Uid="UserAddAccountDisabled" x:Name="chkAccountDisabled" Content="Account disabled" Margin="4,16,4,4" />
+                        <ui:ToggleSwitch x:Name="chkAccountDisabled" Content="Account disabled" Margin="4,16,4,4" />
 
                     </StackPanel>
 

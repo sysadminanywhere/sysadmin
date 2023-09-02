@@ -9,6 +9,7 @@ using Wpf.Ui.Mvvm.Contracts;
 using LdapForNet;
 using SysAdmin.ActiveDirectory.Services.Ldap;
 using SysAdmin.ActiveDirectory.Repositories;
+using System.Security;
 
 namespace Sysadmin.ViewModels
 {
@@ -26,7 +27,7 @@ namespace Sysadmin.ViewModels
         private string _distinguishedName;
 
         [ObservableProperty]
-        private string _password;
+        private SecureString _password;
 
         [ObservableProperty]
         private string _errorMessage;
@@ -68,7 +69,13 @@ namespace Sysadmin.ViewModels
         {
             try
             {
-                await Add(DistinguishedName, User, Password);
+                if (string.IsNullOrEmpty(User.CN))
+                    User.CN = User.DisplayName;
+
+                if (string.IsNullOrEmpty(User.Name))
+                    User.Name = User.DisplayName;
+
+                await Add(DistinguishedName, User, new System.Net.NetworkCredential(string.Empty, Password).Password);
                 _navigationService.Navigate(typeof(Views.Pages.UsersPage));
             }
             catch (LdapException le)
@@ -82,7 +89,7 @@ namespace Sysadmin.ViewModels
 
         }
 
-        public async Task Add(string distinguishedName, UserEntry user, String password)
+        public async Task Add(string distinguishedName, UserEntry user, string password)
         {
             await Task.Run(async () =>
             {
