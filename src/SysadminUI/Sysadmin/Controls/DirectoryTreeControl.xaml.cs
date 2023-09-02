@@ -3,6 +3,7 @@ using SysAdmin.ActiveDirectory.Services.Ldap;
 using SysAdmin.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +37,9 @@ namespace Sysadmin.Controls
 
         public async void Load()
         {
+
+            progressRing.Visibility = Visibility.Visible;
+
             treeView.Items.Clear();
 
             TreeViewItem root = new TreeViewItem() { Header = "Root", IsExpanded = true };
@@ -53,11 +57,13 @@ namespace Sysadmin.Controls
             }
 
             treeView.Items.Add(root);
+
+            progressRing.Visibility = Visibility.Collapsed;
         }
 
         private void Node_Selected(object sender, RoutedEventArgs e)
         {
-            TreeViewItem node = (TreeViewItem)sender;
+            TreeViewItem node = (TreeViewItem)e.Source;
 
             if (SelectedItem != null)
             {
@@ -68,7 +74,7 @@ namespace Sysadmin.Controls
 
         private async void Node_Expanded(object sender, RoutedEventArgs e)
         {
-            TreeViewItem node = (TreeViewItem)sender;
+            TreeViewItem node = (TreeViewItem)e.Source;
 
             if (node.Items.Count == 1)
             {
