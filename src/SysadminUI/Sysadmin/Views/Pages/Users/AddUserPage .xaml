@@ -7,11 +7,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="clr-namespace:SysAdmin.Converters"
     xmlns:models="clr-namespace:Sysadmin.Models"
+    xmlns:controls="clr-namespace:Sysadmin.Controls"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="Add User"
     d:DataContext="{d:DesignInstance local:AddUserPage,
                                      IsDesignTimeCreatable=False}"
-    d:DesignHeight="450"
+    d:DesignHeight="800"
     d:DesignWidth="800"
     d:Background="{DynamicResource ApplicationBackgroundBrush}"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -33,14 +34,59 @@
                     Text="Add User"
                     Style="{StaticResource TitleTextBlockStyle}"/>
 
-        <StackPanel Grid.Row="1" Margin="24" HorizontalAlignment="Left">
-            <TextBlock Style="{StaticResource FormLabelStyle}">Name</TextBlock>
-            <TextBox Text="{Binding ViewModel.User.Name, Mode=TwoWay}" MinWidth="400" />
+        <ScrollViewer Grid.Row="1">
+            <StackPanel Margin="24,0,24,24" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <TextBlock Style="{StaticResource FormLabelStyle}" Text="Container" />
+                <controls:DirectoryControl DistinguishedName="{Binding ViewModel.DistinguishedName, Mode=TwoWay}" Margin="0,4,0,16" HorizontalAlignment="Stretch" />
 
-            <TextBlock Style="{StaticResource FormLabelStyle}">Description</TextBlock>
-            <TextBox Text="{Binding ViewModel.User.Description, Mode=TwoWay}" MinWidth="400"/>
-        </StackPanel>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="400"/>
+                    </Grid.ColumnDefinitions>
 
+                    <StackPanel Grid.Column="0">
+
+                        <TextBlock Style="{StaticResource FormLabelStyle}" Text="Display name" />
+                        <TextBox x:Name="txtDisplayName" Text="{Binding User.DisplayName, Mode=TwoWay}" KeyUp="txtDisplayName_KeyUp"  MinWidth="400" />
+
+                        <TextBlock Text="First name" Style="{StaticResource FormLabelStyle}"/>
+                        <TextBox x:Name="txtFirstName" Text="{Binding User.FirstName, Mode=TwoWay}" MinWidth="400" />
+
+                        <TextBlock Text="Initials" Style="{StaticResource FormLabelStyle}"/>
+                        <TextBox x:Name="txtInitials" Text="{Binding User.Initials, Mode=TwoWay}"  MinWidth="400"/>
+
+                        <TextBlock Text="Last name" Style="{StaticResource FormLabelStyle}"/>
+                        <TextBox x:Name="txtLastName" Text="{Binding User.LastName, Mode=TwoWay}" MinWidth="400"/>
+
+                        <TextBlock Text="Account name" Style="{StaticResource FormLabelStyle}"/>
+                        <TextBox x:Name="txtAccountName" Text="{Binding User.SamAccountName, Mode=TwoWay}" MinWidth="400"/>
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+
+                        <TextBlock Text="Password" Style="{StaticResource FormLabelStyle}"/>
+                        <PasswordBox x:Name="txtPassword" MinWidth="400" />
+
+                        <TextBlock Text="Confirm password" Style="{StaticResource FormLabelStyle}"/>
+                        <PasswordBox x:Name="txtConfirmPassword" MinWidth="400" />
+
+                        <ui:ToggleSwitch x:Name="chkUserMustChangePassword" Content="User must change password at next logon" Margin="4,16,4,4" Checked="chkUserMustChangePassword_Checked" />
+
+                        <ui:ToggleSwitch x:Name="chkUserCannotChangePassword" Content="User cannot change password" Margin="4,16,4,4" />
+
+                        <ui:ToggleSwitch x:Name="chkPasswordNeverExpires" Content="Password never expires" Margin="4,16,4,4" IsEnabled="False" Checked="chkPasswordNeverExpires_Checked" />
+
+                        <ui:ToggleSwitch x:Uid="UserAddAccountDisabled" x:Name="chkAccountDisabled" Content="Account disabled" Margin="4,16,4,4" />
+
+                    </StackPanel>
+
+                </Grid>
+
+            </StackPanel>
+        </ScrollViewer>
 
         <WrapPanel Grid.Row="2" HorizontalAlignment="Right" Margin="16">
             <ui:Button Appearance="Primary" IsDefault="True" MinWidth="60" Margin="0,0,8,0" Command="{Binding ViewModel.AddCommand}" >OK</ui:Button>

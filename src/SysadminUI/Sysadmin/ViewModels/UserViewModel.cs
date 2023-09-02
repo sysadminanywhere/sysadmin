@@ -23,6 +23,9 @@ namespace Sysadmin.ViewModels
         private UserEntry _user = new UserEntry();
 
         [ObservableProperty]
+        private string _distinguishedName;
+
+        [ObservableProperty]
         private string _password;
 
         [ObservableProperty]
@@ -65,7 +68,7 @@ namespace Sysadmin.ViewModels
         {
             try
             {
-                await Add(User, Password);
+                await Add(DistinguishedName, User, Password);
                 _navigationService.Navigate(typeof(Views.Pages.UsersPage));
             }
             catch (LdapException le)
@@ -79,7 +82,7 @@ namespace Sysadmin.ViewModels
 
         }
 
-        public async Task Add(UserEntry user, String password)
+        public async Task Add(string distinguishedName, UserEntry user, String password)
         {
             await Task.Run(async () =>
             {
@@ -87,7 +90,7 @@ namespace Sysadmin.ViewModels
                 {
                     using (var usersRepository = new UsersRepository(ldap))
                     {
-                        await usersRepository.AddAsync(user, password);
+                        await usersRepository.AddAsync(distinguishedName, user, password);
                     }
                 }
             });

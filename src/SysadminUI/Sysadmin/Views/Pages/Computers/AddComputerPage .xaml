@@ -35,7 +35,7 @@
                     Style="{StaticResource TitleTextBlockStyle}"/>
 
         <ScrollViewer Grid.Row="1">
-            <StackPanel Margin="24" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <StackPanel Margin="24,0,24,24" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <TextBlock Style="{StaticResource FormLabelStyle}" Text="Container" />
                 <controls:DirectoryControl DistinguishedName="{Binding ViewModel.DistinguishedName, Mode=TwoWay}" Margin="0,4,0,16" HorizontalAlignment="Stretch" />
 

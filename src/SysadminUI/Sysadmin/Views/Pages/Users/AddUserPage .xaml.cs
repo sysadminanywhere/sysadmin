@@ -32,5 +32,19 @@ namespace Sysadmin.Views.Pages
             }
         }
 
+        private void txtDisplayName_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+
+        }
+
+        private void chkUserMustChangePassword_Checked(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
+
+        private void chkPasswordNeverExpires_Checked(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
     }
 }
