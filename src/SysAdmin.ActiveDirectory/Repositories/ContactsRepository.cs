@@ -68,9 +68,7 @@ namespace SysAdmin.ActiveDirectory.Repositories
 
             if (string.IsNullOrEmpty(distinguishedName))
             {
-                var resultWK = await ldapService.WellKnownObjectsAsync();
-                var item = resultWK.Where(c => c.StartsWith(ADContainers.ContainerUsers)).First();
-                string cn = "cn=" + contact.CN + "," + item.Replace(ADContainers.ContainerUsers, string.Empty);
+                string cn = "cn=" + contact.CN + "," + new ADContainers(ldapService).GetUsersContainer();
                 await ldapService.AddAsync(LdapResolver.GetLdapEntry(cn, contact, attributes));
             }
             else

@@ -20,6 +20,8 @@ namespace Sysadmin.Views.Pages
             InitializeComponent();
 
             ViewModel.PropertyChanged += ViewModel_PropertyChanged;
+
+            directoryControl.DistinguishedName = App.CONTAINERS.GetComputersContainer();
         }
 
         private void ViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)

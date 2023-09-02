@@ -125,6 +125,9 @@ namespace Sysadmin.ViewModels
                 {
                     isConnected = ldap.IsConnected;
                     message = ldap.ErrorMessage;
+
+                    if(isConnected)
+                        App.CONTAINERS = new SysAdmin.ActiveDirectory.ADContainers(ldap);
                 }
             });
 

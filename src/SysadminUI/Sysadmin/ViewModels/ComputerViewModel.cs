@@ -2,11 +2,16 @@
 using CommunityToolkit.Mvvm.Input;
 using LdapForNet;
 using Sysadmin.Services;
+using SysAdmin.ActiveDirectory;
 using SysAdmin.ActiveDirectory.Models;
 using SysAdmin.ActiveDirectory.Repositories;
 using SysAdmin.ActiveDirectory.Services.Ldap;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Mvvm.Contracts;
@@ -38,7 +43,7 @@ namespace Sysadmin.ViewModels
             _exchangeService = exchangeService;
         }
 
-        public void OnNavigatedTo()
+        public async void OnNavigatedTo()
         {
             if (!_isInitialized)
                 InitializeViewModel();
@@ -97,4 +102,5 @@ namespace Sysadmin.ViewModels
         }
 
     }
+
 }

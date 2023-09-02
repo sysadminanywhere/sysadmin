@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Sysadmin.Models;
 using Sysadmin.Services;
+using SysAdmin.ActiveDirectory;
 using SysAdmin.ActiveDirectory.Services.Ldap;
 using SysAdmin.Services;
 using System.IO;
@@ -135,6 +136,7 @@ namespace Sysadmin
 
         public static IServer SERVER = null;
         public static ICredential CREDENTIAL = null;
+        public static ADContainers CONTAINERS = null;
 
     }
 }

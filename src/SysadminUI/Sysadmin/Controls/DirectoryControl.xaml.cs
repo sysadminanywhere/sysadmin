@@ -22,8 +22,13 @@ namespace Sysadmin.Controls
         public string DistinguishedName
         {
             get => (string)GetValue(DistinguishedNameProperty);
-            set => SetValue(DistinguishedNameProperty, value);
+            set
+            {
+                SetValue(DistinguishedNameProperty, value);
+                distinguishedName.Text = value;
+            }
         }
+
         public DirectoryControl()
         {
             this.InitializeComponent();
