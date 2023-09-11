@@ -28,3 +28,7 @@ src/SysadminUI/Sysadmin/obj
 src/SetupSysadmin/Debug
 *.user
 src/SetupSysadmin/Release
+src/SysadminUI/TestADConnection/obj
+src/SysadminUI/Sysadmin.ActiveDirectory/obj
+src/SysadminUI/TestADConnection/bin
+src/SysadminUI/Sysadmin.ActiveDirectory/bin
