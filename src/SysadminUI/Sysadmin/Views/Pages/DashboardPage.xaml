@@ -27,11 +27,11 @@
             Orientation="Horizontal" 
             HorizontalAlignment="Stretch">
 
-            <ui:FontIcon
+            <ui:SymbolIcon
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontSize="32"
-                    Glyph="&#xEC26;" />
+                    Symbol="ChannelShare24" />
 
             <StackPanel VerticalAlignment="Center">
                 <TextBlock 

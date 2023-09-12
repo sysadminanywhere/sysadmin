@@ -59,6 +59,12 @@ namespace Sysadmin.ViewModels
         {
             try
             {
+                if (string.IsNullOrEmpty(Contact.CN))
+                    Contact.CN = Contact.DisplayName;
+
+                if (string.IsNullOrEmpty(Contact.Name))
+                    Contact.Name = Contact.DisplayName;
+
                 await Add(Contact);
                 _navigationService.Navigate(typeof(Views.Pages.ContactsPage));
             }
