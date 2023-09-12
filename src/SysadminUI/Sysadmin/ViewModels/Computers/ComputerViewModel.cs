@@ -2,6 +2,9 @@
 using CommunityToolkit.Mvvm.Input;
 using Sysadmin.Services;
 using SysAdmin.ActiveDirectory.Models;
+using SysAdmin.ActiveDirectory.Repositories;
+using SysAdmin.ActiveDirectory.Services.Ldap;
+using System.Threading.Tasks;
 using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
 
@@ -18,12 +21,6 @@ namespace Sysadmin.ViewModels
         private ComputerEntry _computer = new ComputerEntry();
 
         [ObservableProperty]
-        private string _distinguishedName;
-
-        [ObservableProperty]
-        private bool _isAccountEnabled = true;
-
-        [ObservableProperty]
         private string _errorMessage;
 
         public ComputerViewModel(INavigationService navigationService, IExchangeService exchangeService)
@@ -32,7 +29,7 @@ namespace Sysadmin.ViewModels
             _exchangeService = exchangeService;
         }
 
-        public void OnNavigatedTo()
+        public async void OnNavigatedTo()
         {
             if (!_isInitialized)
                 InitializeViewModel();

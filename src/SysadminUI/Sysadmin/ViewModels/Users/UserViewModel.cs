@@ -10,6 +10,7 @@ using LdapForNet;
 using SysAdmin.ActiveDirectory.Services.Ldap;
 using SysAdmin.ActiveDirectory.Repositories;
 using System.Security;
+using System.Text.RegularExpressions;
 
 namespace Sysadmin.ViewModels
 {
@@ -24,12 +25,6 @@ namespace Sysadmin.ViewModels
         private UserEntry _user = new UserEntry();
 
         [ObservableProperty]
-        private string _distinguishedName;
-
-        [ObservableProperty]
-        private SecureString _password;
-
-        [ObservableProperty]
         private string _errorMessage;
 
         public UserViewModel(INavigationService navigationService, IExchangeService exchangeService)
@@ -38,7 +33,7 @@ namespace Sysadmin.ViewModels
             _exchangeService = exchangeService;
         }
 
-        public void OnNavigatedTo()
+        public async void OnNavigatedTo()
         {
             if (!_isInitialized)
                 InitializeViewModel();

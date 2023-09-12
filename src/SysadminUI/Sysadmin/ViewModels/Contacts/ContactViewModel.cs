@@ -20,9 +20,6 @@ namespace Sysadmin.ViewModels
         private IExchangeService _exchangeService;
 
         [ObservableProperty]
-        private string _distinguishedName;
-
-        [ObservableProperty]
         private ContactEntry _contact = new ContactEntry();
 
         [ObservableProperty]
@@ -34,7 +31,7 @@ namespace Sysadmin.ViewModels
             _exchangeService = exchangeService;
         }
 
-        public void OnNavigatedTo()
+        public async void OnNavigatedTo()
         {
             if (!_isInitialized)
                 InitializeViewModel();

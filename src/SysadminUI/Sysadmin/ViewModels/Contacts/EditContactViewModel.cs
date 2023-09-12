@@ -34,7 +34,7 @@ namespace Sysadmin.ViewModels
             _exchangeService = exchangeService;
         }
 
-        public void OnNavigatedTo()
+        public async void OnNavigatedTo()
         {
             if (!_isInitialized)
                 InitializeViewModel();
