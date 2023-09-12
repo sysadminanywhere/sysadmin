@@ -71,6 +71,9 @@ namespace Sysadmin.Views.Pages
             txtAccountName.Text = Regex.Replace(_DisplayNameValue2, _settingsService.UserLoginPattern, _settingsService.UserLoginFormat).ToLower();
             ViewModel.User.SamAccountName = txtAccountName.Text;
 
+            ViewModel.User.FirstName = txtFirstName.Text;
+            ViewModel.User.Initials = txtInitials.Text;
+            ViewModel.User.LastName = txtLastName.Text;
         }
 
         private void chkUserMustChangePassword_Checked(object sender, System.Windows.RoutedEventArgs e)
