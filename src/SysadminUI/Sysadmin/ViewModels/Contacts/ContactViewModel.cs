@@ -95,5 +95,37 @@ namespace Sysadmin.ViewModels
             });
         }
 
+        [RelayCommand]
+        private async Task OnDelete()
+        {
+            try
+            {
+                await Delete(Contact);
+                _navigationService.Navigate(typeof(Views.Pages.ContactsPage));
+            }
+            catch (LdapException le)
+            {
+                ErrorMessage = SysAdmin.ActiveDirectory.LdapResult.GetErrorMessageFromResult(le.ResultCode);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+        }
+
+        public async Task Delete(ContactEntry contact)
+        {
+            await Task.Run(async () =>
+            {
+                using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
+                {
+                    using (var contactsRepository = new ContactsRepository(ldap))
+                    {
+                        await contactsRepository.DeleteAsync(contact);
+                    }
+                }
+            });
+        }
+
     }
 }

@@ -11,6 +11,7 @@ using SysAdmin.ActiveDirectory.Services.Ldap;
 using SysAdmin.ActiveDirectory.Repositories;
 using System.Security;
 using System.Text.RegularExpressions;
+using Wpf.Ui.Controls.Interfaces;
 
 namespace Sysadmin.ViewModels
 {
@@ -62,6 +63,38 @@ namespace Sysadmin.ViewModels
         private void OnEdit()
         {
             _navigationService.Navigate(typeof(Views.Pages.EditUserPage));
+        }
+
+        [RelayCommand]
+        private async Task OnDelete()
+        {
+            try
+            {
+                await Delete(User);
+                _navigationService.Navigate(typeof(Views.Pages.UsersPage));
+            }
+            catch (LdapException le)
+            {
+                ErrorMessage = SysAdmin.ActiveDirectory.LdapResult.GetErrorMessageFromResult(le.ResultCode);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+        }
+
+        public async Task Delete(UserEntry user)
+        {
+            await Task.Run(async () =>
+            {
+                using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
+                {
+                    using (var usersRepository = new UsersRepository(ldap))
+                    {
+                        await usersRepository.DeleteAsync(user);
+                    }
+                }
+            });
         }
 
     }

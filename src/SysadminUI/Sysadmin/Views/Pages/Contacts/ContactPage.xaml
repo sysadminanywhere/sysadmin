@@ -96,7 +96,7 @@
                     </ui:MenuItem.Header>
                 </ui:MenuItem>
                 <Separator />
-                <ui:MenuItem>
+                <ui:MenuItem Click="DeleteMenuItem_Click">
                     <ui:MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <ui:SymbolIcon Symbol="Delete12" Margin="0,0,8,0" />

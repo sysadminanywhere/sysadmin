@@ -80,7 +80,6 @@ namespace Sysadmin.ViewModels
             {
                 ErrorMessage = ex.Message;
             }
-
         }
 
         public async Task Add(string distinguishedName, UserEntry user, string password)

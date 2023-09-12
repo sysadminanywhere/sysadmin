@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using Wpf.Ui.Common.Interfaces;
 
 namespace Sysadmin.Views.Pages
@@ -18,6 +19,13 @@ namespace Sysadmin.Views.Pages
             ViewModel = viewModel;
 
             InitializeComponent();
+        }
+
+        private void DeleteMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("Are you sure?", "Delete", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+                ViewModel.DeleteCommand.Execute(ViewModel);
         }
 
     }

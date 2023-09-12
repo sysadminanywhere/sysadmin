@@ -62,5 +62,37 @@ namespace Sysadmin.ViewModels
             _navigationService.Navigate(typeof(Views.Pages.EditGroupPage));
         }
 
+        [RelayCommand]
+        private async Task OnDelete()
+        {
+            try
+            {
+                await Delete(Group);
+                _navigationService.Navigate(typeof(Views.Pages.GroupsPage));
+            }
+            catch (LdapException le)
+            {
+                ErrorMessage = SysAdmin.ActiveDirectory.LdapResult.GetErrorMessageFromResult(le.ResultCode);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+        }
+
+        public async Task Delete(GroupEntry group)
+        {
+            await Task.Run(async () =>
+            {
+                using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
+                {
+                    using (var groupsRepository = new GroupsRepository(ldap))
+                    {
+                        await groupsRepository.DeleteAsync(group);
+                    }
+                }
+            });
+        }
+
     }
 }
