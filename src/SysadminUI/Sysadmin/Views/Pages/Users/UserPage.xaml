@@ -18,6 +18,7 @@
     mc:Ignorable="d">
     <Page.Resources>
         <converters:EmptyToCollapsedConverter x:Key="EmptyToCollapsedConverter"/>
+        <converters:PhotoToSourceConverter x:Key="PhotoToSourceConverter"/>
     </Page.Resources>
 
     <Grid Margin="16,0">
@@ -62,7 +63,7 @@
                         </StackPanel>
                     </ui:MenuItem.Header>
                 </ui:MenuItem>
-                <ui:MenuItem>
+                <ui:MenuItem Click="PhotoMenuItem_Click">
                     <ui:MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <ui:SymbolIcon Symbol="PhotoFilter20" Margin="0,0,8,0" />
@@ -125,34 +126,37 @@
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="0" Grid.Column="0" Text="Display name" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="0" Grid.Column="1" Text="{Binding ViewModel.User.DisplayName, Mode=OneWay}" />
+            <Image Grid.Row="0" Grid.ColumnSpan="2" Source="{Binding ViewModel.User.JpegPhoto, Mode=OneWay, Converter={StaticResource PhotoToSourceConverter}}" x:Name="personPicture" MaxWidth="200" MaxHeight="200" HorizontalAlignment="Left" Margin="0,0,0,8" />
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="1" Grid.Column="0" Text="Company" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="1" Grid.Column="1" Text="{Binding ViewModel.User.Company, Mode=OneWay}" />
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="1" Grid.Column="0" Text="Display name" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="1" Grid.Column="1" Text="{Binding ViewModel.User.DisplayName, Mode=OneWay}" />
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="2" Grid.Column="0" Text="Title" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="2" Grid.Column="1" Text="{Binding ViewModel.User.Title, Mode=OneWay}" />
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="2" Grid.Column="0" Text="Company" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="2" Grid.Column="1" Text="{Binding ViewModel.User.Company, Mode=OneWay}" />
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="3" Grid.Column="0" Text="Email" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="3" Grid.Column="1" Text="{Binding ViewModel.User.EmailAddress, Mode=OneWay}" />
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="3" Grid.Column="0" Text="Title" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="3" Grid.Column="1" Text="{Binding ViewModel.User.Title, Mode=OneWay}" />
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="4" Grid.Column="0" Text="Mobile phone" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="4" Grid.Column="1" Text="{Binding ViewModel.User.MobilePhone, Mode=OneWay}" />
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="4" Grid.Column="0" Text="Email" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="4" Grid.Column="1" Text="{Binding ViewModel.User.EmailAddress, Mode=OneWay}" />
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="5" Grid.Column="0" Text="Office phone" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="5" Grid.Column="1" Text="{Binding ViewModel.User.OfficePhone, Mode=OneWay}" />
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="5" Grid.Column="0" Text="Mobile phone" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="5" Grid.Column="1" Text="{Binding ViewModel.User.MobilePhone, Mode=OneWay}" />
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="6" Grid.Column="0" Text="Home phone" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="6" Grid.Column="1" Text="{Binding ViewModel.User.HomePhone, Mode=OneWay}" />
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="6" Grid.Column="0" Text="Office phone" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="6" Grid.Column="1" Text="{Binding ViewModel.User.OfficePhone, Mode=OneWay}" />
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="7" Grid.Column="0" Text="Last logon" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="7" Grid.Column="1" Text="{Binding ViewModel.User.LastLogon, Mode=OneWay}" />
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="7" Grid.Column="0" Text="Home phone" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="7" Grid.Column="1" Text="{Binding ViewModel.User.HomePhone, Mode=OneWay}" />
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="8" Grid.Column="0" Text="Last password set" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="8" Grid.Column="1" Text="{Binding ViewModel.User.PasswordLastSet, Mode=OneWay}" />
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="8" Grid.Column="0" Text="Last logon" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="8" Grid.Column="1" Text="{Binding ViewModel.User.LastLogon, Mode=OneWay}" />
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="9" Grid.Column="0" Text="Last password set" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="9" Grid.Column="1" Text="{Binding ViewModel.User.PasswordLastSet, Mode=OneWay}" />
         </Grid>
         
     </Grid>

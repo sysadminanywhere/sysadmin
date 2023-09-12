@@ -12,6 +12,7 @@ using SysAdmin.ActiveDirectory.Repositories;
 using System.Security;
 using System.Text.RegularExpressions;
 using Wpf.Ui.Controls.Interfaces;
+using static LdapForNet.Native.Native;
 
 namespace Sysadmin.ViewModels
 {
@@ -97,5 +98,39 @@ namespace Sysadmin.ViewModels
             });
         }
 
+        public async Task UpdatePhoto(string distinguishedName, byte[] photo)
+        {
+            try
+            {
+                await UpdatePhotoAsync(distinguishedName, photo);
+            }
+            catch (LdapException le)
+            {
+                ErrorMessage = SysAdmin.ActiveDirectory.LdapResult.GetErrorMessageFromResult(le.ResultCode);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+
+        }
+
+        private async Task UpdatePhotoAsync(string distinguishedName, byte[] photo)
+        {
+            await Task.Run(async () =>
+            {
+                using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
+                {
+                    var image = new DirectoryModificationAttribute
+                    {
+                        LdapModOperation = LdapModOperation.LDAP_MOD_REPLACE,
+                        Name = "jpegPhoto"
+                    };
+                    image.Add(photo);
+                    await ldap.SendRequestAsync(new ModifyRequest(distinguishedName, image));
+                }
+            });
+
+        }
     }
 }
