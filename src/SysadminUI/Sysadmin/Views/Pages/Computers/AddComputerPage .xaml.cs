@@ -6,14 +6,14 @@ namespace Sysadmin.Views.Pages
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class AddComputerPage : INavigableView<ViewModels.ComputerViewModel>
+    public partial class AddComputerPage : INavigableView<ViewModels.AddComputerViewModel>
     {
-        public ViewModels.ComputerViewModel ViewModel
+        public ViewModels.AddComputerViewModel ViewModel
         {
             get;
         }
 
-        public AddComputerPage(ViewModels.ComputerViewModel viewModel)
+        public AddComputerPage(ViewModels.AddComputerViewModel viewModel)
         {
             ViewModel = viewModel;
 

@@ -13,12 +13,11 @@ using System.Security;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class UserViewModel : ObservableObject, INavigationAware
+    public partial class AddUserViewModel : ObservableObject, INavigationAware
     {
         private bool _isInitialized = false;
 
         private INavigationService _navigationService;
-        private IExchangeService _exchangeService;
 
         [ObservableProperty]
         private UserEntry _user = new UserEntry();
@@ -32,20 +31,15 @@ namespace Sysadmin.ViewModels
         [ObservableProperty]
         private string _errorMessage;
 
-        public UserViewModel(INavigationService navigationService, IExchangeService exchangeService)
+        public AddUserViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
-            _exchangeService = exchangeService;
         }
 
         public void OnNavigatedTo()
         {
             if (!_isInitialized)
                 InitializeViewModel();
-
-            if (_exchangeService.GetParameter() is UserEntry entry)
-                User = entry;
-
         }
 
         public void OnNavigatedFrom()

@@ -9,17 +9,17 @@ namespace Sysadmin.Views.Pages
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class AddUserPage : INavigableView<ViewModels.UserViewModel>
+    public partial class AddUserPage : INavigableView<ViewModels.AddUserViewModel>
     {
 
         private ISettingsService _settingsService;
 
-        public ViewModels.UserViewModel ViewModel
+        public ViewModels.AddUserViewModel ViewModel
         {
             get;
         }
 
-        public AddUserPage(ViewModels.UserViewModel viewModel, ISettingsService settingsService)
+        public AddUserPage(ViewModels.AddUserViewModel viewModel, ISettingsService settingsService)
         {
             ViewModel = viewModel;
             _settingsService = settingsService;

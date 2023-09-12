@@ -115,7 +115,7 @@
         </TabControl>
 
         <WrapPanel Grid.Row="2" HorizontalAlignment="Right" Margin="16">
-            <ui:Button Appearance="Primary" IsDefault="True" MinWidth="60" Margin="0,0,8,0" Command="{Binding ViewModel.AddCommand}" >OK</ui:Button>
+            <ui:Button Appearance="Primary" IsDefault="True" MinWidth="60" Margin="0,0,8,0" Command="{Binding ViewModel.EditCommand}" >OK</ui:Button>
             <ui:Button Appearance="Secondary" IsCancel="True" MinWidth="60" Command="{Binding ViewModel.CloseCommand}" >Cancel</ui:Button>
         </WrapPanel>
 

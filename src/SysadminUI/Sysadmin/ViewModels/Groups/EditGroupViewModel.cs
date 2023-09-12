@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 using System;
 using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
-using LdapForNet;
 using SysAdmin.ActiveDirectory.Services.Ldap;
+using LdapForNet;
 using SysAdmin.ActiveDirectory.Repositories;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class ContactViewModel : ObservableObject, INavigationAware
+    public partial class EditGroupViewModel : ObservableObject, INavigationAware
     {
         private bool _isInitialized = false;
 
@@ -20,15 +20,12 @@ namespace Sysadmin.ViewModels
         private IExchangeService _exchangeService;
 
         [ObservableProperty]
-        private string _distinguishedName;
-
-        [ObservableProperty]
-        private ContactEntry _contact = new ContactEntry();
+        private GroupEntry _group = new GroupEntry();
 
         [ObservableProperty]
         private string _errorMessage;
 
-        public ContactViewModel(INavigationService navigationService, IExchangeService exchangeService)
+        public EditGroupViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
             _navigationService = navigationService;
             _exchangeService = exchangeService;
@@ -39,8 +36,8 @@ namespace Sysadmin.ViewModels
             if (!_isInitialized)
                 InitializeViewModel();
 
-            if (_exchangeService.GetParameter() is ContactEntry entry)
-                Contact = entry;
+            if (_exchangeService.GetParameter() is GroupEntry entry)
+                Group = entry;
         }
 
         public void OnNavigatedFrom()
@@ -56,16 +53,16 @@ namespace Sysadmin.ViewModels
         [RelayCommand]
         private void OnClose()
         {
-            _navigationService.Navigate(typeof(Views.Pages.ContactsPage));
+            _navigationService.Navigate(typeof(Views.Pages.GroupPage));
         }
 
         [RelayCommand]
-        private async Task OnAdd()
+        private async Task OnEdit()
         {
             try
             {
-                await Add(Contact);
-                _navigationService.Navigate(typeof(Views.Pages.ContactsPage));
+                await Edit(Group);
+                _navigationService.Navigate(typeof(Views.Pages.GroupPage));
             }
             catch (LdapException le)
             {
@@ -78,15 +75,15 @@ namespace Sysadmin.ViewModels
 
         }
 
-        public async Task Add(ContactEntry contact)
+        public async Task Edit(GroupEntry group)
         {
             await Task.Run(async () =>
             {
                 using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
                 {
-                    using (var contactsRepository = new ContactsRepository(ldap))
+                    using (var groupsRepository = new GroupsRepository(ldap))
                     {
-                        await contactsRepository.AddAsync(contact);
+                        await groupsRepository.ModifyAsync(group);
                     }
                 }
             });

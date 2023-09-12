@@ -1,18 +1,19 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using LdapForNet;
 using Sysadmin.Services;
+using SysAdmin.ActiveDirectory;
 using SysAdmin.ActiveDirectory.Models;
-using System.Threading.Tasks;
+using SysAdmin.ActiveDirectory.Repositories;
+using SysAdmin.ActiveDirectory.Services.Ldap;
 using System;
+using System.Threading.Tasks;
 using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
-using SysAdmin.ActiveDirectory.Services.Ldap;
-using LdapForNet;
-using SysAdmin.ActiveDirectory.Repositories;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class GroupViewModel : ObservableObject, INavigationAware
+    public partial class EditComputerViewModel : ObservableObject, INavigationAware
     {
         private bool _isInitialized = false;
 
@@ -20,12 +21,18 @@ namespace Sysadmin.ViewModels
         private IExchangeService _exchangeService;
 
         [ObservableProperty]
-        private GroupEntry _group = new GroupEntry();
+        private ComputerEntry _computer = new ComputerEntry();
+
+        [ObservableProperty]
+        private string _distinguishedName;
+
+        [ObservableProperty]
+        private bool _isAccountEnabled = true;
 
         [ObservableProperty]
         private string _errorMessage;
 
-        public GroupViewModel(INavigationService navigationService, IExchangeService exchangeService)
+        public EditComputerViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
             _navigationService = navigationService;
             _exchangeService = exchangeService;
@@ -36,9 +43,8 @@ namespace Sysadmin.ViewModels
             if (!_isInitialized)
                 InitializeViewModel();
 
-            if (_exchangeService.GetParameter() is GroupEntry entry)
-                Group = entry;
-
+            if (_exchangeService.GetParameter() is ComputerEntry entry)
+                Computer = entry;
         }
 
         public void OnNavigatedFrom()
@@ -54,20 +60,20 @@ namespace Sysadmin.ViewModels
         [RelayCommand]
         private void OnClose()
         {
-            _navigationService.Navigate(typeof(Views.Pages.GroupsPage));
+            _navigationService.Navigate(typeof(Views.Pages.ComputerPage));
         }
 
         [RelayCommand]
-        private async Task OnAdd()
+        private async Task OnEdit()
         {
             try
             {
-                await Add(Group);
-                _navigationService.Navigate(typeof(Views.Pages.GroupsPage));
+                await Edit(Computer);
+                _navigationService.Navigate(typeof(Views.Pages.ComputerPage));
             }
             catch (LdapException le)
             {
-                ErrorMessage = SysAdmin.ActiveDirectory.LdapResult.GetErrorMessageFromResult(le.ResultCode);
+                ErrorMessage = LdapResult.GetErrorMessageFromResult(le.ResultCode);
             }
             catch (Exception ex)
             {
@@ -76,19 +82,20 @@ namespace Sysadmin.ViewModels
 
         }
 
-        public async Task Add(GroupEntry group)
+        public async Task Edit(ComputerEntry computer)
         {
             await Task.Run(async () =>
             {
                 using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
                 {
-                    using (var groupsRepository = new GroupsRepository(ldap))
+                    using (var computersRepository = new ComputersRepository(ldap))
                     {
-                        await groupsRepository.AddAsync(group);
+                        await computersRepository.ModifyAsync(computer);
                     }
                 }
             });
         }
 
     }
+
 }

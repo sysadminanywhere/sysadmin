@@ -7,14 +7,14 @@ namespace Sysadmin.Views.Pages
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class EditGroupPage : INavigableView<ViewModels.GroupViewModel>
+    public partial class EditGroupPage : INavigableView<ViewModels.EditGroupViewModel>
     {
-        public ViewModels.GroupViewModel ViewModel
+        public ViewModels.EditGroupViewModel ViewModel
         {
             get;
         }
 
-        public EditGroupPage(ViewModels.GroupViewModel viewModel)
+        public EditGroupPage(ViewModels.EditGroupViewModel viewModel)
         {
             ViewModel = viewModel;
 

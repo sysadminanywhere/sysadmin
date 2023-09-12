@@ -9,20 +9,17 @@ namespace Sysadmin.Views.Pages
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class EditContactPage : INavigableView<ViewModels.ContactViewModel>
+    public partial class EditContactPage : INavigableView<ViewModels.EditContactViewModel>
     {
 
-        private ISettingsService _settingsService;
-
-        public ViewModels.ContactViewModel ViewModel
+        public ViewModels.EditContactViewModel ViewModel
         {
             get;
         }
 
-        public EditContactPage(ViewModels.ContactViewModel viewModel, ISettingsService settingsService)
+        public EditContactPage(ViewModels.EditContactViewModel viewModel, ISettingsService settingsService)
         {
             ViewModel = viewModel;
-            _settingsService = settingsService;
 
             InitializeComponent();
 

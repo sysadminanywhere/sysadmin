@@ -62,39 +62,6 @@
                         </StackPanel>
                     </ui:MenuItem.Header>
                 </ui:MenuItem>
-                <ui:MenuItem>
-                    <ui:MenuItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <ui:SymbolIcon Symbol="PhotoFilter20" Margin="0,0,8,0" />
-                            <TextBlock>Photo</TextBlock>
-                        </StackPanel>
-                    </ui:MenuItem.Header>
-                </ui:MenuItem>
-                <ui:MenuItem>
-                    <ui:MenuItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <ui:SymbolIcon Symbol="Options16" Margin="0,0,8,0" />
-                            <TextBlock>Options</TextBlock>
-                        </StackPanel>
-                    </ui:MenuItem.Header>
-                </ui:MenuItem>
-                <ui:MenuItem>
-                    <ui:MenuItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <ui:SymbolIcon Symbol="Password16" Margin="0,0,8,0" />
-                            <TextBlock>Reset password</TextBlock>
-                        </StackPanel>
-                    </ui:MenuItem.Header>
-                </ui:MenuItem>
-                <Separator />
-                <ui:MenuItem>
-                    <ui:MenuItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <ui:SymbolIcon Symbol="Settings16" Margin="0,0,8,0" />
-                            <TextBlock>Properties</TextBlock>
-                        </StackPanel>
-                    </ui:MenuItem.Header>
-                </ui:MenuItem>
                 <Separator />
                 <ui:MenuItem>
                     <ui:MenuItem.Header>

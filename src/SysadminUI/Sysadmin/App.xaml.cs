@@ -54,8 +54,6 @@ namespace Sysadmin
                 // Views and ViewModels
                 services.AddScoped<Views.Pages.DashboardPage>();
                 services.AddScoped<ViewModels.DashboardViewModel>();
-                services.AddScoped<Views.Pages.DataPage>();
-                services.AddScoped<ViewModels.DataViewModel>();
                 services.AddScoped<Views.Pages.SettingsPage>();
                 services.AddScoped<ViewModels.SettingsViewModel>();
 
@@ -75,6 +73,10 @@ namespace Sysadmin
                 services.AddScoped<Views.Pages.AddContactPage>();
                 services.AddScoped<Views.Pages.AddGroupPage>();
                 services.AddScoped<Views.Pages.AddUserPage>();
+                services.AddScoped<Views.Pages.EditComputerPage>();
+                services.AddScoped<Views.Pages.EditContactPage>();
+                services.AddScoped<Views.Pages.EditGroupPage>();
+                services.AddScoped<Views.Pages.EditUserPage>();
 
                 services.AddScoped<ViewModels.ComputersViewModel>();
                 services.AddScoped<ViewModels.ContactsViewModel>();
@@ -88,6 +90,14 @@ namespace Sysadmin
                 services.AddScoped<ViewModels.ContactViewModel>();
                 services.AddScoped<ViewModels.GroupViewModel>();
                 services.AddScoped<ViewModels.PrinterViewModel>();
+                services.AddScoped<ViewModels.AddUserViewModel>();
+                services.AddScoped<ViewModels.AddComputerViewModel>();
+                services.AddScoped<ViewModels.AddContactViewModel>();
+                services.AddScoped<ViewModels.AddGroupViewModel>();
+                services.AddScoped<ViewModels.EditUserViewModel>();
+                services.AddScoped<ViewModels.EditComputerViewModel>();
+                services.AddScoped<ViewModels.EditContactViewModel>();
+                services.AddScoped<ViewModels.EditGroupViewModel>();
 
                 services.AddSingleton<ISettingsService, SettingsService>();
                 services.AddSingleton<IStateService, StateService>();

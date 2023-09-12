@@ -7,14 +7,14 @@ namespace Sysadmin.Views.Pages
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class AddContactPage : INavigableView<ViewModels.ContactViewModel>
+    public partial class AddContactPage : INavigableView<ViewModels.AddContactViewModel>
     {
-        public ViewModels.ContactViewModel ViewModel
+        public ViewModels.AddContactViewModel ViewModel
         {
             get;
         }
 
-        public AddContactPage(ViewModels.ContactViewModel viewModel)
+        public AddContactPage(ViewModels.AddContactViewModel viewModel)
         {
             ViewModel = viewModel;
 
