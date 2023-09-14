@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Sysadmin.Services;
 using Sysadmin.Views.Pages;
+using SysAdmin.ActiveDirectory;
 using SysAdmin.ActiveDirectory.Models;
 using SysAdmin.ActiveDirectory.Repositories;
 using SysAdmin.ActiveDirectory.Services.Ldap;
@@ -28,6 +29,17 @@ namespace Sysadmin.ViewModels
 
         [ObservableProperty]
         private bool _isBusy;
+
+        public enum Filters
+        {
+            All,
+            AccountEnabled,
+            AccountDisabled
+        }
+
+        private Filters filters = Filters.All;
+        private string searchText = string.Empty;
+        private bool isAsc = true;
 
         public ComputersViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
@@ -59,15 +71,27 @@ namespace Sysadmin.ViewModels
         }
 
         [RelayCommand]
+        private void OnSearch(string text)
+        {
+            searchText = text;
+
+            SortingAndFiltering();
+        }
+
+        [RelayCommand]
         private void OnSort(MenuItem menu)
         {
             switch (menu.Tag)
             {
                 case "asc":
+                    isAsc = true;
                     break;
                 case "desc":
+                    isAsc = false;
                     break;
             }
+
+            SortingAndFiltering();
         }
 
         [RelayCommand]
@@ -76,24 +100,23 @@ namespace Sysadmin.ViewModels
             switch (menu.Tag)
             {
                 case "all":
+                    filters = Filters.All;
                     break;
                 case "enabled":
+                    filters = Filters.AccountEnabled;
                     break;
                 case "disabled":
-                    break;
-                case "locked":
-                    break;
-                case "expired":
-                    break;
-                case "never_expires":
+                    filters = Filters.AccountDisabled;
                     break;
             }
+
+            SortingAndFiltering();
         }
 
         [RelayCommand]
         private void OnSelectedItemsChanged(IEnumerable<object> items)
         {
-            if (items != null && items.Count() > 0)
+            if (items != null && items.Any())
             {
                 _exchangeService.SetParameter((ComputerEntry)items.First());
                 _navigationService.Navigate(typeof(Views.Pages.ComputerPage));
@@ -114,12 +137,47 @@ namespace Sysadmin.ViewModels
                         cache = await computersRepository.ListAsync();
                         if (cache == null)
                             cache = new List<ComputerEntry>();
-                        Computers = cache;
+                        Computers = cache.OrderBy(c => c.CN);
                     }
                 }
             });
 
             IsBusy = false;
+        }
+
+        private void SortingAndFiltering()
+        {
+            if (cache != null)
+            {
+                if (string.IsNullOrEmpty(searchText))
+                {
+                    Computers = cache;
+                }
+                else
+                {
+                    Computers = cache.Where(c => c.CN.ToUpper().StartsWith(searchText.ToUpper()));
+                }
+
+                switch (filters)
+                {
+                    case Filters.All:
+                        Computers = Computers;
+                        break;
+
+                    case Filters.AccountEnabled:
+                        Computers = Computers.Where(c => (c.UserControl & UserAccountControls.ACCOUNTDISABLE) != UserAccountControls.ACCOUNTDISABLE);
+                        break;
+
+                    case Filters.AccountDisabled:
+                        Computers = Computers.Where(c => (c.UserControl & UserAccountControls.ACCOUNTDISABLE) == UserAccountControls.ACCOUNTDISABLE);
+                        break;
+                }
+
+                if (isAsc)
+                    Computers = Computers.OrderBy(c => c.CN);
+                else
+                    Computers = Computers.OrderByDescending(c => c.CN);
+            }
         }
 
 

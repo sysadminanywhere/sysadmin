@@ -1,0 +1,11 @@
+﻿
+1. Search, Sort, Filter (Computers, Users, Contacts, Groups, Printers?)
+2. User
+	- Add (Deafault password, Checkboxes)
+	- Photo
+	- Options
+	- Reset password
+	- Properties
+3. Groups
+	- Add (Radio buttons)
+4. Reports

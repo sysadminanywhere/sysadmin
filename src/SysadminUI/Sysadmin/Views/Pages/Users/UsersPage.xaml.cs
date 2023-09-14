@@ -39,5 +39,10 @@ namespace Sysadmin.Views.Pages
                     item.IsChecked = false;
             }
         }
+
+        private void AutoSuggestBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
+        }
     }
 }
