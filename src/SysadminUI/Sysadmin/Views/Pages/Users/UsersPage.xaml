@@ -97,12 +97,12 @@
                                 <TextBlock>Filter</TextBlock>
                             </StackPanel>
                         </ui:MenuItem.Header>
-                        <ui:MenuItem Tag="all" Header="All" IsCheckable="True" IsChecked="True" Click="MenuFilter_Click" />
-                        <ui:MenuItem Tag="enabled" Header="Enabled" IsCheckable="True" Click="MenuFilter_Click" />
-                        <ui:MenuItem Tag="disabled" Header="Disabled" IsCheckable="True" Click="MenuFilter_Click" />
-                        <ui:MenuItem Tag="locked" Header="Locked" IsCheckable="True" Click="MenuFilter_Click" />
-                        <ui:MenuItem Tag="expired" Header="Expired" IsCheckable="True" Click="MenuFilter_Click" />
-                        <ui:MenuItem Tag="never_expires" Header="Never expires" IsCheckable="True" Click="MenuFilter_Click" />
+                        <ui:MenuItem Tag="all" Header="All" IsCheckable="True" IsChecked="True" Click="MenuFilter_Click" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                        <ui:MenuItem Tag="enabled" Header="Enabled" IsCheckable="True" Click="MenuFilter_Click" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                        <ui:MenuItem Tag="disabled" Header="Disabled" IsCheckable="True" Click="MenuFilter_Click" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                        <ui:MenuItem Tag="locked" Header="Locked" IsCheckable="True" Click="MenuFilter_Click" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                        <ui:MenuItem Tag="expired" Header="Expired" IsCheckable="True" Click="MenuFilter_Click" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                        <ui:MenuItem Tag="never_expires" Header="Never expires" IsCheckable="True" Click="MenuFilter_Click" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
                     </ui:MenuItem>
                 </Menu>
             </StackPanel>

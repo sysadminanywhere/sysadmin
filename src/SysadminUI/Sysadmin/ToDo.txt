@@ -2,19 +2,19 @@
 1. Computers
 	+ Search
 	+ Sort
-	- Filter
+	+ Filter
 2. Users
 	+ Search
 	+ Sort
-	- Filter
+	+ Filter
 3. Contacts
 	+ Search
 	+ Sort
-	- Filter
+	+ Filter
 4. Groups
 	+ Search
 	+ Sort
-	- Filter
+	+ Filter
 5. Printers?
 	+ Search
 	+ Sort

@@ -143,6 +143,15 @@ namespace Sysadmin.ViewModels
                 case "disabled":
                     filters = Filters.AccountDisabled;
                     break;
+                case "locked":
+                    filters = Filters.Locked;
+                    break;
+                case "expired":
+                    filters = Filters.PasswordExpired;
+                    break;
+                case "never_expires":
+                    filters = Filters.NeverExpires;
+                    break;
             }
 
             SortingAndFiltering();

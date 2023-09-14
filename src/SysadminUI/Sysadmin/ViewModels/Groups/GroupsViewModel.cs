@@ -139,11 +139,26 @@ namespace Sysadmin.ViewModels
                 case "all":
                     filters = Filters.All;
                     break;
-                case "enabled":
-                    filters = Filters.AccountEnabled;
+                case "global_security":
+                    filters = Filters.GlobalSecurity;
                     break;
-                case "disabled":
-                    filters = Filters.AccountDisabled;
+                case "global_distribution":
+                    filters = Filters.GlobalDistribution;
+                    break;
+                case "domain_security":
+                    filters = Filters.DomainLocalSecurity;
+                    break;
+                case "domain_distribution":
+                    filters = Filters.DomainLocalDistribution;
+                    break;
+                case "universal_security":
+                    filters = Filters.UniversalSecurity;
+                    break;
+                case "universal_distribution":
+                    filters = Filters.UniversalDistribution;
+                    break;
+                case "builtin":
+                    filters = Filters.BuiltIn;
                     break;
             }
 

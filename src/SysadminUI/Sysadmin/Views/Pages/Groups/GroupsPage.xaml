@@ -97,12 +97,14 @@
                                 <TextBlock>Filter</TextBlock>
                             </StackPanel>
                         </ui:MenuItem.Header>
-                        <ui:MenuItem Tag="all" Header="All" IsCheckable="True" IsChecked="True" Click="MenuFilter_Click" />
-                        <ui:MenuItem Tag="enabled" Header="Enabled" IsCheckable="True" Click="MenuFilter_Click" />
-                        <ui:MenuItem Tag="disabled" Header="Disabled" IsCheckable="True" Click="MenuFilter_Click" />
-                        <ui:MenuItem Tag="locked" Header="Locked" IsCheckable="True" Click="MenuFilter_Click" />
-                        <ui:MenuItem Tag="expired" Header="Expired" IsCheckable="True" Click="MenuFilter_Click" />
-                        <ui:MenuItem Tag="never_expires" Header="Never expires" IsCheckable="True" Click="MenuFilter_Click" />
+                        <ui:MenuItem Tag="all" Header="All" IsCheckable="True" IsChecked="True" Click="MenuFilter_Click" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                        <ui:MenuItem Tag="global_security" Header="Global security" IsCheckable="True" Click="MenuFilter_Click" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                        <ui:MenuItem Tag="global_distribution" Header="Global distribution" IsCheckable="True" Click="MenuFilter_Click" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                        <ui:MenuItem Tag="domain_security" Header="Domain security" IsCheckable="True" Click="MenuFilter_Click" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                        <ui:MenuItem Tag="domain_distribution" Header="Domain distribution" IsCheckable="True" Click="MenuFilter_Click" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                        <ui:MenuItem Tag="universal_security" Header="Universal security" IsCheckable="True" Click="MenuFilter_Click" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                        <ui:MenuItem Tag="universal_distribution" Header="Universal distribution" IsCheckable="True" Click="MenuFilter_Click" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                        <ui:MenuItem Tag="builtin" Header="BuiltIn" IsCheckable="True" Click="MenuFilter_Click" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
                     </ui:MenuItem>
                 </Menu>
             </StackPanel>
