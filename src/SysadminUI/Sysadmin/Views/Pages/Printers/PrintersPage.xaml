@@ -82,20 +82,6 @@
                         <ui:MenuItem Tag="asc" Header="By name (A-Z)" IsCheckable="True" IsChecked="True" Command="{Binding ViewModel.SortCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" Click="MenuSort_Click"/>
                         <ui:MenuItem Tag="desc" Header="By name (Z-A)" IsCheckable="True" Command="{Binding ViewModel.SortCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" Click="MenuSort_Click"/>
                     </ui:MenuItem>
-                    <ui:MenuItem x:Name="mnuFilter">
-                        <ui:MenuItem.Header>
-                            <StackPanel Orientation="Horizontal">
-                                <ui:SymbolIcon Symbol="Filter12" Margin="0,0,8,0" />
-                                <TextBlock>Filter</TextBlock>
-                            </StackPanel>
-                        </ui:MenuItem.Header>
-                        <ui:MenuItem Tag="all" Header="All" IsCheckable="True" IsChecked="True" Click="MenuFilter_Click" />
-                        <ui:MenuItem Tag="enabled" Header="Enabled" IsCheckable="True" Click="MenuFilter_Click" />
-                        <ui:MenuItem Tag="disabled" Header="Disabled" IsCheckable="True" Click="MenuFilter_Click" />
-                        <ui:MenuItem Tag="locked" Header="Locked" IsCheckable="True" Click="MenuFilter_Click" />
-                        <ui:MenuItem Tag="expired" Header="Expired" IsCheckable="True" Click="MenuFilter_Click" />
-                        <ui:MenuItem Tag="never_expires" Header="Never expires" IsCheckable="True" Click="MenuFilter_Click" />
-                    </ui:MenuItem>
                 </Menu>
             </StackPanel>
         </Grid>

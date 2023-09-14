@@ -30,19 +30,10 @@ namespace Sysadmin.Views.Pages
             }
         }
 
-        private void MenuFilter_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            MenuItem menu = (MenuItem)sender;
-            foreach (MenuItem item in mnuFilter.Items)
-            {
-                if (item != menu)
-                    item.IsChecked = false;
-            }
-        }
-
         private void AutoSuggestBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-
+            if (sender is AutoSuggestBox)
+                ViewModel.SearchCommand.Execute(((AutoSuggestBox)sender).Text);
         }
     }
 }

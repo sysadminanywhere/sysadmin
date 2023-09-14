@@ -71,6 +71,38 @@ namespace Sysadmin.ViewModels
         }
 
         [RelayCommand]
+        private void OnSelectedItemsChanged(IEnumerable<object> items)
+        {
+            if (items != null && items.Any())
+            {
+                _exchangeService.SetParameter((ComputerEntry)items.First());
+                _navigationService.Navigate(typeof(Views.Pages.ComputerPage));
+            }
+        }
+
+        public async Task ListAsync()
+        {
+
+            IsBusy = true;
+
+            await Task.Run(async () =>
+            {
+                using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
+                {
+                    using (var computersRepository = new ComputersRepository(ldap))
+                    {
+                        cache = await computersRepository.ListAsync();
+                        if (cache == null)
+                            cache = new List<ComputerEntry>();
+                        Computers = cache.OrderBy(c => c.CN);
+                    }
+                }
+            });
+
+            IsBusy = false;
+        }
+
+        [RelayCommand]
         private void OnSearch(string text)
         {
             searchText = text;
@@ -113,38 +145,6 @@ namespace Sysadmin.ViewModels
             SortingAndFiltering();
         }
 
-        [RelayCommand]
-        private void OnSelectedItemsChanged(IEnumerable<object> items)
-        {
-            if (items != null && items.Any())
-            {
-                _exchangeService.SetParameter((ComputerEntry)items.First());
-                _navigationService.Navigate(typeof(Views.Pages.ComputerPage));
-            }
-        }
-
-        public async Task ListAsync()
-        {
-
-            IsBusy = true;
-
-            await Task.Run(async () =>
-            {
-                using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
-                {
-                    using (var computersRepository = new ComputersRepository(ldap))
-                    {
-                        cache = await computersRepository.ListAsync();
-                        if (cache == null)
-                            cache = new List<ComputerEntry>();
-                        Computers = cache.OrderBy(c => c.CN);
-                    }
-                }
-            });
-
-            IsBusy = false;
-        }
-
         private void SortingAndFiltering()
         {
             if (cache != null)
@@ -179,7 +179,6 @@ namespace Sysadmin.ViewModels
                     Computers = Computers.OrderByDescending(c => c.CN);
             }
         }
-
 
     }
 }

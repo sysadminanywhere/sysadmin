@@ -28,6 +28,9 @@ namespace Sysadmin.ViewModels
         [ObservableProperty]
         private bool _isBusy;
 
+        private string searchText = string.Empty;
+        private bool isAsc = true;
+
         public ContactsViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
             _navigationService = navigationService;
@@ -58,38 +61,6 @@ namespace Sysadmin.ViewModels
         }
 
         [RelayCommand]
-        private void OnSort(MenuItem menu)
-        {
-            switch (menu.Tag)
-            {
-                case "asc":
-                    break;
-                case "desc":
-                    break;
-            }
-        }
-
-        [RelayCommand]
-        private void OnFilter(MenuItem menu)
-        {
-            switch (menu.Tag)
-            {
-                case "all":
-                    break;
-                case "enabled":
-                    break;
-                case "disabled":
-                    break;
-                case "locked":
-                    break;
-                case "expired":
-                    break;
-                case "never_expires":
-                    break;
-            }
-        }
-
-        [RelayCommand]
         private void OnSelectedItemsChanged(IEnumerable<object> items)
         {
             if (items != null && items.Count() > 0)
@@ -113,7 +84,7 @@ namespace Sysadmin.ViewModels
                         cache = await contactsRepository.ListAsync();
                         if (cache == null)
                             cache = new List<ContactEntry>();
-                        Contacts = cache;
+                        Contacts = cache.OrderBy(c => c.CN);
                     }
                 }
             });
@@ -121,6 +92,49 @@ namespace Sysadmin.ViewModels
             IsBusy = false;
         }
 
+        [RelayCommand]
+        private void OnSearch(string text)
+        {
+            searchText = text;
+
+            SortingAndFiltering();
+        }
+
+        [RelayCommand]
+        private void OnSort(MenuItem menu)
+        {
+            switch (menu.Tag)
+            {
+                case "asc":
+                    isAsc = true;
+                    break;
+                case "desc":
+                    isAsc = false;
+                    break;
+            }
+
+            SortingAndFiltering();
+        }
+
+        private void SortingAndFiltering()
+        {
+            if (cache != null)
+            {
+                if (string.IsNullOrEmpty(searchText))
+                {
+                    Contacts = cache;
+                }
+                else
+                {
+                    Contacts = cache.Where(c => c.CN.ToUpper().StartsWith(searchText.ToUpper()));
+                }
+
+                if (isAsc)
+                    Contacts = Contacts.OrderBy(c => c.CN);
+                else
+                    Contacts = Contacts.OrderByDescending(c => c.CN);
+            }
+        }
 
     }
 }
