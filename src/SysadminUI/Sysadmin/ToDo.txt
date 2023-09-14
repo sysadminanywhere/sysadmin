@@ -19,7 +19,7 @@
 	+ Search
 	+ Sort
 6. User
-	+- Add (+Deafault password, +Checkboxes, -Options, -Check Password and Confirm password)
+	+ Add (+Deafault password, +Checkboxes, +Options, +Check Password and Confirm password)
 	- Photo
 	- Options
 	- Reset password

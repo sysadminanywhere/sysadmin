@@ -92,7 +92,7 @@ namespace Sysadmin.ViewModels
             IsBusy = false;
         }
 
-                [RelayCommand]
+        [RelayCommand]
         private void OnSearch(string text)
         {
             searchText = text;

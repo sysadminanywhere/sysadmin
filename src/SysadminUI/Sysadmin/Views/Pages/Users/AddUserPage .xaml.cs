@@ -115,16 +115,35 @@ namespace Sysadmin.Views.Pages
             {
                 ViewModel.Password = ((System.Windows.Controls.PasswordBox)sender).SecurePassword;
             }
+            if (!string.IsNullOrEmpty(txtPassword.Password) && !string.IsNullOrEmpty(txtConfirmPassword.Password) && txtPassword.Password == txtConfirmPassword.Password)
+            {
+                btnOK.IsEnabled = true;
+            }
+            else
+            {
+                btnOK.IsEnabled = false;
+            }
         }
 
         private void SetOptions()
         {
-            //IsCannotChangePassword = chkUserCannotChangePassword.IsChecked;
-            //IsPasswordNeverExpires = chkPasswordNeverExpires.IsChecked;
-            //IsAccountDisabled = chkAccountDisabled.IsChecked;
-            //IsMustChangePassword = chkUserMustChangePassword.IsChecked;
+            ViewModel.IsCannotChangePassword = (bool)chkUserCannotChangePassword.IsChecked;
+            ViewModel.IsPasswordNeverExpires = (bool)chkPasswordNeverExpires.IsChecked;
+            ViewModel.IsAccountDisabled = (bool)chkAccountDisabled.IsChecked;
+            ViewModel.IsMustChangePassword = (bool)chkUserMustChangePassword.IsChecked;
         }
 
+        private void txtConfirmPassword_PasswordChanged(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtPassword.Password) && !string.IsNullOrEmpty(txtConfirmPassword.Password) && txtPassword.Password == txtConfirmPassword.Password)
+            {
+                btnOK.IsEnabled = true;
+            }
+            else
+            {
+                btnOK.IsEnabled = false;
+            }
+        }
     }
 
 }

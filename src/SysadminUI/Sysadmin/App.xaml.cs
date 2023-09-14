@@ -69,6 +69,7 @@ namespace Sysadmin
                 services.AddScoped<Views.Pages.ContactPage>();
                 services.AddScoped<Views.Pages.GroupPage>();
                 services.AddScoped<Views.Pages.PrinterPage>();
+                services.AddScoped<Views.Pages.ReportPage>();
                 services.AddScoped<Views.Pages.AddComputerPage>();
                 services.AddScoped<Views.Pages.AddContactPage>();
                 services.AddScoped<Views.Pages.AddGroupPage>();

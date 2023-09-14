@@ -31,6 +31,19 @@ namespace Sysadmin.ViewModels
         [ObservableProperty]
         private string _errorMessage;
 
+        [ObservableProperty]
+        private bool _isCannotChangePassword;
+
+        [ObservableProperty]
+        private bool _isPasswordNeverExpires;
+
+        [ObservableProperty]
+        private bool _isAccountDisabled;
+
+        [ObservableProperty]
+        private bool _isMustChangePassword;
+
+
         public AddUserViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
@@ -69,7 +82,7 @@ namespace Sysadmin.ViewModels
                 if (string.IsNullOrEmpty(User.Name))
                     User.Name = User.DisplayName;
 
-                await Add(DistinguishedName, User, new System.Net.NetworkCredential(string.Empty, Password).Password);
+                await Add(DistinguishedName, User, new System.Net.NetworkCredential(string.Empty, Password).Password, IsCannotChangePassword, IsPasswordNeverExpires, IsAccountDisabled, IsMustChangePassword);
                 _navigationService.Navigate(typeof(Views.Pages.UsersPage));
             }
             catch (LdapException le)
@@ -82,7 +95,7 @@ namespace Sysadmin.ViewModels
             }
         }
 
-        public async Task Add(string distinguishedName, UserEntry user, string password)
+        public async Task Add(string distinguishedName, UserEntry user, string password, bool isCannotChangePassword, bool isPasswordNeverExpires, bool isAccountDisabled, bool isMustChangePassword)
         {
             await Task.Run(async () =>
             {
@@ -90,7 +103,7 @@ namespace Sysadmin.ViewModels
                 {
                     using (var usersRepository = new UsersRepository(ldap))
                     {
-                        await usersRepository.AddAsync(distinguishedName, user, password);
+                        await usersRepository.AddAsync(distinguishedName, user, password, isCannotChangePassword, isPasswordNeverExpires, isAccountDisabled, isMustChangePassword);
                     }
                 }
             });

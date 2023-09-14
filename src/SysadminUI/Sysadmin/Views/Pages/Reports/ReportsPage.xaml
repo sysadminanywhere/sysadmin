@@ -38,10 +38,10 @@
                     Grid.RowSpan="2"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-                    Symbol="Person24"/>
+                    Symbol="Print24"/>
                 <TextBlock 
                     Grid.Column="1"
-                    Text="{Binding CN}"
+                    Text="{Binding Name}"
                     Margin="0,6,0,0"/>
                 <TextBlock  
                     Grid.Column="1"
@@ -71,14 +71,13 @@
                 Grid.Column="0" 
                 Text="Reports"
                 Style="{StaticResource TitleDetailPageStyle}"/>
-
         </Grid>
 
         <ListView
             Grid.Row="1"
             x:Name="users"
             ItemTemplate="{StaticResource ListViewTemplate}"
-            ItemsSource="{Binding ViewModel.Users, Mode=OneWay}">
+            ItemsSource="{Binding ViewModel.Reports, Mode=OneWay}">
             <Interactivity:Interaction.Triggers>
                 <Interactivity:EventTrigger  EventName="SelectionChanged">
                     <Interactivity:InvokeCommandAction Command="{Binding ViewModel.SelectedItemsChangedCommand}" CommandParameter="{Binding SelectedItems, ElementName=users}" />
