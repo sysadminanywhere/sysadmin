@@ -71,7 +71,7 @@
 
             <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
                 <ui:AutoSuggestBox MinWidth="200" Icon="Search12" PlaceholderText="Search..." TextChanged="AutoSuggestBox_TextChanged"/>
-                <Menu Background="Transparent">
+                <Menu VerticalAlignment="Center" Background="Transparent">
                     <ui:MenuItem x:Name="mnuSort">
                         <ui:MenuItem.Header>
                             <StackPanel Orientation="Horizontal">

@@ -29,7 +29,7 @@ namespace Sysadmin.Views.Pages
 
         private void DeleteMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("Are you sure?", "Delete", MessageBoxButton.YesNo);
+            var result = MessageBox.Show("Are you sure you want to delete this user?", "Delete", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
                 ViewModel.DeleteCommand.Execute(ViewModel);
         }

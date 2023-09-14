@@ -22,6 +22,12 @@ namespace Sysadmin.ViewModels
         private GroupEntry _group = new GroupEntry();
 
         [ObservableProperty]
+        private GroupScopes _groupScope = GroupScopes.Global;
+
+        [ObservableProperty]
+        private bool _isSecurity = true;
+
+        [ObservableProperty]
         private string _errorMessage;
 
         public AddGroupViewModel(INavigationService navigationService)
@@ -56,7 +62,7 @@ namespace Sysadmin.ViewModels
         {
             try
             {
-                await Add(Group);
+                await Add(Group, GroupScope, IsSecurity);
                 _navigationService.Navigate(typeof(Views.Pages.GroupsPage));
             }
             catch (LdapException le)
@@ -70,7 +76,7 @@ namespace Sysadmin.ViewModels
 
         }
 
-        public async Task Add(GroupEntry group)
+        public async Task Add(GroupEntry group, GroupScopes groupScope, bool isSecurity)
         {
             await Task.Run(async () =>
             {
@@ -78,7 +84,7 @@ namespace Sysadmin.ViewModels
                 {
                     using (var groupsRepository = new GroupsRepository(ldap))
                     {
-                        await groupsRepository.AddAsync(group);
+                        await groupsRepository.AddAsync(group, groupScope, isSecurity);
                     }
                 }
             });

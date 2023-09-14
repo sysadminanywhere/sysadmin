@@ -88,14 +88,6 @@
                     </ui:MenuItem.Header>
                 </ui:MenuItem>
                 <Separator />
-                <ui:MenuItem>
-                    <ui:MenuItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <ui:SymbolIcon Symbol="Settings16" Margin="0,0,8,0" />
-                            <TextBlock>Properties</TextBlock>
-                        </StackPanel>
-                    </ui:MenuItem.Header>
-                </ui:MenuItem>
                 <Separator />
                 <ui:MenuItem Click="DeleteMenuItem_Click">
                     <ui:MenuItem.Header>

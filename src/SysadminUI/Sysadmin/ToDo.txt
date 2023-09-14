@@ -19,11 +19,10 @@
 	+ Search
 	+ Sort
 6. User
-	- Add (Deafault password, Checkboxes)
+	+- Add (+Deafault password, +Checkboxes, -Options, -Check Password and Confirm password)
 	- Photo
 	- Options
 	- Reset password
-	- Properties
 7. Groups
-	- Add (Radio buttons)
+	+ Add (Radio buttons)
 8. Reports
