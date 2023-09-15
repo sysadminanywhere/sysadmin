@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using Sysadmin.Services.Reports;
 using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
+using SysAdmin.ActiveDirectory.Models;
 
 namespace Sysadmin.ViewModels
 {
@@ -13,19 +14,25 @@ namespace Sysadmin.ViewModels
         private bool _isInitialized = false;
 
         private INavigationService _navigationService;
+        private IExchangeService _exchangeService;
+
 
         [ObservableProperty]
         private IReport _report;
 
-        public ReportViewModel(INavigationService navigationService)
+        public ReportViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
             _navigationService = navigationService;
+            _exchangeService = exchangeService;
         }
 
         public void OnNavigatedTo()
         {
             if (!_isInitialized)
                 InitializeViewModel();
+
+            if (_exchangeService.GetParameter() is IReport entry)
+                Report = entry;
         }
 
         public void OnNavigatedFrom()

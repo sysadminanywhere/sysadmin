@@ -44,12 +44,12 @@
                 Margin="40,24,24,24">
 
                 <TextBlock                
-                    Text="{Binding ViewModel.Printer.CN}"
+                    Text="{Binding ViewModel.Report.Name}"
                     Style="{StaticResource TitleTextBlockStyle}"/>
 
                 <TextBlock 
-                    Visibility="{Binding ViewModel.Printer.Description, Mode=OneWay, Converter={StaticResource EmptyToCollapsedConverter}}"
-                    Text="{Binding ViewModel.Printer.Description, Mode=OneWay}"
+                    Visibility="{Binding ViewModel.Report.Description, Mode=OneWay, Converter={StaticResource EmptyToCollapsedConverter}}"
+                    Text="{Binding ViewModel.Report.Description, Mode=OneWay}"
                     Style="{StaticResource SubTitleDetailPageStyle}"/>
             </StackPanel>
         </Grid>

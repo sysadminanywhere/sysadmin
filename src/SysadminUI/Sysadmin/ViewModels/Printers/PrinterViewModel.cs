@@ -36,7 +36,8 @@ namespace Sysadmin.ViewModels
             if (!_isInitialized)
                 InitializeViewModel();
 
-            Printer = (PrinterEntry)_exchangeService.GetParameter();
+            if (_exchangeService.GetParameter() is PrinterEntry entry)
+                Printer = entry;
         }
 
         public void OnNavigatedFrom()

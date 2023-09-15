@@ -35,8 +35,6 @@ namespace Sysadmin.Views.Pages
                 txtPassword.Password = _settingsService.UserDefaultPassword;
                 txtConfirmPassword.Password = _settingsService.UserDefaultPassword;
             }
-
-            SetOptions();
         }
 
         private void ViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -84,24 +82,18 @@ namespace Sysadmin.Views.Pages
             {
                 chkPasswordNeverExpires.IsEnabled = false;
                 chkPasswordNeverExpires.IsChecked = false;
-
-                SetOptions();
             }
         }
 
         private void chkUserMustChangePassword_Unchecked(object sender, System.Windows.RoutedEventArgs e)
         {
             chkPasswordNeverExpires.IsEnabled = true;
-
-            SetOptions();
         }
 
         private void chkPasswordNeverExpires_Checked(object sender, System.Windows.RoutedEventArgs e)
         {
             chkUserMustChangePassword.IsEnabled = false;
             chkUserMustChangePassword.IsChecked = false;
-
-            SetOptions();
         }
 
         private void chkPasswordNeverExpires_Unchecked(object sender, System.Windows.RoutedEventArgs e)
@@ -123,14 +115,6 @@ namespace Sysadmin.Views.Pages
             {
                 btnOK.IsEnabled = false;
             }
-        }
-
-        private void SetOptions()
-        {
-            ViewModel.IsCannotChangePassword = (bool)chkUserCannotChangePassword.IsChecked;
-            ViewModel.IsPasswordNeverExpires = (bool)chkPasswordNeverExpires.IsChecked;
-            ViewModel.IsAccountDisabled = (bool)chkAccountDisabled.IsChecked;
-            ViewModel.IsMustChangePassword = (bool)chkUserMustChangePassword.IsChecked;
         }
 
         private void txtConfirmPassword_PasswordChanged(object sender, System.Windows.RoutedEventArgs e)

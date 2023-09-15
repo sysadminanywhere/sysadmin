@@ -84,6 +84,7 @@ namespace Sysadmin
                 services.AddScoped<ViewModels.GroupsViewModel>();
                 services.AddScoped<ViewModels.PrintersViewModel>();
                 services.AddScoped<ViewModels.ReportsViewModel>();
+                services.AddScoped<ViewModels.ReportViewModel>();
                 services.AddScoped<ViewModels.UsersViewModel>();
                 services.AddScoped<ViewModels.LoginViewModel>();
                 services.AddScoped<ViewModels.UserViewModel>();

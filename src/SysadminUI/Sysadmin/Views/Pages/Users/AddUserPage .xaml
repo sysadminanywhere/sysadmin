@@ -73,13 +73,13 @@
                         <TextBlock Text="Confirm password" Style="{StaticResource FormLabelStyle}"/>
                         <PasswordBox x:Name="txtConfirmPassword" MinWidth="400" PasswordChanged="txtConfirmPassword_PasswordChanged" />
 
-                        <ui:ToggleSwitch x:Name="chkUserMustChangePassword" Content="User must change password at next logon" Margin="4,16,4,4" Checked="chkUserMustChangePassword_Checked" IsChecked="True" Unchecked="chkUserMustChangePassword_Unchecked" />
+                        <ui:ToggleSwitch x:Name="chkUserMustChangePassword" IsChecked="{Binding ViewModel.IsMustChangePassword}" Content="User must change password at next logon" Margin="4,16,4,4" Checked="chkUserMustChangePassword_Checked" Unchecked="chkUserMustChangePassword_Unchecked" />
 
-                        <ui:ToggleSwitch x:Name="chkUserCannotChangePassword" Content="User cannot change password" Margin="4,16,4,4" />
+                        <ui:ToggleSwitch x:Name="chkUserCannotChangePassword" IsChecked="{Binding ViewModel.IsCannotChangePassword}" Content="User cannot change password" Margin="4,16,4,4" />
 
-                        <ui:ToggleSwitch x:Name="chkPasswordNeverExpires" Content="Password never expires" Margin="4,16,4,4" IsEnabled="False" Checked="chkPasswordNeverExpires_Checked" Unchecked="chkPasswordNeverExpires_Unchecked" />
+                        <ui:ToggleSwitch x:Name="chkPasswordNeverExpires" IsChecked="{Binding ViewModel.IsPasswordNeverExpires}" Content="Password never expires" Margin="4,16,4,4" IsEnabled="False" Checked="chkPasswordNeverExpires_Checked" Unchecked="chkPasswordNeverExpires_Unchecked" />
 
-                        <ui:ToggleSwitch x:Name="chkAccountDisabled" Content="Account disabled" Margin="4,16,4,4" />
+                        <ui:ToggleSwitch x:Name="chkAccountDisabled" IsChecked="{Binding ViewModel.IsAccountDisabled}" Content="Account disabled" Margin="4,16,4,4" />
 
                     </StackPanel>
 
