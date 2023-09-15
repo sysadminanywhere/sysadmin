@@ -18,6 +18,7 @@
     mc:Ignorable="d">
     <Page.Resources>
         <converters:EmptyToCollapsedConverter x:Key="EmptyToCollapsedConverter"/>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
     </Page.Resources>
     
     <Grid Margin="16,0">
@@ -52,13 +53,93 @@
                     Text="{Binding ViewModel.Report.Description, Mode=OneWay}"
                     Style="{StaticResource SubTitleDetailPageStyle}"/>
             </StackPanel>
+
+            <StackPanel x:Name="stackMenu" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" IsEnabled="False">
+                <Menu VerticalAlignment="Center" Background="Transparent">
+                    <ui:MenuItem x:Name="First" Click="First_Click" ToolTip="First page">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <ui:SymbolIcon Symbol="ArrowLeft20" Margin="0,0,8,0" />
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                    </ui:MenuItem>
+                    <ui:MenuItem x:Name="Previous" Click="Previous_Click" ToolTip="Previous page">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <ui:SymbolIcon Symbol="ArrowPrevious20" Margin="0,0,8,0" />
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                    </ui:MenuItem>
+                </Menu>
+                <ui:NumberBox x:Name="PageNumber" KeyDown="PageNumber_KeyDown" TextChanged="PageNumber_TextChanged" Visibility="Collapsed" />
+                <Menu VerticalAlignment="Center" Background="Transparent">
+                    <ui:MenuItem x:Name="Next" Click="Next_Click" ToolTip="Next page">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <ui:SymbolIcon Symbol="ArrowNext20" Margin="0,0,8,0" />
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                    </ui:MenuItem>
+                    <ui:MenuItem x:Name="Last" Click="Last_Click" ToolTip="Last page">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <ui:SymbolIcon Symbol="ArrowRight20" Margin="0,0,8,0" />
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                    </ui:MenuItem>
+                    <Separator/>
+                    <ui:MenuItem x:Name="Export" Click="Export_Click">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <ui:SymbolIcon Symbol="ArrowExportUp20" Margin="0,0,8,0" />
+                                <TextBlock>Export</TextBlock>
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                    </ui:MenuItem>
+                </Menu>
+            </StackPanel>
         </Grid>
 
-        <Grid 
+        <Grid x:Name="gridPreview"
+              Visibility="Collapsed"
             VerticalAlignment="Top"
-            Grid.Row="1" 
-            Margin="24">
+            Grid.Row="1">
+
+            <ScrollViewer VerticalScrollBarVisibility="Visible" 
+                      Padding="10"
+                      Background="LightGray"
+                      Grid.Row="1"
+                      HorizontalScrollBarVisibility="Visible" 
+                      Margin="32,0,-475,0" 
+                      HorizontalContentAlignment="Center" 
+                      VerticalContentAlignment="Center"
+                      RenderTransformOrigin="0.5,0.5"
+                      HorizontalAlignment="Left">
+                <ScrollViewer.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform Y="-1.99"/>
+                    </TransformGroup>
+                </ScrollViewer.RenderTransform>
+                <Image x:Name="im" Margin="0,0,382,0" Grid.ColumnSpan="3" RenderTransformOrigin="0.5,0.5" Stretch="UniformToFill" Height="903" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleX="0.011"/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </ScrollViewer>
+
         </Grid>
+
+        <ui:ProgressRing IsIndeterminate="True" Grid.Row="1" Visibility="{Binding ViewModel.IsBusy, Converter={StaticResource BoolToVisibilityConverter}}" />
+
+        <ui:Snackbar Grid.RowSpan="3" VerticalAlignment="Top" x:Name="snackbar" Appearance="Danger" Title="Error" Icon="ErrorCircle12" Message="Error" Timeout="5000" />
+        <ui:Snackbar Grid.RowSpan="3" VerticalAlignment="Top" x:Name="snackbarOk" Appearance="Success"  Title="Export" Icon="ArrowExportUp20" Message="Report successfuly exported" Timeout="5000" />
 
     </Grid>
 </ui:UiPage>

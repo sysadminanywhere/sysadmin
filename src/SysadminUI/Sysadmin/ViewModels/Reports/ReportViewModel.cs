@@ -20,6 +20,9 @@ namespace Sysadmin.ViewModels
         [ObservableProperty]
         private IReport _report;
 
+        [ObservableProperty]
+        private bool _isBusy;
+
         public ReportViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
             _navigationService = navigationService;
