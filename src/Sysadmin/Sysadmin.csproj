@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -17,11 +17,21 @@
 	<Authors>Sysadmin Anywhere</Authors>
     <PackageProjectUrl>https://sysadminanywhere.com</PackageProjectUrl>
 	<RepositoryUrl>https://github.com/sysadminanywhere/sysadmin</RepositoryUrl>
+	<StartupObject>Sysadmin.App</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Helpers\**" />
+    <EmbeddedResource Remove="Helpers\**" />
+    <None Remove="Helpers\**" />
+    <Page Remove="Helpers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Assets\StoreLogo.ico" />
-    <Content Include="applicationIcon.ico" />
+    <Content Include="applicationIcon.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -36,10 +46,6 @@
   <ItemGroup>
     <None Remove="applicationIcon.ico" />
     <None Remove="Assets\StoreLogo.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Helpers\" />
   </ItemGroup>
 
   <ItemGroup>
