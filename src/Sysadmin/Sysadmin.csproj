@@ -39,13 +39,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\FastReport.ReportBuilder\FastReport.ReportBuilder.csproj" />
-    <ProjectReference Include="..\..\SysAdmin.ActiveDirectory\SysAdmin.ActiveDirectory.csproj" />
-    <ProjectReference Include="..\..\Sysadmin.WMI\Sysadmin.WMI.csproj" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Helpers\" />
+    <ProjectReference Include="..\FastReport.ReportBuilder\FastReport.ReportBuilder.csproj" />
+    <ProjectReference Include="..\SysAdmin.ActiveDirectory\SysAdmin.ActiveDirectory.csproj" />
+    <ProjectReference Include="..\Sysadmin.WMI\Sysadmin.WMI.csproj" />
   </ItemGroup>
 
 </Project>

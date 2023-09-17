@@ -32,3 +32,7 @@ src/SysadminUI/TestADConnection/obj
 src/SysadminUI/Sysadmin.ActiveDirectory/obj
 src/SysadminUI/TestADConnection/bin
 src/SysadminUI/Sysadmin.ActiveDirectory/bin
+src/Old/Sysadmin/bin
+src/Old/Sysadmin/obj
+src/Sysadmin/bin
+src/Sysadmin/obj
