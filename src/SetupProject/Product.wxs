@@ -21,37 +21,12 @@
 
 		<Icon Id="LOGO.ICO" SourceFile="Sysadmin.ico"/>
 		<Property Id="ARPPRODUCTICON" Value="LOGO.ICO" />
-
-		<Feature Id="Complete" Level="1" ConfigurableDirectory="INSTALLFOLDER">
-			<ComponentRef Id="compProgramMenu"/>
-		</Feature>
 	</Product>
 
-	<Fragment>
-		<Component Id="DesktopShortcut" Directory="APPLICATIONFOLDER" Guid="*">
-			<RegistryValue Id="RegShortcutDesktop" Root="HKCU"
-					Key="SOFTWARE\ACME\settings" Name="DesktopSC" Value="1"
-					Type="integer" KeyPath="yes" />
-			<Shortcut Id="desktopSC" Target="[APPLICATIONFOLDER]Sysadmin.exe"
-					Directory="DesktopFolder" Name="Sysadmin"
-					Icon="SysAdmin.ico" IconIndex="0"
-					WorkingDirectory="APPLICATIONFOLDER" Advertise="no"/>
-		</Component>
-	</Fragment>
-	
 	<Fragment>
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramFilesFolder">
 				<Directory Id="INSTALLFOLDER" Name="Sysadmin Anywhere" />
-			</Directory>
-
-			<Directory Id="ProgramMenuFolder">
-				<Directory Id="dirProgramMenu" Name="Sysadmin">
-					<Component Id="compProgramMenu" Guid="*">
-						<RemoveFolder Id="removeProgramMenu" On="uninstall" />
-						<RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="programMenu" Type="integer" Value="1" KeyPath="yes" />
-					</Component>
-				</Directory>
 			</Directory>
 		</Directory>
 	</Fragment>
