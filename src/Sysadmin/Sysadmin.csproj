@@ -20,6 +20,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Helpers\**" />
+    <EmbeddedResource Remove="Helpers\**" />
+    <None Remove="Helpers\**" />
+    <Page Remove="Helpers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Assets\StoreLogo.ico" />
     <Content Include="applicationIcon.ico" />
   </ItemGroup>
@@ -36,10 +43,6 @@
   <ItemGroup>
     <None Remove="applicationIcon.ico" />
     <None Remove="Assets\StoreLogo.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Helpers\" />
   </ItemGroup>
 
   <ItemGroup>
