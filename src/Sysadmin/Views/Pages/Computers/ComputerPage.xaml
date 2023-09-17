@@ -1,0 +1,110 @@
+﻿<ui:UiPage
+    x:Class="Sysadmin.Views.Pages.ComputerPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Sysadmin.Views.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="clr-namespace:SysAdmin.Converters"
+    xmlns:models="clr-namespace:Sysadmin.Models"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="Computer"
+    d:DataContext="{d:DesignInstance local:ComputerPage,
+                                     IsDesignTimeCreatable=False}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    d:Background="{DynamicResource ApplicationBackgroundBrush}"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <converters:EmptyToCollapsedConverter x:Key="EmptyToCollapsedConverter"/>
+    </Page.Resources>
+
+    <Grid Margin="16,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <ui:Button 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Center" 
+                Appearance="Transparent"
+                Command="{Binding ViewModel.CloseCommand}" 
+                Content="&lt;" />
+
+            <StackPanel 
+                Grid.Column="0" 
+                Margin="40,24,24,24">
+
+                <TextBlock                
+                    Text="{Binding ViewModel.Computer.CN}"
+                    Style="{StaticResource TitleTextBlockStyle}"/>
+
+                <TextBlock 
+                    Visibility="{Binding ViewModel.Computer.Description, Mode=OneWay, Converter={StaticResource EmptyToCollapsedConverter}}"
+                    Text="{Binding ViewModel.Computer.Description, Mode=OneWay}"
+                    Style="{StaticResource SubTitleDetailPageStyle}"/>
+            </StackPanel>
+
+            <Menu Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent">
+                <ui:MenuItem Command="{Binding ViewModel.EditCommand}">
+                    <ui:MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <ui:SymbolIcon Symbol="Edit16" Margin="0,0,8,0" />
+                            <TextBlock>Edit</TextBlock>
+                        </StackPanel>
+                    </ui:MenuItem.Header>
+                </ui:MenuItem>
+                <Separator />
+                <ui:MenuItem Click="DeleteMenuItem_Click">
+                    <ui:MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <ui:SymbolIcon Symbol="Delete12" Margin="0,0,8,0" />
+                            <TextBlock>Delete</TextBlock>
+                        </StackPanel>
+                    </ui:MenuItem.Header>
+                </ui:MenuItem>
+            </Menu>
+        </Grid>
+
+        <Grid 
+            VerticalAlignment="Top"
+            Grid.Row="1" 
+            Margin="24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}" Grid.Row="0" Grid.Column="0" Text="Location" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="0" Grid.Column="1" Text="{Binding ViewModel.Computer.Location, Mode=OneWay}" />
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="1" Grid.Column="0" Text="Host name" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="1" Grid.Column="1" Text="{Binding ViewModel.Computer.DnsHostName, Mode=OneWay}" />
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="2" Grid.Column="0" Text="Operating system" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="2" Grid.Column="1" Text="{Binding ViewModel.Computer.OperatingSystem, Mode=OneWay}" />
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="3" Grid.Column="0" Text="Version" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="3" Grid.Column="1" Text="{Binding ViewModel.Computer.OperatingSystemVersion, Mode=OneWay}" />
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="4" Grid.Column="0" Text="Service pack" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="4" Grid.Column="1" Text="{Binding ViewModel.Computer.OperatingSystemServicePack, Mode=OneWay}" />
+        </Grid>
+
+    </Grid>
+</ui:UiPage>

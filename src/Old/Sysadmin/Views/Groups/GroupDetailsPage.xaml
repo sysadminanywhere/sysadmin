@@ -1,0 +1,96 @@
+﻿<Page
+    x:Class="SysAdmin.Views.Groups.GroupDetailsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SysAdmin.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:SysAdmin.Converters"
+    xmlns:controls="using:SysAdmin.Controls"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <converters:EmptyToCollapsedConverter x:Key="EmptyToCollapsedConverter"/>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel 
+                Margin="24"
+                Grid.Column="0" 
+                Orientation="Horizontal" 
+                HorizontalAlignment="Stretch">
+
+                <FontIcon
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="32"
+                    Glyph="&#xE902;" />
+
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock 
+                    Text="{x:Bind ViewModel.Group.CN, Mode=OneWay}"
+                    Style="{StaticResource TitleDetailPageStyle}"/>
+
+                    <TextBlock 
+                    Visibility="{x:Bind ViewModel.Group.Description, Mode=OneWay, Converter={StaticResource EmptyToCollapsedConverter}}"
+                    Text="{x:Bind ViewModel.Group.Description, Mode=OneWay}"
+                    Style="{StaticResource SubTitleDetailPageStyle}"/>
+                </StackPanel>
+
+            </StackPanel>
+
+            <CommandBar Margin="24" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Column="1">
+                <AppBarButton Icon="Edit" Label="Edit" Command="{x:Bind ViewModel.ModifyCommand}"/>
+                <AppBarSeparator/>
+                <AppBarButton Icon="AllApps" Label="Properties" Click="AppBarButton_Click"/>
+                <AppBarSeparator />
+                <AppBarButton Icon="Delete" Label="Delete" Command="{x:Bind ViewModel.DeleteCommand}"/>
+            </CommandBar>
+
+        </Grid>
+
+        <Grid 
+            VerticalAlignment="Top"
+            Grid.Row="1" 
+            Margin="24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="0" Grid.Column="0" Text="Group type" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="0" Grid.Column="1" Text="{x:Bind ViewModel.Group.ADGroupType, Mode=OneWay}" />
+        </Grid>
+
+        <controls:MemberOfControl
+            Grid.Row="2" 
+            Margin="24" 
+            VerticalAlignment="Top"
+            MemberOf="{x:Bind ViewModel.Group.MemberOf, Mode=OneWay}"
+            PrimaryGroupId="{x:Bind ViewModel.Group.PrimaryGroupId, Mode=OneWay}"
+            DistinguishedName="{x:Bind ViewModel.Group.DistinguishedName, Mode=OneWay}" Changed="MemberOfControl_Changed" />
+
+        <controls:MembersControl
+            Grid.Row="3" 
+            Margin="24" 
+            VerticalAlignment="Top"
+            Members="{x:Bind ViewModel.Group.Members, Mode=OneWay}"
+            CN="{x:Bind ViewModel.Group.CN, Mode=OneWay}" Changed="MembersControl_Changed" />
+
+    </Grid>
+</Page>

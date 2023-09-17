@@ -1,0 +1,104 @@
+﻿<ui:UiPage
+    x:Class="Sysadmin.Views.Pages.LoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Sysadmin.Views.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:Sysadmin.Models"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml" 
+    xmlns:converters="clr-namespace:SysAdmin.Converters"
+    Title="Login"
+    d:DataContext="{d:DesignInstance local:LoginPage,
+                                     IsDesignTimeCreatable=False}"
+    d:DesignHeight="500"
+    d:DesignWidth="800"
+    d:Background="{DynamicResource ApplicationBackgroundBrush}"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </Page.Resources>
+
+    <Grid>
+
+        <Grid x:Name="gridLogin"
+          Width="400" 
+          HorizontalAlignment="Center" 
+          VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TabControl Grid.Row="1" HorizontalAlignment="Stretch" SelectedIndex="{Binding ViewModel.SelectedIndex, Mode=TwoWay}">
+            <TabItem Header="Simple">
+
+                <StackPanel HorizontalAlignment="Stretch" Margin="8">
+
+                    <TextBlock Text="Connect to current domain" Margin="0,16,0,0" Style="{StaticResource FormDescriptionStyle}" />
+
+                    <ui:ToggleSwitch x:Name="toggleSwitch" Content="Credentials" Margin="4,16,4,16" IsChecked="{Binding ViewModel.UseCredentials, Mode=TwoWay}" />
+
+                    <StackPanel Visibility="{Binding IsChecked, ElementName=toggleSwitch, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <TextBlock Text="User name" Margin="0,0,0,4" Style="{StaticResource FormLabelStyle}"/>
+                        <TextBox x:Name="userNameCredentials" Text="{Binding ViewModel.UserName}" />
+
+                        <TextBlock Text="Password" Margin="0,16,0,4" Style="{StaticResource FormLabelStyle}"/>
+                        <PasswordBox x:Name="passwordCredentials" Margin="0,0,0,16" PasswordChanged="password_PasswordChanged" />
+                    </StackPanel>
+
+                </StackPanel>
+
+            </TabItem>
+
+            <TabItem Header="Advanced">
+
+                <StackPanel HorizontalAlignment="Stretch" Margin="8">
+
+                    <TextBlock Text="Connect to other domain" Margin="0,16,0,4" Style="{StaticResource FormDescriptionStyle}"/>
+
+                    <TextBlock Text="Server" Margin="0,16,0,4" Style="{StaticResource FormLabelStyle}"/>
+                    <TextBox x:Name="serverName" Text="{Binding ViewModel.ServerName}" />
+
+                    <StackPanel Orientation="Horizontal" Margin="0,16,0,4">
+                        <TextBlock Text="Port" 
+                                   Style="{StaticResource FormLabelStyle}"
+                                    VerticalAlignment="Center"
+                                    Margin="0,0,4,0" />
+                        <ui:TextBox Text="{Binding ViewModel.Port}" TextChanged="TextBox_TextChanged" />
+
+                        <TextBlock Text="SSL" 
+                                   Style="{StaticResource FormLabelStyle}"
+                                    VerticalAlignment="Center"
+                                    Margin="30,0,4,0" />
+                        <CheckBox x:Name="sslCheck" IsChecked="{Binding ViewModel.Ssl}" Checked="sslCheck_Checked" Unchecked="sslCheck_Unchecked" />
+                    </StackPanel>
+
+                    <TextBlock Text="User name" Margin="0,16,0,4" Style="{StaticResource FormLabelStyle}"/>
+                    <TextBox x:Name="userNameOther" Text="{Binding ViewModel.UserName}" />
+
+                    <TextBlock Text="Password" Margin="0,16,0,4" Style="{StaticResource FormLabelStyle}"/>
+                    <PasswordBox x:Name="passwordOther" Margin="0,0,0,16" PasswordChanged="password_PasswordChanged" />
+
+                </StackPanel>
+
+            </TabItem>
+        </TabControl>
+
+        <ui:Button x:Name="btnLogin"
+                   Content="Login"
+                    Grid.Row="2"
+                    Margin="4,16,4,4" 
+                    HorizontalAlignment="Right" 
+                    Appearance="Primary"
+                    Command="{Binding ViewModel.LoginCommand, Mode=OneWay}"/>
+
+    </Grid>
+
+    <ui:Snackbar VerticalAlignment="Top" x:Name="snackbar" Appearance="Danger" Title="Error" Icon="ErrorCircle12" Message="Connection error" Timeout="5000" />
+
+    </Grid>
+
+</ui:UiPage>

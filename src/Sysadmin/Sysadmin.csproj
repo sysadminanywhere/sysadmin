@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>10.0</LangVersion>
+    <UseWPF>true</UseWPF>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>applicationIcon.ico</ApplicationIcon>
+    <Title>Sysadmin</Title>
+	<AssemblyVersion>10.0.0</AssemblyVersion>
+	<Version>10.0.0</Version>
+	<FileVersion>10.0.0</FileVersion>
+	<Copyright>Copyright 2015-2023 Sysadmin Anywhere - All Rights Reserved</Copyright>
+	<Company>Sysadmin Anywhere</Company>
+	<Authors>Sysadmin Anywhere</Authors>
+    <PackageProjectUrl>https://sysadminanywhere.com</PackageProjectUrl>
+	<RepositoryUrl>https://github.com/sysadminanywhere/sysadmin</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\StoreLogo.ico" />
+    <Content Include="applicationIcon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FastReport.OpenSource.Export.PdfSimple" Version="2023.3.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="WPF-UI" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="applicationIcon.ico" />
+    <None Remove="Assets\StoreLogo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FastReport.ReportBuilder\FastReport.ReportBuilder.csproj" />
+    <ProjectReference Include="..\SysAdmin.ActiveDirectory\SysAdmin.ActiveDirectory.csproj" />
+    <ProjectReference Include="..\Sysadmin.WMI\Sysadmin.WMI.csproj" />
+  </ItemGroup>
+
+</Project>

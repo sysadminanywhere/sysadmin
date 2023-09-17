@@ -1,0 +1,128 @@
+﻿<ui:UiPage
+    x:Class="Sysadmin.Views.Pages.GroupsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Sysadmin.Views.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:Sysadmin.Models"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:converters="clr-namespace:SysAdmin.Converters" 
+    xmlns:Interactivity="http://schemas.microsoft.com/xaml/behaviors"
+    Title="Groups"
+    d:DataContext="{d:DesignInstance local:GroupsPage,
+                                     IsDesignTimeCreatable=False}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    d:Background="{DynamicResource ApplicationBackgroundBrush}"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    mc:Ignorable="d">
+    <Page.Resources>
+
+        <converters:EmptyToCollapsedConverter x:Key="EmptyToCollapsedConverter"/>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        
+        <DataTemplate x:Key="ListViewTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ui:SymbolIcon 
+                    Margin="4"
+                    Grid.RowSpan="2"
+                    Symbol="People24"/>
+                <TextBlock 
+                    Grid.Column="1"
+                    Text="{Binding CN}"
+                    Style="{StaticResource ListNameStyle}" />
+                <TextBlock  
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Visibility="{Binding Description, Converter={StaticResource EmptyToCollapsedConverter}}"
+                    Text="{Binding Description}"
+                    Style="{StaticResource ListDescriptionStyle}" />
+            </Grid>
+        </DataTemplate>
+
+    </Page.Resources>
+
+    <Grid Margin="16,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock 
+                Margin="24"
+                Grid.Column="0" 
+                Text="Groups"
+                Style="{StaticResource TitleDetailPageStyle}"/>
+
+            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                <ui:AutoSuggestBox MinWidth="200" Icon="Search12" PlaceholderText="Search..." TextChanged="AutoSuggestBox_TextChanged"/>
+                <Menu VerticalAlignment="Center" Background="Transparent">
+                    <ui:MenuItem Command="{Binding ViewModel.AddCommand}">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <ui:SymbolIcon Symbol="Add12" Margin="0,0,8,0" />
+                                <TextBlock>Add</TextBlock>
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                    </ui:MenuItem>
+                    <ui:MenuItem x:Name="mnuSort">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <ui:SymbolIcon Symbol="ArrowSort16" Margin="0,0,8,0" />
+                                <TextBlock>Sort</TextBlock>
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                        <ui:MenuItem Tag="asc" Header="By name (A-Z)" IsCheckable="True" IsChecked="True" Command="{Binding ViewModel.SortCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" Click="MenuSort_Click"/>
+                        <ui:MenuItem Tag="desc" Header="By name (Z-A)" IsCheckable="True" Command="{Binding ViewModel.SortCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" Click="MenuSort_Click"/>
+                    </ui:MenuItem>
+                    <ui:MenuItem x:Name="mnuFilter">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <ui:SymbolIcon Symbol="Filter12" Margin="0,0,8,0" />
+                                <TextBlock>Filter</TextBlock>
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                        <ui:MenuItem Tag="all" Header="All" IsCheckable="True" IsChecked="True" Click="MenuFilter_Click" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                        <ui:MenuItem Tag="global_security" Header="Global security" IsCheckable="True" Click="MenuFilter_Click" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                        <ui:MenuItem Tag="global_distribution" Header="Global distribution" IsCheckable="True" Click="MenuFilter_Click" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                        <ui:MenuItem Tag="domain_security" Header="Domain security" IsCheckable="True" Click="MenuFilter_Click" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                        <ui:MenuItem Tag="domain_distribution" Header="Domain distribution" IsCheckable="True" Click="MenuFilter_Click" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                        <ui:MenuItem Tag="universal_security" Header="Universal security" IsCheckable="True" Click="MenuFilter_Click" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                        <ui:MenuItem Tag="universal_distribution" Header="Universal distribution" IsCheckable="True" Click="MenuFilter_Click" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                        <ui:MenuItem Tag="builtin" Header="BuiltIn" IsCheckable="True" Click="MenuFilter_Click" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
+                    </ui:MenuItem>
+                </Menu>
+            </StackPanel>
+        </Grid>
+
+        <ListView
+            Grid.Row="1"
+            x:Name="users"
+            ItemTemplate="{StaticResource ListViewTemplate}"
+            ItemsSource="{Binding ViewModel.Groups, Mode=OneWay}">
+            <Interactivity:Interaction.Triggers>
+                <Interactivity:EventTrigger  EventName="SelectionChanged">
+                    <Interactivity:InvokeCommandAction Command="{Binding ViewModel.SelectedItemsChangedCommand}" CommandParameter="{Binding SelectedItems, ElementName=users}" />
+                </Interactivity:EventTrigger>
+            </Interactivity:Interaction.Triggers>
+        </ListView>
+
+        <ui:ProgressRing IsIndeterminate="True" Grid.Row="1" Visibility="{Binding ViewModel.IsBusy, Converter={StaticResource BoolToVisibilityConverter}}" Margin="2,179,-2,179" />
+
+    </Grid>
+</ui:UiPage>

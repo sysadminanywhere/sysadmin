@@ -1,0 +1,38 @@
+﻿
+1. Computers
+	+ Search
+	+ Sort
+	+ Filter
+2. Users
+	+ Search
+	+ Sort
+	+ Filter
+3. Contacts
+	+ Search
+	+ Sort
+	+ Filter
+4. Groups
+	+ Search
+	+ Sort
+	+ Filter
+5. Printers
+	+ Search
+	+ Sort
+6. User
+	+ Add (+Deafault password, +Checkboxes, +Options, +Check Password and Confirm password)
+	- Photo
+	+ Options
+	+ Reset password
+7. Groups
+	+ Add (Radio buttons)
+8. Reports
+	+ Show reports
+	- Number box
+	- Zoom
+9. Computer management
+	- Events
+	- Hardware
+	- Perfomance
+	- Processes
+	- Services
+	- Software

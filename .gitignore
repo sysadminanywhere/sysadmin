@@ -22,3 +22,7 @@ src/Sysadmin/Sysadmin (Package)/SysAdmin (Package).wapproj.user
 *.user
 src/Sysadmin/Sysadmin/SysAdmin.csproj.user
 src/.sonarqube
+src/Old/Sysadmin/obj
+src/Sysadmin/bin
+src/Old/Sysadmin/bin
+src/Sysadmin/obj

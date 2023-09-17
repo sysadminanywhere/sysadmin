@@ -1,0 +1,43 @@
+﻿<ContentDialog 
+    x:Class="SysAdmin.Views.Contacts.AddContactDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:SysAdmin.Controls"
+    mc:Ignorable="d"
+    d:DesignHeight="450"
+    d:DesignWidth="550"
+    Title="Add contact"
+    PrimaryButtonText="Save"
+    DefaultButton ="Primary"
+    SecondaryButtonText="Cancel">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="Container" Style="{ThemeResource FormLabelStyle}" />
+            <controls:DirectoryControl DistinguishedName="{x:Bind DistinguishedName}" Margin="0,4,0,16" HorizontalAlignment="Stretch" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
+            <TextBlock Text="Display name" Style="{ThemeResource BodyTextBlockStyle}" Margin="4" />
+            <TextBox x:Name="txtDisplayName" Text="{x:Bind Contact.DisplayName, Mode=TwoWay}" />
+
+            <TextBlock Text="First name" Style="{ThemeResource FormLabelStyle}" />
+            <TextBox x:Name="txtFirstName" Text="{x:Bind Contact.FirstName, Mode=TwoWay}" />
+
+            <TextBlock Text="Initials" Style="{ThemeResource FormLabelStyle}" />
+            <TextBox x:Name="txtInitials" Text="{x:Bind Contact.Initials, Mode=TwoWay}" />
+
+            <TextBlock Text="Last name" Style="{ThemeResource FormLabelStyle}" />
+            <TextBox x:Name="txtLastName" Text="{x:Bind Contact.LastName, Mode=TwoWay}" />
+
+        </StackPanel>
+    </Grid>
+
+</ContentDialog>
