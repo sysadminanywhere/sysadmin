@@ -67,6 +67,12 @@ namespace Sysadmin.ViewModels
         }
 
         [RelayCommand]
+        private void OnOptions()
+        {
+            _navigationService.Navigate(typeof(Views.Pages.UserOptionsPage));
+        }
+
+        [RelayCommand]
         private async Task OnDelete()
         {
             try

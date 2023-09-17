@@ -71,7 +71,7 @@
                         </StackPanel>
                     </ui:MenuItem.Header>
                 </ui:MenuItem>
-                <ui:MenuItem>
+                <ui:MenuItem Command="{Binding ViewModel.OptionsCommand}">
                     <ui:MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <ui:SymbolIcon Symbol="Options16" Margin="0,0,8,0" />

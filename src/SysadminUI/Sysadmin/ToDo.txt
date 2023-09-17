@@ -15,13 +15,13 @@
 	+ Search
 	+ Sort
 	+ Filter
-5. Printers?
+5. Printers
 	+ Search
 	+ Sort
 6. User
 	+ Add (+Deafault password, +Checkboxes, +Options, +Check Password and Confirm password)
 	- Photo
-	- Options
+	+ Options
 	- Reset password
 7. Groups
 	+ Add (Radio buttons)
@@ -29,3 +29,10 @@
 	+ Show reports
 	- Number box
 	- Zoom
+9. Computer management
+	- Events
+	- Hardware
+	- Perfomance
+	- Processes
+	- Services
+	- Software
