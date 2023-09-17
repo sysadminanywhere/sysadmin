@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+<Configuration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DeployedProjects>
+    <string>Sysadmin\Sysadmin.csproj</string>
+  </DeployedProjects>
+  <DirectoryMappings>
+    <Item Key="" Value="INSTALLFOLDER" />
+  </DirectoryMappings>
+  <FileMappings />
+  <DeploySymbols>true</DeploySymbols>
+  <DeployLocalizations>false</DeployLocalizations>
+  <DeployExternalLocalizations>false</DeployExternalLocalizations>
+  <ExcludedProjectItems>-</ExcludedProjectItems>
+</Configuration>

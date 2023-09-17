@@ -17,6 +17,7 @@
 	<Authors>Sysadmin Anywhere</Authors>
     <PackageProjectUrl>https://sysadminanywhere.com</PackageProjectUrl>
 	<RepositoryUrl>https://github.com/sysadminanywhere/sysadmin</RepositoryUrl>
+	<StartupObject>Sysadmin.App</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,7 +29,9 @@
 
   <ItemGroup>
     <Resource Include="Assets\StoreLogo.ico" />
-    <Content Include="applicationIcon.ico" />
+    <Content Include="applicationIcon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

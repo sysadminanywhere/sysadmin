@@ -36,3 +36,5 @@ src/Old/Sysadmin/bin
 src/Old/Sysadmin/obj
 src/Sysadmin/bin
 src/Sysadmin/obj
+src/SetupProject/bin
+src/SetupProject/obj
