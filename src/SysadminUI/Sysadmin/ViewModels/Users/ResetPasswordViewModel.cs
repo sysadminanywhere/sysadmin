@@ -13,10 +13,11 @@ using System.Security;
 using System.Text.RegularExpressions;
 using Wpf.Ui.Controls.Interfaces;
 using static LdapForNet.Native.Native;
+using SysAdmin.ActiveDirectory;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class UserViewModel : ObservableObject, INavigationAware
+    public partial class ResetPasswordViewModel : ObservableObject, INavigationAware
     {
         private bool _isInitialized = false;
 
@@ -27,9 +28,12 @@ namespace Sysadmin.ViewModels
         private UserEntry _user = new UserEntry();
 
         [ObservableProperty]
+        private SecureString _password;
+
+        [ObservableProperty]
         private string _errorMessage;
 
-        public UserViewModel(INavigationService navigationService, IExchangeService exchangeService)
+        public ResetPasswordViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
             _navigationService = navigationService;
             _exchangeService = exchangeService;
@@ -57,34 +61,17 @@ namespace Sysadmin.ViewModels
         [RelayCommand]
         private void OnClose()
         {
-            _navigationService.Navigate(typeof(Views.Pages.UsersPage));
+            _navigationService.Navigate(typeof(Views.Pages.UserPage));
         }
 
-        [RelayCommand]
-        private void OnEdit()
-        {
-            _navigationService.Navigate(typeof(Views.Pages.EditUserPage));
-        }
 
         [RelayCommand]
-        private void OnOptions()
-        {
-            _navigationService.Navigate(typeof(Views.Pages.UserOptionsPage));
-        }
-
-        [RelayCommand]
-        private void OnResetPassword()
-        {
-            _navigationService.Navigate(typeof(Views.Pages.ResetPasswordPage));
-        }
-
-        [RelayCommand]
-        private async Task OnDelete()
+        private async Task OnOk()
         {
             try
             {
-                await Delete(User);
-                _navigationService.Navigate(typeof(Views.Pages.UsersPage));
+                await ResetPassword(User, new System.Net.NetworkCredential(string.Empty, Password).Password);
+                _navigationService.Navigate(typeof(Views.Pages.UserPage));
             }
             catch (LdapException le)
             {
@@ -96,7 +83,7 @@ namespace Sysadmin.ViewModels
             }
         }
 
-        public async Task Delete(UserEntry user)
+        public async Task ResetPassword(UserEntry user, string password)
         {
             await Task.Run(async () =>
             {
@@ -104,45 +91,11 @@ namespace Sysadmin.ViewModels
                 {
                     using (var usersRepository = new UsersRepository(ldap))
                     {
-                        await usersRepository.DeleteAsync(user);
+                        await usersRepository.ResetPasswordAsync(user, password);
                     }
                 }
             });
         }
 
-        public async Task UpdatePhoto(string distinguishedName, byte[] photo)
-        {
-            try
-            {
-                await UpdatePhotoAsync(distinguishedName, photo);
-            }
-            catch (LdapException le)
-            {
-                ErrorMessage = SysAdmin.ActiveDirectory.LdapResult.GetErrorMessageFromResult(le.ResultCode);
-            }
-            catch (Exception ex)
-            {
-                ErrorMessage = ex.Message;
-            }
-
-        }
-
-        private async Task UpdatePhotoAsync(string distinguishedName, byte[] photo)
-        {
-            await Task.Run(async () =>
-            {
-                using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
-                {
-                    var image = new DirectoryModificationAttribute
-                    {
-                        LdapModOperation = LdapModOperation.LDAP_MOD_REPLACE,
-                        Name = "jpegPhoto"
-                    };
-                    image.Add(photo);
-                    await ldap.SendRequestAsync(new ModifyRequest(distinguishedName, image));
-                }
-            });
-
-        }
     }
 }

@@ -22,7 +22,7 @@
 	+ Add (+Deafault password, +Checkboxes, +Options, +Check Password and Confirm password)
 	- Photo
 	+ Options
-	- Reset password
+	+ Reset password
 7. Groups
 	+ Add (Radio buttons)
 8. Reports
