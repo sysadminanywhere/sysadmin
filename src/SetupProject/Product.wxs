@@ -21,12 +21,31 @@
 
 		<Icon Id="LOGO.ICO" SourceFile="Sysadmin.ico"/>
 		<Property Id="ARPPRODUCTICON" Value="LOGO.ICO" />
+
+		<Feature Id="MainApplication" Title="Sysadmin" Level="1">
+			<ComponentRef Id="Sysadmin.exe" />
+			<ComponentRef Id="ApplicationShortcut" />
+		</Feature>
 	</Product>
 
 	<Fragment>
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramFilesFolder">
 				<Directory Id="INSTALLFOLDER" Name="Sysadmin Anywhere" />
+			</Directory>
+
+			<Directory Id="ProgramMenuFolder">
+				<Directory Id="ApplicationProgramsFolder" Name="Sysadmin Anywhere">
+					<Component Id="ApplicationShortcut" Guid="695de98d-1248-4530-9565-5305acf1ad8d">
+						<Shortcut Id="ApplicationStartMenuShortcut"
+								  Name="Sysadmin"
+								  Description="Sysadmin"
+								  Target="[#Sysadmin.exe]"
+								  WorkingDirectory="INSTALLFOLDER"/>
+						<RemoveFolder Id="CleanUpShortCut" Directory="ApplicationProgramsFolder" On="uninstall"/>
+						<RegistryValue Root="HKCU" Key="Software\Sysadmin Anywhere\Sysadmin" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+					</Component>
+				</Directory>
 			</Directory>
 		</Directory>
 	</Fragment>

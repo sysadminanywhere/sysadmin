@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sysadmin.WMI", "Sysadmin.WM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sysadmin", "Sysadmin\Sysadmin.csproj", "{3A0A75EF-D7F0-4788-A177-F8BED84CDA6A}"
 EndProject
-Project("{B7DD6F7E-DEF8-4E67-B5B7-07EF123DB6F0}") = "SetupProject", "SetupProject\SetupProject.wixproj", "{E940BCD5-6B6C-4C3D-AAC2-D906F17FB184}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "SetupProject", "SetupProject\SetupProject.wixproj", "{E940BCD5-6B6C-4C3D-AAC2-D906F17FB184}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

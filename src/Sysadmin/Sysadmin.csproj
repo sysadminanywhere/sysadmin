@@ -30,7 +30,7 @@
   <ItemGroup>
     <Resource Include="Assets\StoreLogo.ico" />
     <Content Include="applicationIcon.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
