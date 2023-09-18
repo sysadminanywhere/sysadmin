@@ -1,0 +1,121 @@
+﻿<Page
+    x:Class="SysAdmin.Views.Computers.ComputerDetailsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SysAdmin.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:SysAdmin.Converters"
+    xmlns:controls="using:SysAdmin.Controls"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <converters:EmptyToCollapsedConverter x:Key="EmptyToCollapsedConverter"/>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel 
+                Margin="24"
+                Grid.Column="0"
+                Orientation="Horizontal" 
+                HorizontalAlignment="Stretch">
+
+                <FontIcon
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="32"
+                    Glyph="&#xE977;" />
+
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock 
+                    Text="{x:Bind ViewModel.Computer.CN, Mode=OneWay}"
+                    Style="{StaticResource TitleDetailPageStyle}"/>
+
+                    <TextBlock 
+                    Visibility="{x:Bind ViewModel.Computer.Description, Mode=OneWay, Converter={StaticResource EmptyToCollapsedConverter}}"
+                    Text="{x:Bind ViewModel.Computer.Description, Mode=OneWay}"
+                    Style="{StaticResource SubTitleDetailPageStyle}"/>
+                </StackPanel>
+
+            </StackPanel>
+
+            <CommandBar Margin="24" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Column="1">
+                <AppBarButton Icon="Edit" Label="Edit" Command="{x:Bind ViewModel.ModifyCommand}"/>
+                <AppBarSeparator />
+                <AppBarButton Icon="Manage" Label="Managenent">
+                    <AppBarButton.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem x:Name="mnuProcesses" Text="Processes" Click="mnuProcesses_Click" />
+                            <MenuFlyoutItem x:Name="mnuServices" Text="Services" Click="mnuServices_Click" />
+                            <MenuFlyoutItem x:Name="mnuEvents" Text="Events" Click="mnuEvents_Click" />
+                            <MenuFlyoutItem x:Name="mnuSoftware" Text="Software" Click="mnuSoftware_Click" />
+                            <MenuFlyoutItem x:Name="mnuHardware" Text="Hardware" Click="mnuHardware_Click" />
+                            <MenuFlyoutSeparator/>
+                            <MenuFlyoutItem x:Name="mnuPerformance" Text="Performance" Click="mnuPerformance_Click" />
+                            <MenuFlyoutSeparator/>
+                            <MenuFlyoutItem x:Name="mnuRestart" Text="Reboot" Click="mnuRestart_Click" />
+                            <MenuFlyoutItem x:Name="mnuShutdown" Text="Shutdown" Click="mnuShutdown_Click" />
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarSeparator/>
+                <AppBarButton Icon="AllApps" Label="Properties" Click="AppBarButton_Click"/>
+                <AppBarSeparator />
+                <AppBarButton Icon="Delete" Label="Delete" Command="{x:Bind ViewModel.DeleteCommand}"/>
+            </CommandBar>
+        </Grid>
+
+        <Grid 
+            VerticalAlignment="Top"
+            Grid.Row="1" 
+            Margin="24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}" Grid.Row="0" Grid.Column="0" Text="Location" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="0" Grid.Column="1" Text="{x:Bind ViewModel.Computer.Location, Mode=OneWay}" />
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="1" Grid.Column="0" Text="Host name" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="1" Grid.Column="1" Text="{x:Bind ViewModel.Computer.DnsHostName, Mode=OneWay}" />
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="2" Grid.Column="0" Text="Operating system" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="2" Grid.Column="1" Text="{x:Bind ViewModel.Computer.OperatingSystem, Mode=OneWay}" />
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="3" Grid.Column="0" Text="Version" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="3" Grid.Column="1" Text="{x:Bind ViewModel.Computer.OperatingSystemVersion, Mode=OneWay}" />
+
+            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="4" Grid.Column="0" Text="Service pack" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="4" Grid.Column="1" Text="{x:Bind ViewModel.Computer.OperatingSystemServicePack, Mode=OneWay}" />
+        </Grid>
+
+        <controls:MemberOfControl
+            Grid.Row="2" 
+            Margin="24" 
+            VerticalAlignment="Top"
+            MemberOf="{x:Bind ViewModel.Computer.MemberOf, Mode=OneWay}"
+            PrimaryGroupId="{x:Bind ViewModel.Computer.PrimaryGroupId, Mode=OneWay}"
+            DistinguishedName="{x:Bind ViewModel.Computer.DistinguishedName, Mode=OneWay}"
+            Changed="MemberOfControl_Changed" />
+
+    </Grid>
+</Page>

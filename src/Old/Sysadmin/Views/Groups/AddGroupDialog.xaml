@@ -1,0 +1,51 @@
+﻿<ContentDialog 
+    x:Class="SysAdmin.Views.Groups.AddGroupDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:SysAdmin.Controls"
+    mc:Ignorable="d"
+    d:DesignHeight="450"
+    d:DesignWidth="550"
+    Title="Add group"
+    PrimaryButtonText="Save"
+    DefaultButton ="Primary"
+    SecondaryButtonText="Cancel" 
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="Container" Style="{ThemeResource FormLabelStyle}" />
+            <controls:DirectoryControl DistinguishedName="{x:Bind DistinguishedName}" Margin="0,4,0,16" HorizontalAlignment="Stretch" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
+            <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Margin="4" Text="Name" />
+            <TextBox Text="{x:Bind Group.CN, Mode=TwoWay}" />
+
+            <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Margin="4,16,4,4" Text="Description" Padding="0,2,0,0" />
+            <TextBox Text="{x:Bind Group.Description, Mode=TwoWay}" />
+
+            <TextBlock Text="Group scope" Style="{ThemeResource FormLabelStyle}" />
+            <ComboBox x:Name="cmbScope" Margin="4" SelectedIndex="0">
+                <ComboBoxItem Content="Global" />
+                <ComboBoxItem Content="Local" />
+                <ComboBoxItem Content="Universal" />
+            </ComboBox>
+
+            <TextBlock Text="Group type" Style="{ThemeResource FormLabelStyle}" />
+            <StackPanel Margin="4">
+                <RadioButton x:Name="radSecurity" Content="Security" IsChecked="True" />
+                <RadioButton x:Name="radDistribution" Content="Distribution"/>
+            </StackPanel>
+
+        </StackPanel>
+    </Grid>
+
+</ContentDialog>

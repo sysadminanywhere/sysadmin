@@ -1,0 +1,110 @@
+﻿<Page
+    x:Class="SysAdmin.Views.Users.UsersPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SysAdmin.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:entries="using:SysAdmin.ActiveDirectory.Models"
+    xmlns:converters="using:SysAdmin.Converters"
+    mc:Ignorable="d">
+    <Page.Resources>
+
+        <converters:EmptyToCollapsedConverter x:Key="EmptyToCollapsedConverter"/>
+        
+        <DataTemplate x:Key="ListViewTemplate" x:DataType="entries:UserEntry">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <PersonPicture 
+                    Width="32" 
+                    Height="32" 
+                    Margin="6"
+                    Grid.RowSpan="2"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    DisplayName="{x:Bind DisplayName, Mode=OneWay}" />
+                <TextBlock 
+                    Grid.Column="1"
+                    Text="{x:Bind CN}"
+                    x:Phase="1"
+                    Style="{ThemeResource BaseTextBlockStyle}"
+                    Margin="12,6,0,0"/>
+                <TextBlock  
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Visibility="{x:Bind Description, Converter={StaticResource EmptyToCollapsedConverter}}"
+                    Text="{x:Bind Description}"
+                    x:Phase="2"
+                    Style="{ThemeResource BodyTextBlockStyle}"
+                    Margin="12,0,0,6"/>
+            </Grid>
+        </DataTemplate>
+        
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock 
+                Margin="24"
+                Grid.Column="0" 
+                Text="Users"
+                Style="{StaticResource TitleTextBlockStyle}"/>
+
+            <CommandBar Margin="24" Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" Grid.Column="1">
+                <AppBarElementContainer VerticalAlignment="Center">
+                    <AutoSuggestBox QueryIcon="Find" MinWidth="200" PlaceholderText="Search" TextChanged="AutoSuggestBox_TextChanged" />
+                </AppBarElementContainer>
+                <AppBarSeparator />
+                <AppBarButton Icon="Add" Label="Add" Command="{x:Bind ViewModel.AddCommand}"/>
+                <AppBarSeparator />
+                <AppBarButton Icon="Sort" Label="Sort">
+                    <AppBarButton.Flyout>
+                        <MenuFlyout x:Name="mnuSort">
+                            <ToggleMenuFlyoutItem x:Name="mnuSortAsc" Text="By name (A-Z)" Command="{x:Bind ViewModel.SortAscCommand}" Click="mnuSort_Click" />
+                            <ToggleMenuFlyoutItem x:Name="mnuSortDesc" Text="By name (Z-A)" Command="{x:Bind ViewModel.SortDescCommand}" Click="mnuSort_Click" />
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarButton Icon="Filter" Label="Filter">
+                    <AppBarButton.Flyout>
+                        <MenuFlyout x:Name="mnuFilter">
+                            <ToggleMenuFlyoutItem x:Name="mnuFilterAll" Text="All" IsChecked="True" Click="mnuFilter_Click" />
+                            <ToggleMenuFlyoutItem x:Name="mnuFilterEnabled" Text="Enabled" Click="mnuFilter_Click" />
+                            <ToggleMenuFlyoutItem x:Name="mnuFilterDisabled" Text="Disabled" Click="mnuFilter_Click" />
+                            <ToggleMenuFlyoutItem x:Name="mnuFilterLocked" Text="Locked" Click="mnuFilter_Click" />
+                            <ToggleMenuFlyoutItem x:Name="mnuFilterExpired" Text="Expired" Click="mnuFilter_Click" />
+                            <ToggleMenuFlyoutItem x:Name="mnuFilterNeverExpires" Text="Never expires" Click="mnuFilter_Click" />
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+            </CommandBar>
+
+        </Grid>
+
+        <ListView
+            Grid.Row="1"
+            x:Name="users"
+            ItemsSource="{x:Bind ViewModel.Users, Mode=OneWay}"
+            ItemTemplate="{StaticResource ListViewTemplate}"
+            SelectionChanged="users_SelectionChanged"
+            BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}" />
+        
+    </Grid>
+</Page>
