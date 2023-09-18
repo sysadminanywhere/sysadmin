@@ -28,10 +28,10 @@ namespace Sysadmin.ViewModels
         private UserEntry _user = new UserEntry();
 
         [ObservableProperty]
-        private SecureString _password;
+        private SecureString _password = new SecureString();
 
         [ObservableProperty]
-        private string _errorMessage;
+        private string _errorMessage = string.Empty;
 
         public ResetPasswordViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
@@ -39,7 +39,7 @@ namespace Sysadmin.ViewModels
             _exchangeService = exchangeService;
         }
 
-        public async void OnNavigatedTo()
+        public void OnNavigatedTo()
         {
             if (!_isInitialized)
                 InitializeViewModel();

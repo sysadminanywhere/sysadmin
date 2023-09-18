@@ -23,12 +23,12 @@ namespace Sysadmin.ViewModels
         private IExchangeService _exchangeService;
 
         [ObservableProperty]
-        private IEnumerable<UserEntry> _users;
+        private IEnumerable<UserEntry> _users = new List<UserEntry>();
 
         [ObservableProperty]
         private bool _isBusy;
 
-        private List<UserEntry> cache;
+        private List<UserEntry> cache =  new List<UserEntry>();
 
         public enum Filters
         {
@@ -76,7 +76,7 @@ namespace Sysadmin.ViewModels
         [RelayCommand]
         private void OnSelectedItemsChanged(IEnumerable<object> items)
         {
-            if (items != null && items.Count() > 0)
+            if (items.Any())
             {
                 _exchangeService.SetParameter((UserEntry)items.First());
                 _navigationService.Navigate(typeof(Views.Pages.UserPage));
@@ -172,10 +172,6 @@ namespace Sysadmin.ViewModels
 
                 switch (filters)
                 {
-                    case Filters.All:
-                        Users = Users;
-                        break;
-
                     case Filters.AccountEnabled:
                         Users = Users.Where(c => (c.UserControl & UserAccountControls.ACCOUNTDISABLE) != UserAccountControls.ACCOUNTDISABLE);
                         break;

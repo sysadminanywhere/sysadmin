@@ -23,7 +23,7 @@ namespace Sysadmin.ViewModels
         private IExchangeService _exchangeService;
 
         [ObservableProperty]
-        private List<IReport> _reports;
+        private List<IReport> _reports = new List<IReport>();
 
         public ReportsViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
@@ -84,7 +84,7 @@ namespace Sysadmin.ViewModels
         [RelayCommand]
         private void OnSelectedItemsChanged(IEnumerable<object> items)
         {
-            if (items != null && items.Count() > 0)
+            if (items.Any())
             {
                 _exchangeService.SetParameter((IReport)items.First());
                 _navigationService.Navigate(typeof(Views.Pages.ReportPage));

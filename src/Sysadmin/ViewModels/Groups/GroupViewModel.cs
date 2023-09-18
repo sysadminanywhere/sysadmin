@@ -23,7 +23,7 @@ namespace Sysadmin.ViewModels
         private GroupEntry _group = new GroupEntry();
 
         [ObservableProperty]
-        private string _errorMessage;
+        private string _errorMessage = string.Empty;
 
         public GroupViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
@@ -31,7 +31,7 @@ namespace Sysadmin.ViewModels
             _exchangeService = exchangeService;
         }
 
-        public async void OnNavigatedTo()
+        public void OnNavigatedTo()
         {
             if (!_isInitialized)
                 InitializeViewModel();

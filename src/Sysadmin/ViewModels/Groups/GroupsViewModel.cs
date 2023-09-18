@@ -23,9 +23,9 @@ namespace Sysadmin.ViewModels
         private IExchangeService _exchangeService;
 
         [ObservableProperty]
-        private IEnumerable<GroupEntry> _groups;
+        private IEnumerable<GroupEntry> _groups = new List<GroupEntry>();
 
-        private List<GroupEntry> cache;
+        private List<GroupEntry> cache= new List<GroupEntry> ();
 
         [ObservableProperty]
         private bool _isBusy;
@@ -78,7 +78,7 @@ namespace Sysadmin.ViewModels
         [RelayCommand]
         private void OnSelectedItemsChanged(IEnumerable<object> items)
         {
-            if (items != null && items.Count() > 0)
+            if (items.Any())
             {
                 _exchangeService.SetParameter((GroupEntry)items.First());
                 _navigationService.Navigate(typeof(Views.Pages.GroupPage));
@@ -180,10 +180,6 @@ namespace Sysadmin.ViewModels
 
                 switch (filters)
                 {
-                    case Filters.All:
-                        Groups = Groups;
-                        break;
-
                     case Filters.BuiltIn:
                         Groups = Groups.Where(c => c.GroupType == -2147483643);
                         break;

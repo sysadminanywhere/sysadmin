@@ -12,6 +12,8 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 using System.Windows.Input;
 using Wpf.Ui.Controls;
+using System.Windows.Markup;
+using System.Diagnostics;
 
 namespace Sysadmin.Views.Pages
 {
@@ -21,14 +23,10 @@ namespace Sysadmin.Views.Pages
     public partial class ReportPage : INavigableView<ViewModels.ReportViewModel>
     {
 
-        private Report report;
-        private ImageExport ex;
-        private bool hasMultipleFiles;
+        private Report report = new Report();
         private int currentPage = 0;
         private double imHeight;
         private double imWidth;
-
-        string temporaryFolder = Path.GetTempPath();
 
         public ViewModels.ReportViewModel ViewModel
         {
@@ -49,7 +47,6 @@ namespace Sysadmin.Views.Pages
 
         private async void ReportPage_Loaded(object sender, RoutedEventArgs e)
         {
-
             ViewModel.IsBusy = true;
             stackMenu.IsEnabled = false;
             gridPreview.Visibility = Visibility.Collapsed;
@@ -58,8 +55,6 @@ namespace Sysadmin.Views.Pages
             {
                 report = await ViewModel.Report.Report();
 
-                ex = new ImageExport();
-                ex.HasMultipleFiles = HasMultipleFiles;
                 SetContent(report);
                 SetImage();
 
@@ -72,10 +67,9 @@ namespace Sysadmin.Views.Pages
             }
 
             ViewModel.IsBusy = false;
-
         }
 
-        public List<BitmapImage> pages = new List<BitmapImage>();
+        private List<BitmapImage> pages = new List<BitmapImage>();
 
         public void SetImage()
         {
@@ -90,47 +84,47 @@ namespace Sysadmin.Views.Pages
             get { return currentPage; }
             set
             {
-                if (value >= 0 && value < pages.Count())
+                if (value >= 0 && value < pages.Count)
                     currentPage = value;
-            }
-        }
-        public bool HasMultipleFiles
-        {
-            get { return hasMultipleFiles; }
-            set
-            {
-                hasMultipleFiles = value;
-                ex.HasMultipleFiles = value;
             }
         }
 
         private void SetContent(Report report)
         {
-            DeleteTempFiles();
-            ex.ImageFormat = ImageExportFormat.Png;
-            ex.ResolutionX = 96;
-            ex.ResolutionY = 96;
-            Random rnd = new Random();
-            ex.Export(report, temporaryFolder + "/test." + rnd.Next(100) + ".png");
-            foreach (string file in ex.GeneratedFiles)
+            ImageExport exp = new ImageExport();
+
+            exp.ImageFormat = ImageExportFormat.Png;
+            exp.ResolutionX = 96;
+            exp.ResolutionY = 96;
+
+            pages.Clear();
+
+            int n = report.PreparedPages.Count;
+
+            for (int i = 1; i <= n; i++)
             {
-                BitmapImage image = new BitmapImage(new Uri(file));
-                pages.Add(image);
+                using (var ms = new MemoryStream())
+                {
+                    exp.PageRange = PageRange.PageNumbers;
+                    exp.PageNumbers = i.ToString();
+
+                    exp.Export(report, ms);
+
+                    var bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.StreamSource = ms;
+                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmap.EndInit();
+                    bitmap.Freeze();
+
+                    pages.Add(bitmap);
+                }
             }
+
             CurrentPage = 0;
 
             PageNumber.Minimum = 1;
-            PageNumber.Maximum = pages.Count();
-        }
-
-        public void DeleteTempFiles()
-        {
-            string[] files = Directory.GetFiles(temporaryFolder, "test.*.png");
-            pages.Clear();
-            foreach (string file in files)
-            {
-                File.Delete(file);
-            }
+            PageNumber.Maximum = pages.Count;
         }
 
         private void First_Click(object sender, RoutedEventArgs e)
@@ -153,7 +147,7 @@ namespace Sysadmin.Views.Pages
 
         private void Last_Click(object sender, RoutedEventArgs e)
         {
-            CurrentPage = pages.Count() - 1;
+            CurrentPage = pages.Count - 1;
             SetImage();
         }
 

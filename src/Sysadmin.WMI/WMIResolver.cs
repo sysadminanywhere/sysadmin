@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Sysadmin.WMI
 {
-    public static class WMIResolver<T>
+    public static class WmiResolver<T>
     {
 
         public static T GetValues(Dictionary<string, object> properties)
@@ -24,7 +24,7 @@ namespace Sysadmin.WMI
 
                     var attributes = (WMIAttribute[])property.GetCustomAttributes(typeof(WMIAttribute), true);
 
-                    if (attributes.Count() > 0)
+                    if (attributes.Any())
                     {
                         propertyName = attributes[0].Name;
                     }

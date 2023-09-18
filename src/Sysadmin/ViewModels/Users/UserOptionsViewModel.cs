@@ -28,7 +28,7 @@ namespace Sysadmin.ViewModels
         private UserEntry _user = new UserEntry();
 
         [ObservableProperty]
-        private string _errorMessage;
+        private string _errorMessage = string.Empty;
 
         [ObservableProperty]
         private bool _isCannotChangePassword;
@@ -48,7 +48,7 @@ namespace Sysadmin.ViewModels
             _exchangeService = exchangeService;
         }
 
-        public async void OnNavigatedTo()
+        public void OnNavigatedTo()
         {
             if (!_isInitialized)
                 InitializeViewModel();
@@ -69,7 +69,7 @@ namespace Sysadmin.ViewModels
                 */
 
                 bool isDontExpirePassword = (userAccountControl & UserAccountControls.DONT_EXPIRE_PASSWD) == UserAccountControls.DONT_EXPIRE_PASSWD;
-                if (isDontExpirePassword == false && User.PasswordLastSet == new DateTime(1601, 01, 01, 0, 0, 0, DateTimeKind.Utc))
+                if (!isDontExpirePassword && User.PasswordLastSet == new DateTime(1601, 01, 01, 0, 0, 0, DateTimeKind.Utc))
                     IsMustChangePassword = true;
                 else
                     IsMustChangePassword = false;
