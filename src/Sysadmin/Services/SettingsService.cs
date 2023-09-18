@@ -1,6 +1,9 @@
 ﻿using Newtonsoft.Json;
+using SysAdmin.ActiveDirectory.Services.Ldap;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Windows.Shapes;
 
 namespace SysAdmin.Services
 {
@@ -8,6 +11,8 @@ namespace SysAdmin.Services
     {
 
         private Dictionary<string, string> settings = new Dictionary<string, string>();
+
+        private readonly string fileName = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Sysadmin Anywhere", "Sysadmin", "settings.json");
 
         public string ThemeSetting
         {
@@ -112,7 +117,8 @@ namespace SysAdmin.Services
         {
             try
             {
-                string json = System.IO.File.ReadAllText("settings.json");
+                CreateFolders();
+                string json = System.IO.File.ReadAllText(fileName);
                 settings = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
             }
             catch { }
@@ -120,8 +126,9 @@ namespace SysAdmin.Services
 
         public void SaveSettings()
         {
+            CreateFolders();
             string json = JsonConvert.SerializeObject(settings);
-            System.IO.File.WriteAllText("settings.json", json);
+            System.IO.File.WriteAllText(fileName, json);
         }
 
         private void SetValue(string key, object value)
@@ -172,6 +179,19 @@ namespace SysAdmin.Services
                 return defaultvalue;
             else
                 return Boolean.Parse(value.ToString());
+        }
+
+        private void CreateFolders()
+        {
+            string dir1 = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Sysadmin Anywhere");
+            string dir2 = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Sysadmin Anywhere", "Sysadmin");
+
+            if (!Directory.Exists(dir1))
+                Directory.CreateDirectory(dir1);
+
+            if (!Directory.Exists(dir2))
+                Directory.CreateDirectory(dir2);
+
         }
 
     }
