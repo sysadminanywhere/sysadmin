@@ -13,12 +13,12 @@ namespace Sysadmin.Services.Reports
 {
     public class ReportFromSearch : IReport
     {
-        public string Name { get; private set; } = string.Empty;
-        public string Description { get; private set; } = string.Empty;
-        public string Group { get; private set; } = string.Empty;
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public string Group { get; private set; }
 
-        private string filter;
-        private Dictionary<string, string> columns;
+        private readonly string filter;
+        private readonly Dictionary<string, string> columns;
 
         public ReportFromSearch(string group, string name, string description, string filter, Dictionary<string, string> columns)
         {
@@ -67,7 +67,7 @@ namespace Sysadmin.Services.Reports
             {
                 ReportItem reportItem = new ReportItem();
 
-                var item1 = entry.Attributes.Where(c => c.Key.ToLower() == column1.Key.ToLower()).FirstOrDefault();
+                var item1 = entry.Attributes.FirstOrDefault(c => c.Key.ToLower() == column1.Key.ToLower());
 
                 if (item1.Value != null)
                     reportItem.ColumnOne = string.Join(", ", item1.Value);
@@ -106,8 +106,8 @@ namespace Sysadmin.Services.Reports
             {
                 ReportItem reportItem = new ReportItem();
 
-                var item1 = entry.Attributes.Where(c => c.Key.ToLower() == column1.Key.ToLower()).FirstOrDefault();
-                var item2 = entry.Attributes.Where(c => c.Key.ToLower() == column2.Key.ToLower()).FirstOrDefault();
+                var item1 = entry.Attributes.FirstOrDefault(c => c.Key.ToLower() == column1.Key.ToLower());
+                var item2 = entry.Attributes.FirstOrDefault(c => c.Key.ToLower() == column2.Key.ToLower());
 
                 if (item1.Value != null)
                     reportItem.ColumnOne = string.Join(", ", item1.Value);
@@ -151,9 +151,9 @@ namespace Sysadmin.Services.Reports
             {
                 ReportItem reportItem = new ReportItem();
 
-                var item1 = entry.Attributes.Where(c => c.Key.ToLower() == column1.Key.ToLower()).FirstOrDefault();
-                var item2 = entry.Attributes.Where(c => c.Key.ToLower() == column2.Key.ToLower()).FirstOrDefault();
-                var item3 = entry.Attributes.Where(c => c.Key.ToLower() == column3.Key.ToLower()).FirstOrDefault();
+                var item1 = entry.Attributes.FirstOrDefault(c => c.Key.ToLower() == column1.Key.ToLower());
+                var item2 = entry.Attributes.FirstOrDefault(c => c.Key.ToLower() == column2.Key.ToLower());
+                var item3 = entry.Attributes.FirstOrDefault(c => c.Key.ToLower() == column3.Key.ToLower());
 
                 if (item1.Value != null)
                     reportItem.ColumnOne = string.Join(", ", item1.Value);
@@ -189,8 +189,10 @@ namespace Sysadmin.Services.Reports
                         {
                             reportItem.ColumnThree = DateTime.FromFileTime(Int64.Parse(reportItem.ColumnThree)).ToString();
                         }
-                        catch { }
-
+                        catch
+                        {
+                            reportItem.ColumnThree = string.Empty;
+                        }
 
                 }
 

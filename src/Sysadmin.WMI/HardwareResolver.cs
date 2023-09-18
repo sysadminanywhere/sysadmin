@@ -14,14 +14,14 @@ namespace Sysadmin.WMI
             List<T> entities = new List<T>();
 
             foreach (var item in result)
-                entities.Add(WMIResolver<T>.GetValues(item));
+                entities.Add(WmiResolver<T>.GetValues(item));
 
             return entities;
         }
 
         public async static Task<T> GetValue(List<Dictionary<string, object>> result)
         {
-            return WMIResolver<T>.GetValues(result.FirstOrDefault());
+            return WmiResolver<T>.GetValues(result.FirstOrDefault());
         }
 
     }

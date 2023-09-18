@@ -23,9 +23,9 @@ namespace Sysadmin.ViewModels
         private IExchangeService _exchangeService;
 
         [ObservableProperty]
-        private IEnumerable<ComputerEntry> _computers;
+        private IEnumerable<ComputerEntry> _computers = new List<ComputerEntry>();
 
-        private List<ComputerEntry> cache;
+        private List<ComputerEntry> cache = new List<ComputerEntry>();
 
         [ObservableProperty]
         private bool _isBusy;
@@ -160,10 +160,6 @@ namespace Sysadmin.ViewModels
 
                 switch (filters)
                 {
-                    case Filters.All:
-                        Computers = Computers;
-                        break;
-
                     case Filters.AccountEnabled:
                         Computers = Computers.Where(c => (c.UserControl & UserAccountControls.ACCOUNTDISABLE) != UserAccountControls.ACCOUNTDISABLE);
                         break;

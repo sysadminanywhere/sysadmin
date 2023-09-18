@@ -27,7 +27,7 @@ namespace Sysadmin.ViewModels
         private UserEntry _user = new UserEntry();
 
         [ObservableProperty]
-        private string _errorMessage;
+        private string _errorMessage = string.Empty;
 
         public UserViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
@@ -35,7 +35,7 @@ namespace Sysadmin.ViewModels
             _exchangeService = exchangeService;
         }
 
-        public async void OnNavigatedTo()
+        public void OnNavigatedTo()
         {
             if (!_isInitialized)
                 InitializeViewModel();

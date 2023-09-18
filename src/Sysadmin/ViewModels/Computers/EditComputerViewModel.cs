@@ -24,13 +24,13 @@ namespace Sysadmin.ViewModels
         private ComputerEntry _computer = new ComputerEntry();
 
         [ObservableProperty]
-        private string _distinguishedName;
+        private string _distinguishedName = string.Empty;
 
         [ObservableProperty]
         private bool _isAccountEnabled = true;
 
         [ObservableProperty]
-        private string _errorMessage;
+        private string _errorMessage = string.Empty;
 
         public EditComputerViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
@@ -38,7 +38,7 @@ namespace Sysadmin.ViewModels
             _exchangeService = exchangeService;
         }
 
-        public async void OnNavigatedTo()
+        public void OnNavigatedTo()
         {
             if (!_isInitialized)
                 InitializeViewModel();

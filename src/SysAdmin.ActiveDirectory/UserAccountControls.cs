@@ -4,7 +4,7 @@
     /// Flags that control the behavior of the user account.
     /// </summary>
     [Flags]
-    public enum UserAccountControls : int
+    public enum UserAccountControls 
     {
         /// <summary>
         /// The logon script is executed. 
@@ -110,7 +110,7 @@
         /// <summary>
         /// Restrict this principal to use only Data Encryption Standard (DES) encryption types for keys. 
         ///</summary>
-        USE_DES_KEY_ONLY = 0x00200000,
+        USE_DES_KEY_ONLY = 0x00200000,  //NOSONAR
 
         /// <summary>
         /// This account does not require Kerberos pre-authentication for logon. 
