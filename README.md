@@ -22,7 +22,7 @@ Sysadmin makes easier to administer multidomain Active Directory-based networks 
 
 ### Download
 
-[<img alt="Download Sysadmin" src="Images/English_L.png" />](https://www.microsoft.com/store/apps/9WZDNCRDQTWT)
+[Latest releases](https://github.com/sysadminanywhere/sysadmin/releases)
 
 ### License
 
