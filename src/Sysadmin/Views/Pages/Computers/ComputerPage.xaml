@@ -106,11 +106,26 @@
                             </StackPanel>
                         </ui:MenuItem.Header>
                     </ui:MenuItem>
-                    <Separator />
+                    <!--<Separator />
                     <ui:MenuItem Command="{Binding ViewModel.PerformanceCommand}">
                         <ui:MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock>Performance</TextBlock>
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                    </ui:MenuItem>-->
+                    <Separator />
+                    <ui:MenuItem Click="RebootMenuItem_Click">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>Reboot</TextBlock>
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                    </ui:MenuItem>
+                    <ui:MenuItem Click="ShutdownMenuItem_Click">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>Shutdown</TextBlock>
                             </StackPanel>
                         </ui:MenuItem.Header>
                     </ui:MenuItem>
@@ -158,6 +173,9 @@
             <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="4" Grid.Column="0" Text="Service pack" />
             <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="4" Grid.Column="1" Text="{Binding ViewModel.Computer.OperatingSystemServicePack, Mode=OneWay}" />
         </Grid>
+
+        <ui:Snackbar Grid.RowSpan="3" VerticalAlignment="Top" x:Name="snackbar" Appearance="Danger" Title="Error" Icon="ErrorCircle12" Message="Error" Timeout="5000" />
+        <ui:Snackbar Grid.RowSpan="3" VerticalAlignment="Top" x:Name="snackbarOk" Appearance="Success" Title="Command" Timeout="5000" />
 
     </Grid>
 </ui:UiPage>
