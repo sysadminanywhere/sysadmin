@@ -63,6 +63,48 @@ namespace Sysadmin.ViewModels
         }
 
         [RelayCommand]
+        private void OnEvents()
+        {
+            _exchangeService.SetParameter(Computer);
+            _navigationService.Navigate(typeof(Views.Pages.EventsPage));
+        }
+
+        [RelayCommand]
+        private void OnServices()
+        {
+            _exchangeService.SetParameter(Computer);
+            _navigationService.Navigate(typeof(Views.Pages.ServicesPage));
+        }
+
+        [RelayCommand]
+        private void OnProcesses()
+        {
+            _exchangeService.SetParameter(Computer);
+            _navigationService.Navigate(typeof(Views.Pages.ProcessesPage));
+        }
+
+        [RelayCommand]
+        private void OnSoftware()
+        {
+            _exchangeService.SetParameter(Computer);
+            _navigationService.Navigate(typeof(Views.Pages.SoftwarePage));
+        }
+
+        [RelayCommand]
+        private void OnHardware()
+        {
+            _exchangeService.SetParameter(Computer);
+            _navigationService.Navigate(typeof(Views.Pages.HardwarePage));
+        }
+
+        [RelayCommand]
+        private void OnPerformance()
+        {
+            _exchangeService.SetParameter(Computer);
+            _navigationService.Navigate(typeof(Views.Pages.PerformancePage));
+        }
+
+        [RelayCommand]
         private async Task OnDelete()
         {
             try

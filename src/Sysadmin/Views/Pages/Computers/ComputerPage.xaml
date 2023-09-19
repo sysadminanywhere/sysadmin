@@ -63,6 +63,59 @@
                     </ui:MenuItem.Header>
                 </ui:MenuItem>
                 <Separator />
+                <ui:MenuItem>
+                    <ui:MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock>Management</TextBlock>
+                            <ui:SymbolIcon Symbol="ChevronDown20" Margin="8,0,0,0" />
+                        </StackPanel>
+                    </ui:MenuItem.Header>
+                    <ui:MenuItem Command="{Binding ViewModel.ProcessesCommand}">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>Processes</TextBlock>
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                    </ui:MenuItem>
+                    <ui:MenuItem Command="{Binding ViewModel.ServicesCommand}">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>Services</TextBlock>
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                    </ui:MenuItem>
+                    <ui:MenuItem Command="{Binding ViewModel.EventsCommand}">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>Events</TextBlock>
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                    </ui:MenuItem>
+                    <Separator />
+                    <ui:MenuItem Command="{Binding ViewModel.SoftwareCommand}">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>Software</TextBlock>
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                    </ui:MenuItem>
+                    <ui:MenuItem Command="{Binding ViewModel.HardwareCommand}">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>Hardware</TextBlock>
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                    </ui:MenuItem>
+                    <Separator />
+                    <ui:MenuItem Command="{Binding ViewModel.PerformanceCommand}">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>Performance</TextBlock>
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                    </ui:MenuItem>
+                </ui:MenuItem>
+                <Separator />
                 <ui:MenuItem Click="DeleteMenuItem_Click">
                     <ui:MenuItem.Header>
                         <StackPanel Orientation="Horizontal">

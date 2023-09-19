@@ -31,8 +31,13 @@
 	- Zoom
 9. Computer management
 	- Events
+		- ?
 	- Hardware
 	- Perfomance
 	- Processes
+		- ?
 	- Services
+		- ?
 	- Software
+	- Performance
+		- ?

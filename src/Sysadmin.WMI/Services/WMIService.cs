@@ -17,7 +17,7 @@ namespace Sysadmin.WMI.Services
 
         public ICredential? Credential { get { return credential; } }
 
-        public WMIService(string computerAddress, ICredential credential)
+        public WMIService(string computerAddress, ICredential? credential)
         {
             if (computerAddress == null)
                 throw new ArgumentNullException(nameof(computerAddress));
