@@ -5,8 +5,6 @@ Sysadmin makes easier to administer multidomain Active Directory-based networks 
 [![Codacy Security Scan](https://github.com/sysadminanywhere/sysadmin/actions/workflows/codacy.yml/badge.svg?branch=main)](https://github.com/sysadminanywhere/sysadmin/actions/workflows/codacy.yml)
 [![DevSkim](https://github.com/sysadminanywhere/sysadmin/actions/workflows/devskim.yml/badge.svg?branch=main)](https://github.com/sysadminanywhere/sysadmin/actions/workflows/devskim.yml)
 
-![](https://img.shields.io/badge/.net-6-blue)
-
 ![Sysadmin Screenshot](Images/screen02.png)
 
 ### Features
