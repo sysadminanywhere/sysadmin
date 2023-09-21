@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Sysadmin.Views.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:converters="clr-namespace:SysAdmin.Converters"
+    xmlns:converters="clr-namespace:Sysadmin.Converters"
     xmlns:models="clr-namespace:Sysadmin.Models"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="Performance"
@@ -19,6 +19,7 @@
     <Page.Resources>
         <converters:EmptyToCollapsedConverter x:Key="EmptyToCollapsedConverter"/>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <converters:SizeToStringConverter x:Key="SizeToStringConverter"/>
     </Page.Resources>
 
     <Grid Margin="16,0">
@@ -52,45 +53,52 @@
                     Text="{Binding ViewModel.Computer.CN}"
                     Style="{StaticResource SubTitleDetailPageStyle}"/>
             </StackPanel>
-
-            <!--<Menu Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent">
-                <ui:MenuItem>
-                    <ui:MenuItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <ui:SymbolIcon Symbol="Edit16" Margin="0,0,8,0" />
-                            <TextBlock>Edit</TextBlock>
-                        </StackPanel>
-                    </ui:MenuItem.Header>
-                </ui:MenuItem>
-                <Separator />
-            </Menu>-->
         </Grid>
 
         <Grid 
             VerticalAlignment="Top"
             Grid.Row="1" 
             Margin="24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-            <ui:DataGrid
-                CanUserSortColumns="True"
-                AutoGenerateColumns="False"
-                IsReadOnly="True"
-                GridLinesVisibility="Horizontal"
-                ItemsSource="{Binding ViewModel.Items, Mode=OneWay}" 
-                CanUserResizeColumns="True">
-                <ui:DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding SourceName}" Header="Source" ElementStyle="{StaticResource TableDetailNameStyle}"/>
-                    <DataGridTextColumn Binding="{Binding EventType}" Header="Event type" ElementStyle="{StaticResource TableDetailNameStyle}"/>
-                    <DataGridTextColumn Binding="{Binding TimeGenerated}" Header="Time generated" ElementStyle="{StaticResource TableDetailNameStyle}"/>
-                    <DataGridTextColumn Binding="{Binding Message}" Header="Message" ElementStyle="{StaticResource TableDetailNameStyle}"/>
-                    <DataGridTextColumn Binding="{Binding User}" Header="User" ElementStyle="{StaticResource TableDetailNameStyle}"/>
-                    <DataGridTextColumn Binding="{Binding Logfile}" Header="Log" ElementStyle="{StaticResource TableDetailNameStyle}"/>
-                </ui:DataGrid.Columns>
-            </ui:DataGrid>
+            <ui:Card Grid.Column="0" Margin="4">
+                <StackPanel>
+                    <Grid>
+                        <TextBlock Text="CPU" Style="{StaticResource FormLabelStyle}" />
+                        <TextBlock Visibility="Collapsed" Text="{Binding ViewModel.Cpu, Mode=OneWay, Converter={StaticResource SizeToStringConverter}}" Style="{StaticResource FormLabelStyle}" HorizontalAlignment="Right" />
+                    </Grid>
+                    <ProgressBar Value="{Binding ViewModel.Cpu, Mode=OneWay}" />
+                </StackPanel>
+            </ui:Card>
+
+            <ui:Card Grid.Column="1" Margin="4">
+                <StackPanel>
+                    <Grid>
+                        <TextBlock Text="Memory" Style="{StaticResource FormLabelStyle}" />
+                        <TextBlock Visibility="Collapsed" Text="{Binding ViewModel.Memory, Mode=OneWay, Converter={StaticResource SizeToStringConverter}}" Style="{StaticResource FormLabelStyle}" HorizontalAlignment="Right" />
+                    </Grid>
+                    <ProgressBar Value="{Binding ViewModel.Memory, Mode=OneWay}" />
+                </StackPanel>
+            </ui:Card>
+
+            <ui:Card Grid.Column="2" Margin="4">
+                <StackPanel>
+                    <Grid>
+                        <TextBlock Text="Disk (C:)" Style="{StaticResource FormLabelStyle}" />
+                        <TextBlock Visibility="Collapsed" Text="{Binding ViewModel.Disk, Mode=OneWay, Converter={StaticResource SizeToStringConverter}}" Style="{StaticResource FormLabelStyle}" HorizontalAlignment="Right" />
+                    </Grid>
+                    <ProgressBar Value="{Binding ViewModel.Disk, Mode=OneWay}" />
+                </StackPanel>
+            </ui:Card>
 
         </Grid>
 
         <ui:ProgressRing IsIndeterminate="True" Grid.Row="1" Visibility="{Binding ViewModel.IsBusy, Converter={StaticResource BoolToVisibilityConverter}}" />
+        <ui:Snackbar Grid.RowSpan="3" VerticalAlignment="Top" x:Name="snackbar" Appearance="Danger" Title="Error" Icon="ErrorCircle12" Message="Error" Timeout="5000" />
 
     </Grid>
 </ui:UiPage>

@@ -8,7 +8,7 @@
     xmlns:models="clr-namespace:Sysadmin.Models"
     xmlns:entities="clr-namespace:SysAdmin.ActiveDirectory.Models;assembly=SysAdmin.ActiveDirectory"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:converters="clr-namespace:SysAdmin.Converters" 
+    xmlns:converters="clr-namespace:Sysadmin.Converters" 
     xmlns:Interactivity="http://schemas.microsoft.com/xaml/behaviors"
     Title="Computers"
     d:DataContext="{d:DesignInstance local:ComputersPage,

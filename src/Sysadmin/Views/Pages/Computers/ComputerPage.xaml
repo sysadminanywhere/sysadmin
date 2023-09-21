@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Sysadmin.Views.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:converters="clr-namespace:SysAdmin.Converters"
+    xmlns:converters="clr-namespace:Sysadmin.Converters"
     xmlns:models="clr-namespace:Sysadmin.Models"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="Computer"
@@ -106,14 +106,14 @@
                             </StackPanel>
                         </ui:MenuItem.Header>
                     </ui:MenuItem>
-                    <!--<Separator />
+                    <Separator />
                     <ui:MenuItem Command="{Binding ViewModel.PerformanceCommand}">
                         <ui:MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock>Performance</TextBlock>
                             </StackPanel>
                         </ui:MenuItem.Header>
-                    </ui:MenuItem>-->
+                    </ui:MenuItem>
                     <Separator />
                     <ui:MenuItem Click="RebootMenuItem_Click">
                         <ui:MenuItem.Header>

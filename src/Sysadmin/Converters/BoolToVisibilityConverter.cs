@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace SysAdmin.Converters
+namespace Sysadmin.Converters
 {
     public class BoolToVisibilityConverter : IValueConverter
     {

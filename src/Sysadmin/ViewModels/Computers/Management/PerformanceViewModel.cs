@@ -5,8 +5,10 @@ using Sysadmin.WMI;
 using Sysadmin.WMI.Models;
 using Sysadmin.WMI.Services;
 using SysAdmin.ActiveDirectory.Models;
+using SysAdmin.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
@@ -24,13 +26,24 @@ namespace Sysadmin.ViewModels
         private ComputerEntry _computer = new ComputerEntry();
 
         [ObservableProperty]
-        private IEnumerable<EventEntity> _items = new List<EventEntity>();
+        private int _cpu = 0;
+
+        [ObservableProperty]
+        private int _memory = 0;
+
+        [ObservableProperty]
+        private int _disk = 0;
 
         [ObservableProperty]
         private string _errorMessage = string.Empty;
 
         [ObservableProperty]
         private bool _isBusy = false;
+
+        [ObservableProperty]
+        private bool _isClosed = false;
+
+        public UInt64 totalPhysicalMemory = 0;
 
         public PerformanceViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
@@ -40,19 +53,21 @@ namespace Sysadmin.ViewModels
 
         public async void OnNavigatedTo()
         {
+            IsClosed = false;
+
             if (!_isInitialized)
                 InitializeViewModel();
 
             if (_exchangeService.GetParameter() is ComputerEntry entry)
             {
                 Computer = entry;
-                await Get(Computer.DnsHostName);
+                await Init(Computer.DnsHostName);
             }
         }
 
         public void OnNavigatedFrom()
         {
-
+            IsClosed = true;
         }
 
         private void InitializeViewModel()
@@ -66,67 +81,118 @@ namespace Sysadmin.ViewModels
             _navigationService.Navigate(typeof(Views.Pages.ComputerPage));
         }
 
-        public async Task Get(string computerAddress)
+        public async Task Init(string computerAddress)
         {
             IsBusy = true;
 
-            //ICredential? credential = null;
+            ICredential? credential = null;
 
-            //if (App.CREDENTIAL != null)
-            //    credential = new Credential() { UserName = App.CREDENTIAL.UserName, Password = App.CREDENTIAL.Password };
+            if (App.CREDENTIAL != null)
+                credential = new Credential() { UserName = App.CREDENTIAL.UserName, Password = App.CREDENTIAL.Password };
 
-            //List<EventEntity> entities = new List<EventEntity>();
-
-            //try
-            //{
-            //    await Task.Run(() =>
-            //    {
-            //        using (var wmi = new WMIService(computerAddress, credential))
-            //        {
-            //            string today = string.Format("{0:yyyyMMddHHmmss}.000000000", DateTime.Today);
-
-            //            string queryString = "Select RecordNumber, EventType, EventCode, Type, TimeGenerated, SourceName, Category, Logfile, Message From Win32_NTLogEvent Where TimeGenerated > '" + today + "'"; ;
-
-            //            switch (filter)
-            //            {
-            //                case EventsFilter.TodayErrors:
-            //                    queryString += " And EventType = 1";
-            //                    break;
-
-            //                case EventsFilter.TodayWarnings:
-            //                    queryString += " And EventType = 2";
-            //                    break;
-
-            //                case EventsFilter.TodayInformations:
-            //                    queryString += " And EventType = 3";
-            //                    break;
-
-            //                case EventsFilter.TodaySecurityAuditSuccess:
-            //                    queryString += " And EventType = 4";
-            //                    break;
-
-            //                case EventsFilter.TodaySecurityAuditFailure:
-            //                    queryString += " And EventType = 5";
-            //                    break;
-            //            }
-
-            //            List<Dictionary<string, object>> queryResult = wmi.Query(queryString);
-
-            //            foreach (Dictionary<string, object> properties in queryResult)
-            //            {
-            //                EventEntity entity = WmiResolver<EventEntity>.GetValues(properties);
-            //                entities.Add(entity);
-            //            }
-            //        }
-            //    });
-            //}
-            //catch (Exception ex)
-            //{
-            //    ErrorMessage = ex.Message;
-            //}
+            try
+            {
+                await Task.Run(() =>
+                {
+                    using (var wmi = new WMIService(computerAddress, credential))
+                    {
+                        List<Dictionary<string, object>> queryResult = wmi.Query("Select * FROM Win32_ComputerSystem");
+                        if (queryResult.Count > 0)
+                        {
+                            var totalMemory = queryResult[0].FirstOrDefault(c => c.Key == "TotalPhysicalMemory");
+                            if (totalMemory.Value != null)
+                                totalPhysicalMemory = Convert.ToUInt64(totalMemory.Value);
+                        }
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
 
             IsBusy = false;
         }
 
+        public async Task Update()
+        {
+
+            string computerAddress = Computer.DnsHostName;
+
+            ICredential? credential = null;
+
+            if (App.CREDENTIAL != null)
+                credential = new Credential() { UserName = App.CREDENTIAL.UserName, Password = App.CREDENTIAL.Password };
+
+            try
+            {
+                await Task.Run(() =>
+                {
+                    using (var wmi = new WMIService(computerAddress, credential))
+                    {
+                        // CPU
+
+                        List<Dictionary<string, object>> queryProcessorResult = wmi.Query("Select * FROM Win32_PerfFormattedData_PerfOS_Processor");
+                        if (queryProcessorResult.Count > 0)
+                        {
+                            foreach (Dictionary<string, object> item in queryProcessorResult)
+                            {
+                                if (item["Name"].ToString() == "_Total")
+                                {
+                                    var result = item.FirstOrDefault(c => c.Key == "PercentProcessorTime");
+                                    if (result.Value != null)
+                                    {
+                                        Cpu = Convert.ToInt32(result.Value);
+                                    }
+                                }
+                            }
+                        }
+
+
+                        // Memory
+
+                        List<Dictionary<string, object>> queryMemoryResult = wmi.Query("Select * FROM Win32_PerfFormattedData_PerfOS_Memory");
+                        if (queryMemoryResult.Count > 0)
+                        {
+                            var availableBytesResult = queryMemoryResult[0].FirstOrDefault(c => c.Key == "AvailableBytes");
+
+                            if (availableBytesResult.Value != null)
+                            {
+                                UInt64 availableBytes = Convert.ToUInt64(availableBytesResult.Value);
+
+                                UInt64 percent = ((totalPhysicalMemory - availableBytes) * 100) / totalPhysicalMemory;
+
+                                Memory = Convert.ToInt32(percent);
+                            }
+                        }
+
+
+                        // Disk
+
+                        List<Dictionary<string, object>> queryLogicalDiskResult = wmi.Query("Select * From Win32_LogicalDisk WHERE Caption='C:'");
+                        if (queryLogicalDiskResult.Count > 0)
+                        {
+                            var sizeItem = queryLogicalDiskResult[0].FirstOrDefault(c => c.Key == "Size");
+                            var freeSpaceItem = queryLogicalDiskResult[0].FirstOrDefault(c => c.Key == "FreeSpace");
+
+                            if (sizeItem.Value != null && freeSpaceItem.Value != null)
+                            {
+                                UInt64 size = Convert.ToUInt64(sizeItem.Value);
+                                UInt64 freeSpace = Convert.ToUInt64(freeSpaceItem.Value);
+
+                                UInt64 percent = ((size - freeSpace) * 100) / size;
+
+                                Disk = Convert.ToInt32(percent);
+                            }
+                        }
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+
+        }
     }
 }

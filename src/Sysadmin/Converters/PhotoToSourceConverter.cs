@@ -4,7 +4,7 @@ using System.IO;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 
-namespace SysAdmin.Converters
+namespace Sysadmin.Converters
 {
     public class PhotoToSourceConverter : IValueConverter
     {

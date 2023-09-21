@@ -85,7 +85,9 @@ namespace Sysadmin.Views.Pages
             set
             {
                 if (value >= 0 && value < pages.Count)
+                {
                     currentPage = value;
+                }
             }
         }
 

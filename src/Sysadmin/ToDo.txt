@@ -25,19 +25,24 @@
 	+ Reset password
 7. Groups
 	+ Add (Radio buttons)
+	- Group members
 8. Reports
 	+ Show reports
 	- Number box
 	- Zoom
 9. Computer management
 	- Events
-		- ?
+		- Filters
 	- Hardware
 	- Perfomance
 	- Processes
-		- ?
+		- Start
+		- Stop
 	- Services
-		- ?
+		- Start
+		- Stop
 	- Software
-	- Performance
-		- ?
+	+ Performance
+		+ Cpu
+		+ Memory
+		+ Disk
