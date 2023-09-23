@@ -11,7 +11,7 @@
     Title="Hardware"
     d:DataContext="{d:DesignInstance local:HardwarePage,
                                      IsDesignTimeCreatable=False}"
-    d:DesignHeight="450"
+    d:DesignHeight="800"
     d:DesignWidth="800"
     d:Background="{DynamicResource ApplicationBackgroundBrush}"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
@@ -52,41 +52,58 @@
                     Text="{Binding ViewModel.Computer.CN}"
                     Style="{StaticResource SubTitleDetailPageStyle}"/>
             </StackPanel>
-
-            <!--<Menu Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent">
-                <ui:MenuItem>
-                    <ui:MenuItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <ui:SymbolIcon Symbol="Edit16" Margin="0,0,8,0" />
-                            <TextBlock>Edit</TextBlock>
-                        </StackPanel>
-                    </ui:MenuItem.Header>
-                </ui:MenuItem>
-                <Separator />
-            </Menu>-->
         </Grid>
 
-        <Grid 
-            VerticalAlignment="Top"
-            Grid.Row="1" 
-            Margin="24">
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-            <ui:DataGrid
-                CanUserSortColumns="True"
-                AutoGenerateColumns="False"
-                IsReadOnly="True"
-                GridLinesVisibility="Horizontal"
-                ItemsSource="{Binding ViewModel.Items, Mode=OneWay}" 
-                CanUserResizeColumns="True">
-                <ui:DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding SourceName}" Header="Source" ElementStyle="{StaticResource TableDetailNameStyle}"/>
-                    <DataGridTextColumn Binding="{Binding EventType}" Header="Event type" ElementStyle="{StaticResource TableDetailNameStyle}"/>
-                    <DataGridTextColumn Binding="{Binding TimeGenerated}" Header="Time generated" ElementStyle="{StaticResource TableDetailNameStyle}"/>
-                    <DataGridTextColumn Binding="{Binding Message}" Header="Message" ElementStyle="{StaticResource TableDetailNameStyle}"/>
-                    <DataGridTextColumn Binding="{Binding User}" Header="User" ElementStyle="{StaticResource TableDetailNameStyle}"/>
-                    <DataGridTextColumn Binding="{Binding Logfile}" Header="Log" ElementStyle="{StaticResource TableDetailNameStyle}"/>
-                </ui:DataGrid.Columns>
-            </ui:DataGrid>
+            <ListBox Width="250" SelectedValue="0">
+                <ListBoxItem Content="Computer system" Tag="computersystem" Selected="ListBoxItem_Selected" />
+                <ListBoxItem Content="BIOS" Tag="bios"  Selected="ListBoxItem_Selected" />
+                <ListBoxItem Content="Base board" Tag="baseboard" Selected="ListBoxItem_Selected" />
+                <ListBoxItem Content="Disk drive" Tag="diskdrive" Selected="ListBoxItem_Selected" />
+                <ListBoxItem Content="Operating system" Tag="operatingsystem" Selected="ListBoxItem_Selected" />
+                <ListBoxItem Content="Disk partition" Tag="diskpartition" Selected="ListBoxItem_Selected" />
+                <ListBoxItem Content="Processor" Tag="processor" Selected="ListBoxItem_Selected" />
+                <ListBoxItem Content="Video controller" Tag="videocontroller" Selected="ListBoxItem_Selected" />
+                <ListBoxItem Content="Physical memory" Tag="physicalmemory" Selected="ListBoxItem_Selected" />
+                <ListBoxItem Content="Logical disk" Tag="logicaldisk" Selected="ListBoxItem_Selected" />
+            </ListBox>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <ComboBox
+                    x:Name="comboBox"
+                    Grid.Row="0"
+                    Margin="16,0,16,16"
+                    Visibility="Collapsed"
+                    DisplayMemberPath="Name"
+                    SelectionChanged="comboBox_SelectionChanged" />
+
+                <ui:DataGrid
+                    Grid.Row="1"
+                    IsTabStop="False"
+                    CanUserSortColumns="True"
+                    AutoGenerateColumns="False"
+                    IsReadOnly="True"
+                    GridLinesVisibility="Horizontal"
+                    ItemsSource="{Binding ViewModel.Items, Mode=OneWay}" 
+                    CanUserResizeColumns="True">
+                    <ui:DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Name}" Header="Name" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                        <DataGridTextColumn Binding="{Binding Value}" Header="Value" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                    </ui:DataGrid.Columns>
+                </ui:DataGrid>
+
+
+            </Grid>
 
         </Grid>
 

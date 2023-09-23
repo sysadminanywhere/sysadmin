@@ -1,6 +1,14 @@
-﻿using System.Windows;
+﻿using Sysadmin.WMI.Models.Hardware;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Text.RegularExpressions;
+using System;
+using System.Windows;
 using System.Windows.Controls;
 using Wpf.Ui.Common.Interfaces;
+using SysAdmin.Models;
+using System.Linq;
+using System.Collections;
 
 namespace Sysadmin.Views.Pages
 {
@@ -30,6 +38,108 @@ namespace Sysadmin.Views.Pages
                 snackbar.Message = ViewModel.ErrorMessage;
                 snackbar.Show();
             }
+        }
+
+        private async void ListBoxItem_Selected(object sender, RoutedEventArgs e)
+        {
+            ListBoxItem item = (ListBoxItem)sender;
+
+            switch (item.Tag)
+            {
+                case "computersystem":
+                    GetHardwares(await ViewModel.ComputerSystem());
+                    break;
+                case "bios":
+                    GetHardwares(await ViewModel.BIOS());
+                    break;
+                case "baseboard":
+                    GetHardwares(await ViewModel.BaseBoard());
+                    break;
+                case "diskdrive":
+                    GetHardwares(await ViewModel.DiskDrive());
+                    break;
+                case "operatingsystem":
+                    GetHardwares(await ViewModel.OperatingSystem());
+                    break;
+                case "diskpartition":
+                    GetHardwares(await ViewModel.DiskPartition());
+                    break;
+                case "processor":
+                    GetHardwares(await ViewModel.Processor());
+                    break;
+                case "videocontroller":
+                    GetHardwares(await ViewModel.VideoController());
+                    break;
+                case "physicalmemory":
+                    GetHardwares(await ViewModel.PhysicalMemory());
+                    break;
+                case "logicaldisk":
+                    GetHardwares(await ViewModel.LogicalDisk());
+                    break;
+            }
+        }
+
+        private void GetHardwares(object hardware)
+        {
+            if (hardware is IEnumerable<IHardware> list)
+            {
+                comboBox.Items.Clear();
+
+                foreach (IHardware item in list)
+                {
+                    comboBox.Items.Add(item);
+                }
+
+                comboBox.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                comboBox.Visibility = Visibility.Collapsed;
+
+                ShowProperties(hardware);
+            }
+        }
+
+        private void ShowProperties(object hardware)
+        {
+            if (hardware != null)
+            {
+
+                List<HardwareItem> list = new List<HardwareItem>();
+
+                foreach (PropertyInfo propertyInfo in hardware.GetType().GetProperties())
+                {
+                    string text = String.Empty;
+                    var value = propertyInfo.GetValue(hardware, null);
+
+                    if (value != null)
+                    {
+                        if (value is List<string>)
+                        {
+                            List<string> items = (List<string>)value;
+                            if (items.Count > 0)
+                                text = items.Select(a => a.ToString()).Aggregate((i, j) => i + ", " + j);
+                            else
+                                text = string.Empty;
+                        }
+                        else
+                        {
+                            text = value.ToString();
+                        }
+                    }
+
+                    string name = Regex.Replace(propertyInfo.Name, @"((?<=\p{Ll})\p{Lu})|((?!\A)\p{Lu}(?>\p{Ll}))", " $0");
+
+                    list.Add(new HardwareItem() { Name = name, Value = text });
+                }
+
+                ViewModel.Items = list;
+            }
+        }
+
+        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ShowProperties(comboBox.SelectedItem);
         }
 
     }

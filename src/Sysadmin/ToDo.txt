@@ -34,14 +34,13 @@
 	- Events
 		- Filters
 	- Hardware
-	- Perfomance
 	- Processes
 		- Start
 		- Stop
 	- Services
 		- Start
 		- Stop
-	- Software
+	+ Software
 	+ Performance
 		+ Cpu
 		+ Memory
