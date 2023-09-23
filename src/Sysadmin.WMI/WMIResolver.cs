@@ -62,7 +62,6 @@ namespace Sysadmin.WMI
 
                         if (property.PropertyType == typeof(List<String>))
                             property.SetValue(result, Helper.GetCollection(properties[propertyName]));
-
                     }
                 }
 

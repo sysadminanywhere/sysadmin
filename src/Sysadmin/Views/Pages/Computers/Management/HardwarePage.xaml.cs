@@ -42,61 +42,79 @@ namespace Sysadmin.Views.Pages
 
         private async void ListBoxItem_Selected(object sender, RoutedEventArgs e)
         {
-            ListBoxItem item = (ListBoxItem)sender;
-
-            switch (item.Tag)
+            try
             {
-                case "computersystem":
-                    GetHardwares(await ViewModel.ComputerSystem());
-                    break;
-                case "bios":
-                    GetHardwares(await ViewModel.BIOS());
-                    break;
-                case "baseboard":
-                    GetHardwares(await ViewModel.BaseBoard());
-                    break;
-                case "diskdrive":
-                    GetHardwares(await ViewModel.DiskDrive());
-                    break;
-                case "operatingsystem":
-                    GetHardwares(await ViewModel.OperatingSystem());
-                    break;
-                case "diskpartition":
-                    GetHardwares(await ViewModel.DiskPartition());
-                    break;
-                case "processor":
-                    GetHardwares(await ViewModel.Processor());
-                    break;
-                case "videocontroller":
-                    GetHardwares(await ViewModel.VideoController());
-                    break;
-                case "physicalmemory":
-                    GetHardwares(await ViewModel.PhysicalMemory());
-                    break;
-                case "logicaldisk":
-                    GetHardwares(await ViewModel.LogicalDisk());
-                    break;
+                ListBoxItem item = (ListBoxItem)sender;
+
+                switch (item.Tag)
+                {
+                    case "computersystem":
+                        GetHardwares(await ViewModel.ComputerSystem());
+                        break;
+                    case "bios":
+                        GetHardwares(await ViewModel.BIOS());
+                        break;
+                    case "baseboard":
+                        GetHardwares(await ViewModel.BaseBoard());
+                        break;
+                    case "diskdrive":
+                        GetHardwares(await ViewModel.DiskDrive());
+                        break;
+                    case "operatingsystem":
+                        GetHardwares(await ViewModel.OperatingSystem());
+                        break;
+                    case "diskpartition":
+                        GetHardwares(await ViewModel.DiskPartition());
+                        break;
+                    case "processor":
+                        GetHardwares(await ViewModel.Processor());
+                        break;
+                    case "videocontroller":
+                        GetHardwares(await ViewModel.VideoController());
+                        break;
+                    case "physicalmemory":
+                        GetHardwares(await ViewModel.PhysicalMemory());
+                        break;
+                    case "logicaldisk":
+                        GetHardwares(await ViewModel.LogicalDisk());
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                snackbar.Message = ex.Message;
+                snackbar.Show();
             }
         }
 
         private void GetHardwares(object hardware)
         {
-            if (hardware is IEnumerable<IHardware> list)
-            {
-                comboBox.Items.Clear();
+            ViewModel.Items = new List<HardwareItem>();
 
-                foreach (IHardware item in list)
+            try
+            {
+                if (hardware is IEnumerable<IHardware> list)
                 {
-                    comboBox.Items.Add(item);
+                    comboBox.Items.Clear();
+
+                    foreach (IHardware item in list)
+                    {
+                        comboBox.Items.Add(item);
+                    }
+
+                    comboBox.Visibility = Visibility.Visible;
                 }
+                else
+                {
+                    comboBox.Visibility = Visibility.Collapsed;
 
-                comboBox.Visibility = Visibility.Visible;
+                    ShowProperties(hardware);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                comboBox.Visibility = Visibility.Collapsed;
-
-                ShowProperties(hardware);
+                snackbar.Message = ex.Message;
+                snackbar.Show();
             }
         }
 
@@ -104,36 +122,44 @@ namespace Sysadmin.Views.Pages
         {
             if (hardware != null)
             {
-
-                List<HardwareItem> list = new List<HardwareItem>();
-
-                foreach (PropertyInfo propertyInfo in hardware.GetType().GetProperties())
+                try
                 {
-                    string text = String.Empty;
-                    var value = propertyInfo.GetValue(hardware, null);
 
-                    if (value != null)
+                    List<HardwareItem> list = new List<HardwareItem>();
+
+                    foreach (PropertyInfo propertyInfo in hardware.GetType().GetProperties())
                     {
-                        if (value is List<string>)
+                        string text = string.Empty;
+                        var value = propertyInfo.GetValue(hardware, null);
+
+                        if (value != null)
                         {
-                            List<string> items = (List<string>)value;
-                            if (items.Count > 0)
-                                text = items.Select(a => a.ToString()).Aggregate((i, j) => i + ", " + j);
+                            if (value is List<string>)
+                            {
+                                List<string> items = (List<string>)value;
+                                if (items.Count > 0)
+                                    text = items.Select(a => a.ToString()).Aggregate((i, j) => i + ", " + j);
+                                else
+                                    text = string.Empty;
+                            }
                             else
-                                text = string.Empty;
+                            {
+                                text = value.ToString();
+                            }
                         }
-                        else
-                        {
-                            text = value.ToString();
-                        }
+
+                        string name = Regex.Replace(propertyInfo.Name, @"((?<=\p{Ll})\p{Lu})|((?!\A)\p{Lu}(?>\p{Ll}))", " $0");
+
+                        list.Add(new HardwareItem() { Name = name, Value = text });
                     }
 
-                    string name = Regex.Replace(propertyInfo.Name, @"((?<=\p{Ll})\p{Lu})|((?!\A)\p{Lu}(?>\p{Ll}))", " $0");
-
-                    list.Add(new HardwareItem() { Name = name, Value = text });
+                    ViewModel.Items = list;
                 }
-
-                ViewModel.Items = list;
+                catch (Exception ex)
+                {
+                    snackbar.Message = ex.Message;
+                    snackbar.Show();
+                }
             }
         }
 
