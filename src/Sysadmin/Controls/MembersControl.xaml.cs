@@ -6,6 +6,8 @@ using System.Windows;
 using System.Windows.Controls;
 using SysAdmin.ActiveDirectory.Repositories;
 using SysAdmin.ActiveDirectory.Services.Ldap;
+using System;
+using System.ComponentModel;
 
 namespace Sysadmin.Controls
 {
@@ -66,6 +68,18 @@ namespace Sysadmin.Controls
         public MembersControl()
         {
             InitializeComponent();
+
+            DependencyPropertyDescriptor dpd = DependencyPropertyDescriptor.FromProperty(MembersProperty, typeof(MembersControl));
+
+            if (dpd != null)
+            {
+                dpd.AddValueChanged(this, OnChanged);
+            }
+        }
+
+        private void OnChanged(object? sender, EventArgs e)
+        {
+            Update(Members);
         }
 
         private void Update(List<string> value)

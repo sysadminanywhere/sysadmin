@@ -3,31 +3,37 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"  
              xmlns:local="clr-namespace:Sysadmin.Controls"
              x:Name="self"
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="200">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
-            <TextBlock Text="Members" Margin="0,8,8,8" HorizontalAlignment="Left"/>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button x:Name="addButton" Content="+" Visibility="Collapsed" Click="addButton_Click"/>
-                <Button x:Name="deleteButton" Content="-" Visibility="Collapsed" IsEnabled="False" Click="deleteButton_Click"/>
-            </StackPanel>
+    <ui:Card Margin="0" VerticalAlignment="Stretch">
+
+        <Grid VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <TextBlock Text="Members" Margin="0,8,8,8" HorizontalAlignment="Left" FontWeight="Bold"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button x:Name="addButton" Content="+" Visibility="Collapsed" Click="addButton_Click"/>
+                    <Button x:Name="deleteButton" Content="-" Visibility="Collapsed" IsEnabled="False" Click="deleteButton_Click"/>
+                </StackPanel>
+            </Grid>
+
+            <ListView Grid.Row="1" ItemsSource="{Binding Items, ElementName=self}" SelectedItem="{Binding Selected, Mode=TwoWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" Margin="4,0,0,0" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
         </Grid>
 
-        <ListView Grid.Row="1" ItemsSource="{Binding Members, ElementName=self}" SelectedItem="{Binding Selected, Mode=TwoWay}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding}" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-
-    </Grid>
+    </ui:Card>
 </UserControl>

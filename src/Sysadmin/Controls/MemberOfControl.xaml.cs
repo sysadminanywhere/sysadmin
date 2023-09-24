@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using SysAdmin.ActiveDirectory.Repositories;
 using SysAdmin.ActiveDirectory.Services.Ldap;
+using System.ComponentModel;
 
 namespace Sysadmin.Controls
 {
@@ -48,16 +49,15 @@ namespace Sysadmin.Controls
             set
             {
                 SetValue(MemberOfProperty, value);
-                Update(value);
             }
         }
 
         public static readonly DependencyProperty DistinguishedNameProperty =
-        DependencyProperty.Register(
-            name: "DistinguishedName",
-            propertyType: typeof(string),
-            ownerType: typeof(MemberOfControl),
-            typeMetadata: new FrameworkPropertyMetadata(defaultValue: string.Empty));
+            DependencyProperty.Register(
+                name: "DistinguishedName",
+                propertyType: typeof(string),
+                ownerType: typeof(MemberOfControl),
+                typeMetadata: new FrameworkPropertyMetadata(defaultValue: string.Empty));
 
         public string DistinguishedName
         {
@@ -109,6 +109,18 @@ namespace Sysadmin.Controls
         public MemberOfControl()
         {
             InitializeComponent();
+
+            DependencyPropertyDescriptor dpd = DependencyPropertyDescriptor.FromProperty(MemberOfProperty, typeof(MemberOfControl));
+
+            if (dpd != null)
+            {
+                dpd.AddValueChanged(this, OnChanged);
+            }
+        }
+
+        private void OnChanged(object? sender, EventArgs e)
+        {
+            Update(MemberOf);
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
