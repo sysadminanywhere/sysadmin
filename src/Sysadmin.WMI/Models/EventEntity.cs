@@ -11,7 +11,7 @@ namespace Sysadmin.WMI.Models
         public string RecordNumber { get; set; }
 
         [WMIAttribute("EventType")]
-        public int EventType { get; set; }
+        public long EventType { get; set; }
 
         [WMIAttribute("EventCode")]
         public string EventCode { get; set; }

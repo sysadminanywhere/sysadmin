@@ -32,5 +32,15 @@ namespace Sysadmin.Views.Pages
             }
         }
 
+        private void MenuFilter_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem menu = (MenuItem)sender;
+            foreach (MenuItem item in mnuFilter.Items)
+            {
+                if (item != menu)
+                    item.IsChecked = false;
+            }
+        }
+
     }
 }

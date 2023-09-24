@@ -32,5 +32,13 @@ namespace Sysadmin.Views.Pages
             }
         }
 
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0)
+                stopButton.IsEnabled = true;
+            else
+                stopButton.IsEnabled = false;
+        }
+
     }
 }

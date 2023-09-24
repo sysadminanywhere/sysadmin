@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Wpf.Ui.Common.Interfaces;
+using Wpf.Ui.Controls;
 using Wpf.Ui.Mvvm.Contracts;
 
 namespace Sysadmin.ViewModels
@@ -64,6 +65,36 @@ namespace Sysadmin.ViewModels
         private void OnClose()
         {
             _navigationService.Navigate(typeof(Views.Pages.ComputerPage));
+        }
+
+        [RelayCommand]
+        private async void OnFilter(MenuItem menu)
+        {
+            EventsFilter filters = EventsFilter.TodayErrors;
+
+            switch (menu.Tag)
+            {
+                case "todayerrors":
+                    filters = EventsFilter.TodayErrors;
+                    break;
+                case "todaywarnings":
+                    filters = EventsFilter.TodayWarnings;
+                    break;
+                case "todayinformations":
+                    filters = EventsFilter.TodayInformations;
+                    break;
+                case "todaysecurityauditsuccess":
+                    filters = EventsFilter.TodaySecurityAuditSuccess;
+                    break;
+                case "todaysecurityauditfailure":
+                    filters = EventsFilter.TodaySecurityAuditFailure;
+                    break;
+                case "todayall":
+                    filters = EventsFilter.TodayAll;
+                    break;
+            }
+
+            await Get(Computer.DnsHostName, filters);
         }
 
         public async Task Get(string computerAddress, EventsFilter filter)

@@ -31,6 +31,9 @@ namespace Sysadmin.ViewModels
         private string _errorMessage = string.Empty;
 
         [ObservableProperty]
+        private ProcessEntity _selectedItem;
+
+        [ObservableProperty]
         private bool _isBusy = false;
 
         public ProcessesViewModel(INavigationService navigationService, IExchangeService exchangeService)
@@ -67,6 +70,19 @@ namespace Sysadmin.ViewModels
             _navigationService.Navigate(typeof(Views.Pages.ComputerPage));
         }
 
+        [RelayCommand]
+        private async void OnRefresh()
+        {
+            await Get(Computer.DnsHostName);
+        }
+
+        [RelayCommand]
+        private async void OnStop()
+        {
+            if (SelectedItem != null)
+                await Stop(Computer.DnsHostName, SelectedItem.Handle);
+        }
+
         public async Task Get(string computerAddress)
         {
             IsBusy = true;
@@ -100,6 +116,35 @@ namespace Sysadmin.ViewModels
             }
 
             Items = entities.OrderBy(c => c.Caption);
+
+            IsBusy = false;
+        }
+
+        public async Task Stop(string computerAddress, string handle)
+        {
+            IsBusy = true;
+
+            ICredential? credential = null;
+
+            if (App.CREDENTIAL != null)
+                credential = new Credential() { UserName = App.CREDENTIAL.UserName, Password = App.CREDENTIAL.Password };
+
+            try
+            {
+                await Task.Run(() =>
+                {
+                    using (var wmi = new WMIService(computerAddress, credential))
+                    {
+                        wmi.Invoke("Select * From Win32_Process WHERE Handle = '" + handle + "'", "Terminate");
+                    }
+                });
+
+                await Get(computerAddress);
+            }
+            catch (Exception ex)
+            {
+                 ErrorMessage = ex.Message;
+            }
 
             IsBusy = false;
         }

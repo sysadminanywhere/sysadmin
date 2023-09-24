@@ -53,17 +53,25 @@
                     Style="{StaticResource SubTitleDetailPageStyle}"/>
             </StackPanel>
 
-            <!--<Menu Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent">
-                <ui:MenuItem>
+            <Menu Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent">
+                <ui:MenuItem Command="{Binding ViewModel.RefreshCommand}">
                     <ui:MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
-                            <ui:SymbolIcon Symbol="Edit16" Margin="0,0,8,0" />
-                            <TextBlock>Edit</TextBlock>
+                            <ui:SymbolIcon Symbol="ArrowRepeatAll20" Margin="0,0,8,0" />
+                            <TextBlock>Refresh</TextBlock>
                         </StackPanel>
                     </ui:MenuItem.Header>
                 </ui:MenuItem>
                 <Separator />
-            </Menu>-->
+                <ui:MenuItem x:Name="stopButton" Command="{Binding ViewModel.StopCommand}" IsEnabled="False">
+                    <ui:MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <ui:SymbolIcon Symbol="Stop20" Margin="0,0,8,0" />
+                            <TextBlock>Stop</TextBlock>
+                        </StackPanel>
+                    </ui:MenuItem.Header>
+                </ui:MenuItem>
+            </Menu>
         </Grid>
 
         <Grid 
@@ -77,6 +85,8 @@
                 IsReadOnly="True"
                 GridLinesVisibility="Horizontal"
                 ItemsSource="{Binding ViewModel.Items, Mode=OneWay}" 
+                SelectedItem="{Binding ViewModel.SelectedItem, Mode=TwoWay}"
+                SelectionChanged="DataGrid_SelectionChanged"
                 CanUserResizeColumns="True">
                 <ui:DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Caption}" Header="Name" ElementStyle="{StaticResource TableDetailNameStyle}"/>

@@ -28,6 +28,9 @@ namespace Sysadmin.ViewModels
         private IEnumerable<ServiceEntity> _items = new List<ServiceEntity>();
 
         [ObservableProperty]
+        private ServiceEntity _selectedItem;
+
+        [ObservableProperty]
         private string _errorMessage = string.Empty;
 
         [ObservableProperty]
@@ -67,6 +70,26 @@ namespace Sysadmin.ViewModels
             _navigationService.Navigate(typeof(Views.Pages.ComputerPage));
         }
 
+        [RelayCommand]
+        private async void OnRefresh()
+        {
+            await Get(Computer.DnsHostName);
+        }
+
+        [RelayCommand]
+        private async void OnStart()
+        {
+            if (SelectedItem != null)
+                await Start(Computer.DnsHostName, SelectedItem.ProcessId);
+        }
+
+        [RelayCommand]
+        private async void OnStop()
+        {
+            if (SelectedItem != null)
+                await Stop(Computer.DnsHostName, SelectedItem.ProcessId);
+        }
+
         public async Task Get(string computerAddress)
         {
             IsBusy = true;
@@ -100,6 +123,66 @@ namespace Sysadmin.ViewModels
             }
 
             Items = entities.OrderBy(c => c.Caption);
+
+            IsBusy = false;
+        }
+
+        public async Task Start(string computerAddress, string processId)
+        {
+            IsBusy = true;
+
+            ICredential? credential = null;
+
+            if (App.CREDENTIAL != null)
+                credential = new Credential() { UserName = App.CREDENTIAL.UserName, Password = App.CREDENTIAL.Password };
+
+            try
+            {
+                await Task.Run(() =>
+                {
+                    using (var wmi = new WMIService(computerAddress, credential))
+                    {
+                        wmi.Invoke("Select * From Win32_Service Where ProcessId = '" + processId + "'", "StartService");
+                    }
+                });
+
+                await Get(computerAddress);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+
+            IsBusy = false;
+        }
+
+        public async Task Stop(string computerAddress, string processId)
+        {
+            IsBusy = true;
+
+            ICredential? credential = null;
+
+            if (App.CREDENTIAL != null)
+                credential = new Credential() { UserName = App.CREDENTIAL.UserName, Password = App.CREDENTIAL.Password };
+
+            List<ProcessEntity> entities = new List<ProcessEntity>();
+
+            try
+            {
+                await Task.Run(() =>
+                {
+                    using (var wmi = new WMIService(computerAddress, credential))
+                    {
+                        wmi.Invoke("Select * From Win32_Service Where ProcessId = '" + processId + "'", "StopService");
+                    }
+                });
+
+                await Get(computerAddress);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
 
             IsBusy = false;
         }

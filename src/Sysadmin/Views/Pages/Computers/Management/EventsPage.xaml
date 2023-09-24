@@ -53,17 +53,22 @@
                     Style="{StaticResource SubTitleDetailPageStyle}"/>
             </StackPanel>
 
-            <!--<Menu Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent">
-                <ui:MenuItem>
+            <Menu Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent">
+                <ui:MenuItem x:Name="mnuFilter">
                     <ui:MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
-                            <ui:SymbolIcon Symbol="Edit16" Margin="0,0,8,0" />
-                            <TextBlock>Edit</TextBlock>
+                            <TextBlock>Filter</TextBlock>
+                            <ui:SymbolIcon Symbol="ChevronDown20" Margin="4,0,0,0" />
                         </StackPanel>
                     </ui:MenuItem.Header>
+                    <ui:MenuItem Tag="todayerrors" Header="Today errors" IsCheckable="True" IsChecked="True" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" Click="MenuFilter_Click" />
+                    <ui:MenuItem Tag="todaywarnings" Header="Today warnings" IsCheckable="True" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" Click="MenuFilter_Click" />
+                    <ui:MenuItem Tag="todayinformations" Header="Today informations" IsCheckable="True" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" Click="MenuFilter_Click" />
+                    <ui:MenuItem Tag="todaysecurityauditsuccess" Header="Today security audit success" IsCheckable="True" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" Click="MenuFilter_Click" />
+                    <ui:MenuItem Tag="todaysecurityauditfailure" Header="Today security audit failure" IsCheckable="True" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" Click="MenuFilter_Click" />
+                    <ui:MenuItem Tag="todayall" Header="Today all" IsCheckable="True" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" Click="MenuFilter_Click" />
                 </ui:MenuItem>
-                <Separator />
-            </Menu>-->
+            </Menu>
         </Grid>
 
         <Grid 
