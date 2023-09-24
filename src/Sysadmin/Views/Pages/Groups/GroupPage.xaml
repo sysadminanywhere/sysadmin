@@ -6,10 +6,11 @@
     xmlns:local="clr-namespace:Sysadmin.Views.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="clr-namespace:Sysadmin.Converters"
+    xmlns:controls="clr-namespace:Sysadmin.Controls"
     xmlns:models="clr-namespace:Sysadmin.Models"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="Group"
-    d:DataContext="{d:DesignInstance local:UserPage,
+    d:DataContext="{d:DesignInstance local:GroupPage,
                                      IsDesignTimeCreatable=False}"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -83,12 +84,39 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition />
+                <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
 
             <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="0" Grid.Column="0" Text="Group type" />
             <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="0" Grid.Column="1" Text="{Binding ViewModel.Group.ADGroupType, Mode=OneWay}" />
-        </Grid>
 
+            <Grid Grid.Row="1"
+              Grid.ColumnSpan="2"
+              Margin="24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <controls:MemberOfControl
+                    Grid.Column="0"
+                    VerticalAlignment="Top"
+                    MemberOf="{Binding ViewModel.Group.MemberOf, Mode=OneWay}"
+                    PrimaryGroupId="{Binding ViewModel.Group.PrimaryGroupId, Mode=OneWay}"
+                    DistinguishedName="{Binding ViewModel.Group.DistinguishedName, Mode=OneWay}" 
+                    Changed="MemberOfControl_Changed" />
+
+                <controls:MembersControl
+                    Grid.Column="2"
+                    VerticalAlignment="Top"
+                    Members="{Binding ViewModel.Group.Members, Mode=OneWay}"
+                    CN="{Binding ViewModel.Group.CN, Mode=OneWay}" 
+                    Changed="MembersControl_Changed" />
+
+            </Grid>
+        </Grid>
     </Grid>
+
 </ui:UiPage>

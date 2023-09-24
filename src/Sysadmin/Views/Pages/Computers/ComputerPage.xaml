@@ -67,7 +67,7 @@
                     <ui:MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock>Management</TextBlock>
-                            <ui:SymbolIcon Symbol="ChevronDown20" Margin="8,0,0,0" />
+                            <ui:SymbolIcon Symbol="ChevronDown20" Margin="4,0,0,0" />
                         </StackPanel>
                     </ui:MenuItem.Header>
                     <ui:MenuItem Command="{Binding ViewModel.ProcessesCommand}">

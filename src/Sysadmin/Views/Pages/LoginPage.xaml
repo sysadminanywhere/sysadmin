@@ -89,11 +89,12 @@
 
         <ui:Button x:Name="btnLogin"
                    Content="Login"
-                    Grid.Row="2"
-                    Margin="4,16,4,4" 
-                    HorizontalAlignment="Right" 
-                    Appearance="Primary"
-                    Command="{Binding ViewModel.LoginCommand, Mode=OneWay}"/>
+                   Grid.Row="2"
+                   Margin="4,16,4,4" 
+                   HorizontalAlignment="Right" 
+                   Appearance="Primary"
+                   IsDefault="True"
+                   Command="{Binding ViewModel.LoginCommand, Mode=OneWay}"/>
 
     </Grid>
 

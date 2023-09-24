@@ -84,7 +84,7 @@
                         <ui:MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock>Sort</TextBlock>
-                                <ui:SymbolIcon Symbol="ChevronDown20" Margin="8,0,0,0" />
+                                <ui:SymbolIcon Symbol="ChevronDown20" Margin="4,0,0,0" />
                             </StackPanel>
                         </ui:MenuItem.Header>
                         <ui:MenuItem Tag="asc" Header="By name (A-Z)" IsCheckable="True" IsChecked="True" Command="{Binding ViewModel.SortCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" Click="MenuSort_Click"/>
@@ -94,7 +94,7 @@
                         <ui:MenuItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock>Filter</TextBlock>
-                                <ui:SymbolIcon Symbol="ChevronDown20" Margin="8,0,0,0" />
+                                <ui:SymbolIcon Symbol="ChevronDown20" Margin="4,0,0,0" />
                             </StackPanel>
                         </ui:MenuItem.Header>
                         <ui:MenuItem Tag="all" Header="All" IsCheckable="True" IsChecked="True" Click="MenuFilter_Click" Command="{Binding ViewModel.FilterCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" />
