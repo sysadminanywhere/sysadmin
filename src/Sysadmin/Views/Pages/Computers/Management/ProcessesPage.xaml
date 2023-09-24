@@ -1,0 +1,105 @@
+﻿<ui:UiPage
+    x:Class="Sysadmin.Views.Pages.ProcessesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Sysadmin.Views.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="clr-namespace:Sysadmin.Converters"
+    xmlns:models="clr-namespace:Sysadmin.Models"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="Processes"
+    d:DataContext="{d:DesignInstance local:ProcessesPage,
+                                     IsDesignTimeCreatable=False}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    d:Background="{DynamicResource ApplicationBackgroundBrush}"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <converters:EmptyToCollapsedConverter x:Key="EmptyToCollapsedConverter"/>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </Page.Resources>
+
+    <Grid Margin="16,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <ui:Button 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Center" 
+                Appearance="Transparent"
+                Command="{Binding ViewModel.CloseCommand}" 
+                Content="&lt;" />
+
+            <StackPanel 
+                Grid.Column="0" 
+                Margin="40,24,24,24">
+
+                <TextBlock                
+                    Text="Processes"
+                    Style="{StaticResource TitleTextBlockStyle}"/>
+
+                <TextBlock 
+                    Text="{Binding ViewModel.Computer.CN}"
+                    Style="{StaticResource SubTitleDetailPageStyle}"/>
+            </StackPanel>
+
+            <Menu Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent">
+                <ui:MenuItem Command="{Binding ViewModel.RefreshCommand}">
+                    <ui:MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <ui:SymbolIcon Symbol="ArrowRepeatAll20" Margin="0,0,8,0" />
+                            <TextBlock>Refresh</TextBlock>
+                        </StackPanel>
+                    </ui:MenuItem.Header>
+                </ui:MenuItem>
+                <Separator />
+                <ui:MenuItem x:Name="stopButton" Command="{Binding ViewModel.StopCommand}" IsEnabled="False">
+                    <ui:MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <ui:SymbolIcon Symbol="Stop20" Margin="0,0,8,0" />
+                            <TextBlock>Stop</TextBlock>
+                        </StackPanel>
+                    </ui:MenuItem.Header>
+                </ui:MenuItem>
+            </Menu>
+        </Grid>
+
+        <Grid 
+            VerticalAlignment="Top"
+            Grid.Row="1" 
+            Margin="24">
+
+            <ui:DataGrid
+                CanUserSortColumns="True"
+                AutoGenerateColumns="False"
+                IsReadOnly="True"
+                GridLinesVisibility="Horizontal"
+                ItemsSource="{Binding ViewModel.Items, Mode=OneWay}" 
+                SelectedItem="{Binding ViewModel.SelectedItem, Mode=TwoWay}"
+                SelectionChanged="DataGrid_SelectionChanged"
+                CanUserResizeColumns="True">
+                <ui:DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Caption}" Header="Name" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                    <DataGridTextColumn Binding="{Binding Description}" Header="Description" Width="400" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                    <DataGridTextColumn Binding="{Binding WorkingSetSize}" Header="Size" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                    <DataGridTextColumn Binding="{Binding ExecutablePath}" Header="Path" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                </ui:DataGrid.Columns>
+            </ui:DataGrid>
+
+        </Grid>
+
+        <ui:ProgressRing IsIndeterminate="True" Grid.Row="1" Visibility="{Binding ViewModel.IsBusy, Converter={StaticResource BoolToVisibilityConverter}}" />
+        <ui:Snackbar Grid.RowSpan="3" VerticalAlignment="Top" x:Name="snackbar" Appearance="Danger" Title="Error" Icon="ErrorCircle12" Message="Error" Timeout="5000" />
+
+    </Grid>
+</ui:UiPage>

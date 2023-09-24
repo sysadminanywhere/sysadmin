@@ -35,27 +35,34 @@ namespace Sysadmin.WMI
                         if (property.PropertyType == typeof(string))
                         {
                             if (properties[propertyName] != null)
-                                property.SetValue(result, properties[propertyName].ToString());
+                                property.SetValue(result, Convert.ToString(properties[propertyName]));
                             else
                                 property.SetValue(result, string.Empty);
                         }
 
                         if (property.PropertyType == typeof(DateTime) || property.PropertyType == typeof(DateTime?))
-                            property.SetValue(result, Helper.GetWMIDate(properties[propertyName].ToString()));
+                            property.SetValue(result, Helper.GetWMIDate(properties[propertyName]));
 
                         if (property.PropertyType == typeof(bool))
-                            property.SetValue(result, bool.Parse(properties[propertyName].ToString()));
+                            property.SetValue(result, Convert.ToBoolean(properties[propertyName]));
 
                         if (property.PropertyType == typeof(int))
                         {
                             if (properties[propertyName] != null)
-                                property.SetValue(result, int.Parse(properties[propertyName].ToString()));
+                            {
+                                if(properties[propertyName] is int)
+                                    property.SetValue(result, Convert.ToInt32(properties[propertyName]));
+                                else
+                                    property.SetValue(result, -111);
+                            }
                             else
+                            {
                                 property.SetValue(result, 0);
+                            }
                         }
 
                         if (property.PropertyType == typeof(long))
-                            property.SetValue(result, long.Parse(properties[propertyName].ToString()));
+                            property.SetValue(result, Convert.ToInt64(properties[propertyName]));
 
                         if (property.PropertyType == typeof(byte[]))
                             property.SetValue(result, Encoding.ASCII.GetBytes(properties[propertyName].ToString()));

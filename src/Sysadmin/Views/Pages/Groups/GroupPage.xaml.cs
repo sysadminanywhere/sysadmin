@@ -28,5 +28,14 @@ namespace Sysadmin.Views.Pages
                 ViewModel.DeleteCommand.Execute(ViewModel);
         }
 
+        private void MembersControl_Changed()
+        {
+
+        }
+
+        private void MemberOfControl_Changed()
+        {
+
+        }
     }
 }

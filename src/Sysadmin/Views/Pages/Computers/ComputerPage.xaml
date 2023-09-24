@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Sysadmin.Views.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:converters="clr-namespace:SysAdmin.Converters"
+    xmlns:converters="clr-namespace:Sysadmin.Converters"
     xmlns:models="clr-namespace:Sysadmin.Models"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="Computer"
@@ -63,6 +63,74 @@
                     </ui:MenuItem.Header>
                 </ui:MenuItem>
                 <Separator />
+                <ui:MenuItem>
+                    <ui:MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock>Management</TextBlock>
+                            <ui:SymbolIcon Symbol="ChevronDown20" Margin="4,0,0,0" />
+                        </StackPanel>
+                    </ui:MenuItem.Header>
+                    <ui:MenuItem Command="{Binding ViewModel.ProcessesCommand}">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>Processes</TextBlock>
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                    </ui:MenuItem>
+                    <ui:MenuItem Command="{Binding ViewModel.ServicesCommand}">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>Services</TextBlock>
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                    </ui:MenuItem>
+                    <ui:MenuItem Command="{Binding ViewModel.EventsCommand}">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>Events</TextBlock>
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                    </ui:MenuItem>
+                    <Separator />
+                    <ui:MenuItem Command="{Binding ViewModel.SoftwareCommand}">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>Software</TextBlock>
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                    </ui:MenuItem>
+                    <ui:MenuItem Command="{Binding ViewModel.HardwareCommand}">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>Hardware</TextBlock>
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                    </ui:MenuItem>
+                    <Separator />
+                    <ui:MenuItem Command="{Binding ViewModel.PerformanceCommand}">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>Performance</TextBlock>
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                    </ui:MenuItem>
+                    <Separator />
+                    <ui:MenuItem Click="RebootMenuItem_Click">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>Reboot</TextBlock>
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                    </ui:MenuItem>
+                    <ui:MenuItem Click="ShutdownMenuItem_Click">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>Shutdown</TextBlock>
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                    </ui:MenuItem>
+                </ui:MenuItem>
+                <Separator />
                 <ui:MenuItem Click="DeleteMenuItem_Click">
                     <ui:MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
@@ -105,6 +173,9 @@
             <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="4" Grid.Column="0" Text="Service pack" />
             <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="4" Grid.Column="1" Text="{Binding ViewModel.Computer.OperatingSystemServicePack, Mode=OneWay}" />
         </Grid>
+
+        <ui:Snackbar Grid.RowSpan="3" VerticalAlignment="Top" x:Name="snackbar" Appearance="Danger" Title="Error" Icon="ErrorCircle12" Message="Error" Timeout="5000" />
+        <ui:Snackbar Grid.RowSpan="3" VerticalAlignment="Top" x:Name="snackbarOk" Appearance="Success" Title="Command" Timeout="5000" />
 
     </Grid>
 </ui:UiPage>

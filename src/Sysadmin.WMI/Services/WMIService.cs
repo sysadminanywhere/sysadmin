@@ -17,7 +17,7 @@ namespace Sysadmin.WMI.Services
 
         public ICredential? Credential { get { return credential; } }
 
-        public WMIService(string computerAddress, ICredential credential)
+        public WMIService(string computerAddress, ICredential? credential)
         {
             if (computerAddress == null)
                 throw new ArgumentNullException(nameof(computerAddress));
@@ -53,24 +53,20 @@ namespace Sysadmin.WMI.Services
             {
                 List<Dictionary<string, object>> lst = new List<Dictionary<string, object>>();
 
-                try
+                using (ManagementObjectSearcher query = new ManagementObjectSearcher(managementScope, new SelectQuery(queryString)))
                 {
-                    using (ManagementObjectSearcher query = new ManagementObjectSearcher(managementScope, new SelectQuery(queryString)))
+                    foreach (ManagementObject service in query.Get())
                     {
-                        foreach (ManagementObject service in query.Get())
+                        Dictionary<string, object> keyValues = new Dictionary<string, object>();
+
+                        foreach (PropertyData data in service.Properties)
                         {
-                            Dictionary<string, object> keyValues = new Dictionary<string, object>();
-
-                            foreach (PropertyData data in service.Properties)
-                            {
-                                keyValues.Add(data.Name, data.Value);
-                            }
-
-                            lst.Add(keyValues);
+                            keyValues.Add(data.Name, data.Value);
                         }
+
+                        lst.Add(keyValues);
                     }
                 }
-                catch { }
 
                 return lst;
             }
