@@ -96,6 +96,7 @@ namespace Sysadmin.Views.Pages
                 if (hardware is IEnumerable<IHardware> list)
                 {
                     comboBox.Items.Clear();
+                    comboBox.Text = "-- Select an item --";
 
                     foreach (IHardware item in list)
                     {

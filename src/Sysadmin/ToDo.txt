@@ -33,9 +33,8 @@
 9. Computer management
 	- Events
 		- Filters
-	- Hardware
+	+ Hardware
 	- Processes
-		- Start
 		- Stop
 	- Services
 		- Start

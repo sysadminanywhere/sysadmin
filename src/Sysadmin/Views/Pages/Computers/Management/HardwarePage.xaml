@@ -60,7 +60,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <ListBox Width="250" SelectedValue="0">
+            <ListBox Width="250">
                 <ListBoxItem Content="Computer system" Tag="computersystem" Selected="ListBoxItem_Selected" />
                 <ListBoxItem Content="BIOS" Tag="bios"  Selected="ListBoxItem_Selected" />
                 <ListBoxItem Content="Base board" Tag="baseboard" Selected="ListBoxItem_Selected" />
@@ -73,7 +73,7 @@
                 <ListBoxItem Content="Logical disk" Tag="logicaldisk" Selected="ListBoxItem_Selected" />
             </ListBox>
 
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="1" Margin="8,0,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -85,6 +85,10 @@
                     Margin="16,0,16,16"
                     Visibility="Collapsed"
                     DisplayMemberPath="Name"
+                    Focusable="False" 
+                    IsEditable="True" 
+                    IsReadOnly="True"
+                    Text="-- Select an item --"
                     SelectionChanged="comboBox_SelectionChanged" />
 
                 <ui:DataGrid
