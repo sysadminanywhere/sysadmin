@@ -58,7 +58,7 @@ namespace Sysadmin.Views.Pages
             if (btnLogin != null)
             {
                 TextBox txt = (TextBox)sender;
-                Regex regex = new Regex("[^0-9]+");
+                Regex regex = new Regex("[^0-9]+", RegexOptions.None, TimeSpan.FromMilliseconds(100));
                 if (regex.IsMatch(txt.Text))
                     btnLogin.IsEnabled = false;
                 else

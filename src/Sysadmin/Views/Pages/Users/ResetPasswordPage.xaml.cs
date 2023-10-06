@@ -12,17 +12,14 @@ namespace Sysadmin.Views.Pages
     public partial class ResetPasswordPage : INavigableView<ViewModels.ResetPasswordViewModel>
     {
 
-        private ISettingsService _settingsService;
-
         public ViewModels.ResetPasswordViewModel ViewModel
         {
             get;
         }
 
-        public ResetPasswordPage(ViewModels.ResetPasswordViewModel viewModel, ISettingsService settingsService)
+        public ResetPasswordPage(ViewModels.ResetPasswordViewModel viewModel)
         {
             ViewModel = viewModel;
-            _settingsService = settingsService;
 
             InitializeComponent();
 

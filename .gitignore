@@ -32,4 +32,5 @@ src/SetupProject/bin
 src/SetupProject/obj
 src/Sysadmin/bin
 src/Sysadmin/obj
-
+src/Sysadmin/.sonarqube
+src/Sysadmin/sonar.bat

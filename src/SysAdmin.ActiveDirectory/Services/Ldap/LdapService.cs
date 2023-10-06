@@ -229,11 +229,7 @@ namespace SysAdmin.ActiveDirectory.Services.Ldap
             if (directoryRequest == null)
                 throw new ArgumentNullException(nameof(directoryRequest));
 
-            if (ldapConnection != null)
-            {
-                return await ldapConnection.SendRequestAsync(directoryRequest);
-            }
-            return null;
+            return await ldapConnection.SendRequestAsync(directoryRequest);
         }
 
         public async Task<List<string>> WellKnownObjectsAsync()

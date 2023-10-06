@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Management;
+﻿using System.Management;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sysadmin.WMI.Services
 {
@@ -55,7 +50,7 @@ namespace Sysadmin.WMI.Services
 
                 using (ManagementObjectSearcher query = new ManagementObjectSearcher(managementScope, new SelectQuery(queryString)))
                 {
-                    foreach (ManagementObject service in query.Get())
+                    foreach (ManagementObject service in query.Get().OfType<ManagementObject>())
                     {
                         Dictionary<string, object> keyValues = new Dictionary<string, object>();
 
@@ -90,7 +85,7 @@ namespace Sysadmin.WMI.Services
 
                 object obj = null;
 
-                foreach (ManagementObject item in searcher.Get())
+                foreach (ManagementObject item in searcher.Get().OfType<ManagementObject>())
                 {
                     if (args != null && args.Count > 0)
                         obj = item.InvokeMethod(methodName, args.ToArray());

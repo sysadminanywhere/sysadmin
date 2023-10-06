@@ -8,6 +8,7 @@
         Universal = 2
     }
 
+    [Flags]
     public enum GroupType : uint
     {
         GLOBAL = 0x2,
