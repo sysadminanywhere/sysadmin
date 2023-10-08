@@ -2,6 +2,5 @@
 <item>
   <version>10.3.0.0</version>
   <url>https://github.com/sysadminanywhere/sysadmin/releases/download/Release10.1/SysadminSetup.msi</url>
-  <changelog>https://github.com/sysadminanywhere/sysadmin/releases</changelog>
   <mandatory>true</mandatory>
 </item>
