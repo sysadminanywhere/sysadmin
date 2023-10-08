@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Wpf.Ui.Controls.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
+using AutoUpdaterDotNET;
 
 namespace Sysadmin.Views.Windows
 {
@@ -35,6 +36,8 @@ namespace Sysadmin.Views.Windows
 
             InitializeComponent();
             SetPageService(pageService);
+
+            AutoUpdater.Start("https://raw.githubusercontent.com/sysadminanywhere/sysadmin/main/src/autoupdater.xml");
 
             navigationService.SetNavigationControl(RootNavigation);
         }

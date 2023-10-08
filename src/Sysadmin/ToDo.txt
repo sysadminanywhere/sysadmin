@@ -45,3 +45,4 @@
 		+ Cpu
 		+ Memory
 		+ Disk
+10. Autoupdater.NET.Official
