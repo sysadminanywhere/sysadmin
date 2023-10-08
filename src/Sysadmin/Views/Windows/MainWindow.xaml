@@ -73,6 +73,5 @@
                 </Grid>
             </Border>
         </Grid>
-        <Image x:Name="storeLogo" Source="/Assets/StoreLogo.bmp" Visibility="Collapsed" />
     </Grid>
 </ui:UiWindow>
