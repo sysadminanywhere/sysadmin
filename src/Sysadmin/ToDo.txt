@@ -45,6 +45,6 @@
 		+ Cpu
 		+ Memory
 		+ Disk
-10. Autoupdater.NET.Official
+10. Autoupdater.NET
 	+ Version
 	+ XML
