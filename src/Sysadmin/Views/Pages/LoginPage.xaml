@@ -67,9 +67,9 @@
                                    Style="{StaticResource FormLabelStyle}"
                                     VerticalAlignment="Center"
                                     Margin="0,0,4,0" />
-                        <ui:TextBox Text="{Binding ViewModel.Port}" TextChanged="TextBox_TextChanged" />
+                            <ui:NumberBox Minimum="1" Maximum="32768" Value="{Binding ViewModel.Port}" InputScope="Number" SpinButtonPlacementMode="Hidden" />
 
-                        <TextBlock Text="SSL" 
+                            <TextBlock Text="SSL" 
                                    Style="{StaticResource FormLabelStyle}"
                                     VerticalAlignment="Center"
                                     Margin="30,0,4,0" />
@@ -98,7 +98,7 @@
 
     </Grid>
 
-    <ui:Snackbar VerticalAlignment="Top" x:Name="snackbar" Appearance="Danger" Title="Error" Icon="ErrorCircle12" Message="Connection error" Timeout="5000" />
+    <ui:Snackbar VerticalAlignment="Bottom" x:Name="snackbar" Appearance="Danger" Title="Error" Icon="ErrorCircle12" Message="Connection error" Timeout="5000" />
 
     </Grid>
 

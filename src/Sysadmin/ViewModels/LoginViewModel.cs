@@ -38,7 +38,7 @@ namespace Sysadmin.ViewModels
         private string _serverName;
 
         [ObservableProperty]
-        private string _port = "389";
+        private int _port = 389;
 
         [ObservableProperty]
         private bool _ssl;
@@ -65,7 +65,7 @@ namespace Sysadmin.ViewModels
 
             ServerName = settingsService.ServerName;
             UserName = settingsService.UserName;
-            Port = settingsService.ServerPort.ToString();
+            Port = settingsService.ServerPort;
             Ssl = settingsService.IsSSL;
         }
 
@@ -107,7 +107,7 @@ namespace Sysadmin.ViewModels
                     App.SERVER = new SecureServer()
                     {
                         ServerName = ServerName,
-                        Port = int.Parse(Port),
+                        Port = Port,
                         IsSSL = Ssl
                     };
                     App.CREDENTIAL = new Credential()
@@ -138,7 +138,7 @@ namespace Sysadmin.ViewModels
 
                 settingsService.ServerName = ServerName;
                 settingsService.UserName = UserName;
-                settingsService.ServerPort = int.Parse(Port);
+                settingsService.ServerPort = Port;
                 settingsService.IsSSL = Ssl;
 
                 stateService.IsLoggedIn = true;

@@ -73,10 +73,10 @@
                     </ui:MenuItem.Header>
                 </ui:MenuItem>
             </Menu>
+
         </Grid>
 
         <Grid 
-            VerticalAlignment="Top"
             Grid.Row="1" 
             Margin="24">
             <Grid.ColumnDefinitions>
@@ -84,8 +84,8 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="0" Grid.Column="0" Text="Group type" />
@@ -96,29 +96,27 @@
               Margin="0,24,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="32"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
                 <controls:MemberOfControl
                     Grid.Column="0"
-                    VerticalAlignment="Top"
                     MemberOf="{Binding ViewModel.Group.MemberOf, Mode=OneWay}"
                     PrimaryGroupId="{Binding ViewModel.Group.PrimaryGroupId, Mode=OneWay}"
                     DistinguishedName="{Binding ViewModel.Group.DistinguishedName, Mode=OneWay}" 
                     CN="{Binding ViewModel.Group.CN, Mode=OneWay}" 
-                    Changed="MemberOfControl_Changed" Error="MemberOfControl_Error" />
+                    Changed="MemberOfControl_Changed" Error="MemberOfControl_Error" VerticalAlignment="Top"/>
 
                 <controls:MembersControl
                     Grid.Column="2"
-                    VerticalAlignment="Top"
                     Members="{Binding ViewModel.Group.Members, Mode=OneWay}"
                     CN="{Binding ViewModel.Group.CN, Mode=OneWay}" 
-                    Changed="MembersControl_Changed" />
+                    Changed="MembersControl_Changed" VerticalAlignment="Top"/>
 
             </Grid>
         </Grid>
-        <ui:Snackbar Grid.RowSpan="3" VerticalAlignment="Top" x:Name="snackbar" Appearance="Danger" Title="Error" Icon="ErrorCircle12" Message="Error" Timeout="5000" />
+        <ui:Snackbar Grid.RowSpan="3" VerticalAlignment="Bottom" x:Name="snackbar" Appearance="Danger" Title="Error" Icon="ErrorCircle12" Message="Error" Timeout="5000" />
     </Grid>
 
 </ui:UiPage>

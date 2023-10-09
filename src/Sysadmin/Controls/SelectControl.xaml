@@ -16,10 +16,10 @@
 
         <ui:AutoSuggestBox TextChanged="AutoSuggestBox_TextChanged"  Icon="Search12" PlaceholderText="Search..." Margin="0,8,0,8" />
 
-        <ListView Grid.Row="1" ItemsSource="{Binding Items, ElementName=self}" SelectedItem="{Binding Selected, ElementName=self, Mode=TwoWay}" Grid.RowSpan="2">
+        <ListView Grid.Row="1" ItemsSource="{Binding Items, ElementName=self}" SelectedItem="{Binding Selected, ElementName=self, Mode=TwoWay}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Dn}" Margin="4,0,0,0" />
+                    <TextBlock Text="{Binding Dn}" Style="{StaticResource ListDescriptionStyle}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
