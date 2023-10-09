@@ -125,7 +125,8 @@ namespace Sysadmin.Controls
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
-
+            flyout.Show();
+            selectControl.Load("", "(objectClass=group)");
         }
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)

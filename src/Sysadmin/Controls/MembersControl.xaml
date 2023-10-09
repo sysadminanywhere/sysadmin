@@ -21,7 +21,7 @@
                 <TextBlock Text="Members" Margin="0,8,8,8" HorizontalAlignment="Left" FontWeight="Bold"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button x:Name="addButton" Content="+" Visibility="Collapsed" Click="addButton_Click"/>
-                    <Button x:Name="deleteButton" Content="-" Visibility="Collapsed" IsEnabled="False" Click="deleteButton_Click"/>
+                    <Button x:Name="deleteButton" Content="-" IsEnabled="False" Click="deleteButton_Click"/>
                 </StackPanel>
             </Grid>
 

@@ -20,9 +20,12 @@
             <Grid Grid.Row="0">
                 <TextBlock Text="Member of" Margin="0,8,8,8" HorizontalAlignment="Left" FontWeight="Bold"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button x:Name="addButton" Content="+" Visibility="Collapsed" Click="addButton_Click"/>
-                    <Button x:Name="deleteButton" Content="-" Visibility="Collapsed" IsEnabled="False" Click="deleteButton_Click"/>
+                    <Button x:Name="addButton" Content="+" Click="addButton_Click"/>
+                    <Button x:Name="deleteButton" Content="-" IsEnabled="False" Click="deleteButton_Click"/>
                 </StackPanel>
+                <ui:Flyout Name="flyout">
+                    <local:SelectControl x:Name="selectControl" />
+                </ui:Flyout>
             </Grid>
 
             <ListView Grid.Row="1" ItemsSource="{Binding Items, ElementName=self}" SelectedItem="{Binding Selected, Mode=TwoWay}">
