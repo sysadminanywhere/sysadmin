@@ -70,6 +70,19 @@ namespace Sysadmin.Controls
             set => SetValue(DistinguishedNameProperty, value);
         }
 
+        public static readonly DependencyProperty CNProperty =
+            DependencyProperty.Register(
+                name: "CN",
+                propertyType: typeof(string),
+                ownerType: typeof(MemberOfControl),
+                typeMetadata: new FrameworkPropertyMetadata(defaultValue: string.Empty));
+
+        public string CN
+        {
+            get => (string)GetValue(CNProperty);
+            set => SetValue(CNProperty, value);
+        }
+
         public static readonly DependencyProperty PrimaryGroupIdProperty =
         DependencyProperty.Register(
             name: "PrimaryGroupId",
@@ -199,7 +212,7 @@ namespace Sysadmin.Controls
 
             try
             {
-                await AddMember(this.DistinguishedName, DistinguishedName);
+                await AddMember(CN, DistinguishedName);
                 if (Changed != null) Changed();
             }
             catch (LdapException le)

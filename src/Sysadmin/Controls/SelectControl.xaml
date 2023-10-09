@@ -19,7 +19,7 @@
         <ListView Grid.Row="1" ItemsSource="{Binding Items, ElementName=self}" SelectedItem="{Binding Selected, ElementName=self, Mode=TwoWay}" Grid.RowSpan="2">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Dn}" />
+                    <TextBlock Text="{Binding Dn}" Margin="4,0,0,0" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

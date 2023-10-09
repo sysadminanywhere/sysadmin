@@ -106,6 +106,7 @@
                     MemberOf="{Binding ViewModel.Group.MemberOf, Mode=OneWay}"
                     PrimaryGroupId="{Binding ViewModel.Group.PrimaryGroupId, Mode=OneWay}"
                     DistinguishedName="{Binding ViewModel.Group.DistinguishedName, Mode=OneWay}" 
+                    CN="{Binding ViewModel.Group.CN, Mode=OneWay}" 
                     Changed="MemberOfControl_Changed" Error="MemberOfControl_Error" />
 
                 <controls:MembersControl

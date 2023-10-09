@@ -8,6 +8,8 @@ using SysAdmin.ActiveDirectory.Repositories;
 using SysAdmin.ActiveDirectory.Services.Ldap;
 using System;
 using System.ComponentModel;
+using SysAdmin.ActiveDirectory;
+using LdapForNet;
 
 namespace Sysadmin.Controls
 {
@@ -19,6 +21,9 @@ namespace Sysadmin.Controls
 
         public delegate void MembersHandler();
         public event MembersHandler Changed;
+
+        public delegate void MembersErrorHandler(string ErrorMessage);
+        public event MembersErrorHandler Error;
 
         public ObservableCollection<MemberItem> Items { get; private set; } = new ObservableCollection<MemberItem>();
 
@@ -92,7 +97,8 @@ namespace Sysadmin.Controls
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotSupportedException();
+            flyout.Show();
+            selectControl.Load("", "(objectClass=*)");
         }
 
         private async void deleteButton_Click(object sender, RoutedEventArgs e)
@@ -102,8 +108,15 @@ namespace Sysadmin.Controls
                 await DeleteMember(CN, Selected.DistinguishedName);
                 if (Changed != null) Changed();
             }
-            catch
+            catch (LdapException le)
             {
+                if (Error != null)
+                    Error(LdapResult.GetErrorMessageFromResult(le.ResultCode));
+            }
+            catch (Exception ex)
+            {
+                if (Error != null)
+                    Error(ex.Message);
             }
         }
 
@@ -127,5 +140,46 @@ namespace Sysadmin.Controls
             });
         }
 
+        private async Task AddMember(string groupCN, string distinguishedName)
+        {
+            await Task.Run(async () =>
+            {
+                using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
+                {
+                    using (var groupsRepository = new GroupsRepository(ldap))
+                    {
+                        var group = await groupsRepository.GetByCNAsync(groupCN);
+
+                        if (group != null)
+                        {
+                            await groupsRepository.AddMemberAsync(group, distinguishedName);
+                        }
+
+                    }
+                }
+            });
+        }
+
+
+        private async void selectControl_SelectedItem(string DistinguishedName)
+        {
+            flyout.Hide();
+
+            try
+            {
+                await AddMember(CN, DistinguishedName);
+                if (Changed != null) Changed();
+            }
+            catch (LdapException le)
+            {
+                if (Error != null)
+                    Error(LdapResult.GetErrorMessageFromResult(le.ResultCode));
+            }
+            catch (Exception ex)
+            {
+                if (Error != null)
+                    Error(ex.Message);
+            }
+        }
     }
 }

@@ -41,7 +41,7 @@ namespace Sysadmin.Views.Pages
 
         private void MemberOfControl_Error(string ErrorMessage)
         {
-            snackbar.Message = ViewModel.ErrorMessage;
+            snackbar.Message = ErrorMessage;
             snackbar.Show();
         }
 
