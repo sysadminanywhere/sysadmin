@@ -1,13 +1,13 @@
-﻿using LdapForNet;
-using System.Windows;
+﻿using SysAdmin.ActiveDirectory.Models;
+using SysAdmin.ActiveDirectory.Repositories;
 using SysAdmin.ActiveDirectory.Services.Ldap;
 using SysAdmin.Models;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using Wpf.Ui.Controls;
-using System.Linq;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Sysadmin.Controls
 {
@@ -17,13 +17,21 @@ namespace Sysadmin.Controls
     public partial class SelectControl : UserControl
     {
 
-        public delegate void SelectControHandler(string DistinguishedName);
+        public delegate void SelectControHandler(MemberItem item);
         public event SelectControHandler SelectedItem;
 
-        public ObservableCollection<LdapEntry> Items { get; private set; } = new ObservableCollection<LdapEntry>();
+        public enum Show
+        {
+            All,
+            Computers,
+            Users,
+            Groups
+        }
 
-        private LdapEntry selected;
-        public LdapEntry Selected
+        public ObservableCollection<MemberItem> Items { get; private set; } = new ObservableCollection<MemberItem>();
+
+        private MemberItem selected;
+        public MemberItem Selected
         {
             get { return selected; }
             set
@@ -31,7 +39,7 @@ namespace Sysadmin.Controls
                 selected = value;
                 if (SelectedItem != null && value != null)
                 {
-                    SelectedItem(value.Dn);
+                    SelectedItem(value);
                 }
             }
         }
@@ -41,17 +49,17 @@ namespace Sysadmin.Controls
             InitializeComponent();
         }
 
-        public async Task Load(string path, string filter)
+        public async Task Load(Show show)
         {
             progressRing.Visibility = Visibility.Visible;
 
             Items.Clear();
 
-            List<LdapEntry> entries = await ListAsync(path, filter);
+            List<MemberItem> entries = await ListAsync(show);
 
             if (entries.Count > 0)
             {
-                foreach (LdapEntry entry in entries.OrderBy(c => c.Dn))
+                foreach (MemberItem entry in entries.OrderBy(c => c.Name))
                 {
                     Items.Add(entry);
                 }
@@ -66,23 +74,73 @@ namespace Sysadmin.Controls
 
         }
 
-        private async Task<List<LdapEntry>> ListAsync(string path, string filter)
+        private async Task<List<MemberItem>> ListAsync(Show show)
         {
-
-            List<LdapEntry> entries = new List<LdapEntry>();
+            List<MemberItem> members = new List<MemberItem>();
 
             await Task.Run(async () =>
             {
                 using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
                 {
-                    if (string.IsNullOrEmpty(path))
-                        path = ldap.DefaultNamingContext;
 
-                    entries = await ldap.SearchAsync(path, filter);
+                    switch (show)
+                    {
+                        case Show.Computers:
+                            members = await Computers(ldap);
+                            break;
+
+                        case Show.Users:
+                            members = await Users(ldap);
+                            break;
+
+                        case Show.Groups:
+                            members = await Groups(ldap);
+                            break;
+
+                        case Show.All:
+                            members = await Computers(ldap);
+                            members.AddRange(await Users(ldap));
+                            members.AddRange(await Groups(ldap));
+                            break;
+                    }
+
                 }
             });
 
-            return entries;
+            return members.OrderBy(c => c.Name).ToList();
+        }
+
+        private async Task<List<MemberItem>> Computers(LdapService ldap)
+        {
+            List<MemberItem> members = new List<MemberItem>();
+
+            List<ComputerEntry> computers = await new ComputersRepository(ldap).ListAsync();
+            foreach (ComputerEntry computer in computers)
+                members.Add(new MemberItem() { Name = computer.CN, DistinguishedName = computer.DistinguishedName });
+
+            return members;
+        }
+
+        private async Task<List<MemberItem>> Users(LdapService ldap)
+        {
+            List<MemberItem> members = new List<MemberItem>();
+
+            List<UserEntry> users = await new UsersRepository(ldap).ListAsync();
+            foreach (UserEntry user in users)
+                members.Add(new MemberItem() { Name = user.CN, DistinguishedName = user.DistinguishedName });
+
+            return members;
+        }
+
+        private async Task<List<MemberItem>> Groups(LdapService ldap)
+        {
+            List<MemberItem> members = new List<MemberItem>();
+
+            List<GroupEntry> groups = await new GroupsRepository(ldap).ListAsync();
+            foreach (GroupEntry group in groups)
+                members.Add(new MemberItem() { Name = group.CN, DistinguishedName = group.DistinguishedName });
+
+            return members;
         }
 
     }

@@ -144,7 +144,7 @@ namespace Sysadmin.Controls
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
             flyout.Show();
-            selectControl.Load("", "(objectClass=group)");
+            selectControl.Load(SelectControl.Show.Groups);
         }
 
         private async void deleteButton_Click(object sender, RoutedEventArgs e)
@@ -206,13 +206,13 @@ namespace Sysadmin.Controls
             });
         }
 
-        private async void selectControl_SelectedItem(string DistinguishedName)
+        private async void selectControl_SelectedItem(MemberItem item)
         {
             flyout.Hide();
 
             try
             {
-                await AddMember(CN, DistinguishedName);
+                await AddMember(item.Name, DistinguishedName);
                 if (Changed != null) Changed();
             }
             catch (LdapException le)
