@@ -1,4 +1,5 @@
 ﻿using SysAdmin.Services;
+using System;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using Wpf.Ui.Common.Interfaces;
@@ -53,22 +54,22 @@ namespace Sysadmin.Views.Pages
 
             if (_settingsService.UserDisplayNameFormat.Contains("<FirstName>"))
             {
-                txtFirstName.Text = Regex.Replace(_DisplayNameValue, _settingsService.UserDisplayNameFormat, "${FirstName}");
+                txtFirstName.Text = Regex.Replace(_DisplayNameValue, _settingsService.UserDisplayNameFormat, "${FirstName}", RegexOptions.None, TimeSpan.FromMilliseconds(100));
                 _DisplayNameValue2 += txtFirstName.Text;
             }
 
             if (_settingsService.UserDisplayNameFormat.Contains("<Middle>"))
             {
-                txtInitials.Text = Regex.Replace(_DisplayNameValue, _settingsService.UserDisplayNameFormat, "${Middle}");
+                txtInitials.Text = Regex.Replace(_DisplayNameValue, _settingsService.UserDisplayNameFormat, "${Middle}", RegexOptions.None, TimeSpan.FromMilliseconds(100));
             }
 
             if (_settingsService.UserDisplayNameFormat.Contains("<LastName>"))
             {
-                txtLastName.Text = Regex.Replace(_DisplayNameValue, _settingsService.UserDisplayNameFormat, "${LastName}");
+                txtLastName.Text = Regex.Replace(_DisplayNameValue, _settingsService.UserDisplayNameFormat, "${LastName}", RegexOptions.None, TimeSpan.FromMilliseconds(100));
                 _DisplayNameValue2 += " " + txtLastName.Text;
             }
 
-            txtAccountName.Text = Regex.Replace(_DisplayNameValue2, _settingsService.UserLoginPattern, _settingsService.UserLoginFormat).ToLower();
+            txtAccountName.Text = Regex.Replace(_DisplayNameValue2, _settingsService.UserLoginPattern, _settingsService.UserLoginFormat, RegexOptions.None, TimeSpan.FromMilliseconds(100)).ToLower();
             ViewModel.User.SamAccountName = txtAccountName.Text;
 
             ViewModel.User.FirstName = txtFirstName.Text;

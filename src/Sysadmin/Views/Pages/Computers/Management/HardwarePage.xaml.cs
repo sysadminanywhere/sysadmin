@@ -149,7 +149,7 @@ namespace Sysadmin.Views.Pages
                             }
                         }
 
-                        string name = Regex.Replace(propertyInfo.Name, @"((?<=\p{Ll})\p{Lu})|((?!\A)\p{Lu}(?>\p{Ll}))", " $0");
+                        string name = Regex.Replace(propertyInfo.Name, @"((?<=\p{Ll})\p{Lu})|((?!\A)\p{Lu}(?>\p{Ll}))", " $0", RegexOptions.None, TimeSpan.FromMilliseconds(100));
 
                         list.Add(new HardwareItem() { Name = name, Value = text });
                     }

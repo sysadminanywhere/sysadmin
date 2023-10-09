@@ -12,17 +12,14 @@ namespace Sysadmin.Views.Pages
     public partial class UserOptionsPage : INavigableView<ViewModels.UserOptionsViewModel>
     {
 
-        private ISettingsService _settingsService;
-
         public ViewModels.UserOptionsViewModel ViewModel
         {
             get;
         }
 
-        public UserOptionsPage(ViewModels.UserOptionsViewModel viewModel, ISettingsService settingsService)
+        public UserOptionsPage(ViewModels.UserOptionsViewModel viewModel)
         {
             ViewModel = viewModel;
-            _settingsService = settingsService;
 
             InitializeComponent();
 

@@ -9,26 +9,29 @@
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="200">
 
-    <ui:Card Margin="0" VerticalAlignment="Stretch">
+    <ui:Card Margin="0">
 
-        <Grid VerticalAlignment="Top">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
-                <TextBlock Text="Members" Margin="0,8,8,8" HorizontalAlignment="Left" FontWeight="Bold"/>
+                <TextBlock Text="Members" Margin="0,8,8,8" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Top"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button x:Name="addButton" Content="+" Visibility="Collapsed" Click="addButton_Click"/>
-                    <Button x:Name="deleteButton" Content="-" Visibility="Collapsed" IsEnabled="False" Click="deleteButton_Click"/>
+                    <Button x:Name="addButton" Content="+" Click="addButton_Click"/>
+                    <Button x:Name="deleteButton" Content="-" IsEnabled="False" Click="deleteButton_Click"/>
                 </StackPanel>
+                <ui:Flyout Name="flyout">
+                    <local:SelectControl x:Name="selectControl" SelectedItem="selectControl_SelectedItem" />
+                </ui:Flyout>
             </Grid>
 
-            <ListView Grid.Row="1" ItemsSource="{Binding Items, ElementName=self}" SelectedItem="{Binding Selected, Mode=TwoWay}">
+            <ListView Grid.Row="1" ItemsSource="{Binding Items, ElementName=self}" SelectedItem="{Binding Selected, ElementName=self, Mode=TwoWay}" Margin="0,8,0,0">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Name}" Margin="4,0,0,0" />
+                        <TextBlock Text="{Binding Name}" Style="{StaticResource ListDescriptionStyle}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

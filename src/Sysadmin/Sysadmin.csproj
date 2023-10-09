@@ -9,9 +9,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>applicationIcon.ico</ApplicationIcon>
     <Title>Sysadmin</Title>
-	<AssemblyVersion>10.0.0</AssemblyVersion>
-	<Version>10.1.0</Version>
-	<FileVersion>10.0.0</FileVersion>
+	<AssemblyVersion>10.2.0</AssemblyVersion>
+	<Version>10.2.0</Version>
+	<FileVersion>10.2.0</FileVersion>
 	<Copyright>Copyright 2015-2023 Sysadmin Anywhere - All Rights Reserved</Copyright>
 	<Company>Sysadmin Anywhere</Company>
 	<Authors>Sysadmin Anywhere</Authors>
@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\StoreLogo.bmp" />
     <Resource Include="Assets\StoreLogo.ico" />
     <Content Include="applicationIcon.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
@@ -35,7 +36,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FastReport.OpenSource.Export.PdfSimple" Version="2023.3.0" />
+    <PackageReference Include="Autoupdater.NET.Official" Version="1.8.4" />
+    <PackageReference Include="FastReport.OpenSource.Export.PdfSimple" Version="2023.3.5" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="WPF-UI" Version="2.1.0" />
@@ -45,6 +47,7 @@
 
   <ItemGroup>
     <None Remove="applicationIcon.ico" />
+    <None Remove="Assets\StoreLogo.bmp" />
     <None Remove="Assets\StoreLogo.ico" />
   </ItemGroup>
 

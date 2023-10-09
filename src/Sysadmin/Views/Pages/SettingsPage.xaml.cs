@@ -129,23 +129,23 @@ namespace Sysadmin.Views.Pages
 
             if (!string.IsNullOrEmpty(settings.UserLoginPattern) && !string.IsNullOrEmpty(settings.UserLoginFormat))
             {
-                if (settings.UserLoginPattern == @"(?<FirstName>\S)\S+ (?<LastName>\S+)" & settings.UserLoginFormat == @"${FirstName}${LastName}")
+                if (settings.UserLoginPattern == @"(?<FirstName>\S)\S+ (?<LastName>\S+)" && settings.UserLoginFormat == @"${FirstName}${LastName}")
                 {
                     cmbLoginPattern.SelectedIndex = 0;
                 }
-                else if (settings.UserLoginPattern == @"(?<FirstName>\S)\S+ (?<LastName>\S+)" & settings.UserLoginFormat == @"${FirstName}.${LastName}")
+                else if (settings.UserLoginPattern == @"(?<FirstName>\S)\S+ (?<LastName>\S+)" && settings.UserLoginFormat == @"${FirstName}.${LastName}")
                 {
                     cmbLoginPattern.SelectedIndex = 1;
                 }
-                else if (settings.UserLoginPattern == @"(?<FirstName>\S+) (?<LastName>\S+)" & settings.UserLoginFormat == @"${FirstName}.${LastName}")
+                else if (settings.UserLoginPattern == @"(?<FirstName>\S+) (?<LastName>\S+)" && settings.UserLoginFormat == @"${FirstName}.${LastName}")
                 {
                     cmbLoginPattern.SelectedIndex = 2;
                 }
-                else if (settings.UserLoginPattern == @"(?<FirstName>\S+) (?<LastName>\S+)" & settings.UserLoginFormat == @"${LastName}")
+                else if (settings.UserLoginPattern == @"(?<FirstName>\S+) (?<LastName>\S+)" && settings.UserLoginFormat == @"${LastName}")
                 {
                     cmbLoginPattern.SelectedIndex = 3;
                 }
-                else if (settings.UserLoginPattern == @"(?<FirstName>\S)\S+ (?<LastName>\S+)" & settings.UserLoginFormat == @"${LastName}${FirstName}")
+                else if (settings.UserLoginPattern == @"(?<FirstName>\S)\S+ (?<LastName>\S+)" && settings.UserLoginFormat == @"${LastName}${FirstName}")
                 {
                     cmbLoginPattern.SelectedIndex = 4;
                 }

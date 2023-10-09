@@ -6,6 +6,12 @@ using System.Windows;
 using System.Windows.Controls;
 using Wpf.Ui.Controls.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
+using AutoUpdaterDotNET;
+using System.Windows.Media.Imaging;
+using System.Drawing;
+using System.IO;
+using System.Windows.Media;
+using System.Runtime.InteropServices;
 
 namespace Sysadmin.Views.Windows
 {
@@ -35,6 +41,10 @@ namespace Sysadmin.Views.Windows
 
             InitializeComponent();
             SetPageService(pageService);
+
+            AutoUpdater.UpdateFormSize = new System.Drawing.Size(450, 200);
+            AutoUpdater.Icon = BitmapImage2Bitmap(new BitmapImage(new Uri("pack://application:,,,/Assets/StoreLogo.bmp", UriKind.RelativeOrAbsolute)));
+            AutoUpdater.Start("https://raw.githubusercontent.com/sysadminanywhere/sysadmin/main/src/autoupdater.xml");
 
             navigationService.SetNavigationControl(RootNavigation);
         }
@@ -96,6 +106,19 @@ namespace Sysadmin.Views.Windows
                     break;
             }
 
+        }
+
+        private Bitmap BitmapImage2Bitmap(BitmapImage bitmapImage)
+        {
+            using (MemoryStream outStream = new MemoryStream())
+            {
+                BitmapEncoder enc = new BmpBitmapEncoder();
+                enc.Frames.Add(BitmapFrame.Create(bitmapImage));
+                enc.Save(outStream);
+                System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(outStream);
+
+                return new Bitmap(bitmap);
+            }
         }
 
     }

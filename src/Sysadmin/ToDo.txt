@@ -45,3 +45,6 @@
 		+ Cpu
 		+ Memory
 		+ Disk
+10. Autoupdater.NET
+	+ Version
+	+ XML

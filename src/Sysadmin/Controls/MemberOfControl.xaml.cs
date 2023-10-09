@@ -9,6 +9,8 @@ using System.Windows.Controls;
 using SysAdmin.ActiveDirectory.Repositories;
 using SysAdmin.ActiveDirectory.Services.Ldap;
 using System.ComponentModel;
+using SysAdmin.ActiveDirectory;
+using LdapForNet;
 
 namespace Sysadmin.Controls
 {
@@ -20,6 +22,9 @@ namespace Sysadmin.Controls
 
         public delegate void MemberOfHandler();
         public event MemberOfHandler Changed;
+
+        public delegate void MemberOfErrorHandler(string ErrorMessage);
+        public event MemberOfErrorHandler Error;
 
         public ObservableCollection<MemberItem> Items { get; private set; } = new ObservableCollection<MemberItem>();
 
@@ -63,6 +68,19 @@ namespace Sysadmin.Controls
         {
             get => (string)GetValue(DistinguishedNameProperty);
             set => SetValue(DistinguishedNameProperty, value);
+        }
+
+        public static readonly DependencyProperty CNProperty =
+            DependencyProperty.Register(
+                name: "CN",
+                propertyType: typeof(string),
+                ownerType: typeof(MemberOfControl),
+                typeMetadata: new FrameworkPropertyMetadata(defaultValue: string.Empty));
+
+        public string CN
+        {
+            get => (string)GetValue(CNProperty);
+            set => SetValue(CNProperty, value);
         }
 
         public static readonly DependencyProperty PrimaryGroupIdProperty =
@@ -125,12 +143,27 @@ namespace Sysadmin.Controls
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
-
+            flyout.Show();
+            selectControl.Load(SelectControl.Show.Groups);
         }
 
-        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        private async void deleteButton_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                await DeleteMember(Selected.Name, DistinguishedName);
+                if (Changed != null) Changed();
+            }
+            catch (LdapException le)
+            {
+                if (Error != null)
+                    Error(LdapResult.GetErrorMessageFromResult(le.ResultCode));
+            }
+            catch (Exception ex)
+            {
+                if (Error != null)
+                    Error(ex.Message);
+            }
         }
 
         private async Task DeleteMember(string groupCN, string distinguishedName)
@@ -171,6 +204,27 @@ namespace Sysadmin.Controls
                     }
                 }
             });
+        }
+
+        private async void selectControl_SelectedItem(MemberItem item)
+        {
+            flyout.Hide();
+
+            try
+            {
+                await AddMember(item.Name, DistinguishedName);
+                if (Changed != null) Changed();
+            }
+            catch (LdapException le)
+            {
+                if (Error != null)
+                    Error(LdapResult.GetErrorMessageFromResult(le.ResultCode));
+            }
+            catch (Exception ex)
+            {
+                if (Error != null)
+                    Error(ex.Message);
+            }
         }
 
     }
