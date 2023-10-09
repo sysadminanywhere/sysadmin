@@ -2,6 +2,7 @@
 
 Sysadmin makes easier to administer multidomain Active Directory-based networks by providing a single tool to do whatever you need - use it to manage domains, servers, computers, users, and groups.
 
+[![GitHub Release](https://img.shields.io/github/v/release/sysadminanywhere/sysadmin.svg)](https://github.com/sysadminanywhere/sysadmin/releases/latest)
 [![Codacy Security Scan](https://github.com/sysadminanywhere/sysadmin/actions/workflows/codacy.yml/badge.svg?branch=main)](https://github.com/sysadminanywhere/sysadmin/actions/workflows/codacy.yml)
 [![DevSkim](https://github.com/sysadminanywhere/sysadmin/actions/workflows/devskim.yml/badge.svg?branch=main)](https://github.com/sysadminanywhere/sysadmin/actions/workflows/devskim.yml)
 
