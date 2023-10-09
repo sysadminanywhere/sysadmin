@@ -24,7 +24,7 @@
                     <Button x:Name="deleteButton" Content="-" IsEnabled="False" Click="deleteButton_Click"/>
                 </StackPanel>
                 <ui:Flyout Name="flyout">
-                    <local:SelectControl x:Name="selectControl" />
+                    <local:SelectControl x:Name="selectControl" SelectedItem="selectControl_SelectedItem" />
                 </ui:Flyout>
             </Grid>
 

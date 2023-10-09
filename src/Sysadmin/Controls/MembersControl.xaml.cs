@@ -92,12 +92,19 @@ namespace Sysadmin.Controls
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
-
+            throw new NotSupportedException();
         }
 
-        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        private async void deleteButton_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                await DeleteMember(CN, Selected.DistinguishedName);
+                if (Changed != null) Changed();
+            }
+            catch
+            {
+            }
         }
 
         private async Task DeleteMember(string groupCN, string distinguishedName)

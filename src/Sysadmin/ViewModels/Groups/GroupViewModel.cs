@@ -94,5 +94,23 @@ namespace Sysadmin.ViewModels
             });
         }
 
+        public async Task Get()
+        {
+            GroupEntry entry = Group;
+
+            await Task.Run(async () =>
+            {
+                using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
+                {
+                    using (var groupsRepository = new GroupsRepository(ldap))
+                    {
+                        entry = await groupsRepository.GetByCNAsync(Group.CN);
+                    }
+                }
+            });
+
+            Group = entry;
+        }
+
     }
 }

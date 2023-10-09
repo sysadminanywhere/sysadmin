@@ -29,7 +29,7 @@ namespace Sysadmin.Controls
             set
             {
                 selected = value;
-                if (SelectedItem != null)
+                if (SelectedItem != null && value != null)
                 {
                     SelectedItem(value.Dn);
                 }

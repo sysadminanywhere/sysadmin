@@ -106,7 +106,7 @@
                     MemberOf="{Binding ViewModel.Group.MemberOf, Mode=OneWay}"
                     PrimaryGroupId="{Binding ViewModel.Group.PrimaryGroupId, Mode=OneWay}"
                     DistinguishedName="{Binding ViewModel.Group.DistinguishedName, Mode=OneWay}" 
-                    Changed="MemberOfControl_Changed" />
+                    Changed="MemberOfControl_Changed" Error="MemberOfControl_Error" />
 
                 <controls:MembersControl
                     Grid.Column="2"
@@ -117,6 +117,7 @@
 
             </Grid>
         </Grid>
+        <ui:Snackbar Grid.RowSpan="3" VerticalAlignment="Top" x:Name="snackbar" Appearance="Danger" Title="Error" Icon="ErrorCircle12" Message="Error" Timeout="5000" />
     </Grid>
 
 </ui:UiPage>

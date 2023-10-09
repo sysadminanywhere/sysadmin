@@ -9,6 +9,8 @@ using System.Windows.Controls;
 using SysAdmin.ActiveDirectory.Repositories;
 using SysAdmin.ActiveDirectory.Services.Ldap;
 using System.ComponentModel;
+using SysAdmin.ActiveDirectory;
+using LdapForNet;
 
 namespace Sysadmin.Controls
 {
@@ -20,6 +22,9 @@ namespace Sysadmin.Controls
 
         public delegate void MemberOfHandler();
         public event MemberOfHandler Changed;
+
+        public delegate void MemberOfErrorHandler(string ErrorMessage);
+        public event MemberOfErrorHandler Error;
 
         public ObservableCollection<MemberItem> Items { get; private set; } = new ObservableCollection<MemberItem>();
 
@@ -129,9 +134,23 @@ namespace Sysadmin.Controls
             selectControl.Load("", "(objectClass=group)");
         }
 
-        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        private async void deleteButton_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                await DeleteMember(Selected.Name, DistinguishedName);
+                if (Changed != null) Changed();
+            }
+            catch (LdapException le)
+            {
+                if (Error != null)
+                    Error(LdapResult.GetErrorMessageFromResult(le.ResultCode));
+            }
+            catch (Exception ex)
+            {
+                if (Error != null)
+                    Error(ex.Message);
+            }
         }
 
         private async Task DeleteMember(string groupCN, string distinguishedName)
@@ -172,6 +191,27 @@ namespace Sysadmin.Controls
                     }
                 }
             });
+        }
+
+        private async void selectControl_SelectedItem(string DistinguishedName)
+        {
+            flyout.Hide();
+
+            try
+            {
+                await AddMember(this.DistinguishedName, DistinguishedName);
+                if (Changed != null) Changed();
+            }
+            catch (LdapException le)
+            {
+                if (Error != null)
+                    Error(LdapResult.GetErrorMessageFromResult(le.ResultCode));
+            }
+            catch (Exception ex)
+            {
+                if (Error != null)
+                    Error(ex.Message);
+            }
         }
 
     }
