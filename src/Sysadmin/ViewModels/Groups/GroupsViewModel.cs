@@ -25,7 +25,7 @@ namespace Sysadmin.ViewModels
         [ObservableProperty]
         private IEnumerable<GroupEntry> _groups = new List<GroupEntry>();
 
-        private List<GroupEntry> cache= new List<GroupEntry> ();
+        private List<GroupEntry> cache = new List<GroupEntry>();
 
         [ObservableProperty]
         private bool _isBusy;

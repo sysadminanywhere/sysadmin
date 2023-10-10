@@ -4,21 +4,31 @@ using SysAdmin.ActiveDirectory.Services.Ldap;
 using SysAdmin.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using Wpf.Ui.Controls;
 
 namespace Sysadmin.Controls
 {
     /// <summary>
     /// Interaction logic for SelectControl.xaml
     /// </summary>
-    public partial class SelectControl : UserControl
+    public partial class SelectControl : UserControl, INotifyPropertyChanged
     {
 
         public delegate void SelectControHandler(MemberItem item);
         public event SelectControHandler SelectedItem;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
 
         public enum Show
         {
@@ -29,6 +39,8 @@ namespace Sysadmin.Controls
         }
 
         public ObservableCollection<MemberItem> Items { get; private set; } = new ObservableCollection<MemberItem>();
+
+        private List<MemberItem> cache = new List<MemberItem>();
 
         private MemberItem selected;
         public MemberItem Selected
@@ -55,15 +67,14 @@ namespace Sysadmin.Controls
 
             Items.Clear();
 
-            List<MemberItem> entries = await ListAsync(show);
+            cache = await ListAsync(show);
 
-            if (entries.Count > 0)
-            {
-                foreach (MemberItem entry in entries.OrderBy(c => c.Name))
-                {
-                    Items.Add(entry);
-                }
-            }
+            if (cache == null)
+                cache = new List<MemberItem>();
+
+            Items = new ObservableCollection<MemberItem>(cache);
+
+            OnPropertyChanged("Items");
 
             progressRing.Visibility = Visibility.Collapsed;
         }
@@ -71,7 +82,13 @@ namespace Sysadmin.Controls
 
         private void AutoSuggestBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            string searchText = (sender as AutoSuggestBox).Text;
+            if (string.IsNullOrEmpty(searchText))
+                Items = new ObservableCollection<MemberItem>(cache);
+            else
+                Items = new ObservableCollection<MemberItem>(cache.Where(c => c.Name.ToUpper().StartsWith(searchText.ToUpper())));
 
+            OnPropertyChanged("Items");
         }
 
         private async Task<List<MemberItem>> ListAsync(Show show)
