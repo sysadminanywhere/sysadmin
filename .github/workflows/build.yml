@@ -2,7 +2,7 @@ name: Build
 on:
   push:
     branches:
-      - develop # the name of your main branch
+      - main # the name of your main branch
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
