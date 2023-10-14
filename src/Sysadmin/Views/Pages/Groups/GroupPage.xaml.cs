@@ -29,17 +29,17 @@ namespace Sysadmin.Views.Pages
                 ViewModel.DeleteCommand.Execute(ViewModel);
         }
 
-        private async void MembersControl_Changed()
+        private async void MembersControl_Changed() //NOSONAR
         {
             await ViewModel.Get();
         }
 
-        private async void MemberOfControl_Changed()
+        private async void MemberOfControl_Changed() //NOSONAR
         {
             await ViewModel.Get();
         }
 
-        private void MemberOfControl_Error(string ErrorMessage)
+        private void MemberOfControl_Error(string ErrorMessage) //NOSONAR
         {
             snackbar.Message = ErrorMessage;
             snackbar.Show();

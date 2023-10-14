@@ -101,7 +101,7 @@ namespace Sysadmin.Controls
             selectControl.Load(SelectControl.Show.All);
         }
 
-        private async void deleteButton_Click(object sender, RoutedEventArgs e)
+        private async void deleteButton_Click(object sender, RoutedEventArgs e) //NOSONAR
         {
             try
             {
@@ -161,7 +161,7 @@ namespace Sysadmin.Controls
         }
 
 
-        private async void selectControl_SelectedItem(MemberItem item)
+        private async void selectControl_SelectedItem(MemberItem item) //NOSONAR
         {
             flyout.Hide();
 
