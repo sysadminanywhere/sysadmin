@@ -49,5 +49,5 @@
 	+ Version
 	+ XML
 11. Remote desktop
-	- VNC
-	- RDP
+	+ VNC
+	+ RDP
