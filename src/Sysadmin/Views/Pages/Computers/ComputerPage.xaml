@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Sysadmin.Views.Pages"
+    xmlns:controls="clr-namespace:Sysadmin.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="clr-namespace:Sysadmin.Converters"
     xmlns:models="clr-namespace:Sysadmin.Models"
@@ -23,6 +24,7 @@
     <Grid Margin="16,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -131,6 +133,29 @@
                     </ui:MenuItem>
                 </ui:MenuItem>
                 <Separator />
+                <ui:MenuItem>
+                    <ui:MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock>Remote desktop</TextBlock>
+                            <ui:SymbolIcon Symbol="ChevronDown20" Margin="4,0,0,0" />
+                        </StackPanel>
+                    </ui:MenuItem.Header>
+                    <ui:MenuItem x:Name="rdp" Click="rdp_Click">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>RDP (Remote Desktop Protocol)</TextBlock>
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                    </ui:MenuItem>
+                    <ui:MenuItem x:Name="vnc" Click="vnc_Click">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>VNC (Virtual Network Computing)</TextBlock>
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                    </ui:MenuItem>
+                </ui:MenuItem>
+                <Separator />
                 <ui:MenuItem Click="DeleteMenuItem_Click">
                     <ui:MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
@@ -173,6 +198,14 @@
             <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="4" Grid.Column="0" Text="Service pack" />
             <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="4" Grid.Column="1" Text="{Binding ViewModel.Computer.OperatingSystemServicePack, Mode=OneWay}" />
         </Grid>
+
+        <controls:MemberOfControl
+            Grid.Row="2"
+                    MemberOf="{Binding ViewModel.Computer.MemberOf, Mode=OneWay}"
+                    PrimaryGroupId="{Binding ViewModel.Computer.PrimaryGroupId, Mode=OneWay}"
+                    DistinguishedName="{Binding ViewModel.Computer.DistinguishedName, Mode=OneWay}" 
+                    CN="{Binding ViewModel.Computer.CN, Mode=OneWay}" 
+                    Changed="MemberOfControl_Changed" Error="MemberOfControl_Error" VerticalAlignment="Top"/>
 
         <ui:Snackbar Grid.RowSpan="3" VerticalAlignment="Bottom" x:Name="snackbar" Appearance="Danger" Title="Error" Icon="ErrorCircle12" Message="Error" Timeout="5000" />
         <ui:Snackbar Grid.RowSpan="3" VerticalAlignment="Bottom" x:Name="snackbarOk" Appearance="Success" Title="Command" Timeout="5000" />

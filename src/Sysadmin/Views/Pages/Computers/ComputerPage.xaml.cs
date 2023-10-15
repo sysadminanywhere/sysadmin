@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using SysAdmin.Services;
+using System.Windows;
 using System.Windows.Controls;
 using Wpf.Ui.Common.Interfaces;
 
@@ -9,14 +10,18 @@ namespace Sysadmin.Views.Pages
     /// </summary>
     public partial class ComputerPage : INavigableView<ViewModels.ComputerViewModel>
     {
+
+        private ISettingsService settings;
+
         public ViewModels.ComputerViewModel ViewModel
         {
             get;
         }
 
-        public ComputerPage(ViewModels.ComputerViewModel viewModel)
+        public ComputerPage(ViewModels.ComputerViewModel viewModel, ISettingsService settings)
         {
             ViewModel = viewModel;
+            this.settings = settings;
 
             InitializeComponent();
 
@@ -57,6 +62,29 @@ namespace Sysadmin.Views.Pages
             var result = MessageBox.Show("Are you sure you want to shutdown this computer?", "Shutdown", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
                 ViewModel.ShutdownCommand.Execute(ViewModel);
+        }
+
+        private void vnc_Click(object sender, RoutedEventArgs e)
+        {
+            string path = settings.VNCPath;
+            string args = ViewModel.Computer.DnsHostName + ":" + settings.VNCPort.ToString();
+            System.Diagnostics.Process.Start(path, args);
+        }
+
+        private void rdp_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private async void MemberOfControl_Changed()
+        {
+            await ViewModel.Get();
+        }
+
+        private void MemberOfControl_Error(string ErrorMessage)
+        {
+            snackbar.Message = ErrorMessage;
+            snackbar.Show();
         }
 
     }

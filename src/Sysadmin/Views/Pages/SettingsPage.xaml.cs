@@ -156,6 +156,19 @@ namespace Sysadmin.Views.Pages
             }
 
             txtDefaultPassword.Text = settings.UserDefaultPassword;
+
+            txtVNVPath.Text = settings.VNCPath;
+            numVNVPort.Value = settings.VNCPort;
+        }
+
+        private void txtVNVPath_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            settings.VNCPath = txtVNVPath.Text;
+        }
+
+        private void numVNVPort_ValueChanged(object sender, System.Windows.RoutedEventArgs e)
+        {
+            settings.VNCPort = (int)numVNVPort.Value;
         }
 
     }

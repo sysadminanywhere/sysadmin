@@ -7,6 +7,7 @@ using System.Windows.Media;
 using Wpf.Ui.Common.Interfaces;
 using Microsoft.Win32;
 using System.IO;
+using Wpf.Ui.Controls;
 
 namespace Sysadmin.Views.Pages
 {
@@ -29,7 +30,7 @@ namespace Sysadmin.Views.Pages
 
         private void DeleteMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("Are you sure you want to delete this user?", "Delete", MessageBoxButton.YesNo);
+            var result = System.Windows.MessageBox.Show("Are you sure you want to delete this user?", "Delete", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
                 ViewModel.DeleteCommand.Execute(ViewModel);
         }
@@ -49,7 +50,7 @@ namespace Sysadmin.Views.Pages
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                System.Windows.MessageBox.Show(ex.Message, "Error");
             }
         }
 
@@ -71,6 +72,17 @@ namespace Sysadmin.Views.Pages
                 image.Freeze();
                 personPicture.Source = image;
             }
+        }
+
+        private async void MemberOfControl_Changed()
+        {
+            await ViewModel.Get();
+        }
+
+        private void MemberOfControl_Error(string ErrorMessage)
+        {
+            snackbar.Message = ErrorMessage;
+            snackbar.Show();
         }
 
     }

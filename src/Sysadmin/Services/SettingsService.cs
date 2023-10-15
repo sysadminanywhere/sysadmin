@@ -113,6 +113,26 @@ namespace SysAdmin.Services
             set { SetValue("LoginUseCredentials", value); }
         }
 
+        public string VNCPath
+        {
+            get
+            {
+                return GetStringValue("VNCPath", "C:\\Program Files\\TightVNC\\tvnviewer.exe");
+            }
+            set { SetValue("VNCPath", value); }
+        }
+
+        public int VNCPort
+        {
+            get
+            {
+                return GetIntValue("VNCPort", 5900);
+            }
+            set { SetValue("VNCPort", value); }
+        }
+
+
+
         public void LoadSettings()
         {
             try

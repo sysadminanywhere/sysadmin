@@ -36,5 +36,9 @@ namespace SysAdmin.Services
 
         bool LoginUseCredentials { get; set; }
 
+        string VNCPath { get; set; }
+
+        int VNCPort { get; set; }
+
     }
 }
