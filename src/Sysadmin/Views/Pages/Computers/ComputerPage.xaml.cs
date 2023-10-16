@@ -1,7 +1,9 @@
 ﻿using SysAdmin.Services;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using Wpf.Ui.Common.Interfaces;
+using Wpf.Ui.Mvvm.Contracts;
 
 namespace Sysadmin.Views.Pages
 {
@@ -12,16 +14,19 @@ namespace Sysadmin.Views.Pages
     {
 
         private ISettingsService settings;
+        private INavigationService navigationService;
 
         public ViewModels.ComputerViewModel ViewModel
         {
             get;
         }
 
-        public ComputerPage(ViewModels.ComputerViewModel viewModel, ISettingsService settings)
+        public ComputerPage(ViewModels.ComputerViewModel viewModel, ISettingsService settings, INavigationService navigationService)
         {
             ViewModel = viewModel;
+
             this.settings = settings;
+            this.navigationService = navigationService;
 
             InitializeComponent();
 
@@ -68,7 +73,19 @@ namespace Sysadmin.Views.Pages
         {
             string path = settings.VNCPath;
             string args = ViewModel.Computer.DnsHostName + ":" + settings.VNCPort.ToString();
-            System.Diagnostics.Process.Start(path, args);
+
+            if (File.Exists(path))
+            {
+                System.Diagnostics.Process.Start(path, args);
+            }
+            else
+            {
+                var result = MessageBox.Show("The VNС viewer is not installed or is located in a different location. Fix the path?", "Remote desktop", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
+                {
+                    navigationService.Navigate(typeof(SettingsPage));
+                }
+            }
         }
 
         private void rdp_Click(object sender, RoutedEventArgs e)
@@ -78,12 +95,12 @@ namespace Sysadmin.Views.Pages
             System.Diagnostics.Process.Start(path, args);
         }
 
-        private async void MemberOfControl_Changed()
+        private async void MemberOfControl_Changed()    //NOSONAR
         {
             await ViewModel.Get();
         }
 
-        private void MemberOfControl_Error(string ErrorMessage)
+        private void MemberOfControl_Error(string ErrorMessage)     //NOSONAR
         {
             snackbar.Message = ErrorMessage;
             snackbar.Show();
