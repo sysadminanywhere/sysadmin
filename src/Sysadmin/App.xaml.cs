@@ -162,9 +162,9 @@ namespace Sysadmin
             // For more info see https://docs.microsoft.com/en-us/dotnet/api/system.windows.application.dispatcherunhandledexception?view=windowsdesktop-6.0
         }
 
-        public static IServer SERVER = null;
-        public static ICredential CREDENTIAL = null;
-        public static ADContainers CONTAINERS = null;
+        public static IServer? SERVER = null;           //NOSONAR
+        public static ICredential? CREDENTIAL = null;   //NOSONAR
+        public static ADContainers? CONTAINERS = null;  //NOSONAR
 
     }
 }

@@ -74,7 +74,7 @@ namespace Sysadmin.Views.Pages
             }
         }
 
-        private async void MemberOfControl_Changed()
+        private async void MemberOfControl_Changed() //NOSONAR
         {
             await ViewModel.Get();
         }

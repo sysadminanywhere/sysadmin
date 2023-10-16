@@ -26,7 +26,7 @@ namespace SysAdmin.ActiveDirectory
 
                 var attributes = (ADAttribute[])property.GetCustomAttributes(typeof(ADAttribute), true);
 
-                if (attributes.Count() > 0)
+                if (attributes != null && attributes.Any())
                 {
                     propertyName = attributes[0].Name;
                     dateType = attributes[0].DateType;
@@ -35,7 +35,7 @@ namespace SysAdmin.ActiveDirectory
                 try
                 {
 
-                    var attribute = directoryAttributes.Where(a => a.Name.ToLower() == propertyName.ToLower()).FirstOrDefault();
+                    var attribute = directoryAttributes.FirstOrDefault(a => a.Name.ToLower() == propertyName.ToLower());
 
                     if (attribute != null)
                     {

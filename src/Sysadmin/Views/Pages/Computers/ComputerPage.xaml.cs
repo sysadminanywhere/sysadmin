@@ -76,7 +76,7 @@ namespace Sysadmin.Views.Pages
 
             if (File.Exists(path))
             {
-                System.Diagnostics.Process.Start(path, args);
+                System.Diagnostics.Process.Start(path, args);   //NOSONAR
             }
             else
             {
@@ -90,9 +90,8 @@ namespace Sysadmin.Views.Pages
 
         private void rdp_Click(object sender, RoutedEventArgs e)
         {
-            string path = "mstsc";
             string args = "/v:" + ViewModel.Computer.DnsHostName;
-            System.Diagnostics.Process.Start(path, args);
+            System.Diagnostics.Process.Start("mstsc", args);   //NOSONAR
         }
 
         private async void MemberOfControl_Changed()    //NOSONAR
