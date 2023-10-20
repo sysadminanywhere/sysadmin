@@ -43,4 +43,4 @@ jobs:
         run: |
           .\.sonar\scanner\dotnet-sonarscanner /o:"sysadminanywhere" /k:"sysadminanywhere_sysadmin" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" 
           dotnet build src\Sysadmin
-          .\.sonar\scanner\dotnet-sonarscanner end
+          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}" 
