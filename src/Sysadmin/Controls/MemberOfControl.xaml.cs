@@ -101,7 +101,7 @@ namespace Sysadmin.Controls
                 SetValue(PrimaryGroupIdProperty, value);
                 if (value != 0)
                 {
-                    string group = SysAdmin.ActiveDirectory.ADHelper.GetPrimaryGroup(value);
+                    string group = ADHelper.GetPrimaryGroup(value);
                     if (!string.IsNullOrEmpty(group))
                         if (Items.FirstOrDefault(c => c.Name == group) == null)
                             Items.Add(new MemberItem() { Name = group, DistinguishedName = string.Empty });
@@ -114,11 +114,11 @@ namespace Sysadmin.Controls
             Items.Clear();
             if (value != null)
                 foreach (string item in value)
-                    Items.Add(new MemberItem() { Name = SysAdmin.ActiveDirectory.ADHelper.ExtractCN(item), DistinguishedName = item });
+                    Items.Add(new MemberItem() { Name = ADHelper.ExtractCN(item), DistinguishedName = item });
 
             if (PrimaryGroupId != 0)
             {
-                string group = SysAdmin.ActiveDirectory.ADHelper.GetPrimaryGroup(PrimaryGroupId);
+                string group = ADHelper.GetPrimaryGroup(PrimaryGroupId);
                 if (!string.IsNullOrEmpty(group))
                     Items.Add(new MemberItem() { Name = group, DistinguishedName = string.Empty });
             }

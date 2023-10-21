@@ -46,6 +46,12 @@ namespace Sysadmin.Views.Pages
                 snackbar.Message = ViewModel.SuccessMessage;
                 snackbarOk.Show();
             }
+
+            if (e.PropertyName == "Computer")
+            {
+                memberOf.MemberOf = ViewModel.Computer.MemberOf;
+                memberOf.PrimaryGroupId = ViewModel.Computer.PrimaryGroupId;
+            }
         }
 
         private void DeleteMenuItem_Click(object sender, RoutedEventArgs e)

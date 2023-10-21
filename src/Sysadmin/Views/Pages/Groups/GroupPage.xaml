@@ -101,6 +101,7 @@
                 </Grid.ColumnDefinitions>
 
                 <controls:MemberOfControl
+                    x:Name="memberOf"
                     Grid.Column="0"
                     MemberOf="{Binding ViewModel.Group.MemberOf, Mode=OneWay}"
                     PrimaryGroupId="{Binding ViewModel.Group.PrimaryGroupId, Mode=OneWay}"
@@ -109,6 +110,7 @@
                     Changed="MemberOfControl_Changed" Error="MemberOfControl_Error" VerticalAlignment="Top"/>
 
                 <controls:MembersControl
+                    x:Name="members"
                     Grid.Column="2"
                     Members="{Binding ViewModel.Group.Members, Mode=OneWay}"
                     CN="{Binding ViewModel.Group.CN, Mode=OneWay}" 

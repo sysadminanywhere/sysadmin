@@ -24,7 +24,6 @@
     <Grid Margin="16,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -167,45 +166,54 @@
             </Menu>
         </Grid>
 
-        <Grid 
-            VerticalAlignment="Top"
-            Grid.Row="1" 
-            Margin="24">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}" Grid.Row="0" Grid.Column="0" Text="Location" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="0" Grid.Column="1" Text="{Binding ViewModel.Computer.Location, Mode=OneWay}" />
+            <Grid 
+                Grid.Column="0"
+                VerticalAlignment="Top"
+                Margin="24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="1" Grid.Column="0" Text="Host name" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="1" Grid.Column="1" Text="{Binding ViewModel.Computer.DnsHostName, Mode=OneWay}" />
+                <TextBlock Style="{StaticResource TableDetailNameStyle}" Grid.Row="0" Grid.Column="0" Text="Location" />
+                <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="0" Grid.Column="1" Text="{Binding ViewModel.Computer.Location, Mode=OneWay}" />
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="2" Grid.Column="0" Text="Operating system" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="2" Grid.Column="1" Text="{Binding ViewModel.Computer.OperatingSystem, Mode=OneWay}" />
+                <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="1" Grid.Column="0" Text="Host name" />
+                <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="1" Grid.Column="1" Text="{Binding ViewModel.Computer.DnsHostName, Mode=OneWay}" />
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="3" Grid.Column="0" Text="Version" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="3" Grid.Column="1" Text="{Binding ViewModel.Computer.OperatingSystemVersion, Mode=OneWay}" />
+                <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="2" Grid.Column="0" Text="Operating system" />
+                <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="2" Grid.Column="1" Text="{Binding ViewModel.Computer.OperatingSystem, Mode=OneWay}" />
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="4" Grid.Column="0" Text="Service pack" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="4" Grid.Column="1" Text="{Binding ViewModel.Computer.OperatingSystemServicePack, Mode=OneWay}" />
+                <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="3" Grid.Column="0" Text="Version" />
+                <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="3" Grid.Column="1" Text="{Binding ViewModel.Computer.OperatingSystemVersion, Mode=OneWay}" />
+
+                <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="4" Grid.Column="0" Text="Service pack" />
+                <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="4" Grid.Column="1" Text="{Binding ViewModel.Computer.OperatingSystemServicePack, Mode=OneWay}" />
+            </Grid>
+
+            <controls:MemberOfControl 
+                Grid.Column="1"
+                x:Name="memberOf"
+                MemberOf="{Binding ViewModel.Computer.MemberOf, Mode=OneWay}"
+                PrimaryGroupId="{Binding ViewModel.Computer.PrimaryGroupId, Mode=OneWay}"
+                DistinguishedName="{Binding ViewModel.Computer.DistinguishedName, Mode=OneWay}" 
+                CN="{Binding ViewModel.Computer.CN, Mode=OneWay}" 
+                Changed="MemberOfControl_Changed" Error="MemberOfControl_Error" VerticalAlignment="Top" Margin="0,24,0,0" />
+
         </Grid>
-
-        <controls:MemberOfControl
-            Grid.Row="2"
-                    MemberOf="{Binding ViewModel.Computer.MemberOf, Mode=OneWay}"
-                    PrimaryGroupId="{Binding ViewModel.Computer.PrimaryGroupId, Mode=OneWay}"
-                    DistinguishedName="{Binding ViewModel.Computer.DistinguishedName, Mode=OneWay}" 
-                    CN="{Binding ViewModel.Computer.CN, Mode=OneWay}" 
-                    Changed="MemberOfControl_Changed" Error="MemberOfControl_Error" VerticalAlignment="Top"/>
 
         <ui:Snackbar Grid.RowSpan="3" VerticalAlignment="Bottom" x:Name="snackbar" Appearance="Danger" Title="Error" Icon="ErrorCircle12" Message="Error" Timeout="5000" />
         <ui:Snackbar Grid.RowSpan="3" VerticalAlignment="Bottom" x:Name="snackbarOk" Appearance="Success" Title="Command" Timeout="5000" />

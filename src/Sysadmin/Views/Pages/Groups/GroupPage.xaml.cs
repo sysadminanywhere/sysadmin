@@ -20,6 +20,19 @@ namespace Sysadmin.Views.Pages
             ViewModel = viewModel;
 
             InitializeComponent();
+
+            ViewModel.PropertyChanged += ViewModel_PropertyChanged;
+        }
+
+        private void ViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Group")
+            {
+                memberOf.MemberOf = ViewModel.Group.MemberOf;
+                memberOf.PrimaryGroupId = ViewModel.Group.PrimaryGroupId;
+
+                members.Members = ViewModel.Group.Members;
+            }
         }
 
         private void DeleteMenuItem_Click(object sender, RoutedEventArgs e)
