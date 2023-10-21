@@ -36,6 +36,13 @@ namespace Sysadmin.Views.Pages
             {
                 memberOf.MemberOf = ViewModel.User.MemberOf;
                 memberOf.PrimaryGroupId = ViewModel.User.PrimaryGroupId;
+
+                if(string.IsNullOrEmpty(ViewModel.User.DisplayName))
+                    personPicture.DisplayName = ViewModel.User.CN;
+                else
+                    personPicture.DisplayName = ViewModel.User.DisplayName;
+
+                personPicture.JpegPhoto = ViewModel.User.JpegPhoto;
             }
         }
 
@@ -56,32 +63,12 @@ namespace Sysadmin.Views.Pages
                 if (openFileDialog.ShowDialog() == true)
                 {
                     await ViewModel.UpdatePhoto(ViewModel.User.DistinguishedName, File.ReadAllBytes(openFileDialog.FileName));
-                    ShowPhoto();
+                    personPicture.JpegPhoto = ViewModel.User.JpegPhoto;
                 }
             }
             catch (Exception ex)
             {
                 System.Windows.MessageBox.Show(ex.Message, "Error");
-            }
-        }
-
-        private void ShowPhoto()
-        {
-            if (ViewModel.User.JpegPhoto != null && ViewModel.User.JpegPhoto.Length > 0)
-            {
-                var image = new BitmapImage();
-                using (var mem = new MemoryStream(ViewModel.User.JpegPhoto))
-                {
-                    mem.Position = 0;
-                    image.BeginInit();
-                    image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
-                    image.CacheOption = BitmapCacheOption.OnLoad;
-                    image.UriSource = null;
-                    image.StreamSource = mem;
-                    image.EndInit();
-                }
-                image.Freeze();
-                personPicture.Source = image;
             }
         }
 

@@ -1,0 +1,22 @@
+﻿<UserControl xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"  x:Class="Sysadmin.Controls.PersonPictureControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Sysadmin.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="100">
+    <Grid>
+        <Ellipse Fill="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" />
+        <Viewbox>
+            <TextBlock Margin="4" Text="PP" x:Name="initials" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+        </Viewbox>
+        <Viewbox>
+            <Image x:Name="pictureImage" RenderOptions.BitmapScalingMode="HighQuality" Width="100" Height="100">
+                <Image.Clip>
+                    <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50" />
+                </Image.Clip>
+            </Image>
+        </Viewbox>
+    </Grid>
+</UserControl>

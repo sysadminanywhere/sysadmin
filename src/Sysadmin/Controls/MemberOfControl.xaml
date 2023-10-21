@@ -18,7 +18,7 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
-                <TextBlock Text="Member of" Margin="0,4,4,4" HorizontalAlignment="Left" FontWeight="Bold"/>
+                <TextBlock Text="Member of" Margin="0" HorizontalAlignment="Left" FontWeight="Bold"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button x:Name="addButton" Content="+" Click="addButton_Click"/>
                     <Button x:Name="deleteButton" Content="-" IsEnabled="False" Click="deleteButton_Click"/>
