@@ -52,6 +52,5 @@
 	+ VNC
 	+ RDP
 12. Member of
-	- User
-	- Computer
-13. Back incorrect list if search not empty
+	+ User
+	+ Computer

@@ -43,6 +43,8 @@ namespace Sysadmin.ViewModels
                 InitializeViewModel();
 
             await ListAsync();
+
+            SortingAndFiltering();
         }
 
         public void OnNavigatedFrom()
