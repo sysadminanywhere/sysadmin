@@ -202,6 +202,25 @@ namespace Sysadmin.ViewModels
             }
         }
 
+        public async Task Get()
+        {
+            ComputerEntry entry = Computer;
+
+            await Task.Run(async () =>
+            {
+                using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
+                {
+                    using (var computersRepository = new ComputersRepository(ldap))
+                    {
+                        entry = await computersRepository.GetByCNAsync(Computer.CN);
+                    }
+                }
+            });
+
+            Computer = entry;
+        }
+
+
     }
 
 }

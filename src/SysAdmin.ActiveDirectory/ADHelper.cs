@@ -10,12 +10,12 @@ namespace SysAdmin.ActiveDirectory
     {
         public static string ExtractCN(string dn)
         {
-            string[] parts = dn.Split(new char[] { ',' });
+            string[] parts = dn.Split(",");
 
             for (int i = 0; i < parts.Length; i++)
             {
                 var p = parts[i];
-                var elems = p.Split(new char[] { '=' });
+                var elems = p.Split("=");
                 var t = elems[0].Trim().ToUpper();
                 var v = elems[1].Trim();
                 if (t == "CN")

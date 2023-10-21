@@ -144,5 +144,24 @@ namespace Sysadmin.ViewModels
             });
 
         }
+
+        public async Task Get()
+        {
+            UserEntry entry = User;
+
+            await Task.Run(async () =>
+            {
+                using (var ldap = new LdapService(App.SERVER, App.CREDENTIAL))
+                {
+                    using (var usersRepository = new UsersRepository(ldap))
+                    {
+                        entry = await usersRepository.GetByCNAsync(User.CN);
+                    }
+                }
+            });
+
+            User = entry;
+        }
+
     }
 }

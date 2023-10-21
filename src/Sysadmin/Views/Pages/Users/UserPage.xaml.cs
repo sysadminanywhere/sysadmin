@@ -7,6 +7,7 @@ using System.Windows.Media;
 using Wpf.Ui.Common.Interfaces;
 using Microsoft.Win32;
 using System.IO;
+using Wpf.Ui.Controls;
 
 namespace Sysadmin.Views.Pages
 {
@@ -25,11 +26,29 @@ namespace Sysadmin.Views.Pages
             ViewModel = viewModel;
 
             InitializeComponent();
+
+            ViewModel.PropertyChanged += ViewModel_PropertyChanged;
+        }
+
+        private void ViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "User")
+            {
+                memberOf.MemberOf = ViewModel.User.MemberOf;
+                memberOf.PrimaryGroupId = ViewModel.User.PrimaryGroupId;
+
+                if(string.IsNullOrEmpty(ViewModel.User.DisplayName))
+                    personPicture.DisplayName = ViewModel.User.CN;
+                else
+                    personPicture.DisplayName = ViewModel.User.DisplayName;
+
+                personPicture.JpegPhoto = ViewModel.User.JpegPhoto;
+            }
         }
 
         private void DeleteMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("Are you sure you want to delete this user?", "Delete", MessageBoxButton.YesNo);
+            var result = System.Windows.MessageBox.Show("Are you sure you want to delete this user?", "Delete", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
                 ViewModel.DeleteCommand.Execute(ViewModel);
         }
@@ -44,33 +63,24 @@ namespace Sysadmin.Views.Pages
                 if (openFileDialog.ShowDialog() == true)
                 {
                     await ViewModel.UpdatePhoto(ViewModel.User.DistinguishedName, File.ReadAllBytes(openFileDialog.FileName));
-                    ShowPhoto();
+                    personPicture.JpegPhoto = ViewModel.User.JpegPhoto;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                System.Windows.MessageBox.Show(ex.Message, "Error");
             }
         }
 
-        private void ShowPhoto()
+        private async void MemberOfControl_Changed() //NOSONAR
         {
-            if (ViewModel.User.JpegPhoto != null && ViewModel.User.JpegPhoto.Length > 0)
-            {
-                var image = new BitmapImage();
-                using (var mem = new MemoryStream(ViewModel.User.JpegPhoto))
-                {
-                    mem.Position = 0;
-                    image.BeginInit();
-                    image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
-                    image.CacheOption = BitmapCacheOption.OnLoad;
-                    image.UriSource = null;
-                    image.StreamSource = mem;
-                    image.EndInit();
-                }
-                image.Freeze();
-                personPicture.Source = image;
-            }
+            await ViewModel.Get();
+        }
+
+        private void MemberOfControl_Error(string ErrorMessage)
+        {
+            snackbar.Message = ErrorMessage;
+            snackbar.Show();
         }
 
     }

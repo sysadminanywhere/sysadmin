@@ -48,3 +48,9 @@
 10. Autoupdater.NET
 	+ Version
 	+ XML
+11. Remote desktop
+	+ VNC
+	+ RDP
+12. Member of
+	+ User
+	+ Computer

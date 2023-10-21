@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Sysadmin.Views.Pages"
+    xmlns:controls="clr-namespace:Sysadmin.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="clr-namespace:Sysadmin.Converters"
     xmlns:models="clr-namespace:Sysadmin.Models"
@@ -131,6 +132,29 @@
                     </ui:MenuItem>
                 </ui:MenuItem>
                 <Separator />
+                <ui:MenuItem>
+                    <ui:MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock>Remote desktop</TextBlock>
+                            <ui:SymbolIcon Symbol="ChevronDown20" Margin="4,0,0,0" />
+                        </StackPanel>
+                    </ui:MenuItem.Header>
+                    <ui:MenuItem x:Name="rdp" Click="rdp_Click">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>RDP (Remote Desktop Protocol)</TextBlock>
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                    </ui:MenuItem>
+                    <ui:MenuItem x:Name="vnc" Click="vnc_Click">
+                        <ui:MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>VNC (Virtual Network Computing)</TextBlock>
+                            </StackPanel>
+                        </ui:MenuItem.Header>
+                    </ui:MenuItem>
+                </ui:MenuItem>
+                <Separator />
                 <ui:MenuItem Click="DeleteMenuItem_Click">
                     <ui:MenuItem.Header>
                         <StackPanel Orientation="Horizontal">
@@ -142,36 +166,53 @@
             </Menu>
         </Grid>
 
-        <Grid 
-            VerticalAlignment="Top"
-            Grid.Row="1" 
-            Margin="24">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}" Grid.Row="0" Grid.Column="0" Text="Location" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="0" Grid.Column="1" Text="{Binding ViewModel.Computer.Location, Mode=OneWay}" />
+            <Grid 
+                Grid.Column="0"
+                VerticalAlignment="Top"
+                Margin="24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="1" Grid.Column="0" Text="Host name" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="1" Grid.Column="1" Text="{Binding ViewModel.Computer.DnsHostName, Mode=OneWay}" />
+                <TextBlock Style="{StaticResource TableDetailNameStyle}" Grid.Row="0" Grid.Column="0" Text="Location" />
+                <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="0" Grid.Column="1" Text="{Binding ViewModel.Computer.Location, Mode=OneWay}" />
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="2" Grid.Column="0" Text="Operating system" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="2" Grid.Column="1" Text="{Binding ViewModel.Computer.OperatingSystem, Mode=OneWay}" />
+                <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="1" Grid.Column="0" Text="Host name" />
+                <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="1" Grid.Column="1" Text="{Binding ViewModel.Computer.DnsHostName, Mode=OneWay}" />
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="3" Grid.Column="0" Text="Version" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="3" Grid.Column="1" Text="{Binding ViewModel.Computer.OperatingSystemVersion, Mode=OneWay}" />
+                <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="2" Grid.Column="0" Text="Operating system" />
+                <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="2" Grid.Column="1" Text="{Binding ViewModel.Computer.OperatingSystem, Mode=OneWay}" />
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="4" Grid.Column="0" Text="Service pack" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="4" Grid.Column="1" Text="{Binding ViewModel.Computer.OperatingSystemServicePack, Mode=OneWay}" />
+                <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="3" Grid.Column="0" Text="Version" />
+                <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="3" Grid.Column="1" Text="{Binding ViewModel.Computer.OperatingSystemVersion, Mode=OneWay}" />
+
+                <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="4" Grid.Column="0" Text="Service pack" />
+                <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="4" Grid.Column="1" Text="{Binding ViewModel.Computer.OperatingSystemServicePack, Mode=OneWay}" />
+            </Grid>
+
+            <controls:MemberOfControl 
+                Grid.Column="1"
+                x:Name="memberOf"
+                MemberOf="{Binding ViewModel.Computer.MemberOf, Mode=OneWay}"
+                PrimaryGroupId="{Binding ViewModel.Computer.PrimaryGroupId, Mode=OneWay}"
+                DistinguishedName="{Binding ViewModel.Computer.DistinguishedName, Mode=OneWay}" 
+                CN="{Binding ViewModel.Computer.CN, Mode=OneWay}" 
+                Changed="MemberOfControl_Changed" Error="MemberOfControl_Error" VerticalAlignment="Top" Margin="0,24,0,0" />
+
         </Grid>
 
         <ui:Snackbar Grid.RowSpan="3" VerticalAlignment="Bottom" x:Name="snackbar" Appearance="Danger" Title="Error" Icon="ErrorCircle12" Message="Error" Timeout="5000" />

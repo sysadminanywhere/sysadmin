@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Sysadmin.Views.Pages"
+    xmlns:controls="clr-namespace:Sysadmin.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="clr-namespace:Sysadmin.Converters"
     xmlns:models="clr-namespace:Sysadmin.Models"
@@ -100,56 +101,74 @@
             </Menu>
         </Grid>
 
-        <Grid 
-            VerticalAlignment="Top"
-            Grid.Row="1" 
-            Margin="24">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
 
-            <Image Grid.Row="0" Grid.ColumnSpan="2" Source="{Binding ViewModel.User.JpegPhoto, Mode=OneWay, Converter={StaticResource PhotoToSourceConverter}}" x:Name="personPicture" MaxWidth="200" MaxHeight="200" HorizontalAlignment="Left" Margin="0,0,0,8" />
+            <Grid 
+                Grid.Column="0"
+                VerticalAlignment="Top"            
+                Margin="24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="1" Grid.Column="0" Text="Display name" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="1" Grid.Column="1" Text="{Binding ViewModel.User.DisplayName, Mode=OneWay}" />
+                <controls:PersonPictureControl x:Name="personPicture" Grid.Row="0" Grid.ColumnSpan="2" Width="100" Height="100" HorizontalAlignment="Left" Margin="0,0,0,8" DisplayName="{Binding ViewModel.User.DisplayName}" ProfilePicture="{Binding ViewModel.User.JpegPhoto, Mode=OneWay, Converter={StaticResource PhotoToSourceConverter}}" />
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="2" Grid.Column="0" Text="Company" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="2" Grid.Column="1" Text="{Binding ViewModel.User.Company, Mode=OneWay}" />
+                <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="1" Grid.Column="0" Text="Display name" />
+                <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="1" Grid.Column="1" Text="{Binding ViewModel.User.DisplayName, Mode=OneWay}" />
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="3" Grid.Column="0" Text="Title" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="3" Grid.Column="1" Text="{Binding ViewModel.User.Title, Mode=OneWay}" />
+                <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="2" Grid.Column="0" Text="Company" />
+                <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="2" Grid.Column="1" Text="{Binding ViewModel.User.Company, Mode=OneWay}" />
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="4" Grid.Column="0" Text="Email" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="4" Grid.Column="1" Text="{Binding ViewModel.User.EmailAddress, Mode=OneWay}" />
+                <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="3" Grid.Column="0" Text="Title" />
+                <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="3" Grid.Column="1" Text="{Binding ViewModel.User.Title, Mode=OneWay}" />
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="5" Grid.Column="0" Text="Mobile phone" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="5" Grid.Column="1" Text="{Binding ViewModel.User.MobilePhone, Mode=OneWay}" />
+                <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="4" Grid.Column="0" Text="Email" />
+                <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="4" Grid.Column="1" Text="{Binding ViewModel.User.EmailAddress, Mode=OneWay}" />
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="6" Grid.Column="0" Text="Office phone" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="6" Grid.Column="1" Text="{Binding ViewModel.User.OfficePhone, Mode=OneWay}" />
+                <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="5" Grid.Column="0" Text="Mobile phone" />
+                <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="5" Grid.Column="1" Text="{Binding ViewModel.User.MobilePhone, Mode=OneWay}" />
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="7" Grid.Column="0" Text="Home phone" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="7" Grid.Column="1" Text="{Binding ViewModel.User.HomePhone, Mode=OneWay}" />
+                <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="6" Grid.Column="0" Text="Office phone" />
+                <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="6" Grid.Column="1" Text="{Binding ViewModel.User.OfficePhone, Mode=OneWay}" />
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="8" Grid.Column="0" Text="Last logon" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="8" Grid.Column="1" Text="{Binding ViewModel.User.LastLogon, Mode=OneWay}" />
+                <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="7" Grid.Column="0" Text="Home phone" />
+                <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="7" Grid.Column="1" Text="{Binding ViewModel.User.HomePhone, Mode=OneWay}" />
 
-            <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="9" Grid.Column="0" Text="Last password set" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="9" Grid.Column="1" Text="{Binding ViewModel.User.PasswordLastSet, Mode=OneWay}" />
+                <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="8" Grid.Column="0" Text="Last logon" />
+                <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="8" Grid.Column="1" Text="{Binding ViewModel.User.LastLogon, Mode=OneWay}" />
+
+                <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="9" Grid.Column="0" Text="Last password set" />
+                <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="9" Grid.Column="1" Text="{Binding ViewModel.User.PasswordLastSet, Mode=OneWay}" />
+            </Grid>
+
+            <controls:MemberOfControl
+                Grid.Column="1"
+                x:Name="memberOf"
+                MemberOf="{Binding ViewModel.User.MemberOf, Mode=OneWay}"
+                PrimaryGroupId="{Binding ViewModel.User.PrimaryGroupId, Mode=OneWay}"
+                DistinguishedName="{Binding ViewModel.User.DistinguishedName, Mode=OneWay}" 
+                CN="{Binding ViewModel.User.CN, Mode=OneWay}" 
+                Changed="MemberOfControl_Changed" Error="MemberOfControl_Error" VerticalAlignment="Top" Margin="0,24,0,0"/>
+
         </Grid>
-        
+
+        <ui:Snackbar Grid.RowSpan="3" VerticalAlignment="Bottom" x:Name="snackbar" Appearance="Danger" Title="Error" Icon="ErrorCircle12" Message="Error" Timeout="5000" />
     </Grid>
 </ui:UiPage>

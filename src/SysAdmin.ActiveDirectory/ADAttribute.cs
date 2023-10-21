@@ -1,5 +1,6 @@
 ﻿namespace SysAdmin.ActiveDirectory
 {
+    [AttributeUsage(AttributeTargets.All, Inherited = true)]
     public class ADAttribute : Attribute
     {
 

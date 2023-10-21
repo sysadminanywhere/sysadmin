@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SysAdmin.Services;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Controls;
 using Wpf.Ui.Common.Interfaces;
 
@@ -19,11 +20,11 @@ namespace Sysadmin.Views.Pages
             get;
         }
 
-        public SettingsPage(ViewModels.SettingsViewModel viewModel, IServiceProvider serviceProvider)
+        public SettingsPage(ViewModels.SettingsViewModel viewModel, IServiceProvider serviceProvider, ISettingsService settings)
         {
             ViewModel = viewModel;
 
-            settings = serviceProvider.GetService<ISettingsService>();
+            this.settings = settings;
 
             InitializeComponent();
 
@@ -156,6 +157,19 @@ namespace Sysadmin.Views.Pages
             }
 
             txtDefaultPassword.Text = settings.UserDefaultPassword;
+
+            txtVNVPath.Text = settings.VNCPath;
+            numVNVPort.Value = settings.VNCPort;
+        }
+
+        private void txtVNVPath_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            settings.VNCPath = txtVNVPath.Text;
+        }
+
+        private void numVNVPort_ValueChanged(object sender, System.Windows.RoutedEventArgs e)
+        {
+            settings.VNCPort = (int)numVNVPort.Value;
         }
 
     }
