@@ -34,3 +34,6 @@ src/Sysadmin/bin
 src/Sysadmin/obj
 src/Sysadmin/.sonarqube
 src/Sysadmin/sonar.bat
+src/GenerateADObjects/bin
+src/GenerateADObjects/obj
+*.pubxml

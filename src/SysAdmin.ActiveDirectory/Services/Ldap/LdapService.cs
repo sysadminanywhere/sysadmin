@@ -13,8 +13,6 @@ namespace SysAdmin.ActiveDirectory.Services.Ldap
         public string DefaultNamingContext { get; private set; } = string.Empty;
         public string DomainName { get; private set; } = string.Empty;
 
-        public int SizeLimit { get; private set; } = 5000;
-
         IServer? server;
         ICredential? credential;
 
@@ -115,15 +113,32 @@ namespace SysAdmin.ActiveDirectory.Services.Ldap
             if (string.IsNullOrEmpty(filter))
                 throw new ArgumentNullException(nameof(filter));
 
-            var response = (SearchResponse)await ldapConnection.SendRequestAsync(new SearchRequest(path, filter, scope, null) { SizeLimit = SizeLimit });
+            //var entries = await ldapConnection.SearchAsync(path, filter, scope: scope);
+            //return entries.ToList();
 
-            List<LdapEntry> list = new List<LdapEntry>();
-            foreach (var entry in response.Entries)
+            var directoryRequest = new SearchRequest(path, filter, scope);
+            var pageSize = 100;
+
+            var vlvRequestControl = new VlvRequestControl(0, pageSize - 1, 1);
+            directoryRequest.Controls.Add(new SortRequestControl("cn", false));
+            directoryRequest.Controls.Add(vlvRequestControl);
+
+            List<LdapEntry> results = new List<LdapEntry>();
+
+            while (true)
             {
-                list.Add(entry.ToLdapEntry());
+                var response = (SearchResponse)ldapConnection.SendRequest(directoryRequest);
+                results.AddRange(response.Entries.Select(_ => _.ToLdapEntry()).ToList());
+
+                var vlvResponseControl = (VlvResponseControl)response.Controls.Single(_ => _.GetType() == typeof(VlvResponseControl));
+                vlvRequestControl.Offset += pageSize;
+                if (vlvRequestControl.Offset > vlvResponseControl.ContentCount)
+                {
+                    break;
+                }
             }
 
-            return list;
+            return results;
         }
 
         public async Task<ModifyResponse> SendRequestAsync(ModifyRequest modifyRequest)

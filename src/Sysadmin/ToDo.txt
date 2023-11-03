@@ -54,6 +54,3 @@
 12. Member of
 	+ User
 	+ Computer
-13. Maximum results
-	- Add setting
-
