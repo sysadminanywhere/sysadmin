@@ -1,5 +1,6 @@
 ﻿
 using LdapForNet;
+using System.Collections.Generic;
 using static LdapForNet.Native.Native;
 
 namespace SysAdmin.ActiveDirectory.Services.Ldap
@@ -101,22 +102,6 @@ namespace SysAdmin.ActiveDirectory.Services.Ldap
             return await SearchAsync(DefaultNamingContext, filter);
         }
 
-        public async Task<List<LdapEntry>> SearchAsync(string path, string filter)
-        {
-            if (ldapConnection == null)
-                throw new ArgumentNullException(nameof(ldapConnection));
-
-            if (string.IsNullOrEmpty(path))
-                throw new ArgumentNullException(nameof(path));
-
-            if (string.IsNullOrEmpty(filter))
-                throw new ArgumentNullException(nameof(filter));
-
-            var entries = await ldapConnection.SearchAsync(path, filter);
-
-            return entries.ToList();
-        }
-
         public async Task<List<LdapEntry>> SearchAsync(string path, string filter, LdapSearchScope scope = LdapSearchScope.LDAP_SCOPE_SUBTREE)
         {
             if (ldapConnection == null)
@@ -128,9 +113,32 @@ namespace SysAdmin.ActiveDirectory.Services.Ldap
             if (string.IsNullOrEmpty(filter))
                 throw new ArgumentNullException(nameof(filter));
 
-            var entries = await ldapConnection.SearchAsync(path, filter, scope: scope);
+            //var entries = await ldapConnection.SearchAsync(path, filter, scope: scope);
+            //return entries.ToList();
 
-            return entries.ToList();
+            var directoryRequest = new SearchRequest(path, filter, scope);
+            var pageSize = 100;
+
+            var vlvRequestControl = new VlvRequestControl(0, pageSize - 1, 1);
+            directoryRequest.Controls.Add(new SortRequestControl("cn", false));
+            directoryRequest.Controls.Add(vlvRequestControl);
+
+            List<LdapEntry> results = new List<LdapEntry>();
+
+            while (true)
+            {
+                var response = (SearchResponse)ldapConnection.SendRequest(directoryRequest);
+                results.AddRange(response.Entries.Select(_ => _.ToLdapEntry()).ToList());
+
+                var vlvResponseControl = (VlvResponseControl)response.Controls.Single(_ => _.GetType() == typeof(VlvResponseControl));
+                vlvRequestControl.Offset += pageSize;
+                if (vlvRequestControl.Offset > vlvResponseControl.ContentCount)
+                {
+                    break;
+                }
+            }
+
+            return results;
         }
 
         public async Task<ModifyResponse> SendRequestAsync(ModifyRequest modifyRequest)
