@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <item>
-	<version>10.3.0.0</version>
-	<url>https://github.com/sysadminanywhere/sysadmin/releases/download/v10.3/SysadminSetup.msi</url>
+	<version>10.4.0.0</version>
+	<url>https://github.com/sysadminanywhere/sysadmin/releases/download/v10.4/SysadminSetup.msi</url>
 	<mandatory>true</mandatory>
 </item>

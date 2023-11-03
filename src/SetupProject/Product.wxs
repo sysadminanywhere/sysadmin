@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"><?define Sysadmin_TargetDir=$(var.Sysadmin.TargetDir)?>
-	<Product Id="*" Name="Sysadmin" Language="1033" Version="10.3.0.0" Manufacturer="Sysadmin Anywhere" UpgradeCode="ef8f7793-3a07-4cbb-ac9b-52eff7e8fb22">
+	<Product Id="*" Name="Sysadmin" Language="1033" Version="10.4.0.0" Manufacturer="Sysadmin Anywhere" UpgradeCode="ef8f7793-3a07-4cbb-ac9b-52eff7e8fb22">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
