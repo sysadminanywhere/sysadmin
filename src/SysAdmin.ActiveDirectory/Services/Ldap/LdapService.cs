@@ -1,5 +1,6 @@
 ﻿
 using LdapForNet;
+using System.Collections.Generic;
 using static LdapForNet.Native.Native;
 
 namespace SysAdmin.ActiveDirectory.Services.Ldap
@@ -11,6 +12,8 @@ namespace SysAdmin.ActiveDirectory.Services.Ldap
 
         public string DefaultNamingContext { get; private set; } = string.Empty;
         public string DomainName { get; private set; } = string.Empty;
+
+        public int SizeLimit { get; private set; } = 5000;
 
         IServer? server;
         ICredential? credential;
@@ -101,22 +104,6 @@ namespace SysAdmin.ActiveDirectory.Services.Ldap
             return await SearchAsync(DefaultNamingContext, filter);
         }
 
-        public async Task<List<LdapEntry>> SearchAsync(string path, string filter)
-        {
-            if (ldapConnection == null)
-                throw new ArgumentNullException(nameof(ldapConnection));
-
-            if (string.IsNullOrEmpty(path))
-                throw new ArgumentNullException(nameof(path));
-
-            if (string.IsNullOrEmpty(filter))
-                throw new ArgumentNullException(nameof(filter));
-
-            var entries = await ldapConnection.SearchAsync(path, filter);
-
-            return entries.ToList();
-        }
-
         public async Task<List<LdapEntry>> SearchAsync(string path, string filter, LdapSearchScope scope = LdapSearchScope.LDAP_SCOPE_SUBTREE)
         {
             if (ldapConnection == null)
@@ -128,9 +115,15 @@ namespace SysAdmin.ActiveDirectory.Services.Ldap
             if (string.IsNullOrEmpty(filter))
                 throw new ArgumentNullException(nameof(filter));
 
-            var entries = await ldapConnection.SearchAsync(path, filter, scope: scope);
+            var response = (SearchResponse)await ldapConnection.SendRequestAsync(new SearchRequest(path, filter, scope, null) { SizeLimit = SizeLimit });
 
-            return entries.ToList();
+            List<LdapEntry> list = new List<LdapEntry>();
+            foreach (var entry in response.Entries)
+            {
+                list.Add(entry.ToLdapEntry());
+            }
+
+            return list;
         }
 
         public async Task<ModifyResponse> SendRequestAsync(ModifyRequest modifyRequest)
