@@ -19,7 +19,8 @@ Sysadmin makes easier to administer multidomain Active Directory-based networks 
 - Restart and shutdown remote computers
 - Computers performance
 - Patterns for add new users
-- Reports (20+)
+- Reports (20+
+- No limitation on the number of objects
 
 ### Download
 
