@@ -26,7 +26,7 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="FastReport.OpenSource" Version="2023.3.9" />
+    <PackageReference Include="FastReport.OpenSource" Version="2023.3.12" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />   
   </ItemGroup>
 
