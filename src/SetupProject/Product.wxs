@@ -105,7 +105,6 @@
 			  <File Id="Sysadmin.runtimeconfig.json" Name="Sysadmin.runtimeconfig.json" Source="$(var.Sysadmin_TargetDir)Sysadmin.runtimeconfig.json" />
 			  <File Id="Microsoft.CodeAnalysis.CSharp.dll" Name="Microsoft.CodeAnalysis.CSharp.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.CodeAnalysis.CSharp.dll" />
 			  <File Id="Microsoft.CodeAnalysis.VisualBasic.dll" Name="Microsoft.CodeAnalysis.VisualBasic.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.CodeAnalysis.VisualBasic.dll" />
-			  <File Id="System.Security.Permissions.dll" Name="System.Security.Permissions.dll" Source="$(var.Sysadmin_TargetDir)System.Security.Permissions.dll" />
 			  <File Id="System.Text.Json.dll" Name="System.Text.Json.dll" Source="$(var.Sysadmin_TargetDir)System.Text.Json.dll" />
 			  <File Id="Sysadmin.WMI.dll" Name="Sysadmin.WMI.dll" Source="$(var.Sysadmin_TargetDir)Sysadmin.WMI.dll" />
 			  <File Id="Microsoft.Extensions.Logging.EventSource.dll" Name="Microsoft.Extensions.Logging.EventSource.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Logging.EventSource.dll" />
@@ -117,7 +116,6 @@
 			  <File Id="Microsoft.Extensions.Configuration.Binder.dll" Name="Microsoft.Extensions.Configuration.Binder.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Configuration.Binder.dll" />
 			  <File Id="Microsoft.Extensions.Configuration.UserSecrets.dll" Name="Microsoft.Extensions.Configuration.UserSecrets.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Configuration.UserSecrets.dll" />
 			  <File Id="Microsoft.Extensions.Configuration.CommandLine.dll" Name="Microsoft.Extensions.Configuration.CommandLine.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Configuration.CommandLine.dll" />
-			  <File Id="System.Windows.Extensions.dll" Name="System.Windows.Extensions.dll" Source="$(var.Sysadmin_TargetDir)System.Windows.Extensions.dll" />
 			  <File Id="Microsoft.Extensions.Configuration.Json.dll" Name="Microsoft.Extensions.Configuration.Json.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Configuration.Json.dll" />
 			  <File Id="System.Text.Encodings.Web.dll" Name="System.Text.Encodings.Web.dll" Source="$(var.Sysadmin_TargetDir)System.Text.Encodings.Web.dll" />
 
@@ -143,8 +141,6 @@
 				<File Id="System.DirectoryServices.Protocols.dll2" Name="System.DirectoryServices.Protocols.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\win\lib\net6.0\System.DirectoryServices.Protocols.dll" />
 				<File Id="System.Drawing.Common.dll2" Name="System.Drawing.Common.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\win\lib\net6.0\System.Drawing.Common.dll" />
 				<File Id="System.Management.dll2" Name="System.Management.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\win\lib\net6.0\System.Management.dll" />
-				<File Id="System.Security.Cryptography.ProtectedData.dll2" Name="System.Security.Cryptography.ProtectedData.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll" />
-				<File Id="System.Windows.Extensions.dll2" Name="System.Windows.Extensions.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\win\lib\net6.0\System.Windows.Extensions.dll" />
 			</Component>
 		</ComponentGroup>
 
