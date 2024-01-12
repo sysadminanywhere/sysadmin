@@ -51,11 +51,13 @@ namespace SysAdmin.ActiveDirectory.Services.Ldap
                 if (server != null && !string.IsNullOrEmpty(server.ServerName))
                 {
                     ldapConnection.Connect(server.ServerName, server.Port, server.IsSSL ? LdapSchema.LDAPS : LdapSchema.LDAP);
+
+                    if (server.IsSSL)
+                        ldapConnection.StartTransportLayerSecurity(true);
                 }
                 else
                 {
                     ldapConnection.Connect();
-                    //ldapConnection.StartTransportLayerSecurity(true);
                 }
 
                 if (server != null && server.IsSSL)
@@ -224,11 +226,6 @@ namespace SysAdmin.ActiveDirectory.Services.Ldap
             await ldapConnection.DeleteAsync(dn);
         }
 
-        public void Dispose()
-        {
-            ldapConnection?.Dispose();
-        }
-
         public async Task<DirectoryResponse?> SendRequestAsync(DirectoryRequest directoryRequest)
         {
             if (ldapConnection == null)
@@ -254,6 +251,17 @@ namespace SysAdmin.ActiveDirectory.Services.Ldap
                 throw new ArgumentNullException(nameof(ldapConnection));
 
             return ldapConnection.GetRootDse();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            ldapConnection?.Dispose();
         }
 
     }
