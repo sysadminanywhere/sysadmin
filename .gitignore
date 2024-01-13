@@ -37,3 +37,5 @@ src/Sysadmin/sonar.bat
 src/GenerateADObjects/bin
 src/GenerateADObjects/obj
 *.pubxml
+src/Utils/SetupHelper/bin
+src/Utils/SetupHelper/obj
