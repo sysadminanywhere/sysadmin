@@ -94,7 +94,7 @@ namespace Sysadmin.ViewModels
             {
                 await Task.Run(() =>
                 {
-                    using (var wmi = new WMIService(computerAddress, credential))
+                    using (var wmi = new WMIService(computerAddress, credential, App.SERVER == null ? true : false))
                     {
                         List<Dictionary<string, object>> queryResult = wmi.Query("Select * FROM Win32_ComputerSystem");
                         if (queryResult.Count > 0)
@@ -128,7 +128,7 @@ namespace Sysadmin.ViewModels
             {
                 await Task.Run(() =>
                 {
-                    using (var wmi = new WMIService(computerAddress, credential))
+                    using (var wmi = new WMIService(computerAddress, credential, App.SERVER == null ? true : false))
                     {
                         // CPU
 

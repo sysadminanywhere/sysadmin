@@ -4,6 +4,7 @@ using Sysadmin.Services;
 using Sysadmin.WMI;
 using Sysadmin.WMI.Models;
 using Sysadmin.WMI.Services;
+using SysAdmin.ActiveDirectory;
 using SysAdmin.ActiveDirectory.Models;
 using System;
 using System.Collections.Generic;
@@ -98,7 +99,7 @@ namespace Sysadmin.ViewModels
             {
                 await Task.Run(() =>
                 {
-                    using (var wmi = new WMIService(computerAddress, credential))
+                    using (var wmi = new WMIService(computerAddress, credential, App.SERVER == null ? true : false))
                     {
                         List<Dictionary<string, object>> queryResult = wmi.Query("Select * From Win32_Process");
 
@@ -133,7 +134,7 @@ namespace Sysadmin.ViewModels
             {
                 await Task.Run(() =>
                 {
-                    using (var wmi = new WMIService(computerAddress, credential))
+                    using (var wmi = new WMIService(computerAddress, credential, App.SERVER == null ? true : false))
                     {
                         wmi.Invoke("Select * From Win32_Process WHERE Handle = '" + handle + "'", "Terminate");
                     }
@@ -143,7 +144,7 @@ namespace Sysadmin.ViewModels
             }
             catch (Exception ex)
             {
-                 ErrorMessage = ex.Message;
+                ErrorMessage = ex.Message;
             }
 
             IsBusy = false;

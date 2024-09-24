@@ -82,7 +82,7 @@ namespace Sysadmin.ViewModels
             {
                 await Task.Run(() =>
                 {
-                    using (var wmi = new WMIService(computerAddress, credential))
+                    using (var wmi = new WMIService(computerAddress, credential, App.SERVER == null ? true : false))
                     {
                         queryResult = wmi.Query(queryString);
                     }
