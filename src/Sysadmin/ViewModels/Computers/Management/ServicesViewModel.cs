@@ -105,7 +105,7 @@ namespace Sysadmin.ViewModels
             {
                 await Task.Run(() =>
                 {
-                    using (var wmi = new WMIService(computerAddress, credential))
+                    using (var wmi = new WMIService(computerAddress, credential, App.SERVER == null ? true : false))
                     {
                         List<Dictionary<string, object>> queryResult = wmi.Query("Select * From Win32_Service");
 
@@ -140,7 +140,7 @@ namespace Sysadmin.ViewModels
             {
                 await Task.Run(() =>
                 {
-                    using (var wmi = new WMIService(computerAddress, credential))
+                    using (var wmi = new WMIService(computerAddress, credential, App.SERVER == null ? true : false))
                     {
                         wmi.Invoke("Select * From Win32_Service Where ProcessId = '" + processId + "'", "StartService");
                     }
@@ -171,7 +171,7 @@ namespace Sysadmin.ViewModels
             {
                 await Task.Run(() =>
                 {
-                    using (var wmi = new WMIService(computerAddress, credential))
+                    using (var wmi = new WMIService(computerAddress, credential, App.SERVER == null ? true : false))
                     {
                         wmi.Invoke("Select * From Win32_Service Where ProcessId = '" + processId + "'", "StopService");
                     }

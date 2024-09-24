@@ -12,10 +12,14 @@ namespace Sysadmin.WMI.Services
 
         public ICredential? Credential { get { return credential; } }
 
-        public WMIService(string computerAddress, ICredential? credential)
+        public WMIService(string computerAddress, ICredential? credential, bool inDomain)
         {
             if (computerAddress == null)
                 throw new ArgumentNullException(nameof(computerAddress));
+
+            if (!inDomain && computerAddress.Contains('.'))
+                computerAddress = computerAddress.Split(".")[0];
+
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {

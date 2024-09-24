@@ -112,7 +112,7 @@ namespace Sysadmin.ViewModels
             {
                 await Task.Run(() =>
                 {
-                    using (var wmi = new WMIService(computerAddress, credential))
+                    using (var wmi = new WMIService(computerAddress, credential, App.SERVER == null ? true : false))
                     {
                         string today = string.Format("{0:yyyyMMddHHmmss}.000000000", DateTime.Today);
 

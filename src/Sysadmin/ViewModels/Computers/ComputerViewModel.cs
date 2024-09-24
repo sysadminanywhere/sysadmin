@@ -163,7 +163,7 @@ namespace Sysadmin.ViewModels
             {
                 await Task.Run(() =>
                 {
-                    using (var wmi = new WMIService(Computer.DnsHostName, credential))
+                    using (var wmi = new WMIService(Computer.DnsHostName, credential, App.SERVER == null ? true : false))
                     {
                         wmi.Invoke("SELECT * FROM Win32_OperatingSystem", "Reboot");
                     }
@@ -188,7 +188,7 @@ namespace Sysadmin.ViewModels
             {
                 await Task.Run(() =>
                 {
-                    using (var wmi = new WMIService(Computer.DnsHostName, credential))
+                    using (var wmi = new WMIService(Computer.DnsHostName, credential, App.SERVER == null ? true : false))
                     {
                         wmi.Invoke("SELECT * FROM Win32_OperatingSystem", "Shutdown");
                     }
@@ -219,7 +219,6 @@ namespace Sysadmin.ViewModels
 
             Computer = entry;
         }
-
 
     }
 
