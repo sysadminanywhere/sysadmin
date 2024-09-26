@@ -25,14 +25,32 @@
 	+ Reset password
 7. Groups
 	+ Add (Radio buttons)
+	+ Group members
+	+ Group Member Of
 8. Reports
 	+ Show reports
 	- Number box
 	- Zoom
 9. Computer management
-	- Events
-	- Hardware
-	- Perfomance
-	- Processes
-	- Services
-	- Software
+	+ Events
+		+ Filters
+	+ Hardware
+	+ Processes
+		+ Stop
+	+ Services
+		+ Start
+		+ Stop
+	+ Software
+	+ Performance
+		+ Cpu
+		+ Memory
+		+ Disk
+10. Autoupdater.NET
+	+ Version
+	+ XML
+11. Remote desktop
+	+ VNC
+	+ RDP
+12. Member of
+	+ User
+	+ Computer

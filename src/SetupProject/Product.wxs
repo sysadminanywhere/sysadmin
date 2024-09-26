@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"><?define Sysadmin_TargetDir=$(var.Sysadmin.TargetDir)?>
-	<Product Id="*" Name="Sysadmin" Language="1033" Version="10.0.0.0" Manufacturer="Sysadmin Anywhere" UpgradeCode="ef8f7793-3a07-4cbb-ac9b-52eff7e8fb22">
+	<Product Id="*" Name="Sysadmin" Language="1033" Version="10.4.2.0" Manufacturer="Sysadmin Anywhere" UpgradeCode="ef8f7793-3a07-4cbb-ac9b-52eff7e8fb22">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
@@ -68,66 +68,68 @@
 	<Fragment>
 		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
 			<Component Id="Product" Guid="107a594b-40cb-4622-a6e9-8e36c42f4e4b">
-			  <File Id="Microsoft.Extensions.Options.dll" Name="Microsoft.Extensions.Options.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Options.dll" />
-			  <File Id="Microsoft.Extensions.Configuration.dll" Name="Microsoft.Extensions.Configuration.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Configuration.dll" />
-			  <File Id="Microsoft.Extensions.Logging.dll" Name="Microsoft.Extensions.Logging.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Logging.dll" />
-			  <File Id="Microsoft.Extensions.Logging.Abstractions.dll" Name="Microsoft.Extensions.Logging.Abstractions.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Logging.Abstractions.dll" />
-			  <File Id="Microsoft.Extensions.DependencyInjection.dll" Name="Microsoft.Extensions.DependencyInjection.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.DependencyInjection.dll" />
-			  <File Id="System.Diagnostics.DiagnosticSource.dll" Name="System.Diagnostics.DiagnosticSource.dll" Source="$(var.Sysadmin_TargetDir)System.Diagnostics.DiagnosticSource.dll" />
-			  <File Id="Microsoft.Extensions.FileProviders.Physical.dll" Name="Microsoft.Extensions.FileProviders.Physical.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.FileProviders.Physical.dll" />
-			  <File Id="Microsoft.Extensions.FileSystemGlobbing.dll" Name="Microsoft.Extensions.FileSystemGlobbing.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.FileSystemGlobbing.dll" />
-			  <File Id="Microsoft.Extensions.Configuration.EnvironmentVariables.dll" Name="Microsoft.Extensions.Configuration.EnvironmentVariables.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Configuration.EnvironmentVariables.dll" />
-			  <File Id="System.CodeDom.dll" Name="System.CodeDom.dll" Source="$(var.Sysadmin_TargetDir)System.CodeDom.dll" />
-			  <File Id="System.Management.dll" Name="System.Management.dll" Source="$(var.Sysadmin_TargetDir)System.Management.dll" />
-			  <File Id="Microsoft.CodeAnalysis.dll" Name="Microsoft.CodeAnalysis.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.CodeAnalysis.dll" />
-			  <File Id="FastReport.Compat.dll" Name="FastReport.Compat.dll" Source="$(var.Sysadmin_TargetDir)FastReport.Compat.dll" />
-			  <File Id="Microsoft.Extensions.Primitives.dll" Name="Microsoft.Extensions.Primitives.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Primitives.dll" />
-			  <File Id="Microsoft.Extensions.FileProviders.Abstractions.dll" Name="Microsoft.Extensions.FileProviders.Abstractions.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.FileProviders.Abstractions.dll" />
-			  <File Id="System.DirectoryServices.AccountManagement.dll" Name="System.DirectoryServices.AccountManagement.dll" Source="$(var.Sysadmin_TargetDir)System.DirectoryServices.AccountManagement.dll" />
-			  <File Id="System.Drawing.Common.dll" Name="System.Drawing.Common.dll" Source="$(var.Sysadmin_TargetDir)System.Drawing.Common.dll" />
-			  <File Id="Microsoft.Extensions.Options.ConfigurationExtensions.dll" Name="Microsoft.Extensions.Options.ConfigurationExtensions.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Options.ConfigurationExtensions.dll" />
-			  <File Id="Microsoft.Extensions.Configuration.FileExtensions.dll" Name="Microsoft.Extensions.Configuration.FileExtensions.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Configuration.FileExtensions.dll" />
-			  <File Id="Microsoft.Extensions.Hosting.dll" Name="Microsoft.Extensions.Hosting.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Hosting.dll" />
-			  <File Id="Newtonsoft.Json.dll" Name="Newtonsoft.Json.dll" Source="$(var.Sysadmin_TargetDir)Newtonsoft.Json.dll" />
-			  <File Id="FastReport.ReportBuilder.dll" Name="FastReport.ReportBuilder.dll" Source="$(var.Sysadmin_TargetDir)FastReport.ReportBuilder.dll" />
-			  <File Id="LdapForNet.dll" Name="LdapForNet.dll" Source="$(var.Sysadmin_TargetDir)LdapForNet.dll" />
-			  <File Id="CommunityToolkit.Mvvm.dll" Name="CommunityToolkit.Mvvm.dll" Source="$(var.Sysadmin_TargetDir)CommunityToolkit.Mvvm.dll" />
-			  <File Id="FastReport.OpenSource.Export.PdfSimple.dll" Name="FastReport.OpenSource.Export.PdfSimple.dll" Source="$(var.Sysadmin_TargetDir)FastReport.OpenSource.Export.PdfSimple.dll" />
-			  <File Id="FastReport.dll" Name="FastReport.dll" Source="$(var.Sysadmin_TargetDir)FastReport.dll" />
-			  <File Id="Microsoft.Extensions.DependencyInjection.Abstractions.dll" Name="Microsoft.Extensions.DependencyInjection.Abstractions.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
-			  <File Id="Microsoft.Extensions.Configuration.Abstractions.dll" Name="Microsoft.Extensions.Configuration.Abstractions.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Configuration.Abstractions.dll" />
-			  <File Id="Microsoft.Extensions.Hosting.Abstractions.dll" Name="Microsoft.Extensions.Hosting.Abstractions.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Hosting.Abstractions.dll" />
-			  <File Id="SysAdmin.ActiveDirectory.dll" Name="SysAdmin.ActiveDirectory.dll" Source="$(var.Sysadmin_TargetDir)SysAdmin.ActiveDirectory.dll" />
-			  <File Id="Microsoft.Xaml.Behaviors.dll" Name="Microsoft.Xaml.Behaviors.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Xaml.Behaviors.dll" />
-			  <File Id="Wpf.Ui.dll" Name="Wpf.Ui.dll" Source="$(var.Sysadmin_TargetDir)Wpf.Ui.dll" />
-			  <File Id="Sysadmin.dll" Name="Sysadmin.dll" Source="$(var.Sysadmin_TargetDir)Sysadmin.dll" />
-			  <File Id="Sysadmin.exe" Name="Sysadmin.exe" Source="$(var.Sysadmin_TargetDir)Sysadmin.exe" />
-			  <File Id="Sysadmin.runtimeconfig.json" Name="Sysadmin.runtimeconfig.json" Source="$(var.Sysadmin_TargetDir)Sysadmin.runtimeconfig.json" />
-			  <File Id="Microsoft.CodeAnalysis.CSharp.dll" Name="Microsoft.CodeAnalysis.CSharp.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.CodeAnalysis.CSharp.dll" />
-			  <File Id="Microsoft.CodeAnalysis.VisualBasic.dll" Name="Microsoft.CodeAnalysis.VisualBasic.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.CodeAnalysis.VisualBasic.dll" />
-			  <File Id="System.Security.Permissions.dll" Name="System.Security.Permissions.dll" Source="$(var.Sysadmin_TargetDir)System.Security.Permissions.dll" />
-			  <File Id="System.Text.Json.dll" Name="System.Text.Json.dll" Source="$(var.Sysadmin_TargetDir)System.Text.Json.dll" />
-			  <File Id="Sysadmin.WMI.dll" Name="Sysadmin.WMI.dll" Source="$(var.Sysadmin_TargetDir)Sysadmin.WMI.dll" />
-			  <File Id="Microsoft.Extensions.Logging.EventSource.dll" Name="Microsoft.Extensions.Logging.EventSource.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Logging.EventSource.dll" />
-			  <File Id="Microsoft.Extensions.Logging.Debug.dll" Name="Microsoft.Extensions.Logging.Debug.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Logging.Debug.dll" />
-			  <File Id="Microsoft.Extensions.Logging.Console.dll" Name="Microsoft.Extensions.Logging.Console.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Logging.Console.dll" />
-			  <File Id="Microsoft.Extensions.Logging.Configuration.dll" Name="Microsoft.Extensions.Logging.Configuration.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Logging.Configuration.dll" />
-			  <File Id="System.Diagnostics.EventLog.dll" Name="System.Diagnostics.EventLog.dll" Source="$(var.Sysadmin_TargetDir)System.Diagnostics.EventLog.dll" />
-			  <File Id="Microsoft.Extensions.Logging.EventLog.dll" Name="Microsoft.Extensions.Logging.EventLog.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Logging.EventLog.dll" />
-			  <File Id="Microsoft.Extensions.Configuration.Binder.dll" Name="Microsoft.Extensions.Configuration.Binder.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Configuration.Binder.dll" />
-			  <File Id="Microsoft.Extensions.Configuration.UserSecrets.dll" Name="Microsoft.Extensions.Configuration.UserSecrets.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Configuration.UserSecrets.dll" />
-			  <File Id="Microsoft.Extensions.Configuration.CommandLine.dll" Name="Microsoft.Extensions.Configuration.CommandLine.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Configuration.CommandLine.dll" />
-			  <File Id="System.Windows.Extensions.dll" Name="System.Windows.Extensions.dll" Source="$(var.Sysadmin_TargetDir)System.Windows.Extensions.dll" />
-			  <File Id="Microsoft.Extensions.Configuration.Json.dll" Name="Microsoft.Extensions.Configuration.Json.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Configuration.Json.dll" />
-			  <File Id="System.Text.Encodings.Web.dll" Name="System.Text.Encodings.Web.dll" Source="$(var.Sysadmin_TargetDir)System.Text.Encodings.Web.dll" />
-
-			  <File Id="Microsoft.Win32.SystemEvents.dll" Name="Microsoft.Win32.SystemEvents.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Win32.SystemEvents.dll" />
-			  <File Id="System.Configuration.ConfigurationManager.dll" Name="System.Configuration.ConfigurationManager.dll" Source="$(var.Sysadmin_TargetDir)System.Configuration.ConfigurationManager.dll" />
-			  <File Id="System.DirectoryServices.dll" Name="System.DirectoryServices.dll" Source="$(var.Sysadmin_TargetDir)System.DirectoryServices.dll" />
-			  <File Id="System.DirectoryServices.Protocols.dll" Name="System.DirectoryServices.Protocols.dll" Source="$(var.Sysadmin_TargetDir)System.DirectoryServices.Protocols.dll" />
-			  <File Id="System.Security.Cryptography.ProtectedData.dll" Name="System.Security.Cryptography.ProtectedData.dll" Source="$(var.Sysadmin_TargetDir)System.Security.Cryptography.ProtectedData.dll" />
-
-			  <File Id="Sysadmin.deps.json" Name="Sysadmin.deps.json" Source="$(var.Sysadmin_TargetDir)Sysadmin.deps.json" />
+				<File Id="AutoUpdater.NET.dll" Name="AutoUpdater.NET.dll" Source="$(var.Sysadmin_TargetDir)AutoUpdater.NET.dll" />
+				<File Id="CommunityToolkit.Mvvm.dll" Name="CommunityToolkit.Mvvm.dll" Source="$(var.Sysadmin_TargetDir)CommunityToolkit.Mvvm.dll" />
+				<File Id="FastReport.Compat.dll" Name="FastReport.Compat.dll" Source="$(var.Sysadmin_TargetDir)FastReport.Compat.dll" />
+				<File Id="FastReport.dll" Name="FastReport.dll" Source="$(var.Sysadmin_TargetDir)FastReport.dll" />
+				<File Id="FastReport.OpenSource.Export.PdfSimple.dll" Name="FastReport.OpenSource.Export.PdfSimple.dll" Source="$(var.Sysadmin_TargetDir)FastReport.OpenSource.Export.PdfSimple.dll" />
+				<File Id="FastReport.ReportBuilder.dll" Name="FastReport.ReportBuilder.dll" Source="$(var.Sysadmin_TargetDir)FastReport.ReportBuilder.dll" />
+				<File Id="LdapForNet.dll" Name="LdapForNet.dll" Source="$(var.Sysadmin_TargetDir)LdapForNet.dll" />
+				<File Id="Microsoft.CodeAnalysis.CSharp.dll" Name="Microsoft.CodeAnalysis.CSharp.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.CodeAnalysis.CSharp.dll" />
+				<File Id="Microsoft.CodeAnalysis.dll" Name="Microsoft.CodeAnalysis.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.CodeAnalysis.dll" />
+				<File Id="Microsoft.CodeAnalysis.VisualBasic.dll" Name="Microsoft.CodeAnalysis.VisualBasic.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.CodeAnalysis.VisualBasic.dll" />
+				<File Id="Microsoft.Extensions.Configuration.Abstractions.dll" Name="Microsoft.Extensions.Configuration.Abstractions.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Configuration.Abstractions.dll" />
+				<File Id="Microsoft.Extensions.Configuration.Binder.dll" Name="Microsoft.Extensions.Configuration.Binder.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Configuration.Binder.dll" />
+				<File Id="Microsoft.Extensions.Configuration.CommandLine.dll" Name="Microsoft.Extensions.Configuration.CommandLine.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Configuration.CommandLine.dll" />
+				<File Id="Microsoft.Extensions.Configuration.dll" Name="Microsoft.Extensions.Configuration.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Configuration.dll" />
+				<File Id="Microsoft.Extensions.Configuration.EnvironmentVariables.dll" Name="Microsoft.Extensions.Configuration.EnvironmentVariables.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Configuration.EnvironmentVariables.dll" />
+				<File Id="Microsoft.Extensions.Configuration.FileExtensions.dll" Name="Microsoft.Extensions.Configuration.FileExtensions.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Configuration.FileExtensions.dll" />
+				<File Id="Microsoft.Extensions.Configuration.Json.dll" Name="Microsoft.Extensions.Configuration.Json.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Configuration.Json.dll" />
+				<File Id="Microsoft.Extensions.Configuration.UserSecrets.dll" Name="Microsoft.Extensions.Configuration.UserSecrets.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Configuration.UserSecrets.dll" />
+				<File Id="Microsoft.Extensions.DependencyInjection.Abstractions.dll" Name="Microsoft.Extensions.DependencyInjection.Abstractions.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+				<File Id="Microsoft.Extensions.DependencyInjection.dll" Name="Microsoft.Extensions.DependencyInjection.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.DependencyInjection.dll" />
+				<File Id="Microsoft.Extensions.Diagnostics.Abstractions.dll" Name="Microsoft.Extensions.Diagnostics.Abstractions.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Diagnostics.Abstractions.dll" />
+				<File Id="Microsoft.Extensions.Diagnostics.dll" Name="Microsoft.Extensions.Diagnostics.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Diagnostics.dll" />
+				<File Id="Microsoft.Extensions.FileProviders.Abstractions.dll" Name="Microsoft.Extensions.FileProviders.Abstractions.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.FileProviders.Abstractions.dll" />
+				<File Id="Microsoft.Extensions.FileProviders.Physical.dll" Name="Microsoft.Extensions.FileProviders.Physical.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.FileProviders.Physical.dll" />
+				<File Id="Microsoft.Extensions.FileSystemGlobbing.dll" Name="Microsoft.Extensions.FileSystemGlobbing.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.FileSystemGlobbing.dll" />
+				<File Id="Microsoft.Extensions.Hosting.Abstractions.dll" Name="Microsoft.Extensions.Hosting.Abstractions.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Hosting.Abstractions.dll" />
+				<File Id="Microsoft.Extensions.Hosting.dll" Name="Microsoft.Extensions.Hosting.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Hosting.dll" />
+				<File Id="Microsoft.Extensions.Logging.Abstractions.dll" Name="Microsoft.Extensions.Logging.Abstractions.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Logging.Abstractions.dll" />
+				<File Id="Microsoft.Extensions.Logging.Configuration.dll" Name="Microsoft.Extensions.Logging.Configuration.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Logging.Configuration.dll" />
+				<File Id="Microsoft.Extensions.Logging.Console.dll" Name="Microsoft.Extensions.Logging.Console.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Logging.Console.dll" />
+				<File Id="Microsoft.Extensions.Logging.Debug.dll" Name="Microsoft.Extensions.Logging.Debug.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Logging.Debug.dll" />
+				<File Id="Microsoft.Extensions.Logging.dll" Name="Microsoft.Extensions.Logging.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Logging.dll" />
+				<File Id="Microsoft.Extensions.Logging.EventLog.dll" Name="Microsoft.Extensions.Logging.EventLog.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Logging.EventLog.dll" />
+				<File Id="Microsoft.Extensions.Logging.EventSource.dll" Name="Microsoft.Extensions.Logging.EventSource.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Logging.EventSource.dll" />
+				<File Id="Microsoft.Extensions.Options.ConfigurationExtensions.dll" Name="Microsoft.Extensions.Options.ConfigurationExtensions.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Options.ConfigurationExtensions.dll" />
+				<File Id="Microsoft.Extensions.Options.dll" Name="Microsoft.Extensions.Options.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Options.dll" />
+				<File Id="Microsoft.Extensions.Primitives.dll" Name="Microsoft.Extensions.Primitives.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Extensions.Primitives.dll" />
+				<File Id="Microsoft.Web.WebView2.Core.dll" Name="Microsoft.Web.WebView2.Core.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Web.WebView2.Core.dll" />
+				<File Id="Microsoft.Web.WebView2.WinForms.dll" Name="Microsoft.Web.WebView2.WinForms.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Web.WebView2.WinForms.dll" />
+				<File Id="Microsoft.Web.WebView2.Wpf.dll" Name="Microsoft.Web.WebView2.Wpf.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Web.WebView2.Wpf.dll" />
+				<File Id="Microsoft.Win32.SystemEvents.dll" Name="Microsoft.Win32.SystemEvents.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Win32.SystemEvents.dll" />
+				<File Id="Microsoft.Xaml.Behaviors.dll" Name="Microsoft.Xaml.Behaviors.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Xaml.Behaviors.dll" />
+				<File Id="Newtonsoft.Json.dll" Name="Newtonsoft.Json.dll" Source="$(var.Sysadmin_TargetDir)Newtonsoft.Json.dll" />
+				<File Id="SysAdmin.ActiveDirectory.dll" Name="SysAdmin.ActiveDirectory.dll" Source="$(var.Sysadmin_TargetDir)SysAdmin.ActiveDirectory.dll" />
+				<File Id="Sysadmin.deps.json" Name="Sysadmin.deps.json" Source="$(var.Sysadmin_TargetDir)Sysadmin.deps.json" />
+				<File Id="Sysadmin.dll" Name="Sysadmin.dll" Source="$(var.Sysadmin_TargetDir)Sysadmin.dll" />
+				<File Id="Sysadmin.exe" Name="Sysadmin.exe" Source="$(var.Sysadmin_TargetDir)Sysadmin.exe" />
+				<File Id="Sysadmin.runtimeconfig.json" Name="Sysadmin.runtimeconfig.json" Source="$(var.Sysadmin_TargetDir)Sysadmin.runtimeconfig.json" />
+				<File Id="Sysadmin.WMI.dll" Name="Sysadmin.WMI.dll" Source="$(var.Sysadmin_TargetDir)Sysadmin.WMI.dll" />
+				<File Id="System.CodeDom.dll" Name="System.CodeDom.dll" Source="$(var.Sysadmin_TargetDir)System.CodeDom.dll" />
+				<File Id="System.Configuration.ConfigurationManager.dll" Name="System.Configuration.ConfigurationManager.dll" Source="$(var.Sysadmin_TargetDir)System.Configuration.ConfigurationManager.dll" />
+				<File Id="System.Diagnostics.DiagnosticSource.dll" Name="System.Diagnostics.DiagnosticSource.dll" Source="$(var.Sysadmin_TargetDir)System.Diagnostics.DiagnosticSource.dll" />
+				<File Id="System.Diagnostics.EventLog.dll" Name="System.Diagnostics.EventLog.dll" Source="$(var.Sysadmin_TargetDir)System.Diagnostics.EventLog.dll" />
+				<File Id="System.DirectoryServices.AccountManagement.dll" Name="System.DirectoryServices.AccountManagement.dll" Source="$(var.Sysadmin_TargetDir)System.DirectoryServices.AccountManagement.dll" />
+				<File Id="System.DirectoryServices.dll" Name="System.DirectoryServices.dll" Source="$(var.Sysadmin_TargetDir)System.DirectoryServices.dll" />
+				<File Id="System.DirectoryServices.Protocols.dll" Name="System.DirectoryServices.Protocols.dll" Source="$(var.Sysadmin_TargetDir)System.DirectoryServices.Protocols.dll" />
+				<File Id="System.Drawing.Common.dll" Name="System.Drawing.Common.dll" Source="$(var.Sysadmin_TargetDir)System.Drawing.Common.dll" />
+				<File Id="System.Management.dll" Name="System.Management.dll" Source="$(var.Sysadmin_TargetDir)System.Management.dll" />
+				<File Id="System.Security.Cryptography.ProtectedData.dll" Name="System.Security.Cryptography.ProtectedData.dll" Source="$(var.Sysadmin_TargetDir)System.Security.Cryptography.ProtectedData.dll" />
+				<File Id="System.Text.Encodings.Web.dll" Name="System.Text.Encodings.Web.dll" Source="$(var.Sysadmin_TargetDir)System.Text.Encodings.Web.dll" />
+				<File Id="System.Text.Json.dll" Name="System.Text.Json.dll" Source="$(var.Sysadmin_TargetDir)System.Text.Json.dll" />
+				<File Id="Wpf.Ui.dll" Name="Wpf.Ui.dll" Source="$(var.Sysadmin_TargetDir)Wpf.Ui.dll" />
 			</Component>
 		</ComponentGroup>
 
@@ -141,14 +143,12 @@
 				<File Id="System.DirectoryServices.Protocols.dll2" Name="System.DirectoryServices.Protocols.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\win\lib\net6.0\System.DirectoryServices.Protocols.dll" />
 				<File Id="System.Drawing.Common.dll2" Name="System.Drawing.Common.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\win\lib\net6.0\System.Drawing.Common.dll" />
 				<File Id="System.Management.dll2" Name="System.Management.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\win\lib\net6.0\System.Management.dll" />
-				<File Id="System.Security.Cryptography.ProtectedData.dll2" Name="System.Security.Cryptography.ProtectedData.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll" />
-				<File Id="System.Windows.Extensions.dll2" Name="System.Windows.Extensions.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\win\lib\net6.0\System.Windows.Extensions.dll" />
 			</Component>
 		</ComponentGroup>
 
 		<ComponentGroup Id="ProductRuntimeAny" Directory="NETCORE3">
 			<Component Id='AnyRuntime' Guid='3C7F95A4-96CC-46A8-A633-F797D8807B0D'>
-				<File Id="FastReport.Compat.dll2" Name="FastReport.Compat.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\any\lib\netcoreapp3.0\FastReport.Compat.dll" />
+				<File Id="FastReport.Compat.dll2" Name="FastReport.Compat.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\any\lib\netcoreapp3.0\FastReport.Compat.dll" />			
 			</Component>
 		</ComponentGroup>
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace SysAdmin.Converters
+namespace Sysadmin.Converters
 {
     public class ListToStringConverter : IValueConverter
     {

@@ -8,11 +8,13 @@ namespace Sysadmin.WMI
     public static class Helper
     {
 
-        public static DateTime GetWMIDate(string sDate)
+        public static DateTime GetWMIDate(object date)
         {
             //                0000000000111111111122222
             //                0123456789012345678901234
             //LastBootUpTime: 20111212080531.125599+240
+
+            string sDate = Convert.ToString(date);
 
             int year = Convert.ToInt32(sDate.Substring(0, 4));
             int month = Convert.ToInt32(sDate.Substring(4, 2));

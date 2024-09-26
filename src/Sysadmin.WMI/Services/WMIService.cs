@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Management;
+﻿using System.Management;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sysadmin.WMI.Services
 {
@@ -17,10 +12,14 @@ namespace Sysadmin.WMI.Services
 
         public ICredential? Credential { get { return credential; } }
 
-        public WMIService(string computerAddress, ICredential credential)
+        public WMIService(string computerAddress, ICredential? credential, bool inDomain)
         {
             if (computerAddress == null)
                 throw new ArgumentNullException(nameof(computerAddress));
+
+            if (!inDomain && computerAddress.Contains('.'))
+                computerAddress = computerAddress.Split(".")[0];
+
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
@@ -53,24 +52,20 @@ namespace Sysadmin.WMI.Services
             {
                 List<Dictionary<string, object>> lst = new List<Dictionary<string, object>>();
 
-                try
+                using (ManagementObjectSearcher query = new ManagementObjectSearcher(managementScope, new SelectQuery(queryString)))
                 {
-                    using (ManagementObjectSearcher query = new ManagementObjectSearcher(managementScope, new SelectQuery(queryString)))
+                    foreach (ManagementObject service in query.Get().OfType<ManagementObject>())
                     {
-                        foreach (ManagementObject service in query.Get())
+                        Dictionary<string, object> keyValues = new Dictionary<string, object>();
+
+                        foreach (PropertyData data in service.Properties)
                         {
-                            Dictionary<string, object> keyValues = new Dictionary<string, object>();
-
-                            foreach (PropertyData data in service.Properties)
-                            {
-                                keyValues.Add(data.Name, data.Value);
-                            }
-
-                            lst.Add(keyValues);
+                            keyValues.Add(data.Name, data.Value);
                         }
+
+                        lst.Add(keyValues);
                     }
                 }
-                catch { }
 
                 return lst;
             }
@@ -94,7 +89,7 @@ namespace Sysadmin.WMI.Services
 
                 object obj = null;
 
-                foreach (ManagementObject item in searcher.Get())
+                foreach (ManagementObject item in searcher.Get().OfType<ManagementObject>())
                 {
                     if (args != null && args.Count > 0)
                         obj = item.InvokeMethod(methodName, args.ToArray());

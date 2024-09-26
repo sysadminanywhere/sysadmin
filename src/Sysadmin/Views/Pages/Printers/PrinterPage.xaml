@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Sysadmin.Views.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:converters="clr-namespace:SysAdmin.Converters"
+    xmlns:converters="clr-namespace:Sysadmin.Converters"
     xmlns:models="clr-namespace:Sysadmin.Models"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="Printer"
@@ -18,6 +18,7 @@
     mc:Ignorable="d">
     <Page.Resources>
         <converters:EmptyToCollapsedConverter x:Key="EmptyToCollapsedConverter"/>
+        <converters:ListToStringConverter x:Key="ListToStringConverter"/>
     </Page.Resources>
     
     <Grid Margin="16,0">
@@ -80,7 +81,7 @@
             <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="2" Grid.Column="1" Text="{Binding ViewModel.Printer.PortName}" />
 
             <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="3" Grid.Column="0" Text="Print media supported" />
-            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="3" Grid.Column="1" Text="{Binding ViewModel.Printer.PrintMediaSupported, Converter={StaticResource ListToStringConverter}, Mode=OneWay}" />
+            <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="3" Grid.Column="1" Text="{Binding ViewModel.Printer.PrintMediaSupported, Converter={StaticResource ListToStringConverter}, Mode=OneWay}" TextWrapping="Wrap" />
 
             <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="4" Grid.Column="0" Text="Print color" />
             <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="4" Grid.Column="1" Text="{Binding ViewModel.Printer.PrintColor}" />

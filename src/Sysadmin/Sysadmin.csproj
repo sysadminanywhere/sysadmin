@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -9,10 +9,10 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>applicationIcon.ico</ApplicationIcon>
     <Title>Sysadmin</Title>
-	<AssemblyVersion>10.0.0</AssemblyVersion>
-	<Version>10.0.0</Version>
-	<FileVersion>10.0.0</FileVersion>
-	<Copyright>Copyright 2015-2023 Sysadmin Anywhere - All Rights Reserved</Copyright>
+	<AssemblyVersion>10.4.2</AssemblyVersion>
+	<Version>10.4.2</Version>
+	<FileVersion>10.4.2</FileVersion>
+	<Copyright>Copyright 2015-2024 Sysadmin Anywhere - All Rights Reserved</Copyright>
 	<Company>Sysadmin Anywhere</Company>
 	<Authors>Sysadmin Anywhere</Authors>
     <PackageProjectUrl>https://sysadminanywhere.com</PackageProjectUrl>
@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\StoreLogo.bmp" />
     <Resource Include="Assets\StoreLogo.ico" />
     <Content Include="applicationIcon.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
@@ -35,16 +36,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FastReport.OpenSource.Export.PdfSimple" Version="2023.3.0" />
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="Autoupdater.NET.Official" Version="1.8.4" />
+    <PackageReference Include="FastReport.OpenSource.Export.PdfSimple" Version="2024.1.3" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="WPF-UI" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="applicationIcon.ico" />
+    <None Remove="Assets\StoreLogo.bmp" />
     <None Remove="Assets\StoreLogo.ico" />
   </ItemGroup>
 

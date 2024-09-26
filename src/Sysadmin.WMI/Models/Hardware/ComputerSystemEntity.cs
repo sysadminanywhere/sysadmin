@@ -8,7 +8,7 @@ namespace Sysadmin.WMI.Models.Hardware
     {
 
         [WMIAttribute("AdminPasswordStatus")]
-        public int AdminPasswordStatus { get; set; }
+        public long AdminPasswordStatus { get; set; }
 
         [WMIAttribute("AutomaticManagedPagefile")]
         public bool AutomaticManagedPagefile { get; set; }
@@ -38,7 +38,7 @@ namespace Sysadmin.WMI.Models.Hardware
         public string Caption { get; set; }
 
         [WMIAttribute("ChassisBootupState")]
-        public int ChassisBootupState { get; set; }
+        public long ChassisBootupState { get; set; }
 
         [WMIAttribute("ChassisSKUNumber")]
         public string ChassisSKUNumber { get; set; }
@@ -47,7 +47,7 @@ namespace Sysadmin.WMI.Models.Hardware
         public string CreationClassName { get; set; }
 
         [WMIAttribute("CurrentTimeZone")]
-        public int CurrentTimeZone { get; set; }
+        public long CurrentTimeZone { get; set; }
 
         [WMIAttribute("DaylightInEffect")]
         public string DaylightInEffect { get; set; }
@@ -62,13 +62,13 @@ namespace Sysadmin.WMI.Models.Hardware
         public string Domain { get; set; }
 
         [WMIAttribute("DomainRole")]
-        public int DomainRole { get; set; }
+        public long DomainRole { get; set; }
 
         [WMIAttribute("EnableDaylightSavingsTime")]
         public bool EnableDaylightSavingsTime { get; set; }
 
         [WMIAttribute("FrontPanelResetStatus")]
-        public int FrontPanelResetStatus { get; set; }
+        public long FrontPanelResetStatus { get; set; }
 
         [WMIAttribute("HypervisorPresent")]
         public bool HypervisorPresent { get; set; }
@@ -83,7 +83,7 @@ namespace Sysadmin.WMI.Models.Hardware
         public string InstallDate { get; set; }
 
         [WMIAttribute("KeyboardPasswordStatus")]
-        public int KeyboardPasswordStatus { get; set; }
+        public long KeyboardPasswordStatus { get; set; }
 
         [WMIAttribute("LastLoadInfo")]
         public int LastLoadInfo { get; set; }
@@ -104,10 +104,10 @@ namespace Sysadmin.WMI.Models.Hardware
         public bool NetworkServerModeEnabled { get; set; }
 
         [WMIAttribute("NumberOfLogicalProcessors")]
-        public int NumberOfLogicalProcessors { get; set; }
+        public long NumberOfLogicalProcessors { get; set; }
 
         [WMIAttribute("NumberOfProcessors")]
-        public int NumberOfProcessors { get; set; }
+        public long NumberOfProcessors { get; set; }
 
         [WMIAttribute("OEMLogoBitmap")]
         public string OEMLogoBitmap { get; set; }
@@ -119,13 +119,13 @@ namespace Sysadmin.WMI.Models.Hardware
         public bool PartOfDomain { get; set; }
 
         [WMIAttribute("PauseAfterReset")]
-        public int PauseAfterReset { get; set; }
+        public long PauseAfterReset { get; set; }
 
         [WMIAttribute("PCSystemType")]
-        public int PCSystemType { get; set; }
+        public long PCSystemType { get; set; }
 
         [WMIAttribute("PCSystemTypeEx")]
-        public int PCSystemTypeEx { get; set; }
+        public long PCSystemTypeEx { get; set; }
 
         [WMIAttribute("PowerManagementCapabilities")]
         public string PowerManagementCapabilities { get; set; }
@@ -134,13 +134,13 @@ namespace Sysadmin.WMI.Models.Hardware
         public string PowerManagementSupported { get; set; }
 
         [WMIAttribute("PowerOnPasswordStatus")]
-        public int PowerOnPasswordStatus { get; set; }
+        public long PowerOnPasswordStatus { get; set; }
 
         [WMIAttribute("PowerState")]
-        public int PowerState { get; set; }
+        public long PowerState { get; set; }
 
         [WMIAttribute("PowerSupplyState")]
-        public int PowerSupplyState { get; set; }
+        public long PowerSupplyState { get; set; }
 
         [WMIAttribute("PrimaryOwnerContact")]
         public string PrimaryOwnerContact { get; set; }
@@ -149,13 +149,13 @@ namespace Sysadmin.WMI.Models.Hardware
         public string PrimaryOwnerName { get; set; }
 
         [WMIAttribute("ResetCapability")]
-        public int ResetCapability { get; set; }
+        public long ResetCapability { get; set; }
 
         [WMIAttribute("ResetCount")]
-        public int ResetCount { get; set; }
+        public long ResetCount { get; set; }
 
         [WMIAttribute("ResetLimit")]
-        public int ResetLimit { get; set; }
+        public long ResetLimit { get; set; }
 
         [WMIAttribute("Roles")]
         public List<string> Roles { get; set; }
@@ -185,7 +185,7 @@ namespace Sysadmin.WMI.Models.Hardware
         public string SystemType { get; set; }
 
         [WMIAttribute("ThermalState")]
-        public int ThermalState { get; set; }
+        public long ThermalState { get; set; }
 
         [WMIAttribute("TotalPhysicalMemory")]
         public long TotalPhysicalMemory { get; set; }
@@ -194,7 +194,7 @@ namespace Sysadmin.WMI.Models.Hardware
         public string UserName { get; set; }
 
         [WMIAttribute("WakeUpType")]
-        public int WakeUpType { get; set; }
+        public long WakeUpType { get; set; }
 
         [WMIAttribute("Workgroup")]
         public string Workgroup { get; set; }

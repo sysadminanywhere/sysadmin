@@ -45,26 +45,14 @@ namespace Sysadmin.Views.Pages
 
         private void sslCheck_Checked(object sender, RoutedEventArgs e)
         {
-            ViewModel.Port = "636";
+            ViewModel.Port = 636;
         }
 
         private void sslCheck_Unchecked(object sender, RoutedEventArgs e)
         {
-            ViewModel.Port = "389";
+            ViewModel.Port = 389;
         }
 
-        private void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            if (btnLogin != null)
-            {
-                TextBox txt = (TextBox)sender;
-                Regex regex = new Regex("[^0-9]+");
-                if (regex.IsMatch(txt.Text))
-                    btnLogin.IsEnabled = false;
-                else
-                    btnLogin.IsEnabled = true;
-            }
-        }
     }
 
 }

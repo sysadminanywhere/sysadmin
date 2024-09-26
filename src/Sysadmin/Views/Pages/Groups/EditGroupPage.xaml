@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Sysadmin.Views.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:converters="clr-namespace:SysAdmin.Converters"
+    xmlns:converters="clr-namespace:Sysadmin.Converters"
     xmlns:models="clr-namespace:Sysadmin.Models"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="Edit Group"
@@ -43,7 +43,7 @@
             <ui:Button Appearance="Secondary" IsCancel="True" MinWidth="60" Command="{Binding ViewModel.CloseCommand}" >Cancel</ui:Button>
         </WrapPanel>
 
-        <ui:Snackbar Grid.RowSpan="3" VerticalAlignment="Top" x:Name="snackbar" Appearance="Danger" Title="Error" Icon="ErrorCircle12" Message="Error" Timeout="5000" />
+        <ui:Snackbar Grid.RowSpan="3" VerticalAlignment="Bottom" x:Name="snackbar" Appearance="Danger" Title="Error" Icon="ErrorCircle12" Message="Error" Timeout="5000" />
 
     </Grid>
 

@@ -35,7 +35,7 @@ namespace Sysadmin.Controls
             this.InitializeComponent();
         }
 
-        public async void Load()
+        public async Task Load()
         {
 
             progressRing.Visibility = Visibility.Visible;

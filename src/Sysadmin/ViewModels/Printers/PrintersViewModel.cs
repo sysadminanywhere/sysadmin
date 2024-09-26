@@ -21,9 +21,9 @@ namespace Sysadmin.ViewModels
         private IExchangeService _exchangeService;
 
         [ObservableProperty]
-        private IEnumerable<PrinterEntry> _printers;
+        private IEnumerable<PrinterEntry> _printers = new List<PrinterEntry>();
 
-        private List<PrinterEntry> cache;
+        private List<PrinterEntry> cache = new List<PrinterEntry>();
 
         [ObservableProperty]
         private bool _isBusy;
@@ -43,6 +43,8 @@ namespace Sysadmin.ViewModels
                 InitializeViewModel();
 
             await ListAsync();
+
+            SortingAndFiltering();
         }
 
         public void OnNavigatedFrom()
@@ -55,15 +57,9 @@ namespace Sysadmin.ViewModels
         }
 
         [RelayCommand]
-        private void OnAdd()
-        {
-
-        }
-
-        [RelayCommand]
         private void OnSelectedItemsChanged(IEnumerable<object> items)
         {
-            if (items != null && items.Count() > 0)
+            if (items.Any())
             {
                 _exchangeService.SetParameter((PrinterEntry)items.First());
                 _navigationService.Navigate(typeof(Views.Pages.PrinterPage));

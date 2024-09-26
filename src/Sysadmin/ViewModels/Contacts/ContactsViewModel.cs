@@ -21,9 +21,9 @@ namespace Sysadmin.ViewModels
         private IExchangeService _exchangeService;
 
         [ObservableProperty]
-        private IEnumerable<ContactEntry> _contacts;
+        private IEnumerable<ContactEntry> _contacts = new List<ContactEntry>();
 
-        private List<ContactEntry> cache;
+        private List<ContactEntry> cache = new List<ContactEntry>();
 
         [ObservableProperty]
         private bool _isBusy;
@@ -43,6 +43,8 @@ namespace Sysadmin.ViewModels
                 InitializeViewModel();
 
             await ListAsync();
+
+            SortingAndFiltering();
         }
 
         public void OnNavigatedFrom()
@@ -63,7 +65,7 @@ namespace Sysadmin.ViewModels
         [RelayCommand]
         private void OnSelectedItemsChanged(IEnumerable<object> items)
         {
-            if (items != null && items.Count() > 0)
+            if (items.Any())
             {
                 _exchangeService.SetParameter((ContactEntry)items.First());
                 _navigationService.Navigate(typeof(Views.Pages.ContactPage));

@@ -114,6 +114,39 @@ namespace SysAdmin.ActiveDirectory.Repositories
             return null;
         }
 
+        public async Task AddAsync(string distinguishedName, UserEntry user)
+        {
+            if (user == null)
+                throw new ArgumentNullException(nameof(user));
+
+            if (string.IsNullOrEmpty(user.CN))
+                throw new ArgumentNullException(nameof(user.CN));
+
+            if (string.IsNullOrEmpty(user.UserPrincipalName))
+                user.UserPrincipalName = user.SamAccountName + "@" + ldapService.DomainName;
+
+            List<string> attributes = new List<string>
+            {
+                "displayName",
+                "initials",
+                "givenName",
+                "sn",
+                "sAMAccountName",
+                "userPrincipalName"
+            };
+
+            if (string.IsNullOrEmpty(distinguishedName))
+            {
+                string cn = "cn=" + user.CN + "," + new ADContainers(ldapService).GetUsersContainer();
+                await ldapService.AddAsync(LdapResolver.GetLdapEntry(cn, user, attributes));
+            }
+            else
+            {
+                string cn = "cn=" + user.CN + "," + distinguishedName;
+                await ldapService.AddAsync(LdapResolver.GetLdapEntry(cn, user, attributes));
+            }
+        }
+
         public async Task<UserEntry?> ModifyAsync(UserEntry user)
         {
             if (user == null)
@@ -243,7 +276,13 @@ namespace SysAdmin.ActiveDirectory.Repositories
 
         public void Dispose()
         {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
+        protected virtual void Dispose(bool disposing)
+        {
+            ldapService?.Dispose();
         }
 
     }

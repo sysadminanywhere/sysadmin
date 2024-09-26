@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:Sysadmin.Models"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml" 
-    xmlns:converters="clr-namespace:SysAdmin.Converters"
+    xmlns:converters="clr-namespace:Sysadmin.Converters"
     Title="Login"
     d:DataContext="{d:DesignInstance local:LoginPage,
                                      IsDesignTimeCreatable=False}"
@@ -67,9 +67,9 @@
                                    Style="{StaticResource FormLabelStyle}"
                                     VerticalAlignment="Center"
                                     Margin="0,0,4,0" />
-                        <ui:TextBox Text="{Binding ViewModel.Port}" TextChanged="TextBox_TextChanged" />
+                            <ui:NumberBox Minimum="1" Maximum="32768" Value="{Binding ViewModel.Port}" InputScope="Number" SpinButtonPlacementMode="Hidden" />
 
-                        <TextBlock Text="SSL" 
+                            <TextBlock Text="SSL" 
                                    Style="{StaticResource FormLabelStyle}"
                                     VerticalAlignment="Center"
                                     Margin="30,0,4,0" />
@@ -89,15 +89,16 @@
 
         <ui:Button x:Name="btnLogin"
                    Content="Login"
-                    Grid.Row="2"
-                    Margin="4,16,4,4" 
-                    HorizontalAlignment="Right" 
-                    Appearance="Primary"
-                    Command="{Binding ViewModel.LoginCommand, Mode=OneWay}"/>
+                   Grid.Row="2"
+                   Margin="4,16,4,4" 
+                   HorizontalAlignment="Right" 
+                   Appearance="Primary"
+                   IsDefault="True"
+                   Command="{Binding ViewModel.LoginCommand, Mode=OneWay}"/>
 
     </Grid>
 
-    <ui:Snackbar VerticalAlignment="Top" x:Name="snackbar" Appearance="Danger" Title="Error" Icon="ErrorCircle12" Message="Connection error" Timeout="5000" />
+    <ui:Snackbar VerticalAlignment="Bottom" x:Name="snackbar" Appearance="Danger" Title="Error" Icon="ErrorCircle12" Message="Connection error" Timeout="5000" />
 
     </Grid>
 

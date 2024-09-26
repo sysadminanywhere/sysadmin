@@ -14,7 +14,7 @@ namespace IntegrationsTests
         [OneTimeSetUp]
         public void GlobalSetup()
         {
-            SERVER = new SecureServer("192.168.0.107");
+            SERVER = new SecureServer("192.168.245.129");
 
             CREDENTIAL = new Credential()
             {

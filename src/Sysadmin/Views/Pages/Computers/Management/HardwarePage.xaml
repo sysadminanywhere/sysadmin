@@ -1,0 +1,118 @@
+﻿<ui:UiPage
+    x:Class="Sysadmin.Views.Pages.HardwarePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Sysadmin.Views.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="clr-namespace:Sysadmin.Converters"
+    xmlns:models="clr-namespace:Sysadmin.Models"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="Hardware"
+    d:DataContext="{d:DesignInstance local:HardwarePage,
+                                     IsDesignTimeCreatable=False}"
+    d:DesignHeight="800"
+    d:DesignWidth="800"
+    d:Background="{DynamicResource ApplicationBackgroundBrush}"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <converters:EmptyToCollapsedConverter x:Key="EmptyToCollapsedConverter"/>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </Page.Resources>
+
+    <Grid Margin="16,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <ui:Button 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Center" 
+                Appearance="Transparent"
+                Command="{Binding ViewModel.CloseCommand}" 
+                Content="&lt;" />
+
+            <StackPanel 
+                Grid.Column="0" 
+                Margin="40,24,24,24">
+
+                <TextBlock                
+                    Text="Hardware"
+                    Style="{StaticResource TitleTextBlockStyle}"/>
+
+                <TextBlock 
+                    Text="{Binding ViewModel.Computer.CN}"
+                    Style="{StaticResource SubTitleDetailPageStyle}"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <ListBox Width="250">
+                <ListBoxItem Content="Computer system" Tag="computersystem" Selected="ListBoxItem_Selected" />
+                <ListBoxItem Content="BIOS" Tag="bios"  Selected="ListBoxItem_Selected" />
+                <ListBoxItem Content="Base board" Tag="baseboard" Selected="ListBoxItem_Selected" />
+                <ListBoxItem Content="Disk drive" Tag="diskdrive" Selected="ListBoxItem_Selected" />
+                <ListBoxItem Content="Operating system" Tag="operatingsystem" Selected="ListBoxItem_Selected" />
+                <ListBoxItem Content="Disk partition" Tag="diskpartition" Selected="ListBoxItem_Selected" />
+                <ListBoxItem Content="Processor" Tag="processor" Selected="ListBoxItem_Selected" />
+                <ListBoxItem Content="Video controller" Tag="videocontroller" Selected="ListBoxItem_Selected" />
+                <ListBoxItem Content="Physical memory" Tag="physicalmemory" Selected="ListBoxItem_Selected" />
+                <ListBoxItem Content="Logical disk" Tag="logicaldisk" Selected="ListBoxItem_Selected" />
+            </ListBox>
+
+            <Grid Grid.Column="1" Margin="8,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <ComboBox
+                    x:Name="comboBox"
+                    Grid.Row="0"
+                    Margin="16,0,16,16"
+                    Visibility="Collapsed"
+                    DisplayMemberPath="Name"
+                    Focusable="False" 
+                    IsEditable="True" 
+                    IsReadOnly="True"
+                    Text="-- Select an item --"
+                    SelectionChanged="comboBox_SelectionChanged" />
+
+                <ui:DataGrid
+                    Grid.Row="1"
+                    IsTabStop="False"
+                    CanUserSortColumns="True"
+                    AutoGenerateColumns="False"
+                    IsReadOnly="True"
+                    GridLinesVisibility="Horizontal"
+                    ItemsSource="{Binding ViewModel.Items, Mode=OneWay}" 
+                    CanUserResizeColumns="True">
+                    <ui:DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Name}" Header="Name" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                        <DataGridTextColumn Binding="{Binding Value}" Header="Value" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                    </ui:DataGrid.Columns>
+                </ui:DataGrid>
+
+
+            </Grid>
+
+        </Grid>
+
+        <ui:ProgressRing IsIndeterminate="True" Grid.Row="1" Visibility="{Binding ViewModel.IsBusy, Converter={StaticResource BoolToVisibilityConverter}}" />
+        <ui:Snackbar Grid.RowSpan="3" VerticalAlignment="Bottom" x:Name="snackbar" Appearance="Danger" Title="Error" Icon="ErrorCircle12" Message="Error" Timeout="5000" />
+
+    </Grid>
+</ui:UiPage>

@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="Sysadmin.Controls.MemberOfControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"  
+             xmlns:local="clr-namespace:Sysadmin.Controls"
+             x:Name="self"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="200">
+
+    <ui:Card Margin="0">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <TextBlock Text="Member of" Margin="0" HorizontalAlignment="Left" FontWeight="Bold"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button x:Name="addButton" Content="+" Click="addButton_Click"/>
+                    <Button x:Name="deleteButton" Content="-" IsEnabled="False" Click="deleteButton_Click"/>
+                </StackPanel>
+                <ui:Flyout Name="flyout">
+                    <local:SelectControl x:Name="selectControl" SelectedItem="selectControl_SelectedItem" />
+                </ui:Flyout>
+            </Grid>
+
+            <ListView Grid.Row="1" ItemsSource="{Binding Items, ElementName=self}" SelectedItem="{Binding Selected, ElementName=self, Mode=TwoWay}" Margin="0,8,0,0">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" Style="{StaticResource ListDescriptionStyle}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </Grid>
+
+    </ui:Card>
+</UserControl>

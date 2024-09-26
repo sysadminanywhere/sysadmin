@@ -42,7 +42,8 @@ namespace Sysadmin.Views.Pages
 
         private void AutoSuggestBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-
+            if (sender is AutoSuggestBox)
+                ViewModel.SearchCommand.Execute(((AutoSuggestBox)sender).Text);
         }
     }
 }

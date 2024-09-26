@@ -80,6 +80,12 @@ namespace Sysadmin
                 services.AddScoped<Views.Pages.EditUserPage>();
                 services.AddScoped<Views.Pages.UserOptionsPage>();
                 services.AddScoped<Views.Pages.ResetPasswordPage>();
+                services.AddScoped<Views.Pages.EventsPage>();
+                services.AddScoped<Views.Pages.HardwarePage>();
+                services.AddScoped<Views.Pages.PerformancePage>();
+                services.AddScoped<Views.Pages.ProcessesPage>();
+                services.AddScoped<Views.Pages.ServicesPage>();
+                services.AddScoped<Views.Pages.SoftwarePage>();
 
                 services.AddScoped<ViewModels.ComputersViewModel>();
                 services.AddScoped<ViewModels.ContactsViewModel>();
@@ -104,6 +110,12 @@ namespace Sysadmin
                 services.AddScoped<ViewModels.EditGroupViewModel>();
                 services.AddScoped<ViewModels.UserOptionsViewModel>();
                 services.AddScoped<ViewModels.ResetPasswordViewModel>();
+                services.AddScoped<ViewModels.EventsViewModel>();
+                services.AddScoped<ViewModels.HardwareViewModel>();
+                services.AddScoped<ViewModels.PerformanceViewModel>();
+                services.AddScoped<ViewModels.ProcessesViewModel>();
+                services.AddScoped<ViewModels.ServicesViewModel>();
+                services.AddScoped<ViewModels.SoftwareViewModel>();
 
                 services.AddSingleton<ISettingsService, SettingsService>();
                 services.AddSingleton<IStateService, StateService>();
@@ -150,9 +162,9 @@ namespace Sysadmin
             // For more info see https://docs.microsoft.com/en-us/dotnet/api/system.windows.application.dispatcherunhandledexception?view=windowsdesktop-6.0
         }
 
-        public static IServer SERVER = null;
-        public static ICredential CREDENTIAL = null;
-        public static ADContainers CONTAINERS = null;
+        public static IServer? SERVER = null;           //NOSONAR
+        public static ICredential? CREDENTIAL = null;   //NOSONAR
+        public static ADContainers? CONTAINERS = null;  //NOSONAR
 
     }
 }
