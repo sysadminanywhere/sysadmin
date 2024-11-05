@@ -20,7 +20,7 @@
 	+ Sort
 6. User
 	+ Add (+Deafault password, +Checkboxes, +Options, +Check Password and Confirm password)
-	- Photo
+	+ Photo (thumbnailPhoto + jpegPhoto)
 	+ Options
 	+ Reset password
 7. Groups
