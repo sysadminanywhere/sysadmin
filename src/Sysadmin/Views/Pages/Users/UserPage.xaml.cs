@@ -8,6 +8,7 @@ using Wpf.Ui.Common.Interfaces;
 using Microsoft.Win32;
 using System.IO;
 using Wpf.Ui.Controls;
+using System.Windows.Forms;
 
 namespace Sysadmin.Views.Pages
 {
@@ -57,12 +58,13 @@ namespace Sysadmin.Views.Pages
         {
             try
             {
-                OpenFileDialog openFileDialog = new OpenFileDialog();
+                Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
                 openFileDialog.Multiselect = false;
                 openFileDialog.Filter = "Image files (*.jpg;*.jpeg)|*.jpg;*.jpeg|All files (*.*)|*.*";
                 if (openFileDialog.ShowDialog() == true)
                 {
                     await ViewModel.UpdatePhoto(ViewModel.User.DistinguishedName, File.ReadAllBytes(openFileDialog.FileName));
+                    await ViewModel.Get();
                     personPicture.JpegPhoto = ViewModel.User.JpegPhoto;
                 }
             }
@@ -83,5 +85,11 @@ namespace Sysadmin.Views.Pages
             snackbar.Show();
         }
 
+        private async void btnDeletePhoto_Click(object sender, RoutedEventArgs e)
+        {
+            await ViewModel.DeletePhoto(ViewModel.User.DistinguishedName);
+            await ViewModel.Get();
+            personPicture.JpegPhoto = null;
+        }
     }
 }

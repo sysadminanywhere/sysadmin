@@ -129,6 +129,11 @@
                 </Grid.RowDefinitions>
 
                 <controls:PersonPictureControl x:Name="personPicture" Grid.Row="0" Grid.ColumnSpan="2" Width="100" Height="100" HorizontalAlignment="Left" Margin="0,0,0,8" DisplayName="{Binding ViewModel.User.DisplayName}" ProfilePicture="{Binding ViewModel.User.JpegPhoto, Mode=OneWay, Converter={StaticResource PhotoToSourceConverter}}" />
+                <Button x:Name="btnDeletePhoto" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Top" Click="btnDeletePhoto_Click">
+                    <Button.Content>
+                        <ui:SymbolIcon Symbol="Delete16"/>
+                    </Button.Content>
+                </Button>
 
                 <TextBlock Style="{StaticResource TableDetailNameStyle}"  Grid.Row="1" Grid.Column="0" Text="Display name" />
                 <TextBlock Style="{StaticResource TableDetailValueStyle}" Grid.Row="1" Grid.Column="1" Text="{Binding ViewModel.User.DisplayName, Mode=OneWay}" />
