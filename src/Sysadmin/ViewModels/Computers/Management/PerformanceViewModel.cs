@@ -1,21 +1,17 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Sysadmin.Services;
-using Sysadmin.WMI;
-using Sysadmin.WMI.Models;
 using Sysadmin.WMI.Services;
 using SysAdmin.ActiveDirectory.Models;
-using SysAdmin.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class PerformanceViewModel : ObservableObject, INavigationAware
+    public partial class PerformanceViewModel : ViewModel
     {
         private bool _isInitialized = false;
 
@@ -51,7 +47,7 @@ namespace Sysadmin.ViewModels
             _exchangeService = exchangeService;
         }
 
-        public async void OnNavigatedTo()
+        public override async void OnNavigatedTo()
         {
             IsClosed = false;
 
@@ -65,7 +61,7 @@ namespace Sysadmin.ViewModels
             }
         }
 
-        public void OnNavigatedFrom()
+        public override void OnNavigatedFrom()
         {
             IsClosed = true;
         }

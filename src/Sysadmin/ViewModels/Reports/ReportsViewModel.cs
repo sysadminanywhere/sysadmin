@@ -1,21 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Sysadmin.Models;
 using Sysadmin.Services;
 using Sysadmin.Services.Reports;
-using SysAdmin.ActiveDirectory.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Media;
-using Wpf.Ui.Common.Interfaces;
-using Wpf.Ui.Controls;
 using Wpf.Ui.Mvvm.Contracts;
 
 
 namespace Sysadmin.ViewModels
 {
-    public partial class ReportsViewModel : ObservableObject, INavigationAware
+    public partial class ReportsViewModel : ViewModel
     {
         private bool _isInitialized = false;
 
@@ -31,14 +25,10 @@ namespace Sysadmin.ViewModels
             _exchangeService = exchangeService;
         }
 
-        public void OnNavigatedTo()
+        public override void OnNavigatedTo()
         {
             if (!_isInitialized)
                 InitializeViewModel();
-        }
-
-        public void OnNavigatedFrom()
-        {
         }
 
         private void InitializeViewModel()

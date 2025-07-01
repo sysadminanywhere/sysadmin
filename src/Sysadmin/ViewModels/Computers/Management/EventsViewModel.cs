@@ -14,7 +14,7 @@ using Wpf.Ui.Mvvm.Contracts;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class EventsViewModel : ObservableObject, INavigationAware
+    public partial class EventsViewModel : ViewModel
     {
         private bool _isInitialized = false;
 
@@ -39,7 +39,7 @@ namespace Sysadmin.ViewModels
             _exchangeService = exchangeService;
         }
 
-        public async void OnNavigatedTo()
+        public override async void OnNavigatedTo()
         {
             if (!_isInitialized)
                 InitializeViewModel();
@@ -49,11 +49,6 @@ namespace Sysadmin.ViewModels
                 Computer = entry;
                 await Get(Computer.DnsHostName, EventsFilter.TodayErrors);
             }
-        }
-
-        public void OnNavigatedFrom()
-        {
-
         }
 
         private void InitializeViewModel()

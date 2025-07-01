@@ -2,13 +2,11 @@
 using Sysadmin.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Sysadmin.Services.Reports;
-using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
-using SysAdmin.ActiveDirectory.Models;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class ReportViewModel : ObservableObject, INavigationAware
+    public partial class ReportViewModel : ViewModel
     {
 
         private bool _isInitialized = false;
@@ -29,17 +27,13 @@ namespace Sysadmin.ViewModels
             _exchangeService = exchangeService;
         }
 
-        public void OnNavigatedTo()
+        public override void OnNavigatedTo()
         {
             if (!_isInitialized)
                 InitializeViewModel();
 
             if (_exchangeService.GetParameter() is IReport entry)
                 Report = entry;
-        }
-
-        public void OnNavigatedFrom()
-        {
         }
 
         private void InitializeViewModel()

@@ -1,10 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Sysadmin.Services;
 using SysAdmin.ActiveDirectory.Models;
 using System.Threading.Tasks;
 using System;
-using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
 using LdapForNet;
 using SysAdmin.ActiveDirectory.Services.Ldap;
@@ -13,7 +11,7 @@ using System.Security;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class AddUserViewModel : ObservableObject, INavigationAware
+    public partial class AddUserViewModel : ViewModel
     {
         private bool _isInitialized = false;
 
@@ -49,15 +47,10 @@ namespace Sysadmin.ViewModels
             _navigationService = navigationService;
         }
 
-        public void OnNavigatedTo()
+        public override void OnNavigatedTo()
         {
             if (!_isInitialized)
                 InitializeViewModel();
-        }
-
-        public void OnNavigatedFrom()
-        {
-
         }
 
         private void InitializeViewModel()

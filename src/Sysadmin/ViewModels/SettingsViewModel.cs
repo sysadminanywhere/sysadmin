@@ -1,14 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Extensions.DependencyInjection;
 using SysAdmin.Services;
 using System;
-using System.Windows.Input;
-using Wpf.Ui.Common.Interfaces;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class SettingsViewModel : ObservableObject, INavigationAware
+    public partial class SettingsViewModel : ViewModel
     {
         private bool _isInitialized = false;
 
@@ -25,14 +22,10 @@ namespace Sysadmin.ViewModels
             this.settings = settings;
         }
 
-        public void OnNavigatedTo()
+        public override void OnNavigatedTo()
         {
             if (!_isInitialized)
                 InitializeViewModel();
-        }
-
-        public void OnNavigatedFrom()
-        {
         }
 
         private void InitializeViewModel()

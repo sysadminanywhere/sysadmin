@@ -8,12 +8,11 @@ using SysAdmin.ActiveDirectory.Repositories;
 using SysAdmin.ActiveDirectory.Services.Ldap;
 using System;
 using System.Threading.Tasks;
-using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class ComputerViewModel : ObservableObject, INavigationAware
+    public partial class ComputerViewModel : ViewModel
     {
         private bool _isInitialized = false;
 
@@ -35,18 +34,13 @@ namespace Sysadmin.ViewModels
             _exchangeService = exchangeService;
         }
 
-        public void OnNavigatedTo()
+        public override void OnNavigatedTo()
         {
             if (!_isInitialized)
                 InitializeViewModel();
 
             if (_exchangeService.GetParameter() is ComputerEntry entry)
                 Computer = entry;
-        }
-
-        public void OnNavigatedFrom()
-        {
-
         }
 
         private void InitializeViewModel()

@@ -5,13 +5,12 @@ using SysAdmin.ActiveDirectory.Services.Ldap;
 using SysAdmin.Models;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Wpf.Ui.Common.Interfaces;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class DashboardViewModel : ObservableObject, INavigationAware
+    public partial class DashboardViewModel : ViewModel
     {
         [ObservableProperty]
         private string _domainName;
@@ -37,13 +36,9 @@ namespace Sysadmin.ViewModels
         [ObservableProperty]
         private IEnumerable<AuditItem> _auditList;
 
-        public async void OnNavigatedTo()
+        public override async void OnNavigatedTo()
         {
             await GetAsync();
-        }
-
-        public void OnNavigatedFrom()
-        {
         }
 
         public async Task GetAsync()

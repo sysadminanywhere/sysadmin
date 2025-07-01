@@ -9,12 +9,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class ServicesViewModel : ObservableObject, INavigationAware
+    public partial class ServicesViewModel : ViewModel
     {
         private bool _isInitialized = false;
 
@@ -42,7 +41,7 @@ namespace Sysadmin.ViewModels
             _exchangeService = exchangeService;
         }
 
-        public async void OnNavigatedTo()
+        public override async void OnNavigatedTo()
         {
             if (!_isInitialized)
                 InitializeViewModel();
@@ -52,11 +51,6 @@ namespace Sysadmin.ViewModels
                 Computer = entry;
                 await Get(Computer.DnsHostName);
             }
-        }
-
-        public void OnNavigatedFrom()
-        {
-
         }
 
         private void InitializeViewModel()

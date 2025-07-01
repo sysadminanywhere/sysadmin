@@ -4,16 +4,14 @@ using Sysadmin.Services;
 using SysAdmin.ActiveDirectory.Models;
 using System.Threading.Tasks;
 using System;
-using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
 using LdapForNet;
 using SysAdmin.ActiveDirectory.Services.Ldap;
 using SysAdmin.ActiveDirectory.Repositories;
-using System.Security;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class EditUserViewModel : ObservableObject, INavigationAware
+    public partial class EditUserViewModel : ViewModel
     {
         private bool _isInitialized = false;
 
@@ -32,18 +30,13 @@ namespace Sysadmin.ViewModels
             _exchangeService = exchangeService;
         }
 
-        public void OnNavigatedTo()
+        public override void OnNavigatedTo()
         {
             if (!_isInitialized)
                 InitializeViewModel();
 
             if (_exchangeService.GetParameter() is UserEntry entry)
                 User = entry;
-        }
-
-        public void OnNavigatedFrom()
-        {
-
         }
 
         private void InitializeViewModel()

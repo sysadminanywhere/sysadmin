@@ -5,12 +5,11 @@ using SysAdmin.ActiveDirectory.Services.Ldap;
 using SysAdmin.Services;
 using System.Security;
 using System.Threading.Tasks;
-using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class LoginViewModel : ObservableObject, INavigationAware
+    public partial class LoginViewModel : ViewModel
     {
         private bool _isInitialized = false;
 
@@ -55,7 +54,7 @@ namespace Sysadmin.ViewModels
             this.settingsService = settingsService;
         }
 
-        public void OnNavigatedTo()
+        public override void OnNavigatedTo()
         {
             if (!_isInitialized)
                 InitializeViewModel();
@@ -67,10 +66,6 @@ namespace Sysadmin.ViewModels
             UserName = settingsService.UserName;
             Port = settingsService.ServerPort;
             Ssl = settingsService.IsSSL;
-        }
-
-        public void OnNavigatedFrom()
-        {
         }
 
         private void InitializeViewModel()

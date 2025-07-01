@@ -4,18 +4,16 @@ using Sysadmin.Services;
 using Sysadmin.WMI;
 using Sysadmin.WMI.Models;
 using Sysadmin.WMI.Services;
-using SysAdmin.ActiveDirectory;
 using SysAdmin.ActiveDirectory.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class ProcessesViewModel : ObservableObject, INavigationAware
+    public partial class ProcessesViewModel : ViewModel
     {
         private bool _isInitialized = false;
 
@@ -43,7 +41,7 @@ namespace Sysadmin.ViewModels
             _exchangeService = exchangeService;
         }
 
-        public async void OnNavigatedTo()
+        public override async void OnNavigatedTo()
         {
             if (!_isInitialized)
                 InitializeViewModel();
@@ -53,11 +51,6 @@ namespace Sysadmin.ViewModels
                 Computer = entry;
                 await Get(Computer.DnsHostName);
             }
-        }
-
-        public void OnNavigatedFrom()
-        {
-
         }
 
         private void InitializeViewModel()

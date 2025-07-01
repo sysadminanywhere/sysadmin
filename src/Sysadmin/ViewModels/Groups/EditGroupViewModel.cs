@@ -4,7 +4,6 @@ using Sysadmin.Services;
 using SysAdmin.ActiveDirectory.Models;
 using System.Threading.Tasks;
 using System;
-using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
 using SysAdmin.ActiveDirectory.Services.Ldap;
 using LdapForNet;
@@ -12,7 +11,7 @@ using SysAdmin.ActiveDirectory.Repositories;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class EditGroupViewModel : ObservableObject, INavigationAware
+    public partial class EditGroupViewModel : ViewModel
     {
         private bool _isInitialized = false;
 
@@ -31,18 +30,13 @@ namespace Sysadmin.ViewModels
             _exchangeService = exchangeService;
         }
 
-        public void OnNavigatedTo()
+        public override void OnNavigatedTo()
         {
             if (!_isInitialized)
                 InitializeViewModel();
 
             if (_exchangeService.GetParameter() is GroupEntry entry)
                 Group = entry;
-        }
-
-        public void OnNavigatedFrom()
-        {
-
         }
 
         private void InitializeViewModel()

@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using Sysadmin.Services;
 using Sysadmin.WMI;
-using Sysadmin.WMI.Models;
 using Sysadmin.WMI.Models.Hardware;
 using Sysadmin.WMI.Services;
 using SysAdmin.ActiveDirectory.Models;
@@ -10,12 +9,11 @@ using SysAdmin.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class HardwareViewModel : ObservableObject, INavigationAware
+    public partial class HardwareViewModel : ViewModel
     {
         private bool _isInitialized = false;
 
@@ -40,7 +38,7 @@ namespace Sysadmin.ViewModels
             _exchangeService = exchangeService;
         }
 
-        public async void OnNavigatedTo()
+        public override async void OnNavigatedTo()
         {
             if (!_isInitialized)
                 InitializeViewModel();
@@ -49,11 +47,6 @@ namespace Sysadmin.ViewModels
             {
                 Computer = entry;
             }
-        }
-
-        public void OnNavigatedFrom()
-        {
-
         }
 
         private void InitializeViewModel()
