@@ -41,10 +41,10 @@
 
         <ui:NavigationView
             x:Name="RootNavigation"
-            Padding="42,0,42,0"
+            Padding="0"
             FooterMenuItemsSource="{Binding ViewModel.NavigationFooter, Mode=OneWay}"
             FrameMargin="0"
-            IsBackButtonVisible="Collapsed"
+            IsBackButtonVisible="Visible"
             IsPaneToggleVisible="True"
             MenuItemsSource="{Binding ViewModel.NavigationItems, Mode=OneWay}"
             OpenPaneLength="310"

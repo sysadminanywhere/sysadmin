@@ -110,7 +110,7 @@
             </StackPanel>
         </Grid>
 
-        <ListView
+        <ui:ListView
             Grid.Row="1"
             x:Name="users"
             ItemTemplate="{StaticResource ListViewTemplate}"
@@ -120,7 +120,7 @@
                     <Interactivity:InvokeCommandAction Command="{Binding ViewModel.SelectedItemsChangedCommand}" CommandParameter="{Binding SelectedItems, ElementName=users}" />
                 </Interactivity:EventTrigger>
             </Interactivity:Interaction.Triggers>
-        </ListView>
+        </ui:ListView>
 
         <ui:ProgressRing IsIndeterminate="True" Grid.Row="1" Visibility="{Binding ViewModel.IsBusy, Converter={StaticResource BoolToVisibilityConverter}}" Margin="2,179,-2,179" />
 

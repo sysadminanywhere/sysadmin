@@ -139,6 +139,8 @@ namespace Sysadmin.ViewModels
 
                 stateService.IsLoggedIn = true;
                 mainWindowViewModel.InitializeViewModel();
+
+                navigationService.GetNavigationControl().ClearJournal();
                 navigationService.Navigate(typeof(Views.Pages.DashboardPage));
             }
             else

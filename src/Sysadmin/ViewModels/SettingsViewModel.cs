@@ -45,28 +45,28 @@ namespace Sysadmin.ViewModels
         [RelayCommand]
         private void OnChangeTheme(string parameter)
         {
-            //switch (parameter)
-            //{
-            //    case "theme_light":
-            //        if (CurrentTheme == Wpf.Ui.Appearance.ThemeType.Light)
-            //            break;
+            switch (parameter)
+            {
+                case "theme_light":
+                    if (CurrentTheme == ApplicationTheme.Light)
+                        break;
 
-            //        Wpf.Ui.Appearance.Theme.Apply(Wpf.Ui.Appearance.ThemeType.Light);
-            //        CurrentTheme = Wpf.Ui.Appearance.ThemeType.Light;
+                    ApplicationThemeManager.Apply(ApplicationTheme.Light);
+                    CurrentTheme = ApplicationTheme.Light;
 
-            //        break;
+                    break;
 
-            //    default:
-            //        if (CurrentTheme == Wpf.Ui.Appearance.ThemeType.Dark)
-            //            break;
+                default:
+                    if (CurrentTheme == ApplicationTheme.Dark)
+                        break;
 
-            //        Wpf.Ui.Appearance.Theme.Apply(Wpf.Ui.Appearance.ThemeType.Dark);
-            //        CurrentTheme = Wpf.Ui.Appearance.ThemeType.Dark;
+                    ApplicationThemeManager.Apply(ApplicationTheme.Dark);
+                    CurrentTheme = ApplicationTheme.Dark;
 
-            //        break;
-            //}
+                    break;
+            }
 
-            //settings.ThemeSetting = parameter;
+            settings.ThemeSetting = parameter;
         }
     }
 }

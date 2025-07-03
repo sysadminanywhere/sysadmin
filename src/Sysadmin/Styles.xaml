@@ -76,8 +76,4 @@
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
-    <Style TargetType="ListView">
-        <!--<Setter Property="Background" Value="Transparent"/>-->
-    </Style>
-
 </ResourceDictionary>

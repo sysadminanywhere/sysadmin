@@ -33,16 +33,9 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <ui:Button 
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Center" 
-                Appearance="Transparent"
-                Command="{Binding ViewModel.CloseCommand}" 
-                Content="&lt;" />
-
             <StackPanel 
                 Grid.Column="0" 
-                Margin="40,24,24,24">
+                Margin="24">
 
                 <TextBlock                
                     Text="Processes"
