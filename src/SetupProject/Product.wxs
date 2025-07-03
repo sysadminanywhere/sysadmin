@@ -37,7 +37,7 @@
 					<Directory Id="runtimes" Name="runtimes">
 						<Directory Id="win" Name="win">
 							<Directory Id="winlib" Name="lib">
-								<Directory Id="WINLIBNET6" Name="net6.0" />
+								<Directory Id="WINLIBNET" Name="net8.0" />
 							</Directory>
 						</Directory>
 						<Directory Id="any" Name="any">
@@ -74,6 +74,7 @@
 				<File Id="FastReport.dll" Name="FastReport.dll" Source="$(var.Sysadmin_TargetDir)FastReport.dll" />
 				<File Id="FastReport.OpenSource.Export.PdfSimple.dll" Name="FastReport.OpenSource.Export.PdfSimple.dll" Source="$(var.Sysadmin_TargetDir)FastReport.OpenSource.Export.PdfSimple.dll" />
 				<File Id="FastReport.ReportBuilder.dll" Name="FastReport.ReportBuilder.dll" Source="$(var.Sysadmin_TargetDir)FastReport.ReportBuilder.dll" />
+				<File Id="FastReport.ReportBuilder.pdb" Name="FastReport.ReportBuilder.pdb" Source="$(var.Sysadmin_TargetDir)FastReport.ReportBuilder.pdb" />
 				<File Id="LdapForNet.dll" Name="LdapForNet.dll" Source="$(var.Sysadmin_TargetDir)LdapForNet.dll" />
 				<File Id="Microsoft.CodeAnalysis.CSharp.dll" Name="Microsoft.CodeAnalysis.CSharp.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.CodeAnalysis.CSharp.dll" />
 				<File Id="Microsoft.CodeAnalysis.dll" Name="Microsoft.CodeAnalysis.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.CodeAnalysis.dll" />
@@ -108,50 +109,45 @@
 				<File Id="Microsoft.Web.WebView2.Core.dll" Name="Microsoft.Web.WebView2.Core.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Web.WebView2.Core.dll" />
 				<File Id="Microsoft.Web.WebView2.WinForms.dll" Name="Microsoft.Web.WebView2.WinForms.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Web.WebView2.WinForms.dll" />
 				<File Id="Microsoft.Web.WebView2.Wpf.dll" Name="Microsoft.Web.WebView2.Wpf.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Web.WebView2.Wpf.dll" />
-				<File Id="Microsoft.Win32.SystemEvents.dll" Name="Microsoft.Win32.SystemEvents.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Win32.SystemEvents.dll" />
 				<File Id="Microsoft.Xaml.Behaviors.dll" Name="Microsoft.Xaml.Behaviors.dll" Source="$(var.Sysadmin_TargetDir)Microsoft.Xaml.Behaviors.dll" />
 				<File Id="Newtonsoft.Json.dll" Name="Newtonsoft.Json.dll" Source="$(var.Sysadmin_TargetDir)Newtonsoft.Json.dll" />
 				<File Id="SysAdmin.ActiveDirectory.dll" Name="SysAdmin.ActiveDirectory.dll" Source="$(var.Sysadmin_TargetDir)SysAdmin.ActiveDirectory.dll" />
+				<File Id="SysAdmin.ActiveDirectory.pdb" Name="SysAdmin.ActiveDirectory.pdb" Source="$(var.Sysadmin_TargetDir)SysAdmin.ActiveDirectory.pdb" />
 				<File Id="Sysadmin.deps.json" Name="Sysadmin.deps.json" Source="$(var.Sysadmin_TargetDir)Sysadmin.deps.json" />
 				<File Id="Sysadmin.dll" Name="Sysadmin.dll" Source="$(var.Sysadmin_TargetDir)Sysadmin.dll" />
 				<File Id="Sysadmin.exe" Name="Sysadmin.exe" Source="$(var.Sysadmin_TargetDir)Sysadmin.exe" />
+				<File Id="Sysadmin.pdb" Name="Sysadmin.pdb" Source="$(var.Sysadmin_TargetDir)Sysadmin.pdb" />
 				<File Id="Sysadmin.runtimeconfig.json" Name="Sysadmin.runtimeconfig.json" Source="$(var.Sysadmin_TargetDir)Sysadmin.runtimeconfig.json" />
 				<File Id="Sysadmin.WMI.dll" Name="Sysadmin.WMI.dll" Source="$(var.Sysadmin_TargetDir)Sysadmin.WMI.dll" />
-				<File Id="System.CodeDom.dll" Name="System.CodeDom.dll" Source="$(var.Sysadmin_TargetDir)System.CodeDom.dll" />
-				<File Id="System.Configuration.ConfigurationManager.dll" Name="System.Configuration.ConfigurationManager.dll" Source="$(var.Sysadmin_TargetDir)System.Configuration.ConfigurationManager.dll" />
+				<File Id="Sysadmin.WMI.pdb" Name="Sysadmin.WMI.pdb" Source="$(var.Sysadmin_TargetDir)Sysadmin.WMI.pdb" />
 				<File Id="System.Diagnostics.DiagnosticSource.dll" Name="System.Diagnostics.DiagnosticSource.dll" Source="$(var.Sysadmin_TargetDir)System.Diagnostics.DiagnosticSource.dll" />
 				<File Id="System.Diagnostics.EventLog.dll" Name="System.Diagnostics.EventLog.dll" Source="$(var.Sysadmin_TargetDir)System.Diagnostics.EventLog.dll" />
 				<File Id="System.DirectoryServices.AccountManagement.dll" Name="System.DirectoryServices.AccountManagement.dll" Source="$(var.Sysadmin_TargetDir)System.DirectoryServices.AccountManagement.dll" />
-				<File Id="System.DirectoryServices.dll" Name="System.DirectoryServices.dll" Source="$(var.Sysadmin_TargetDir)System.DirectoryServices.dll" />
 				<File Id="System.DirectoryServices.Protocols.dll" Name="System.DirectoryServices.Protocols.dll" Source="$(var.Sysadmin_TargetDir)System.DirectoryServices.Protocols.dll" />
-				<File Id="System.Drawing.Common.dll" Name="System.Drawing.Common.dll" Source="$(var.Sysadmin_TargetDir)System.Drawing.Common.dll" />
+				<File Id="System.IO.Pipelines.dll" Name="System.IO.Pipelines.dll" Source="$(var.Sysadmin_TargetDir)System.IO.Pipelines.dll" />
 				<File Id="System.Management.dll" Name="System.Management.dll" Source="$(var.Sysadmin_TargetDir)System.Management.dll" />
-				<File Id="System.Security.Cryptography.ProtectedData.dll" Name="System.Security.Cryptography.ProtectedData.dll" Source="$(var.Sysadmin_TargetDir)System.Security.Cryptography.ProtectedData.dll" />
 				<File Id="System.Text.Encodings.Web.dll" Name="System.Text.Encodings.Web.dll" Source="$(var.Sysadmin_TargetDir)System.Text.Encodings.Web.dll" />
 				<File Id="System.Text.Json.dll" Name="System.Text.Json.dll" Source="$(var.Sysadmin_TargetDir)System.Text.Json.dll" />
 				<File Id="Wpf.Ui.dll" Name="Wpf.Ui.dll" Source="$(var.Sysadmin_TargetDir)Wpf.Ui.dll" />
 			</Component>
 		</ComponentGroup>
 
-		<ComponentGroup Id="ProductRuntimeWin" Directory="WINLIBNET6">
+		<ComponentGroup Id="ProductRuntimeWin" Directory="WINLIBNET">
 			<Component Id='WinRuntime' Guid='3C7F95A4-96CC-46A8-A633-F797D8807B0C'>
-				<File Id="Microsoft.Win32.SystemEvents.dll2" Name="Microsoft.Win32.SystemEvents.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll" />
-				<File Id="System.Diagnostics.EventLog.dll2" Name="System.Diagnostics.EventLog.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.dll" />
-				<File Id="System.Diagnostics.EventLog.Messages.dll2" Name="System.Diagnostics.EventLog.Messages.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.Messages.dll" />
-				<File Id="System.DirectoryServices.AccountManagement.dll2" Name="System.DirectoryServices.AccountManagement.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\win\lib\net6.0\System.DirectoryServices.AccountManagement.dll" />
-				<File Id="System.DirectoryServices.dll2" Name="System.DirectoryServices.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\win\lib\net6.0\System.DirectoryServices.dll" />
-				<File Id="System.DirectoryServices.Protocols.dll2" Name="System.DirectoryServices.Protocols.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\win\lib\net6.0\System.DirectoryServices.Protocols.dll" />
-				<File Id="System.Drawing.Common.dll2" Name="System.Drawing.Common.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\win\lib\net6.0\System.Drawing.Common.dll" />
-				<File Id="System.Management.dll2" Name="System.Management.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\win\lib\net6.0\System.Management.dll" />
+				<File Id="System.Diagnostics.EventLog.dll1" Name="System.Diagnostics.EventLog.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.dll" />
+				<File Id="System.Diagnostics.EventLog.Messages.dll" Name="System.Diagnostics.EventLog.Messages.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.Messages.dll" />
+				<File Id="System.DirectoryServices.AccountManagement.dll1" Name="System.DirectoryServices.AccountManagement.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\win\lib\net8.0\System.DirectoryServices.AccountManagement.dll" />
+				<File Id="System.DirectoryServices.Protocols.dll1" Name="System.DirectoryServices.Protocols.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\win\lib\net8.0\System.DirectoryServices.Protocols.dll" />
+				<File Id="System.Management.dll1" Name="System.Management.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\win\lib\net8.0\System.Management.dll" />
 			</Component>
 		</ComponentGroup>
 
 		<ComponentGroup Id="ProductRuntimeAny" Directory="NETCORE3">
 			<Component Id='AnyRuntime' Guid='3C7F95A4-96CC-46A8-A633-F797D8807B0D'>
-				<File Id="FastReport.Compat.dll2" Name="FastReport.Compat.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\any\lib\netcoreapp3.0\FastReport.Compat.dll" />			
+				<File Id="FastReport.Compat.dll1" Name="FastReport.Compat.dll" Source="$(var.Sysadmin_TargetDir)\runtimes\any\lib\netcoreapp3.0\FastReport.Compat.dll" />
 			</Component>
 		</ComponentGroup>
 
 	</Fragment>
-
+	
 </Wix>
