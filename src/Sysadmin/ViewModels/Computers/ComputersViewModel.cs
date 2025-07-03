@@ -15,10 +15,10 @@ namespace Sysadmin.ViewModels
 {
     public partial class ComputersViewModel : ViewModel
     {
-        private bool _isInitialized = false;
+        private bool isInitialized = false;
 
-        private INavigationService _navigationService;
-        private IExchangeService _exchangeService;
+        private INavigationService navigationService;
+        private IExchangeService exchangeService;
 
         [ObservableProperty]
         private IEnumerable<ComputerEntry> _computers = new List<ComputerEntry>();
@@ -41,13 +41,13 @@ namespace Sysadmin.ViewModels
 
         public ComputersViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
-            _navigationService = navigationService;
-            _exchangeService = exchangeService;
+            this.navigationService = navigationService;
+            this.exchangeService = exchangeService;
         }
 
         public override async void OnNavigatedTo()
         {
-            if (!_isInitialized)
+            if (!isInitialized)
                 InitializeViewModel();
 
             await ListAsync();
@@ -57,13 +57,13 @@ namespace Sysadmin.ViewModels
 
         private void InitializeViewModel()
         {
-            _isInitialized = true;
+            isInitialized = true;
         }
 
         [RelayCommand]
         private void OnAdd()
         {
-            _navigationService.Navigate(typeof(Views.Pages.AddComputerPage));
+            navigationService.Navigate(typeof(Views.Pages.AddComputerPage));
         }
 
         [RelayCommand]
@@ -71,8 +71,8 @@ namespace Sysadmin.ViewModels
         {
             if (items != null && items.Any())
             {
-                _exchangeService.SetParameter((ComputerEntry)items.First());
-                _navigationService.Navigate(typeof(Views.Pages.ComputerPage));
+                exchangeService.SetParameter((ComputerEntry)items.First());
+                navigationService.Navigate(typeof(Views.Pages.ComputerPage));
             }
         }
 

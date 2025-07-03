@@ -1,12 +1,14 @@
 ﻿using Sysadmin.WMI.Models.Hardware;
+using SysAdmin.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using System;
 using System.Windows;
 using System.Windows.Controls;
-using SysAdmin.Models;
-using System.Linq;
+using Wpf.Ui;
+using Wpf.Ui.Controls;
 
 namespace Sysadmin.Views.Pages
 {
@@ -15,15 +17,19 @@ namespace Sysadmin.Views.Pages
     /// </summary>
     public partial class HardwarePage : Wpf.Ui.Controls.INavigableView<ViewModels.HardwareViewModel>
     {
+        private ISnackbarService snackbarService;
+
         public ViewModels.HardwareViewModel ViewModel
         {
             get;
         }
 
-        public HardwarePage(ViewModels.HardwareViewModel viewModel)
+        public HardwarePage(ViewModels.HardwareViewModel viewModel, ISnackbarService snackbarService)
         {
             ViewModel = viewModel;
             DataContext = this;
+
+            this.snackbarService = snackbarService;
 
             InitializeComponent();
         }
@@ -70,8 +76,12 @@ namespace Sysadmin.Views.Pages
             }
             catch (Exception ex)
             {
-                //snackbar.Message = ex.Message;
-                //snackbar.Show();
+                snackbarService.Show("Error",
+                    ex.Message,
+                    ControlAppearance.Secondary,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
         }
 
@@ -102,8 +112,12 @@ namespace Sysadmin.Views.Pages
             }
             catch (Exception ex)
             {
-                //snackbar.Message = ex.Message;
-                //snackbar.Show();
+                snackbarService.Show("Error",
+                    ex.Message,
+                    ControlAppearance.Secondary,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
         }
 
@@ -146,8 +160,12 @@ namespace Sysadmin.Views.Pages
                 }
                 catch (Exception ex)
                 {
-                    //snackbar.Message = ex.Message;
-                    //snackbar.Show();
+                    snackbarService.Show("Error",
+                        ex.Message,
+                        ControlAppearance.Secondary,
+                        new SymbolIcon(SymbolRegular.ErrorCircle12),
+                        TimeSpan.FromSeconds(5)
+                    );
                 }
             }
         }

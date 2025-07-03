@@ -13,9 +13,9 @@ namespace Sysadmin.ViewModels
 {
     public partial class LoginViewModel : ViewModel
     {
-        private bool _isInitialized = false;
+        private bool isInitialized = false;
 
-        private INavigationService _navigationService;
+        private INavigationService navigationService;
         private IStateService stateService;
         private MainWindowViewModel mainWindowViewModel;
         private ISettingsService settingsService;
@@ -48,7 +48,7 @@ namespace Sysadmin.ViewModels
             ISettingsService settingsService, 
             ISnackbarService snackbarService)
         {
-            _navigationService = navigationService;
+            this.navigationService = navigationService;
             this.stateService = stateService;
             this.mainWindowViewModel = mainWindowViewModel;
             this.settingsService = settingsService;
@@ -57,7 +57,7 @@ namespace Sysadmin.ViewModels
 
         public override void OnNavigatedTo()
         {
-            if (!_isInitialized)
+            if (!isInitialized)
                 InitializeViewModel();
 
             SelectedIndex = settingsService.LoginSelectedIndex;
@@ -71,7 +71,7 @@ namespace Sysadmin.ViewModels
 
         private void InitializeViewModel()
         {
-            _isInitialized = true;
+            isInitialized = true;
         }
 
         [RelayCommand]
@@ -139,7 +139,7 @@ namespace Sysadmin.ViewModels
 
                 stateService.IsLoggedIn = true;
                 mainWindowViewModel.InitializeViewModel();
-                _navigationService.Navigate(typeof(Views.Pages.DashboardPage));
+                navigationService.Navigate(typeof(Views.Pages.DashboardPage));
             }
             else
             {

@@ -15,10 +15,10 @@ namespace Sysadmin.ViewModels
 {
     public partial class HardwareViewModel : ViewModel
     {
-        private bool _isInitialized = false;
+        private bool isInitialized = false;
 
-        private INavigationService _navigationService;
-        private IExchangeService _exchangeService;
+        private INavigationService navigationService;
+        private IExchangeService exchangeService;
 
         [ObservableProperty]
         private ComputerEntry _computer = new ComputerEntry();
@@ -34,16 +34,16 @@ namespace Sysadmin.ViewModels
 
         public HardwareViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
-            _navigationService = navigationService;
-            _exchangeService = exchangeService;
+            this.navigationService = navigationService;
+            this.exchangeService = exchangeService;
         }
 
         public override async void OnNavigatedTo()
         {
-            if (!_isInitialized)
+            if (!isInitialized)
                 InitializeViewModel();
 
-            if (_exchangeService.GetParameter() is ComputerEntry entry)
+            if (exchangeService.GetParameter() is ComputerEntry entry)
             {
                 Computer = entry;
             }
@@ -51,13 +51,13 @@ namespace Sysadmin.ViewModels
 
         private void InitializeViewModel()
         {
-            _isInitialized = true;
+            isInitialized = true;
         }
 
         [RelayCommand]
         private void OnClose()
         {
-            _navigationService.Navigate(typeof(Views.Pages.ComputerPage));
+            navigationService.Navigate(typeof(Views.Pages.ComputerPage));
         }
 
         private async Task<List<Dictionary<string, object>>> Query(string computerAddress, string queryString)

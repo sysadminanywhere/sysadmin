@@ -215,8 +215,5 @@
 
         </Grid>
 
-        <!--<ui:Snackbar Grid.RowSpan="3" VerticalAlignment="Bottom" x:Name="snackbar" Appearance="Danger" Title="Error" Icon="ErrorCircle12" Message="Error" Timeout="5000" />
-        <ui:Snackbar Grid.RowSpan="3" VerticalAlignment="Bottom" x:Name="snackbarOk" Appearance="Success" Title="Command" Timeout="5000" />-->
-
     </Grid>
 </Page>

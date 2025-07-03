@@ -1,76 +1,78 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Sysadmin.Services;
-using SysAdmin.ActiveDirectory.Models;
-using System.Threading.Tasks;
-using System;
-using Wpf.Ui;
 using LdapForNet;
-using SysAdmin.ActiveDirectory.Services.Ldap;
+using Sysadmin.Services;
+using SysAdmin.ActiveDirectory;
+using SysAdmin.ActiveDirectory.Models;
 using SysAdmin.ActiveDirectory.Repositories;
-using static LdapForNet.Native.Native;
-using System.IO;
+using SysAdmin.ActiveDirectory.Services.Ldap;
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.IO;
+using System.Threading.Tasks;
+using Wpf.Ui;
+using Wpf.Ui.Controls;
+using static LdapForNet.Native.Native;
+using Image = System.Drawing.Image;
 
 namespace Sysadmin.ViewModels
 {
     public partial class UserViewModel : ViewModel
     {
-        private bool _isInitialized = false;
+        private bool isInitialized = false;
 
-        private INavigationService _navigationService;
-        private IExchangeService _exchangeService;
+        private INavigationService navigationService;
+        private IExchangeService exchangeService;
+        private ISnackbarService snackbarService;
 
         [ObservableProperty]
         private UserEntry _user = new UserEntry();
 
-        [ObservableProperty]
-        private string _errorMessage = string.Empty;
-
-        public UserViewModel(INavigationService navigationService, IExchangeService exchangeService)
+        public UserViewModel(INavigationService navigationService, IExchangeService exchangeService, ISnackbarService snackbarService)
         {
-            _navigationService = navigationService;
-            _exchangeService = exchangeService;
+            this.navigationService = navigationService;
+            this.exchangeService = exchangeService;
+            this.snackbarService = snackbarService;
         }
 
         public override void OnNavigatedTo()
         {
-            if (!_isInitialized)
+            if (!isInitialized)
                 InitializeViewModel();
 
-            if (_exchangeService.GetParameter() is UserEntry entry)
+            if (exchangeService.GetParameter() is UserEntry entry)
                 User = entry;
         }
 
         private void InitializeViewModel()
         {
-            _isInitialized = true;
+            isInitialized = true;
         }
 
         [RelayCommand]
         private void OnClose()
         {
-            _navigationService.Navigate(typeof(Views.Pages.UsersPage));
+            navigationService.Navigate(typeof(Views.Pages.UsersPage));
         }
 
         [RelayCommand]
         private void OnEdit()
         {
-            _navigationService.Navigate(typeof(Views.Pages.EditUserPage));
+            navigationService.Navigate(typeof(Views.Pages.EditUserPage));
         }
 
         [RelayCommand]
         private void OnOptions()
         {
-            _navigationService.Navigate(typeof(Views.Pages.UserOptionsPage));
+            navigationService.Navigate(typeof(Views.Pages.UserOptionsPage));
         }
 
         [RelayCommand]
         private void OnResetPassword()
         {
-            _navigationService.Navigate(typeof(Views.Pages.ResetPasswordPage));
+            navigationService.Navigate(typeof(Views.Pages.ResetPasswordPage));
         }
 
         [RelayCommand]
@@ -79,15 +81,25 @@ namespace Sysadmin.ViewModels
             try
             {
                 await Delete(User);
-                _navigationService.Navigate(typeof(Views.Pages.UsersPage));
+                navigationService.Navigate(typeof(Views.Pages.UsersPage));
             }
             catch (LdapException le)
             {
-                ErrorMessage = SysAdmin.ActiveDirectory.LdapResult.GetErrorMessageFromResult(le.ResultCode);
+                snackbarService.Show("Error",
+                    LdapResult.GetErrorMessageFromResult(le.ResultCode),
+                    ControlAppearance.Secondary,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
             catch (Exception ex)
             {
-                ErrorMessage = ex.Message;
+                snackbarService.Show("Error",
+                    ex.Message,
+                    ControlAppearance.Secondary,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
         }
 
@@ -114,11 +126,21 @@ namespace Sysadmin.ViewModels
             }
             catch (LdapException le)
             {
-                ErrorMessage = SysAdmin.ActiveDirectory.LdapResult.GetErrorMessageFromResult(le.ResultCode);
+                snackbarService.Show("Error",
+                    LdapResult.GetErrorMessageFromResult(le.ResultCode),
+                    ControlAppearance.Secondary,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
             catch (Exception ex)
             {
-                ErrorMessage = ex.Message;
+                snackbarService.Show("Error",
+                    ex.Message,
+                    ControlAppearance.Secondary,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
 
         }
@@ -132,11 +154,21 @@ namespace Sysadmin.ViewModels
             }
             catch (LdapException le)
             {
-                ErrorMessage = SysAdmin.ActiveDirectory.LdapResult.GetErrorMessageFromResult(le.ResultCode);
+                snackbarService.Show("Error",
+                    LdapResult.GetErrorMessageFromResult(le.ResultCode),
+                    ControlAppearance.Secondary,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
             catch (Exception ex)
             {
-                ErrorMessage = ex.Message;
+                snackbarService.Show("Error",
+                    ex.Message,
+                    ControlAppearance.Secondary,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
 
         }

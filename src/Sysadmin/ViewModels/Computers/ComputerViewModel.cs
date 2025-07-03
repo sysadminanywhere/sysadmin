@@ -3,103 +3,101 @@ using CommunityToolkit.Mvvm.Input;
 using LdapForNet;
 using Sysadmin.Services;
 using Sysadmin.WMI.Services;
+using SysAdmin.ActiveDirectory;
 using SysAdmin.ActiveDirectory.Models;
 using SysAdmin.ActiveDirectory.Repositories;
 using SysAdmin.ActiveDirectory.Services.Ldap;
 using System;
 using System.Threading.Tasks;
 using Wpf.Ui;
+using Wpf.Ui.Controls;
 
 namespace Sysadmin.ViewModels
 {
     public partial class ComputerViewModel : ViewModel
     {
-        private bool _isInitialized = false;
+        private bool isInitialized = false;
 
-        private INavigationService _navigationService;
-        private IExchangeService _exchangeService;
+        private INavigationService navigationService;
+        private IExchangeService exchangeService;
+        private ISnackbarService snackbarService;
 
         [ObservableProperty]
         private ComputerEntry _computer = new ComputerEntry();
 
-        [ObservableProperty]
-        private string _errorMessage = string.Empty;
-
-        [ObservableProperty]
-        private string _successMessage = string.Empty;
-
-        public ComputerViewModel(INavigationService navigationService, IExchangeService exchangeService)
+        public ComputerViewModel(INavigationService navigationService, IExchangeService exchangeService, ISnackbarService snackbarService)
         {
-            _navigationService = navigationService;
-            _exchangeService = exchangeService;
+            this.navigationService = navigationService;
+            this.exchangeService = exchangeService;
+            this.snackbarService = snackbarService;
         }
 
         public override void OnNavigatedTo()
         {
-            if (!_isInitialized)
+            if (!isInitialized)
                 InitializeViewModel();
 
-            if (_exchangeService.GetParameter() is ComputerEntry entry)
+            if (exchangeService.GetParameter() is ComputerEntry entry)
                 Computer = entry;
         }
 
         private void InitializeViewModel()
         {
-            _isInitialized = true;
+            isInitialized = true;
         }
 
         [RelayCommand]
         private void OnClose()
         {
-            _navigationService.Navigate(typeof(Views.Pages.ComputersPage));
+            navigationService.Navigate(typeof(Views.Pages.ComputersPage));
         }
 
         [RelayCommand]
         private void OnEdit()
         {
-            _navigationService.Navigate(typeof(Views.Pages.EditComputerPage));
+            navigationService.Navigate(typeof(Views.Pages.EditComputerPage));
         }
 
         [RelayCommand]
         private void OnEvents()
         {
-            _exchangeService.SetParameter(Computer);
-            _navigationService.Navigate(typeof(Views.Pages.EventsPage));
+            exchangeService.SetParameter(Computer);
+            navigationService.Navigate(typeof(Views.Pages.EventsPage));
         }
 
         [RelayCommand]
         private void OnServices()
         {
-            _exchangeService.SetParameter(Computer);
-            _navigationService.Navigate(typeof(Views.Pages.ServicesPage));
+            exchangeService.SetParameter(Computer);
+            navigationService.Navigate(typeof(Views.Pages.ServicesPage));
         }
 
         [RelayCommand]
         private void OnProcesses()
         {
-            _exchangeService.SetParameter(Computer);
-            _navigationService.Navigate(typeof(Views.Pages.ProcessesPage));
+            exchangeService.SetParameter(Computer);
+            navigationService.Navigate(typeof(Views.Pages.ProcessesPage));
         }
 
         [RelayCommand]
         private void OnSoftware()
         {
-            _exchangeService.SetParameter(Computer);
-            _navigationService.Navigate(typeof(Views.Pages.SoftwarePage));
+            exchangeService.SetParameter(Computer);
+            navigationService.Navigate(typeof(Views.Pages.SoftwarePage));
         }
 
         [RelayCommand]
         private void OnHardware()
         {
-            _exchangeService.SetParameter(Computer);
-            _navigationService.Navigate(typeof(Views.Pages.HardwarePage));
+            exchangeService.SetParameter(Computer);
+            navigationService.Navigate(typeof(Views.Pages.HardwarePage));
         }
 
         [RelayCommand]
         private void OnPerformance()
         {
-            _exchangeService.SetParameter(Computer);
-            _navigationService.Navigate(typeof(Views.Pages.PerformancePage));
+            exchangeService.SetParameter(Computer);
+            navigationService.Navigate(typeof(Views.Pages.PerformancePage));
         }
 
         [RelayCommand]
@@ -108,15 +106,25 @@ namespace Sysadmin.ViewModels
             try
             {
                 await Delete(Computer);
-                _navigationService.Navigate(typeof(Views.Pages.ComputersPage));
+                navigationService.Navigate(typeof(Views.Pages.ComputersPage));
             }
             catch (LdapException le)
             {
-                ErrorMessage = SysAdmin.ActiveDirectory.LdapResult.GetErrorMessageFromResult(le.ResultCode);
+                snackbarService.Show("Error",
+                    LdapResult.GetErrorMessageFromResult(le.ResultCode),
+                    ControlAppearance.Secondary,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
             catch (Exception ex)
             {
-                ErrorMessage = ex.Message;
+                snackbarService.Show("Error",
+                    ex.Message,
+                    ControlAppearance.Secondary,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
         }
 
@@ -163,11 +171,21 @@ namespace Sysadmin.ViewModels
                     }
                 });
 
-                SuccessMessage = "Reboot command sent successfully";
+                snackbarService.Show("Command",
+                    "Reboot command sent successfully",
+                    ControlAppearance.Success,
+                    new SymbolIcon(SymbolRegular.CheckmarkCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
             catch (Exception ex)
             {
-                ErrorMessage = ex.Message;
+                snackbarService.Show("Error",
+                    ex.Message,
+                    ControlAppearance.Secondary,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
         }
 
@@ -188,11 +206,21 @@ namespace Sysadmin.ViewModels
                     }
                 });
 
-                SuccessMessage = "Shutdown command sent successfully";
+                snackbarService.Show("Command",
+                    "Shutdown command sent successfully",
+                    ControlAppearance.Success,
+                    new SymbolIcon(SymbolRegular.CheckmarkCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
             catch (Exception ex)
             {
-                ErrorMessage = ex.Message;
+                snackbarService.Show("Error",
+                    ex.Message,
+                    ControlAppearance.Secondary,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
         }
 

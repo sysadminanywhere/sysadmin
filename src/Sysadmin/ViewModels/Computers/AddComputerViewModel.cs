@@ -8,14 +8,16 @@ using SysAdmin.ActiveDirectory.Services.Ldap;
 using System;
 using System.Threading.Tasks;
 using Wpf.Ui;
+using Wpf.Ui.Controls;
 
 namespace Sysadmin.ViewModels
 {
     public partial class AddComputerViewModel : ViewModel
     {
-        private bool _isInitialized = false;
+        private bool isInitialized = false;
 
-        private INavigationService _navigationService;
+        private INavigationService navigationService;
+        private ISnackbarService snackbarService;
 
         [ObservableProperty]
         private ComputerEntry _computer = new ComputerEntry();
@@ -26,29 +28,27 @@ namespace Sysadmin.ViewModels
         [ObservableProperty]
         private bool _isAccountEnabled = true;
 
-        [ObservableProperty]
-        private string _errorMessage;
-
-        public AddComputerViewModel(INavigationService navigationService)
+        public AddComputerViewModel(INavigationService navigationService, ISnackbarService snackbarService)
         {
-            _navigationService = navigationService;
+            this.navigationService = navigationService;
+            this.snackbarService = snackbarService;
         }
 
         public override void OnNavigatedTo()
         {
-            if (!_isInitialized)
+            if (!isInitialized)
                 InitializeViewModel();
         }
 
         private void InitializeViewModel()
         {
-            _isInitialized = true;
+            isInitialized = true;
         }
 
         [RelayCommand]
         private void OnClose()
         {
-            _navigationService.Navigate(typeof(Views.Pages.ComputersPage));
+            navigationService.Navigate(typeof(Views.Pages.ComputersPage));
         }
 
         [RelayCommand]
@@ -57,15 +57,25 @@ namespace Sysadmin.ViewModels
             try
             {
                 await Add(DistinguishedName, Computer, IsAccountEnabled);
-                _navigationService.Navigate(typeof(Views.Pages.ComputersPage));
+                navigationService.Navigate(typeof(Views.Pages.ComputersPage));
             }
             catch (LdapException le)
             {
-                ErrorMessage = LdapResult.GetErrorMessageFromResult(le.ResultCode);
+                snackbarService.Show("Error",
+                    LdapResult.GetErrorMessageFromResult(le.ResultCode),
+                    ControlAppearance.Secondary,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
             catch (Exception ex)
             {
-                ErrorMessage = ex.Message;
+                snackbarService.Show("Error",
+                    ex.Message,
+                    ControlAppearance.Secondary,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
 
         }

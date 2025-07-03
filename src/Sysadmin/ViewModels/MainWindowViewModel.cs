@@ -9,7 +9,7 @@ namespace Sysadmin.ViewModels
 {
     public partial class MainWindowViewModel : ObservableObject
     {
-        private bool _isInitialized = false;
+        private bool isInitialized = false;
 
         [ObservableProperty]
         private string _applicationTitle = String.Empty;
@@ -29,7 +29,7 @@ namespace Sysadmin.ViewModels
         {
             this.stateService = stateService;
 
-            if (!_isInitialized)
+            if (!isInitialized)
                 InitializeViewModel();
         }
 
@@ -125,7 +125,7 @@ namespace Sysadmin.ViewModels
                 }
             };
 
-            _isInitialized = true;
+            isInitialized = true;
         }
 
     }

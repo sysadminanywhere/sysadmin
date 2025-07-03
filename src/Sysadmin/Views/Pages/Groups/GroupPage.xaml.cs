@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using Wpf.Ui;
 
 namespace Sysadmin.Views.Pages
 {
@@ -7,15 +9,19 @@ namespace Sysadmin.Views.Pages
     /// </summary>
     public partial class GroupPage : Wpf.Ui.Controls.INavigableView<ViewModels.GroupViewModel>
     {
+        private ISnackbarService snackbarService;
+
         public ViewModels.GroupViewModel ViewModel
         {
             get;
         }
 
-        public GroupPage(ViewModels.GroupViewModel viewModel)
+        public GroupPage(ViewModels.GroupViewModel viewModel, ISnackbarService snackbarService)
         {
             ViewModel = viewModel;
             DataContext = this;
+
+            this.snackbarService = snackbarService;
 
             InitializeComponent();
 
@@ -52,8 +58,12 @@ namespace Sysadmin.Views.Pages
 
         private void MemberOfControl_Error(string ErrorMessage) //NOSONAR
         {
-            //snackbar.Message = ErrorMessage;
-            //snackbar.Show();
+            snackbarService.Show("Error",
+                ErrorMessage,
+                Wpf.Ui.Controls.ControlAppearance.Secondary,
+                new Wpf.Ui.Controls.SymbolIcon(Wpf.Ui.Controls.SymbolRegular.ErrorCircle12),
+                TimeSpan.FromSeconds(5)
+            );
         }
 
     }

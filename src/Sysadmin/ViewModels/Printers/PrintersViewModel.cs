@@ -14,10 +14,10 @@ namespace Sysadmin.ViewModels
 {
     public partial class PrintersViewModel : ViewModel
     {
-        private bool _isInitialized = false;
+        private bool isInitialized = false;
 
-        private INavigationService _navigationService;
-        private IExchangeService _exchangeService;
+        private INavigationService navigationService;
+        private IExchangeService exchangeService;
 
         [ObservableProperty]
         private IEnumerable<PrinterEntry> _printers = new List<PrinterEntry>();
@@ -32,13 +32,13 @@ namespace Sysadmin.ViewModels
 
         public PrintersViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
-            _navigationService = navigationService;
-            _exchangeService = exchangeService;
+            this.navigationService = navigationService;
+            this.exchangeService = exchangeService;
         }
 
         public override async void OnNavigatedTo()
         {
-            if (!_isInitialized)
+            if (!isInitialized)
                 InitializeViewModel();
 
             await ListAsync();
@@ -48,7 +48,7 @@ namespace Sysadmin.ViewModels
 
         private void InitializeViewModel()
         {
-            _isInitialized = true;
+            isInitialized = true;
         }
 
         [RelayCommand]
@@ -56,8 +56,8 @@ namespace Sysadmin.ViewModels
         {
             if (items.Any())
             {
-                _exchangeService.SetParameter((PrinterEntry)items.First());
-                _navigationService.Navigate(typeof(Views.Pages.PrinterPage));
+                exchangeService.SetParameter((PrinterEntry)items.First());
+                navigationService.Navigate(typeof(Views.Pages.PrinterPage));
             }
         }
 

@@ -8,7 +8,7 @@ namespace Sysadmin.ViewModels
 {
     public partial class SettingsViewModel : ViewModel
     {
-        private bool _isInitialized = false;
+        private bool isInitialized = false;
 
         private ISettingsService settings;
 
@@ -25,7 +25,7 @@ namespace Sysadmin.ViewModels
 
         public override void OnNavigatedTo()
         {
-            if (!_isInitialized)
+            if (!isInitialized)
                 InitializeViewModel();
         }
 
@@ -34,7 +34,7 @@ namespace Sysadmin.ViewModels
             CurrentTheme = ApplicationThemeManager.GetAppTheme();
             AppVersion = $"Version: {GetAssemblyVersion()}";
 
-            _isInitialized = true;
+            isInitialized = true;
         }
 
         private string GetAssemblyVersion()
