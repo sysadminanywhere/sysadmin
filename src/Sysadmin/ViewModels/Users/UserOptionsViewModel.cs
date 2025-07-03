@@ -79,7 +79,7 @@ namespace Sysadmin.ViewModels
         [RelayCommand]
         private void OnClose()
         {
-            navigationService.Navigate(typeof(Views.Pages.UserPage));
+            navigationService.GoBack();
         }
 
 

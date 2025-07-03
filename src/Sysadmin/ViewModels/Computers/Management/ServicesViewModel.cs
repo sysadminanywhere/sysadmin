@@ -59,12 +59,6 @@ namespace Sysadmin.ViewModels
         }
 
         [RelayCommand]
-        private void OnClose()
-        {
-            navigationService.Navigate(typeof(Views.Pages.ComputerPage));
-        }
-
-        [RelayCommand]
         private async void OnRefresh()
         {
             await Get(Computer.DnsHostName);

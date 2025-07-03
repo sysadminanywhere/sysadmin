@@ -46,12 +46,6 @@ namespace Sysadmin.ViewModels
         }
 
         [RelayCommand]
-        private void OnClose()
-        {
-            navigationService.Navigate(typeof(Views.Pages.ContactsPage));
-        }
-
-        [RelayCommand]
         private void OnEdit()
         {
             navigationService.Navigate(typeof(Views.Pages.EditContactPage));

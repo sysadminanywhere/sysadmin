@@ -51,7 +51,7 @@ namespace Sysadmin.ViewModels
         [RelayCommand]
         private void OnClose()
         {
-            navigationService.Navigate(typeof(Views.Pages.ContactPage));
+            navigationService.GoBack();
         }
 
         [RelayCommand]

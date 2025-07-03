@@ -55,12 +55,6 @@ namespace Sysadmin.ViewModels
             isInitialized = true;
         }
 
-        [RelayCommand]
-        private void OnClose()
-        {
-            navigationService.Navigate(typeof(Views.Pages.ComputerPage));
-        }
-
         public async Task Get(string computerAddress)
         {
             IsBusy = true;

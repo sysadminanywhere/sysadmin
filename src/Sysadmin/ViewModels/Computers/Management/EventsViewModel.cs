@@ -56,12 +56,6 @@ namespace Sysadmin.ViewModels
         }
 
         [RelayCommand]
-        private void OnClose()
-        {
-            navigationService.Navigate(typeof(Views.Pages.ComputerPage));
-        }
-
-        [RelayCommand]
         private async void OnFilter(MenuItem menu)
         {
             EventsFilter filters = EventsFilter.TodayErrors;

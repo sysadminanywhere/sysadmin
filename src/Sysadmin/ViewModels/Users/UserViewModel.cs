@@ -52,12 +52,6 @@ namespace Sysadmin.ViewModels
         }
 
         [RelayCommand]
-        private void OnClose()
-        {
-            navigationService.Navigate(typeof(Views.Pages.UsersPage));
-        }
-
-        [RelayCommand]
         private void OnEdit()
         {
             navigationService.Navigate(typeof(Views.Pages.EditUserPage));
