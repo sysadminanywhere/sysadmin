@@ -83,10 +83,10 @@ namespace Sysadmin.ViewModels
 
             foreach (LdapEntry entry in ldapEntries)
             {
-                if (entry.DirectoryAttributes.Contains("whencreated") && entry.DirectoryAttributes.Contains("whenchanged"))
+                if (entry.DirectoryAttributes.Contains("whenCreated") && entry.DirectoryAttributes.Contains("whenChanged"))
                 {
-                    DateTime whencreated = GetDate(entry.DirectoryAttributes["whencreated"].GetValue<string>(), ADAttribute.DateTypes.Date);
-                    DateTime whenchanged = GetDate(entry.DirectoryAttributes["whenchanged"].GetValue<string>(), ADAttribute.DateTypes.Date);
+                    DateTime whencreated = GetDate(entry.DirectoryAttributes["whenCreated"].GetValue<string>(), ADAttribute.DateTypes.Date);
+                    DateTime whenchanged = GetDate(entry.DirectoryAttributes["whenChanged"].GetValue<string>(), ADAttribute.DateTypes.Date);
                     if (whencreated >= DateTime.Today || whenchanged >= DateTime.Today)
                     {
                         list.Add(new AuditItem()

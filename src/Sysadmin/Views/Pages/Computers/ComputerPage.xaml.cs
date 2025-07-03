@@ -100,7 +100,7 @@ namespace Sysadmin.Views.Pages
         {
             snackbarService.Show("Error",
                 ErrorMessage,
-                Wpf.Ui.Controls.ControlAppearance.Secondary,
+                Wpf.Ui.Controls.ControlAppearance.Danger,
                 new Wpf.Ui.Controls.SymbolIcon(Wpf.Ui.Controls.SymbolRegular.ErrorCircle12),
                 TimeSpan.FromSeconds(5)
             );

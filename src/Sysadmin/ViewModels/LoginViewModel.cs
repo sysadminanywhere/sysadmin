@@ -147,7 +147,7 @@ namespace Sysadmin.ViewModels
             {
                 snackbarService.Show("Error",
                     message,
-                    ControlAppearance.Secondary,
+                    ControlAppearance.Danger,
                     new SymbolIcon(SymbolRegular.ErrorCircle12),
                     TimeSpan.FromSeconds(5)
                 );

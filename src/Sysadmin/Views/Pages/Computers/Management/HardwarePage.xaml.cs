@@ -78,7 +78,7 @@ namespace Sysadmin.Views.Pages
             {
                 snackbarService.Show("Error",
                     ex.Message,
-                    ControlAppearance.Secondary,
+                    ControlAppearance.Danger,
                     new SymbolIcon(SymbolRegular.ErrorCircle12),
                     TimeSpan.FromSeconds(5)
                 );
@@ -114,7 +114,7 @@ namespace Sysadmin.Views.Pages
             {
                 snackbarService.Show("Error",
                     ex.Message,
-                    ControlAppearance.Secondary,
+                    ControlAppearance.Danger,
                     new SymbolIcon(SymbolRegular.ErrorCircle12),
                     TimeSpan.FromSeconds(5)
                 );
@@ -162,7 +162,7 @@ namespace Sysadmin.Views.Pages
                 {
                     snackbarService.Show("Error",
                         ex.Message,
-                        ControlAppearance.Secondary,
+                        ControlAppearance.Danger,
                         new SymbolIcon(SymbolRegular.ErrorCircle12),
                         TimeSpan.FromSeconds(5)
                     );
