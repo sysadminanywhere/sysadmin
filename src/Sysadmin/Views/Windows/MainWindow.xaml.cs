@@ -114,6 +114,8 @@ namespace Sysadmin.Views.Windows
         {
             base.OnClosed(e);
 
+            settings.SaveSettings();
+
             // Make sure that closing this window will begin the process of closing the application.
             Application.Current.Shutdown();
         }
