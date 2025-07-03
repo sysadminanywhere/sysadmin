@@ -1,13 +1,11 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using Wpf.Ui.Common.Interfaces;
+﻿using System.Windows.Controls;
 
 namespace Sysadmin.Views.Pages
 {
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class ProcessesPage : INavigableView<ViewModels.ProcessesViewModel>
+    public partial class ProcessesPage : Wpf.Ui.Controls.INavigableView<ViewModels.ProcessesViewModel>
     {
         public ViewModels.ProcessesViewModel ViewModel
         {
@@ -19,17 +17,6 @@ namespace Sysadmin.Views.Pages
             ViewModel = viewModel;
 
             InitializeComponent();
-
-            ViewModel.PropertyChanged += ViewModel_PropertyChanged;
-        }
-
-        private void ViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "ErrorMessage")
-            {
-                snackbar.Message = ViewModel.ErrorMessage;
-                snackbar.Show();
-            }
         }
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)

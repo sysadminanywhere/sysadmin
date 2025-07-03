@@ -1,12 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.Extensions.DependencyInjection;
 using Sysadmin.Services;
 using System;
 using System.Collections.ObjectModel;
-using Wpf.Ui.Common;
+using Wpf.Ui;
 using Wpf.Ui.Controls;
-using Wpf.Ui.Controls.Interfaces;
-using Wpf.Ui.Mvvm.Contracts;
 
 namespace Sysadmin.ViewModels
 {
@@ -18,10 +15,10 @@ namespace Sysadmin.ViewModels
         private string _applicationTitle = String.Empty;
 
         [ObservableProperty]
-        private ObservableCollection<INavigationControl> _navigationItems = new();
+        private ObservableCollection<object> _navigationItems = new();
 
         [ObservableProperty]
-        private ObservableCollection<INavigationControl> _navigationFooter = new();
+        private ObservableCollection<object> _navigationFooter = new();
 
         [ObservableProperty]
         private ObservableCollection<MenuItem> _trayMenuItems = new();
@@ -40,82 +37,82 @@ namespace Sysadmin.ViewModels
         {
             ApplicationTitle = "Sysadmin";
 
-            NavigationItems = new ObservableCollection<INavigationControl>
+            NavigationItems = new ObservableCollection<object>
             {
-                new NavigationItem()
+                new NavigationViewItem()
                 {
                     Content = "Login",
-                    PageTag = "login",
-                    Icon = SymbolRegular.PeopleAudience24,
-                    PageType = typeof(Views.Pages.LoginPage),
+                    Tag = "login",
+                    Icon = new SymbolIcon { Symbol = SymbolRegular.PeopleAudience24 },
+                    TargetPageType = typeof(Views.Pages.LoginPage),
                     Visibility = stateService.IsLoggedIn ? System.Windows.Visibility.Collapsed: System.Windows.Visibility.Visible
                 },
-                new NavigationItem()
+                new NavigationViewItem()
                 {
                     Content = "Home",
-                    PageTag = "dashboard",
-                    Icon = SymbolRegular.Home24,
-                    PageType = typeof(Views.Pages.DashboardPage), 
+                    Tag = "dashboard",
+                    Icon = new SymbolIcon { Symbol = SymbolRegular.Home24 },
+                    TargetPageType = typeof(Views.Pages.DashboardPage), 
                     Visibility = stateService.IsLoggedIn ? System.Windows.Visibility.Visible: System.Windows.Visibility.Collapsed
                 },
-                new NavigationItem()
+                new NavigationViewItem()
                 {
                     Content = "Users",
-                    PageTag = "users",
-                    Icon = SymbolRegular.Person24,
-                    PageType = typeof(Views.Pages.UsersPage),
+                    Tag = "users",
+                    Icon = new SymbolIcon { Symbol = SymbolRegular.Person24 },
+                    TargetPageType = typeof(Views.Pages.UsersPage),
                     Visibility = stateService.IsLoggedIn ? System.Windows.Visibility.Visible: System.Windows.Visibility.Collapsed
                 },
-                new NavigationItem()
+                new NavigationViewItem()
                 {
                     Content = "Computers",
-                    PageTag = "computers",
-                    Icon = SymbolRegular.Desktop24,
-                    PageType = typeof(Views.Pages.ComputersPage),
+                    Tag = "computers",
+                    Icon = new SymbolIcon { Symbol = SymbolRegular.Desktop24 },
+                    TargetPageType = typeof(Views.Pages.ComputersPage),
                     Visibility = stateService.IsLoggedIn ? System.Windows.Visibility.Visible: System.Windows.Visibility.Collapsed
                 },
-                new NavigationItem()
+                new NavigationViewItem()
                 {
                     Content = "Groups",
-                    PageTag = "groups",
-                    Icon = SymbolRegular.People24,
-                    PageType = typeof(Views.Pages.GroupsPage),
+                    Tag = "groups",
+                    Icon = new SymbolIcon { Symbol = SymbolRegular.People24 },
+                    TargetPageType = typeof(Views.Pages.GroupsPage),
                     Visibility = stateService.IsLoggedIn ? System.Windows.Visibility.Visible: System.Windows.Visibility.Collapsed
                 },
-                new NavigationItem()
+                new NavigationViewItem()
                 {
                     Content = "Printers",
-                    PageTag = "printers",
-                    Icon = SymbolRegular.Print24,
-                    PageType = typeof(Views.Pages.PrintersPage),
+                    Tag = "printers",
+                    Icon = new SymbolIcon { Symbol = SymbolRegular.Print24 },
+                    TargetPageType = typeof(Views.Pages.PrintersPage),
                     Visibility = stateService.IsLoggedIn ? System.Windows.Visibility.Visible: System.Windows.Visibility.Collapsed
                 },
-                new NavigationItem()
+                new NavigationViewItem()
                 {
                     Content = "Contacts",
-                    PageTag = "contacts",
-                    Icon = SymbolRegular.ContactCard24,
-                    PageType = typeof(Views.Pages.ContactsPage),
+                    Tag = "contacts",
+                    Icon = new SymbolIcon { Symbol = SymbolRegular.ContactCard24 },
+                    TargetPageType = typeof(Views.Pages.ContactsPage),
                     Visibility = stateService.IsLoggedIn ? System.Windows.Visibility.Visible: System.Windows.Visibility.Collapsed
                 },
-                new NavigationItem()
+                new NavigationViewItem()
                 {
                     Content = "Reports",
-                    PageTag = "reports",
-                    Icon = SymbolRegular.ChartMultiple24,
-                    PageType = typeof(Views.Pages.ReportsPage),
+                    Tag = "reports",
+                    Icon = new SymbolIcon { Symbol = SymbolRegular.ChartMultiple24 },
+                    TargetPageType = typeof(Views.Pages.ReportsPage),
                     Visibility = stateService.IsLoggedIn ? System.Windows.Visibility.Visible: System.Windows.Visibility.Collapsed
                 }
             };
 
-            NavigationFooter = new ObservableCollection<INavigationControl>
+            NavigationFooter = new ObservableCollection<object>
             {
-                new NavigationItem()
+                new NavigationViewItem()
                 {
                     Content = "Settings",
-                    PageTag = "settings",
-                    Icon = SymbolRegular.Settings24,
-                    PageType = typeof(Views.Pages.SettingsPage)
+                    Tag = "settings",
+                    Icon = new SymbolIcon { Symbol = SymbolRegular.Settings24 },
+                    TargetPageType = typeof(Views.Pages.SettingsPage)
                 }
             };
 

@@ -6,7 +6,6 @@ using SysAdmin.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Wpf.Ui.Common.Interfaces;
 
 namespace Sysadmin.ViewModels
 {

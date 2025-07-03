@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Wpf.Ui.Controls;
-using Wpf.Ui.Mvvm.Contracts;
+using Wpf.Ui;
 
 namespace Sysadmin.ViewModels
 {

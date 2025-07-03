@@ -5,7 +5,7 @@ using SysAdmin.ActiveDirectory.Services.Ldap;
 using SysAdmin.Services;
 using System.Security;
 using System.Threading.Tasks;
-using Wpf.Ui.Mvvm.Contracts;
+using Wpf.Ui;
 
 namespace Sysadmin.ViewModels
 {

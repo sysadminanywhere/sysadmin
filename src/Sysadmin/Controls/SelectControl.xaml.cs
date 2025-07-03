@@ -80,7 +80,7 @@ namespace Sysadmin.Controls
         }
 
 
-        private void AutoSuggestBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
             string searchText = (sender as AutoSuggestBox).Text;
             if (string.IsNullOrEmpty(searchText))

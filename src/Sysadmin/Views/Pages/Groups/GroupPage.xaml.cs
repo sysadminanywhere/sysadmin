@@ -1,14 +1,11 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
-using Wpf.Ui.Common.Interfaces;
-using Wpf.Ui.Controls;
 
 namespace Sysadmin.Views.Pages
 {
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class GroupPage : INavigableView<ViewModels.GroupViewModel>
+    public partial class GroupPage : Wpf.Ui.Controls.INavigableView<ViewModels.GroupViewModel>
     {
         public ViewModels.GroupViewModel ViewModel
         {
@@ -37,7 +34,7 @@ namespace Sysadmin.Views.Pages
 
         private void DeleteMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var result = System.Windows.MessageBox.Show("Are you sure you want to delete this group?", "Delete", MessageBoxButton.YesNo);
+            var result = MessageBox.Show("Are you sure you want to delete this group?", "Delete", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
                 ViewModel.DeleteCommand.Execute(ViewModel);
         }
@@ -54,8 +51,8 @@ namespace Sysadmin.Views.Pages
 
         private void MemberOfControl_Error(string ErrorMessage) //NOSONAR
         {
-            snackbar.Message = ErrorMessage;
-            snackbar.Show();
+            //snackbar.Message = ErrorMessage;
+            //snackbar.Show();
         }
 
     }

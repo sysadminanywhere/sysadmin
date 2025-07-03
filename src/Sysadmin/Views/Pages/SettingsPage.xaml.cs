@@ -1,16 +1,13 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using SysAdmin.Services;
+﻿using SysAdmin.Services;
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Windows.Controls;
-using Wpf.Ui.Common.Interfaces;
 
 namespace Sysadmin.Views.Pages
 {
     /// <summary>
     /// Interaction logic for SettingsPage.xaml
     /// </summary>
-    public partial class SettingsPage : INavigableView<ViewModels.SettingsViewModel>
+    public partial class SettingsPage : Wpf.Ui.Controls.INavigableView<ViewModels.SettingsViewModel>
     {
 
         ISettingsService settings;

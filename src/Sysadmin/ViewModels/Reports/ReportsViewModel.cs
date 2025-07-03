@@ -4,7 +4,7 @@ using Sysadmin.Services;
 using Sysadmin.Services.Reports;
 using System.Collections.Generic;
 using System.Linq;
-using Wpf.Ui.Mvvm.Contracts;
+using Wpf.Ui;
 
 
 namespace Sysadmin.ViewModels

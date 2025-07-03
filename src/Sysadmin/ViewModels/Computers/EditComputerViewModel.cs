@@ -8,7 +8,7 @@ using SysAdmin.ActiveDirectory.Repositories;
 using SysAdmin.ActiveDirectory.Services.Ldap;
 using System;
 using System.Threading.Tasks;
-using Wpf.Ui.Mvvm.Contracts;
+using Wpf.Ui;
 
 namespace Sysadmin.ViewModels
 {

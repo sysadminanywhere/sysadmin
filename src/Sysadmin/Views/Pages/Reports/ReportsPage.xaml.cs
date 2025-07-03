@@ -1,4 +1,5 @@
-﻿using Wpf.Ui.Common.Interfaces;
+﻿
+using Wpf.Ui.Controls;
 
 namespace Sysadmin.Views.Pages
 {

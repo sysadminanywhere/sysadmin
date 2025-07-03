@@ -2,7 +2,7 @@
 using Sysadmin.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Sysadmin.Services.Reports;
-using Wpf.Ui.Mvvm.Contracts;
+using Wpf.Ui;
 
 namespace Sysadmin.ViewModels
 {

@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using SysAdmin.Services;
 using System;
+using Wpf.Ui.Appearance;
 
 namespace Sysadmin.ViewModels
 {
@@ -15,7 +16,7 @@ namespace Sysadmin.ViewModels
         private string _appVersion = String.Empty;
 
         [ObservableProperty]
-        private Wpf.Ui.Appearance.ThemeType _currentTheme = Wpf.Ui.Appearance.ThemeType.Unknown;
+        private ApplicationTheme _currentTheme = ApplicationTheme.Unknown;
 
         public SettingsViewModel(ISettingsService settings) 
         {
@@ -30,7 +31,7 @@ namespace Sysadmin.ViewModels
 
         private void InitializeViewModel()
         {
-            CurrentTheme = Wpf.Ui.Appearance.Theme.GetAppTheme();
+            CurrentTheme = ApplicationThemeManager.GetAppTheme();
             AppVersion = $"Version: {GetAssemblyVersion()}";
 
             _isInitialized = true;
@@ -44,28 +45,28 @@ namespace Sysadmin.ViewModels
         [RelayCommand]
         private void OnChangeTheme(string parameter)
         {
-            switch (parameter)
-            {
-                case "theme_light":
-                    if (CurrentTheme == Wpf.Ui.Appearance.ThemeType.Light)
-                        break;
+            //switch (parameter)
+            //{
+            //    case "theme_light":
+            //        if (CurrentTheme == Wpf.Ui.Appearance.ThemeType.Light)
+            //            break;
 
-                    Wpf.Ui.Appearance.Theme.Apply(Wpf.Ui.Appearance.ThemeType.Light);
-                    CurrentTheme = Wpf.Ui.Appearance.ThemeType.Light;
+            //        Wpf.Ui.Appearance.Theme.Apply(Wpf.Ui.Appearance.ThemeType.Light);
+            //        CurrentTheme = Wpf.Ui.Appearance.ThemeType.Light;
 
-                    break;
+            //        break;
 
-                default:
-                    if (CurrentTheme == Wpf.Ui.Appearance.ThemeType.Dark)
-                        break;
+            //    default:
+            //        if (CurrentTheme == Wpf.Ui.Appearance.ThemeType.Dark)
+            //            break;
 
-                    Wpf.Ui.Appearance.Theme.Apply(Wpf.Ui.Appearance.ThemeType.Dark);
-                    CurrentTheme = Wpf.Ui.Appearance.ThemeType.Dark;
+            //        Wpf.Ui.Appearance.Theme.Apply(Wpf.Ui.Appearance.ThemeType.Dark);
+            //        CurrentTheme = Wpf.Ui.Appearance.ThemeType.Dark;
 
-                    break;
-            }
+            //        break;
+            //}
 
-            settings.ThemeSetting = parameter;
+            //settings.ThemeSetting = parameter;
         }
     }
 }

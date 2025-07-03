@@ -1,18 +1,13 @@
-﻿using Microsoft.VisualBasic.Devices;
-using System;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Threading;
-using Wpf.Ui.Common.Interfaces;
-using Wpf.Ui.Controls;
 
 namespace Sysadmin.Views.Pages
 {
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class PerformancePage : INavigableView<ViewModels.PerformanceViewModel>
+    public partial class PerformancePage : Wpf.Ui.Controls.INavigableView<ViewModels.PerformanceViewModel>
     {
 
         private DispatcherTimer timer;
@@ -34,11 +29,6 @@ namespace Sysadmin.Views.Pages
 
         private void ViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "ErrorMessage")
-            {
-                snackbar.Message = ViewModel.ErrorMessage;
-                snackbar.Show();
-            }
             if (e.PropertyName == "IsClosed" && ViewModel.IsClosed)
             {
                 timer?.Stop();

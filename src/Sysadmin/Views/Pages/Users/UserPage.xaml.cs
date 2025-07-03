@@ -1,21 +1,13 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media.Imaging;
-using System.Windows.Media;
-using Wpf.Ui.Common.Interfaces;
-using Microsoft.Win32;
 using System.IO;
-using Wpf.Ui.Controls;
-using System.Windows.Forms;
 
 namespace Sysadmin.Views.Pages
 {
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class UserPage : INavigableView<ViewModels.UserViewModel>
+    public partial class UserPage : Wpf.Ui.Controls.INavigableView<ViewModels.UserViewModel>
     {
         public ViewModels.UserViewModel ViewModel
         {
@@ -81,8 +73,8 @@ namespace Sysadmin.Views.Pages
 
         private void MemberOfControl_Error(string ErrorMessage)
         {
-            snackbar.Message = ErrorMessage;
-            snackbar.Show();
+            //snackbar.Message = ErrorMessage;
+            //snackbar.Show();
         }
 
         private async void btnDeletePhoto_Click(object sender, RoutedEventArgs e)

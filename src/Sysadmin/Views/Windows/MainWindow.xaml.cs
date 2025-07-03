@@ -1,17 +1,15 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SysAdmin.Services;
 using System;
-using System.Reflection.Metadata;
 using System.Windows;
 using System.Windows.Controls;
-using Wpf.Ui.Controls.Interfaces;
-using Wpf.Ui.Mvvm.Contracts;
 using AutoUpdaterDotNET;
 using System.Windows.Media.Imaging;
 using System.Drawing;
 using System.IO;
-using System.Windows.Media;
-using System.Runtime.InteropServices;
+using Wpf.Ui;
+using Wpf.Ui.Appearance;
+using Wpf.Ui.Controls;
 
 namespace Sysadmin.Views.Windows
 {
@@ -49,59 +47,24 @@ namespace Sysadmin.Views.Windows
             navigationService.SetNavigationControl(RootNavigation);
         }
 
-        #region INavigationWindow methods
-
-        public Frame GetFrame()
-            => RootFrame;
-
-        public INavigation GetNavigation()
-            => RootNavigation;
-
-        public bool Navigate(Type pageType)
-            => RootNavigation.Navigate(pageType);
-
-        public void SetPageService(IPageService pageService)
-            => RootNavigation.PageService = pageService;
-
-        public void ShowWindow()
-            => Show();
-
-        public void CloseWindow()
-            => Close();
-
-        #endregion INavigationWindow methods
-
-        /// <summary>
-        /// Raises the closed event.
-        /// </summary>
-        protected override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
-
-            settings.SaveSettings();
-
-            // Make sure that closing this window will begin the process of closing the application.
-            Application.Current.Shutdown();
-        }
-
-        private void SetTheme() 
+        private void SetTheme()
         {
 
             switch (settings.ThemeSetting)
             {
                 case "theme_light":
-                    if (Wpf.Ui.Appearance.Theme.GetAppTheme() == Wpf.Ui.Appearance.ThemeType.Light)
+                    if (ApplicationThemeManager.GetAppTheme() == ApplicationTheme.Light)
                         break;
 
-                    Wpf.Ui.Appearance.Theme.Apply(Wpf.Ui.Appearance.ThemeType.Light);
+                    ApplicationThemeManager.Apply(ApplicationTheme.Light);
 
                     break;
 
                 default:
-                    if (Wpf.Ui.Appearance.Theme.GetAppTheme() == Wpf.Ui.Appearance.ThemeType.Dark)
+                    if (ApplicationThemeManager.GetAppTheme() == ApplicationTheme.Dark)
                         break;
 
-                    Wpf.Ui.Appearance.Theme.Apply(Wpf.Ui.Appearance.ThemeType.Dark);
+                    ApplicationThemeManager.Apply(ApplicationTheme.Dark);
 
                     break;
             }
@@ -121,5 +84,41 @@ namespace Sysadmin.Views.Windows
             }
         }
 
+
+
+        #region INavigationWindow methods
+
+        public INavigationView GetNavigation() => RootNavigation;
+
+        public bool Navigate(Type pageType) => RootNavigation.Navigate(pageType);
+
+        public void SetPageService(IPageService pageService) => RootNavigation.SetPageService(pageService);
+
+        public void ShowWindow() => Show();
+
+        public void CloseWindow() => Close();
+
+        #endregion INavigationWindow methods
+
+        /// <summary>
+        /// Raises the closed event.
+        /// </summary>
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            // Make sure that closing this window will begin the process of closing the application.
+            Application.Current.Shutdown();
+        }
+
+        INavigationView INavigationWindow.GetNavigation()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetServiceProvider(IServiceProvider serviceProvider)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Wpf.Ui.Common.Interfaces;
-using Wpf.Ui.Controls;
+﻿using Wpf.Ui.Controls;
 
 namespace Sysadmin.Views.Pages
 {
@@ -30,10 +29,10 @@ namespace Sysadmin.Views.Pages
             }
         }
 
-        private void AutoSuggestBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
             if (sender is AutoSuggestBox)
-                ViewModel.SearchCommand.Execute(((AutoSuggestBox)sender).Text);
+                ViewModel.SearchCommand.Execute(sender.Text);
         }
     }
 }

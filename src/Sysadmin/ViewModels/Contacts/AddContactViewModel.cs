@@ -3,10 +3,10 @@ using CommunityToolkit.Mvvm.Input;
 using SysAdmin.ActiveDirectory.Models;
 using System.Threading.Tasks;
 using System;
-using Wpf.Ui.Mvvm.Contracts;
 using LdapForNet;
 using SysAdmin.ActiveDirectory.Services.Ldap;
 using SysAdmin.ActiveDirectory.Repositories;
+using Wpf.Ui;
 
 namespace Sysadmin.ViewModels
 {

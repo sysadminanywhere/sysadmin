@@ -1,16 +1,14 @@
 ﻿using SysAdmin.Services;
 using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using Wpf.Ui.Common.Interfaces;
-using Wpf.Ui.Mvvm.Contracts;
+using Wpf.Ui;
 
 namespace Sysadmin.Views.Pages
 {
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class ComputerPage : INavigableView<ViewModels.ComputerViewModel>
+    public partial class ComputerPage : Wpf.Ui.Controls.INavigableView<ViewModels.ComputerViewModel>
     {
 
         private ISettingsService settings;
@@ -35,18 +33,6 @@ namespace Sysadmin.Views.Pages
 
         private void ViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "ErrorMessage")
-            {
-                snackbar.Message = ViewModel.ErrorMessage;
-                snackbar.Show();
-            }
-
-            if (e.PropertyName == "SuccessMessage")
-            {
-                snackbar.Message = ViewModel.SuccessMessage;
-                snackbarOk.Show();
-            }
-
             if (e.PropertyName == "Computer")
             {
                 memberOf.MemberOf = ViewModel.Computer.MemberOf;
@@ -107,8 +93,8 @@ namespace Sysadmin.Views.Pages
 
         private void MemberOfControl_Error(string ErrorMessage)     //NOSONAR
         {
-            snackbar.Message = ErrorMessage;
-            snackbar.Show();
+            //snackbar.Message = ErrorMessage;
+            //snackbar.Show();
         }
 
     }
