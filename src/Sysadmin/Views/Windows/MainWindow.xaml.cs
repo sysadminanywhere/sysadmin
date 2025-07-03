@@ -26,7 +26,12 @@ namespace Sysadmin.Views.Windows
             get;
         }
 
-        public MainWindow(ViewModels.MainWindowViewModel viewModel, IPageService pageService, INavigationService navigationService, IServiceProvider serviceProvider)
+        public MainWindow(ViewModels.MainWindowViewModel viewModel, 
+            IPageService pageService, 
+            INavigationService navigationService, 
+            IServiceProvider serviceProvider,
+            ISnackbarService snackbarService,
+            IContentDialogService contentDialogService)
         {
 
             settings = serviceProvider.GetService<ISettingsService>();
@@ -45,6 +50,8 @@ namespace Sysadmin.Views.Windows
             AutoUpdater.Start("https://raw.githubusercontent.com/sysadminanywhere/sysadmin/main/src/autoupdater.xml");
 
             navigationService.SetNavigationControl(RootNavigation);
+            snackbarService.SetSnackbarPresenter(SnackbarPresenter);
+            contentDialogService.SetDialogHost(RootContentDialog);
         }
 
         private void SetTheme()

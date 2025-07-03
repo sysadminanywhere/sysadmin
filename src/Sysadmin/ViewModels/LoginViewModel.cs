@@ -3,9 +3,11 @@ using CommunityToolkit.Mvvm.Input;
 using Sysadmin.Services;
 using SysAdmin.ActiveDirectory.Services.Ldap;
 using SysAdmin.Services;
+using System;
 using System.Security;
 using System.Threading.Tasks;
 using Wpf.Ui;
+using Wpf.Ui.Controls;
 
 namespace Sysadmin.ViewModels
 {
@@ -17,6 +19,7 @@ namespace Sysadmin.ViewModels
         private IStateService stateService;
         private MainWindowViewModel mainWindowViewModel;
         private ISettingsService settingsService;
+        private ISnackbarService snackbarService;
 
         [ObservableProperty]
         private int _selectedIndex;
@@ -39,16 +42,17 @@ namespace Sysadmin.ViewModels
         [ObservableProperty]
         private bool _ssl;
 
-        [ObservableProperty]
-        private string _errorMessage;
-
-
-        public LoginViewModel(INavigationService navigationService, IStateService stateService, MainWindowViewModel mainWindowViewModel, ISettingsService settingsService)
+        public LoginViewModel(INavigationService navigationService, 
+            IStateService stateService, 
+            MainWindowViewModel mainWindowViewModel, 
+            ISettingsService settingsService, 
+            ISnackbarService snackbarService)
         {
             _navigationService = navigationService;
             this.stateService = stateService;
             this.mainWindowViewModel = mainWindowViewModel;
             this.settingsService = settingsService;
+            this.snackbarService = snackbarService;
         }
 
         public override void OnNavigatedTo()
@@ -139,7 +143,12 @@ namespace Sysadmin.ViewModels
             }
             else
             {
-                ErrorMessage = message;
+                snackbarService.Show("Error",
+                    message,
+                    ControlAppearance.Secondary,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
 
         }
