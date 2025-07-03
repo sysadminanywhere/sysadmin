@@ -20,6 +20,7 @@ namespace Sysadmin.Views.Pages
         public PerformancePage(ViewModels.PerformanceViewModel viewModel)
         {
             ViewModel = viewModel;
+            DataContext = this;
 
             InitializeComponent();
 

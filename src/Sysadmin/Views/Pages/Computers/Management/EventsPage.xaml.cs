@@ -16,6 +16,7 @@ namespace Sysadmin.Views.Pages
         public EventsPage(ViewModels.EventsViewModel viewModel)
         {
             ViewModel = viewModel;
+            DataContext = this;
 
             InitializeComponent();
         }

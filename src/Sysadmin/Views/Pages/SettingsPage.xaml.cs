@@ -20,6 +20,7 @@ namespace Sysadmin.Views.Pages
         public SettingsPage(ViewModels.SettingsViewModel viewModel, IServiceProvider serviceProvider, ISettingsService settings)
         {
             ViewModel = viewModel;
+            DataContext = this;
 
             this.settings = settings;
 

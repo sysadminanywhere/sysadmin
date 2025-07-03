@@ -15,6 +15,7 @@ namespace Sysadmin.Views.Pages
         public ContactPage(ViewModels.ContactViewModel viewModel)
         {
             ViewModel = viewModel;
+            DataContext = this;
 
             InitializeComponent();
         }

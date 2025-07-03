@@ -21,6 +21,8 @@ namespace Sysadmin.Views.Pages
         public AddUserPage(ViewModels.AddUserViewModel viewModel, ISettingsService settingsService)
         {
             ViewModel = viewModel;
+            DataContext = this;
+
             _settingsService = settingsService;
 
             InitializeComponent();

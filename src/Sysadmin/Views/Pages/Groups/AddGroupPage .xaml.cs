@@ -16,6 +16,7 @@ namespace Sysadmin.Views.Pages
         public AddGroupPage(ViewModels.AddGroupViewModel viewModel)
         {
             ViewModel = viewModel;
+            DataContext = this;
 
             InitializeComponent();
         }

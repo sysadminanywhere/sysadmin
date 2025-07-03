@@ -17,6 +17,7 @@ namespace Sysadmin.Views.Pages
         public EditUserPage(ViewModels.EditUserViewModel viewModel, ISettingsService settingsService)
         {
             ViewModel = viewModel;
+            DataContext = this;
 
             InitializeComponent();
         }

@@ -16,6 +16,7 @@ namespace Sysadmin.Views.Pages
         public ReportsPage(ViewModels.ReportsViewModel viewModel)
         {
             ViewModel = viewModel;
+            DataContext = this;
 
             InitializeComponent();
         }

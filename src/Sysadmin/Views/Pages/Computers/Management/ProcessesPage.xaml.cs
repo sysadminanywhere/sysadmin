@@ -15,6 +15,7 @@ namespace Sysadmin.Views.Pages
         public ProcessesPage(ViewModels.ProcessesViewModel viewModel)
         {
             ViewModel = viewModel;
+            DataContext = this;
 
             InitializeComponent();
         }

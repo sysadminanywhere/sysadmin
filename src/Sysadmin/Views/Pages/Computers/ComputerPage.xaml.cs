@@ -22,6 +22,7 @@ namespace Sysadmin.Views.Pages
         public ComputerPage(ViewModels.ComputerViewModel viewModel, ISettingsService settings, INavigationService navigationService)
         {
             ViewModel = viewModel;
+            DataContext = this;
 
             this.settings = settings;
             this.navigationService = navigationService;

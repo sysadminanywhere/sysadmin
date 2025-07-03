@@ -16,6 +16,7 @@ namespace Sysadmin.Views.Pages
         public UserOptionsPage(ViewModels.UserOptionsViewModel viewModel)
         {
             ViewModel = viewModel;
+            DataContext = this;
 
             InitializeComponent();
         }

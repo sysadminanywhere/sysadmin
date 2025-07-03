@@ -23,6 +23,7 @@ namespace Sysadmin.Views.Pages
         public HardwarePage(ViewModels.HardwareViewModel viewModel)
         {
             ViewModel = viewModel;
+            DataContext = this;
 
             InitializeComponent();
         }

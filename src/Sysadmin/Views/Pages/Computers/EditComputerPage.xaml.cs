@@ -16,6 +16,7 @@ namespace Sysadmin.Views.Pages
         public EditComputerPage(ViewModels.EditComputerViewModel viewModel)
         {
             ViewModel = viewModel;
+            DataContext = this;
 
             InitializeComponent();
         }

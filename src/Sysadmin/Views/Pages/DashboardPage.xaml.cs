@@ -15,6 +15,7 @@ namespace Sysadmin.Views.Pages
         public DashboardPage(ViewModels.DashboardViewModel viewModel)
         {
             ViewModel = viewModel;
+            DataContext = this;
 
             InitializeComponent();
         }

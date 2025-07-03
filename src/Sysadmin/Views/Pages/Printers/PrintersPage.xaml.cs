@@ -15,6 +15,7 @@ namespace Sysadmin.Views.Pages
         public PrintersPage(ViewModels.PrintersViewModel viewModel)
         {
             ViewModel = viewModel;
+            DataContext = this;
 
             InitializeComponent();
         }

@@ -16,6 +16,7 @@ namespace Sysadmin.Views.Pages
         public ResetPasswordPage(ViewModels.ResetPasswordViewModel viewModel)
         {
             ViewModel = viewModel;
+            DataContext = this;
 
             InitializeComponent();
         }

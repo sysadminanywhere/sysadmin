@@ -17,6 +17,7 @@ namespace Sysadmin.Views.Pages
         public LoginPage(ViewModels.LoginViewModel viewModel)
         {
             ViewModel = viewModel;
+            DataContext = this;
 
             InitializeComponent();
         }

@@ -30,6 +30,7 @@ namespace Sysadmin.Views.Pages
         public ReportPage(ViewModels.ReportViewModel viewModel)
         {
             ViewModel = viewModel;
+            DataContext = this;
 
             InitializeComponent();
 
