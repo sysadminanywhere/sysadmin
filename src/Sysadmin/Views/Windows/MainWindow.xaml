@@ -42,18 +42,14 @@
         <ui:NavigationView
             x:Name="RootNavigation"
             Padding="42,0,42,0"
-            BreadcrumbBar="{Binding ElementName=BreadcrumbBar}"
             FooterMenuItemsSource="{Binding ViewModel.NavigationFooter, Mode=OneWay}"
             FrameMargin="0"
-            IsBackButtonVisible="Visible"
+            IsBackButtonVisible="Collapsed"
             IsPaneToggleVisible="True"
             MenuItemsSource="{Binding ViewModel.NavigationItems, Mode=OneWay}"
             OpenPaneLength="310"
             TitleBar="{Binding ElementName=TitleBar, Mode=OneWay}" 
             IsPaneOpen="False">
-            <ui:NavigationView.Header>
-                <ui:BreadcrumbBar x:Name="BreadcrumbBar" Margin="42,32,42,20" />
-            </ui:NavigationView.Header>
             <ui:NavigationView.ContentOverlay>
                 <Grid>
                     <ui:SnackbarPresenter x:Name="SnackbarPresenter" />
