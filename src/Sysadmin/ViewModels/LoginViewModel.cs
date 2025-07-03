@@ -14,11 +14,8 @@ namespace Sysadmin.ViewModels
         private bool _isInitialized = false;
 
         private INavigationService _navigationService;
-
         private IStateService stateService;
-
         private MainWindowViewModel mainWindowViewModel;
-
         private ISettingsService settingsService;
 
         [ObservableProperty]
