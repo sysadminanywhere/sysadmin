@@ -41,7 +41,7 @@
 
         <ui:NavigationView
             x:Name="RootNavigation"
-            Padding="0"
+            Padding="0,0,0,16"
             FooterMenuItemsSource="{Binding ViewModel.NavigationFooter, Mode=OneWay}"
             FrameMargin="0"
             IsBackButtonVisible="Visible"

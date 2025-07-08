@@ -1,6 +1,6 @@
 ﻿
 using LdapForNet;
-using System.Collections.Generic;
+using SysAdmin.ActiveDirectory.Models;
 using static LdapForNet.Native.Native;
 
 namespace SysAdmin.ActiveDirectory.Services.Ldap
@@ -115,14 +115,11 @@ namespace SysAdmin.ActiveDirectory.Services.Ldap
             if (string.IsNullOrEmpty(filter))
                 throw new ArgumentNullException(nameof(filter));
 
-            //var entries = await ldapConnection.SearchAsync(path, filter, scope: scope);
-            //return entries.ToList();
-
             var directoryRequest = new SearchRequest(path, filter, scope);
             var pageSize = 100;
 
             var vlvRequestControl = new VlvRequestControl(0, pageSize - 1, 1);
-            directoryRequest.Controls.Add(new SortRequestControl("cn", false));
+            directoryRequest.Controls.Add(new SortRequestControl("name", false));
             directoryRequest.Controls.Add(vlvRequestControl);
 
             List<LdapEntry> results = new List<LdapEntry>();
@@ -245,6 +242,7 @@ namespace SysAdmin.ActiveDirectory.Services.Ldap
             var searchEntries = await ldapConnection.SearchAsync(DefaultNamingContext, "(objectclass=domain)", scope: LdapSearchScope.LDAP_SCOPE_BASE);
             return searchEntries[0].DirectoryAttributes["wellKnownObjects"].GetValues<string>().ToList();
         }
+
         public LdapEntry GetRootDse()
         {
             if (ldapConnection == null)
@@ -252,6 +250,87 @@ namespace SysAdmin.ActiveDirectory.Services.Ldap
 
             return ldapConnection.GetRootDse();
         }
+
+        public async Task<List<AuditItem>> AuditListAsync()
+        {
+            return await AuditListAsync(DateTime.Now, DateTime.Now);
+        }
+
+        public async Task<List<AuditItem>> AuditListAsync(DateTime startDate, DateTime endDate)
+        {
+            string start = startDate.Date.ToString("yyyyMMdd000000.0'Z'");
+            string end = endDate.Date.AddDays(1).AddSeconds(-1).ToString("yyyyMMdd235959.0'Z'");
+
+            string filter = "(&(whenChanged>=" + start + ")(whenChanged<=" + end + "))";
+
+            List<LdapEntry> ldapEntries = await SearchAsync(DefaultNamingContext, filter, LdapSearchScope.LDAP_SCOPE_SUB);
+
+            List<AuditItem> list = new List<AuditItem>();
+
+            foreach (LdapEntry entry in ldapEntries)
+            {
+                if (entry.DirectoryAttributes.Contains("whenCreated") && entry.DirectoryAttributes.Contains("whenChanged"))
+                {
+                    DateTime whencreated = GetDate(entry.DirectoryAttributes["whenCreated"].GetValue<string>(), ADAttribute.DateTypes.Date);
+                    DateTime whenchanged = GetDate(entry.DirectoryAttributes["whenChanged"].GetValue<string>(), ADAttribute.DateTypes.Date);
+
+                    if (whencreated >= DateTime.Today || whenchanged >= DateTime.Today)
+                    {
+                        list.Add(new AuditItem()
+                        {
+                            Name = entry.DirectoryAttributes["name"].GetValue<string>(),
+                            Action = whenchanged > whencreated ? "Changed" : "Created",
+                            Date = whenchanged > whencreated ? whenchanged : whencreated,
+                            DistinguishedName = entry.DirectoryAttributes["DistinguishedName"].GetValue<string>(),
+                            Type = entry.DirectoryAttributes["objectClass"].GetValues<string>().Last()
+                        });
+                    }
+                }
+            }
+
+
+            return list;
+        }
+
+        private DateTime GetDate(string sDate, ADAttribute.DateTypes dateType)
+        {
+            if (sDate == "0")
+                return new DateTime(1601, 01, 01, 0, 0, 0, DateTimeKind.Utc);
+
+            if (dateType == ADAttribute.DateTypes.Date)
+            {
+                if (sDate.EndsWith("Z"))
+                {
+                    int year = Convert.ToInt32(sDate.Substring(0, 4));
+                    int month = Convert.ToInt32(sDate.Substring(4, 2));
+                    int day = Convert.ToInt32(sDate.Substring(6, 2));
+
+                    int hour = 0;
+                    int minute = 0;
+                    int second = 0;
+
+                    if (sDate.Length > 8)
+                    {
+                        hour = Convert.ToInt32(sDate.Substring(8, 2));
+                        minute = Convert.ToInt32(sDate.Substring(10, 2));
+                        second = Convert.ToInt32(sDate.Substring(12, 2));
+                    }
+                    return new DateTime(year, month, day, hour, minute, second);
+                }
+                else
+                {
+                    return Convert.ToDateTime(sDate);
+                }
+            }
+            else
+            {
+                if (sDate.Length == 18)
+                    return DateTime.FromFileTime(long.Parse(sDate));
+                else
+                    return new DateTime(1601, 01, 01, 0, 0, 0, DateTimeKind.Utc);
+            }
+        }
+
 
         public void Dispose()
         {

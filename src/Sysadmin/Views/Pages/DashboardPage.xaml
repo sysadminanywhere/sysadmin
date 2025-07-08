@@ -101,8 +101,9 @@
                 ItemsSource="{Binding ViewModel.AuditList, Mode=OneWay}" 
                 CanUserResizeColumns="True">
                 <ui:DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding CN}" Header="Name" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                    <DataGridTextColumn Binding="{Binding Name}" Header="Name" ElementStyle="{StaticResource TableDetailNameStyle}"/>
                     <DataGridTextColumn Binding="{Binding DistinguishedName}" Header="Distinguished name" ElementStyle="{StaticResource TableDetailNameStyle}"/>
+                    <DataGridTextColumn Binding="{Binding Type}" Header="Object class" ElementStyle="{StaticResource TableDetailNameStyle}"/>
                     <DataGridTextColumn Binding="{Binding Action}" Header="Action" ElementStyle="{StaticResource TableDetailNameStyle}"/>
                     <DataGridTextColumn Binding="{Binding Date}" Header="Date" ElementStyle="{StaticResource TableDetailNameStyle}"/>
                 </ui:DataGrid.Columns>
