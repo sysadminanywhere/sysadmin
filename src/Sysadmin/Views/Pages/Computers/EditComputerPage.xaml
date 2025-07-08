@@ -1,4 +1,4 @@
-﻿<ui:UiPage
+﻿<Page
     x:Class="Sysadmin.Views.Pages.EditComputerPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -50,8 +50,6 @@
             <ui:Button Appearance="Secondary" IsCancel="True" MinWidth="60" Command="{Binding ViewModel.CloseCommand}">Cancel</ui:Button>
         </WrapPanel>
 
-        <ui:Snackbar Grid.RowSpan="3" VerticalAlignment="Bottom" x:Name="snackbar" Appearance="Danger" Title="Error" Icon="ErrorCircle12" Message="Error" Timeout="5000" />
-
     </Grid>
 
-</ui:UiPage>
+</Page>

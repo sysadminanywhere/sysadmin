@@ -2,19 +2,17 @@
 using Sysadmin.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Sysadmin.Services.Reports;
-using Wpf.Ui.Common.Interfaces;
-using Wpf.Ui.Mvvm.Contracts;
-using SysAdmin.ActiveDirectory.Models;
+using Wpf.Ui;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class ReportViewModel : ObservableObject, INavigationAware
+    public partial class ReportViewModel : ViewModel
     {
 
-        private bool _isInitialized = false;
+        private bool isInitialized = false;
 
-        private INavigationService _navigationService;
-        private IExchangeService _exchangeService;
+        private INavigationService navigationService;
+        private IExchangeService exchangeService;
 
 
         [ObservableProperty]
@@ -25,33 +23,29 @@ namespace Sysadmin.ViewModels
 
         public ReportViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
-            _navigationService = navigationService;
-            _exchangeService = exchangeService;
+            this.navigationService = navigationService;
+            this.exchangeService = exchangeService;
         }
 
-        public void OnNavigatedTo()
+        public override void OnNavigatedTo()
         {
-            if (!_isInitialized)
+            if (!isInitialized)
                 InitializeViewModel();
 
-            if (_exchangeService.GetParameter() is IReport entry)
+            if (exchangeService.GetParameter() is IReport entry)
                 Report = entry;
-        }
-
-        public void OnNavigatedFrom()
-        {
         }
 
         private void InitializeViewModel()
         {
-            _isInitialized = true;
+            isInitialized = true;
         }
 
 
         [RelayCommand]
         private void OnClose()
         {
-            _navigationService.Navigate(typeof(Views.Pages.ReportsPage));
+            navigationService.GoBack();
         }
 
     }

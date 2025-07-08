@@ -1,22 +1,23 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Sysadmin.Services;
-using SysAdmin.ActiveDirectory.Models;
-using System.Threading.Tasks;
-using System;
-using Wpf.Ui.Common.Interfaces;
-using Wpf.Ui.Mvvm.Contracts;
-using SysAdmin.ActiveDirectory.Services.Ldap;
 using LdapForNet;
+using SysAdmin.ActiveDirectory;
+using SysAdmin.ActiveDirectory.Models;
 using SysAdmin.ActiveDirectory.Repositories;
+using SysAdmin.ActiveDirectory.Services.Ldap;
+using System;
+using System.Threading.Tasks;
+using Wpf.Ui;
+using Wpf.Ui.Controls;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class AddGroupViewModel : ObservableObject, INavigationAware
+    public partial class AddGroupViewModel : ViewModel
     {
-        private bool _isInitialized = false;
+        private bool isInitialized = false;
 
-        private INavigationService _navigationService;
+        private INavigationService navigationService;
+        private ISnackbarService snackbarService;
 
         [ObservableProperty]
         private GroupEntry _group = new GroupEntry();
@@ -27,34 +28,27 @@ namespace Sysadmin.ViewModels
         [ObservableProperty]
         private bool _isSecurity = true;
 
-        [ObservableProperty]
-        private string _errorMessage;
-
-        public AddGroupViewModel(INavigationService navigationService)
+        public AddGroupViewModel(INavigationService navigationService, ISnackbarService snackbarService)
         {
-            _navigationService = navigationService;
+            this.navigationService = navigationService;
+            this.snackbarService = snackbarService;
         }
 
-        public void OnNavigatedTo()
+        public override void OnNavigatedTo()
         {
-            if (!_isInitialized)
+            if (!isInitialized)
                 InitializeViewModel();
-        }
-
-        public void OnNavigatedFrom()
-        {
-
         }
 
         private void InitializeViewModel()
         {
-            _isInitialized = true;
+            isInitialized = true;
         }
 
         [RelayCommand]
         private void OnClose()
         {
-            _navigationService.Navigate(typeof(Views.Pages.GroupsPage));
+            navigationService.GoBack();
         }
 
         [RelayCommand]
@@ -63,15 +57,25 @@ namespace Sysadmin.ViewModels
             try
             {
                 await Add(Group, GroupScope, IsSecurity);
-                _navigationService.Navigate(typeof(Views.Pages.GroupsPage));
+                navigationService.Navigate(typeof(Views.Pages.GroupsPage));
             }
             catch (LdapException le)
             {
-                ErrorMessage = SysAdmin.ActiveDirectory.LdapResult.GetErrorMessageFromResult(le.ResultCode);
+                snackbarService.Show("Error",
+                    LdapResult.GetErrorMessageFromResult(le.ResultCode),
+                    ControlAppearance.Danger,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
             catch (Exception ex)
             {
-                ErrorMessage = ex.Message;
+                snackbarService.Show("Error",
+                    ex.Message,
+                    ControlAppearance.Danger,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
 
         }

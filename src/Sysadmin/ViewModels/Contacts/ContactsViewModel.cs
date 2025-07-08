@@ -7,18 +7,17 @@ using SysAdmin.ActiveDirectory.Services.Ldap;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Wpf.Ui.Common.Interfaces;
+using Wpf.Ui;
 using Wpf.Ui.Controls;
-using Wpf.Ui.Mvvm.Contracts;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class ContactsViewModel : ObservableObject, INavigationAware
+    public partial class ContactsViewModel : ViewModel
     {
-        private bool _isInitialized = false;
+        private bool isInitialized = false;
 
-        private INavigationService _navigationService;
-        private IExchangeService _exchangeService;
+        private INavigationService navigationService;
+        private IExchangeService exchangeService;
 
         [ObservableProperty]
         private IEnumerable<ContactEntry> _contacts = new List<ContactEntry>();
@@ -33,13 +32,13 @@ namespace Sysadmin.ViewModels
 
         public ContactsViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
-            _navigationService = navigationService;
-            _exchangeService = exchangeService;
+            this.navigationService = navigationService;
+            this.exchangeService = exchangeService;
         }
 
-        public async void OnNavigatedTo()
+        public override async void OnNavigatedTo()
         {
-            if (!_isInitialized)
+            if (!isInitialized)
                 InitializeViewModel();
 
             await ListAsync();
@@ -47,19 +46,15 @@ namespace Sysadmin.ViewModels
             SortingAndFiltering();
         }
 
-        public void OnNavigatedFrom()
-        {
-        }
-
         private void InitializeViewModel()
         {
-            _isInitialized = true;
+            isInitialized = true;
         }
 
         [RelayCommand]
         private void OnAdd()
         {
-            _navigationService.Navigate(typeof(Views.Pages.AddContactPage));
+            navigationService.Navigate(typeof(Views.Pages.AddContactPage));
         }
 
         [RelayCommand]
@@ -67,8 +62,8 @@ namespace Sysadmin.ViewModels
         {
             if (items.Any())
             {
-                _exchangeService.SetParameter((ContactEntry)items.First());
-                _navigationService.Navigate(typeof(Views.Pages.ContactPage));
+                exchangeService.SetParameter((ContactEntry)items.First());
+                navigationService.Navigate(typeof(Views.Pages.ContactPage));
             }
         }
 

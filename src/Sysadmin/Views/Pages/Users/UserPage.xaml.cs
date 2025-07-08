@@ -1,30 +1,29 @@
 ﻿using System;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media.Imaging;
-using System.Windows.Media;
-using Wpf.Ui.Common.Interfaces;
-using Microsoft.Win32;
 using System.IO;
-using Wpf.Ui.Controls;
-using System.Windows.Forms;
+using System.Windows;
+using Wpf.Ui;
 
 namespace Sysadmin.Views.Pages
 {
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class UserPage : INavigableView<ViewModels.UserViewModel>
+    public partial class UserPage : Wpf.Ui.Controls.INavigableView<ViewModels.UserViewModel>
     {
+
+        private ISnackbarService snackbarService;
+
         public ViewModels.UserViewModel ViewModel
         {
             get;
         }
 
-        public UserPage(ViewModels.UserViewModel viewModel)
+        public UserPage(ViewModels.UserViewModel viewModel, ISnackbarService snackbarService)
         {
             ViewModel = viewModel;
+            DataContext = this;
+
+            this.snackbarService = snackbarService;
 
             InitializeComponent();
 
@@ -81,8 +80,12 @@ namespace Sysadmin.Views.Pages
 
         private void MemberOfControl_Error(string ErrorMessage)
         {
-            snackbar.Message = ErrorMessage;
-            snackbar.Show();
+            snackbarService.Show("Error",
+                ErrorMessage,
+                Wpf.Ui.Controls.ControlAppearance.Danger,
+                new Wpf.Ui.Controls.SymbolIcon(Wpf.Ui.Controls.SymbolRegular.ErrorCircle12),
+                TimeSpan.FromSeconds(5)
+            );
         }
 
         private async void btnDeletePhoto_Click(object sender, RoutedEventArgs e)

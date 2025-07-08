@@ -1,23 +1,24 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Sysadmin.Services;
-using SysAdmin.ActiveDirectory.Models;
-using System.Threading.Tasks;
-using System;
-using Wpf.Ui.Common.Interfaces;
-using Wpf.Ui.Mvvm.Contracts;
 using LdapForNet;
-using SysAdmin.ActiveDirectory.Services.Ldap;
+using SysAdmin.ActiveDirectory;
+using SysAdmin.ActiveDirectory.Models;
 using SysAdmin.ActiveDirectory.Repositories;
+using SysAdmin.ActiveDirectory.Services.Ldap;
+using System;
 using System.Security;
+using System.Threading.Tasks;
+using Wpf.Ui;
+using Wpf.Ui.Controls;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class AddUserViewModel : ObservableObject, INavigationAware
+    public partial class AddUserViewModel : ViewModel
     {
-        private bool _isInitialized = false;
+        private bool isInitialized = false;
 
-        private INavigationService _navigationService;
+        private INavigationService navigationService;
+        private ISnackbarService snackbarService;
 
         [ObservableProperty]
         private UserEntry _user = new UserEntry();
@@ -27,9 +28,6 @@ namespace Sysadmin.ViewModels
 
         [ObservableProperty]
         private SecureString _password;
-
-        [ObservableProperty]
-        private string _errorMessage;
 
         [ObservableProperty]
         private bool _isCannotChangePassword;
@@ -44,31 +42,27 @@ namespace Sysadmin.ViewModels
         private bool _isMustChangePassword;
 
 
-        public AddUserViewModel(INavigationService navigationService)
+        public AddUserViewModel(INavigationService navigationService, ISnackbarService snackbarService)
         {
-            _navigationService = navigationService;
+            this.navigationService = navigationService;
+            this.snackbarService = snackbarService;
         }
 
-        public void OnNavigatedTo()
+        public override void OnNavigatedTo()
         {
-            if (!_isInitialized)
+            if (!isInitialized)
                 InitializeViewModel();
-        }
-
-        public void OnNavigatedFrom()
-        {
-
         }
 
         private void InitializeViewModel()
         {
-            _isInitialized = true;
+            isInitialized = true;
         }
 
         [RelayCommand]
         private void OnClose()
         {
-            _navigationService.Navigate(typeof(Views.Pages.UsersPage));
+            navigationService.GoBack();
         }
 
         [RelayCommand]
@@ -83,15 +77,25 @@ namespace Sysadmin.ViewModels
                     User.Name = User.DisplayName;
 
                 await Add(DistinguishedName, User, new System.Net.NetworkCredential(string.Empty, Password).Password, IsCannotChangePassword, IsPasswordNeverExpires, IsAccountDisabled, IsMustChangePassword);
-                _navigationService.Navigate(typeof(Views.Pages.UsersPage));
+                navigationService.Navigate(typeof(Views.Pages.UsersPage));
             }
             catch (LdapException le)
             {
-                ErrorMessage = SysAdmin.ActiveDirectory.LdapResult.GetErrorMessageFromResult(le.ResultCode);
+                snackbarService.Show("Error",
+                    LdapResult.GetErrorMessageFromResult(le.ResultCode),
+                    ControlAppearance.Danger,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
             catch (Exception ex)
             {
-                ErrorMessage = ex.Message;
+                snackbarService.Show("Error",
+                    ex.Message,
+                    ControlAppearance.Danger,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
         }
 

@@ -1,22 +1,23 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Sysadmin.Services;
-using SysAdmin.ActiveDirectory.Models;
-using System.Threading.Tasks;
-using System;
-using Wpf.Ui.Common.Interfaces;
-using Wpf.Ui.Mvvm.Contracts;
 using LdapForNet;
-using SysAdmin.ActiveDirectory.Services.Ldap;
+using SysAdmin.ActiveDirectory;
+using SysAdmin.ActiveDirectory.Models;
 using SysAdmin.ActiveDirectory.Repositories;
+using SysAdmin.ActiveDirectory.Services.Ldap;
+using System;
+using System.Threading.Tasks;
+using Wpf.Ui;
+using Wpf.Ui.Controls;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class AddContactViewModel : ObservableObject, INavigationAware
+    public partial class AddContactViewModel : ViewModel
     {
-        private bool _isInitialized = false;
+        private bool isInitialized = false;
 
-        private INavigationService _navigationService;
+        private INavigationService navigationService;
+        private ISnackbarService snackbarService;
 
         [ObservableProperty]
         private string _distinguishedName;
@@ -24,34 +25,27 @@ namespace Sysadmin.ViewModels
         [ObservableProperty]
         private ContactEntry _contact = new ContactEntry();
 
-        [ObservableProperty]
-        private string _errorMessage;
-
-        public AddContactViewModel(INavigationService navigationService)
+        public AddContactViewModel(INavigationService navigationService, ISnackbarService snackbarService)
         {
-            _navigationService = navigationService;
+            this.navigationService = navigationService;
+            this.snackbarService = snackbarService;
         }
 
-        public void OnNavigatedTo()
+        public override void OnNavigatedTo()
         {
-            if (!_isInitialized)
+            if (!isInitialized)
                 InitializeViewModel();
-        }
-
-        public void OnNavigatedFrom()
-        {
-
         }
 
         private void InitializeViewModel()
         {
-            _isInitialized = true;
+            isInitialized = true;
         }
 
         [RelayCommand]
         private void OnClose()
         {
-            _navigationService.Navigate(typeof(Views.Pages.ContactsPage));
+            navigationService.GoBack();
         }
 
         [RelayCommand]
@@ -66,15 +60,25 @@ namespace Sysadmin.ViewModels
                     Contact.Name = Contact.DisplayName;
 
                 await Add(Contact);
-                _navigationService.Navigate(typeof(Views.Pages.ContactsPage));
+                navigationService.Navigate(typeof(Views.Pages.ContactsPage));
             }
             catch (LdapException le)
             {
-                ErrorMessage = SysAdmin.ActiveDirectory.LdapResult.GetErrorMessageFromResult(le.ResultCode);
+                snackbarService.Show("Error",
+                    LdapResult.GetErrorMessageFromResult(le.ResultCode),
+                    ControlAppearance.Danger,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
             catch (Exception ex)
             {
-                ErrorMessage = ex.Message;
+                snackbarService.Show("Error",
+                    ex.Message,
+                    ControlAppearance.Danger,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
 
         }

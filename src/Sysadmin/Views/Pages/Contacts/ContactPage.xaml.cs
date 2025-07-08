@@ -1,13 +1,11 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
-using Wpf.Ui.Common.Interfaces;
 
 namespace Sysadmin.Views.Pages
 {
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class ContactPage : INavigableView<ViewModels.ContactViewModel>
+    public partial class ContactPage : Wpf.Ui.Controls.INavigableView<ViewModels.ContactViewModel>
     {
         public ViewModels.ContactViewModel ViewModel
         {
@@ -17,6 +15,7 @@ namespace Sysadmin.Views.Pages
         public ContactPage(ViewModels.ContactViewModel viewModel)
         {
             ViewModel = viewModel;
+            DataContext = this;
 
             InitializeComponent();
         }

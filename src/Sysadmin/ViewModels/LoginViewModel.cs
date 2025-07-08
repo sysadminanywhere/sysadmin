@@ -3,24 +3,23 @@ using CommunityToolkit.Mvvm.Input;
 using Sysadmin.Services;
 using SysAdmin.ActiveDirectory.Services.Ldap;
 using SysAdmin.Services;
+using System;
 using System.Security;
 using System.Threading.Tasks;
-using Wpf.Ui.Common.Interfaces;
-using Wpf.Ui.Mvvm.Contracts;
+using Wpf.Ui;
+using Wpf.Ui.Controls;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class LoginViewModel : ObservableObject, INavigationAware
+    public partial class LoginViewModel : ViewModel
     {
-        private bool _isInitialized = false;
+        private bool isInitialized = false;
 
-        private INavigationService _navigationService;
-
+        private INavigationService navigationService;
         private IStateService stateService;
-
         private MainWindowViewModel mainWindowViewModel;
-
         private ISettingsService settingsService;
+        private ISnackbarService snackbarService;
 
         [ObservableProperty]
         private int _selectedIndex;
@@ -43,21 +42,22 @@ namespace Sysadmin.ViewModels
         [ObservableProperty]
         private bool _ssl;
 
-        [ObservableProperty]
-        private string _errorMessage;
-
-
-        public LoginViewModel(INavigationService navigationService, IStateService stateService, MainWindowViewModel mainWindowViewModel, ISettingsService settingsService)
+        public LoginViewModel(INavigationService navigationService, 
+            IStateService stateService, 
+            MainWindowViewModel mainWindowViewModel, 
+            ISettingsService settingsService, 
+            ISnackbarService snackbarService)
         {
-            _navigationService = navigationService;
+            this.navigationService = navigationService;
             this.stateService = stateService;
             this.mainWindowViewModel = mainWindowViewModel;
             this.settingsService = settingsService;
+            this.snackbarService = snackbarService;
         }
 
-        public void OnNavigatedTo()
+        public override void OnNavigatedTo()
         {
-            if (!_isInitialized)
+            if (!isInitialized)
                 InitializeViewModel();
 
             SelectedIndex = settingsService.LoginSelectedIndex;
@@ -69,13 +69,9 @@ namespace Sysadmin.ViewModels
             Ssl = settingsService.IsSSL;
         }
 
-        public void OnNavigatedFrom()
-        {
-        }
-
         private void InitializeViewModel()
         {
-            _isInitialized = true;
+            isInitialized = true;
         }
 
         [RelayCommand]
@@ -143,11 +139,18 @@ namespace Sysadmin.ViewModels
 
                 stateService.IsLoggedIn = true;
                 mainWindowViewModel.InitializeViewModel();
-                _navigationService.Navigate(typeof(Views.Pages.DashboardPage));
+
+                navigationService.GetNavigationControl().ClearJournal();
+                navigationService.Navigate(typeof(Views.Pages.DashboardPage));
             }
             else
             {
-                ErrorMessage = message;
+                snackbarService.Show("Error",
+                    message,
+                    ControlAppearance.Danger,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
 
         }

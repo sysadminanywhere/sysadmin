@@ -1,8 +1,4 @@
-﻿using SysAdmin.Services;
-using System.Text.RegularExpressions;
-using System.Windows.Controls;
-using Wpf.Ui.Common.Interfaces;
-using Wpf.Ui.Controls;
+﻿using Wpf.Ui.Controls;
 
 namespace Sysadmin.Views.Pages
 {
@@ -20,19 +16,9 @@ namespace Sysadmin.Views.Pages
         public UserOptionsPage(ViewModels.UserOptionsViewModel viewModel)
         {
             ViewModel = viewModel;
+            DataContext = this;
 
             InitializeComponent();
-
-            ViewModel.PropertyChanged += ViewModel_PropertyChanged;
-        }
-
-        private void ViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "ErrorMessage")
-            {
-                snackbar.Message = ViewModel.ErrorMessage;
-                snackbar.Show();
-            }
         }
 
         private void chkUserMustChangePassword_Checked(object sender, System.Windows.RoutedEventArgs e)

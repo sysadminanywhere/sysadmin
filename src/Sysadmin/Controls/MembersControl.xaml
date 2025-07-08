@@ -28,13 +28,13 @@
                 </ui:Flyout>
             </Grid>
 
-            <ListView Grid.Row="1" ItemsSource="{Binding Items, ElementName=self}" SelectedItem="{Binding Selected, ElementName=self, Mode=TwoWay}" Margin="0,8,0,0">
-                <ListView.ItemTemplate>
+            <ui:ListView Grid.Row="1" ItemsSource="{Binding Items, ElementName=self}" SelectedItem="{Binding Selected, ElementName=self, Mode=TwoWay}" Margin="0,8,0,0">
+                <ui:ListView.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" Style="{StaticResource ListDescriptionStyle}" />
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </ui:ListView.ItemTemplate>
+            </ui:ListView>
 
         </Grid>
 

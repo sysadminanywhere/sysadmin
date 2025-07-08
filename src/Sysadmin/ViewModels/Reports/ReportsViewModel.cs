@@ -1,49 +1,39 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Sysadmin.Models;
 using Sysadmin.Services;
 using Sysadmin.Services.Reports;
-using SysAdmin.ActiveDirectory.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Media;
-using Wpf.Ui.Common.Interfaces;
-using Wpf.Ui.Controls;
-using Wpf.Ui.Mvvm.Contracts;
+using Wpf.Ui;
 
 
 namespace Sysadmin.ViewModels
 {
-    public partial class ReportsViewModel : ObservableObject, INavigationAware
+    public partial class ReportsViewModel : ViewModel
     {
-        private bool _isInitialized = false;
+        private bool isInitialized = false;
 
-        private INavigationService _navigationService;
-        private IExchangeService _exchangeService;
+        private INavigationService navigationService;
+        private IExchangeService exchangeService;
 
         [ObservableProperty]
         private List<IReport> _reports = new List<IReport>();
 
         public ReportsViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
-            _navigationService = navigationService;
-            _exchangeService = exchangeService;
+            this.navigationService = navigationService;
+            this.exchangeService = exchangeService;
         }
 
-        public void OnNavigatedTo()
+        public override void OnNavigatedTo()
         {
-            if (!_isInitialized)
+            if (!isInitialized)
                 InitializeViewModel();
-        }
-
-        public void OnNavigatedFrom()
-        {
         }
 
         private void InitializeViewModel()
         {
-            _isInitialized = true;
+            isInitialized = true;
 
             ListAsync();
         }
@@ -86,8 +76,8 @@ namespace Sysadmin.ViewModels
         {
             if (items.Any())
             {
-                _exchangeService.SetParameter((IReport)items.First());
-                _navigationService.Navigate(typeof(Views.Pages.ReportPage));
+                exchangeService.SetParameter((IReport)items.First());
+                navigationService.Navigate(typeof(Views.Pages.ReportPage));
             }
         }
 

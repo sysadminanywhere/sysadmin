@@ -9,17 +9,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Wpf.Ui.Common.Interfaces;
-using Wpf.Ui.Mvvm.Contracts;
+using Wpf.Ui;
+using Wpf.Ui.Controls;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class SoftwareViewModel : ObservableObject, INavigationAware
+    public partial class SoftwareViewModel : ViewModel
     {
-        private bool _isInitialized = false;
+        private bool isInitialized = false;
 
-        private INavigationService _navigationService;
-        private IExchangeService _exchangeService;
+        private INavigationService navigationService;
+        private IExchangeService exchangeService;
+        private ISnackbarService snackbarService;
 
         [ObservableProperty]
         private ComputerEntry _computer = new ComputerEntry();
@@ -28,43 +29,30 @@ namespace Sysadmin.ViewModels
         private IEnumerable<SoftwareEntity> _items = new List<SoftwareEntity>();
 
         [ObservableProperty]
-        private string _errorMessage = string.Empty;
-
-        [ObservableProperty]
         private bool _isBusy = false;
 
-        public SoftwareViewModel(INavigationService navigationService, IExchangeService exchangeService)
+        public SoftwareViewModel(INavigationService navigationService, IExchangeService exchangeService, ISnackbarService snackbarService)
         {
-            _navigationService = navigationService;
-            _exchangeService = exchangeService;
+            this.navigationService = navigationService;
+            this.exchangeService = exchangeService;
+            this.snackbarService = snackbarService;
         }
 
-        public async void OnNavigatedTo()
+        public override async void OnNavigatedTo()
         {
-            if (!_isInitialized)
+            if (!isInitialized)
                 InitializeViewModel();
 
-            if (_exchangeService.GetParameter() is ComputerEntry entry)
+            if (exchangeService.GetParameter() is ComputerEntry entry)
             {
                 Computer = entry;
                 await Get(Computer.DnsHostName);
             }
         }
 
-        public void OnNavigatedFrom()
-        {
-
-        }
-
         private void InitializeViewModel()
         {
-            _isInitialized = true;
-        }
-
-        [RelayCommand]
-        private void OnClose()
-        {
-            _navigationService.Navigate(typeof(Views.Pages.ComputerPage));
+            isInitialized = true;
         }
 
         public async Task Get(string computerAddress)
@@ -96,7 +84,12 @@ namespace Sysadmin.ViewModels
             }
             catch (Exception ex)
             {
-                ErrorMessage = ex.Message;
+                snackbarService.Show("Error",
+                    ex.Message,
+                    ControlAppearance.Danger,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
 
             Items = entities.OrderBy(c => c.Name);

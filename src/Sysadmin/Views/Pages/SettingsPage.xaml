@@ -1,4 +1,4 @@
-﻿<ui:UiPage
+﻿<Page
     x:Class="Sysadmin.Views.Pages.SettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -15,9 +15,9 @@
     d:Background="{DynamicResource ApplicationBackgroundBrush}"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
-    <ui:UiPage.Resources>
+    <Page.Resources>
         <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
-    </ui:UiPage.Resources>
+    </Page.Resources>
 
     <Grid Margin="16,0">
         <Grid.RowDefinitions>
@@ -40,8 +40,8 @@
             FontWeight="Medium"
             Text="About Sysadmin" />
                             <TextBlock Margin="0,12,0,0" Text="{Binding ViewModel.AppVersion, Mode=OneWay}" />
-                            <ui:Hyperlink Margin="0,12,0,0" NavigateUri="https://sysadminanywhere.com/">Home page</ui:Hyperlink>
-                            <ui:Hyperlink Margin="0,4,0,0" NavigateUri="https://github.com/sysadminanywhere/sysadmin/">Source code</ui:Hyperlink>
+                            <ui:HyperlinkButton Margin="0,12,0,0" NavigateUri="https://sysadminanywhere.com/">Home page</ui:HyperlinkButton>
+                            <ui:HyperlinkButton Margin="0,4,0,0" NavigateUri="https://github.com/sysadminanywhere/sysadmin/">Source code</ui:HyperlinkButton>
                         </StackPanel>
                     </ui:Card>
 
@@ -128,8 +128,8 @@
             FontWeight="Medium"
             Text="If you have found a bug" />
                             <TextBlock Margin="0,12,0,0" Text="please file an issue on GitHub" />
-                            <ui:Hyperlink Margin="0,12,0,0" NavigateUri="https://github.com/sysadminanywhere/sysadmin/issues/new?template=bug_report.md">New Bug Report</ui:Hyperlink>
-                            <ui:Hyperlink Margin="0,4,0,0" NavigateUri="https://github.com/sysadminanywhere/sysadmin/issues/new?template=feature_request.md">New Feature Request</ui:Hyperlink>
+                            <ui:HyperlinkButton Margin="0,12,0,0" NavigateUri="https://github.com/sysadminanywhere/sysadmin/issues/new?template=bug_report.md">New Bug Report</ui:HyperlinkButton>
+                            <ui:HyperlinkButton Margin="0,4,0,0" NavigateUri="https://github.com/sysadminanywhere/sysadmin/issues/new?template=feature_request.md">New Feature Request</ui:HyperlinkButton>
                         </StackPanel>
                     </ui:Card>
 
@@ -139,14 +139,14 @@
             FontSize="20"
             FontWeight="Medium"
             Text="Dependencies and References" />
-                        <ui:Hyperlink Margin="0,12,0,0" NavigateUri="https://wpfui.lepo.co/">WPF UI</ui:Hyperlink>
-                        <ui:Hyperlink Margin="0,4,0,0" NavigateUri="https://github.com/flamencist/ldap4net">ldap4net</ui:Hyperlink>
-                        <ui:Hyperlink Margin="0,4,0,0" NavigateUri="https://github.com/FastReports/FastReport">FastReport Open Source</ui:Hyperlink>
-                        <ui:Hyperlink Margin="0,4,0,0" NavigateUri="https://github.com/ravibpatel/AutoUpdater.NET">AutoUpdater.NET</ui:Hyperlink>
+                        <ui:HyperlinkButton Margin="0,12,0,0" NavigateUri="https://wpfui.lepo.co/">WPF UI</ui:HyperlinkButton>
+                        <ui:HyperlinkButton Margin="0,4,0,0" NavigateUri="https://github.com/flamencist/ldap4net">ldap4net</ui:HyperlinkButton>
+                        <ui:HyperlinkButton Margin="0,4,0,0" NavigateUri="https://github.com/FastReports/FastReport">FastReport Open Source</ui:HyperlinkButton>
+                        <ui:HyperlinkButton Margin="0,4,0,0" NavigateUri="https://github.com/ravibpatel/AutoUpdater.NET">AutoUpdater.NET</ui:HyperlinkButton>
                     </StackPanel>
                     </ui:Card>
 
                 </StackPanel>
             </ScrollViewer>
         </Grid>
-</ui:UiPage>
+</Page>

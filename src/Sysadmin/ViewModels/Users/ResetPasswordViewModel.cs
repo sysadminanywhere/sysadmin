@@ -1,28 +1,26 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Sysadmin.Services;
-using SysAdmin.ActiveDirectory.Models;
-using System.Threading.Tasks;
-using System;
-using Wpf.Ui.Common.Interfaces;
-using Wpf.Ui.Mvvm.Contracts;
 using LdapForNet;
-using SysAdmin.ActiveDirectory.Services.Ldap;
-using SysAdmin.ActiveDirectory.Repositories;
-using System.Security;
-using System.Text.RegularExpressions;
-using Wpf.Ui.Controls.Interfaces;
-using static LdapForNet.Native.Native;
+using Sysadmin.Services;
 using SysAdmin.ActiveDirectory;
+using SysAdmin.ActiveDirectory.Models;
+using SysAdmin.ActiveDirectory.Repositories;
+using SysAdmin.ActiveDirectory.Services.Ldap;
+using System;
+using System.Security;
+using System.Threading.Tasks;
+using Wpf.Ui;
+using Wpf.Ui.Controls;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class ResetPasswordViewModel : ObservableObject, INavigationAware
+    public partial class ResetPasswordViewModel : ViewModel
     {
-        private bool _isInitialized = false;
+        private bool isInitialized = false;
 
-        private INavigationService _navigationService;
-        private IExchangeService _exchangeService;
+        private INavigationService navigationService;
+        private IExchangeService exchangeService;
+        private ISnackbarService snackbarService;
 
         [ObservableProperty]
         private UserEntry _user = new UserEntry();
@@ -30,38 +28,31 @@ namespace Sysadmin.ViewModels
         [ObservableProperty]
         private SecureString _password = new SecureString();
 
-        [ObservableProperty]
-        private string _errorMessage = string.Empty;
-
-        public ResetPasswordViewModel(INavigationService navigationService, IExchangeService exchangeService)
+        public ResetPasswordViewModel(INavigationService navigationService, IExchangeService exchangeService, ISnackbarService snackbarService)
         {
-            _navigationService = navigationService;
-            _exchangeService = exchangeService;
+            this.navigationService = navigationService;
+            this.exchangeService = exchangeService;
+            this.snackbarService = snackbarService;
         }
 
-        public void OnNavigatedTo()
+        public override void OnNavigatedTo()
         {
-            if (!_isInitialized)
+            if (!isInitialized)
                 InitializeViewModel();
 
-            if (_exchangeService.GetParameter() is UserEntry entry)
+            if (exchangeService.GetParameter() is UserEntry entry)
                 User = entry;
-        }
-
-        public void OnNavigatedFrom()
-        {
-
         }
 
         private void InitializeViewModel()
         {
-            _isInitialized = true;
+            isInitialized = true;
         }
 
         [RelayCommand]
         private void OnClose()
         {
-            _navigationService.Navigate(typeof(Views.Pages.UserPage));
+            navigationService.GoBack();
         }
 
 
@@ -71,15 +62,25 @@ namespace Sysadmin.ViewModels
             try
             {
                 await ResetPassword(User, new System.Net.NetworkCredential(string.Empty, Password).Password);
-                _navigationService.Navigate(typeof(Views.Pages.UserPage));
+                navigationService.Navigate(typeof(Views.Pages.UserPage));
             }
             catch (LdapException le)
             {
-                ErrorMessage = SysAdmin.ActiveDirectory.LdapResult.GetErrorMessageFromResult(le.ResultCode);
+                snackbarService.Show("Error",
+                    LdapResult.GetErrorMessageFromResult(le.ResultCode),
+                    ControlAppearance.Danger,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
             catch (Exception ex)
             {
-                ErrorMessage = ex.Message;
+                snackbarService.Show("Error",
+                    ex.Message,
+                    ControlAppearance.Danger,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
         }
 

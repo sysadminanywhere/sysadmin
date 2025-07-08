@@ -1,26 +1,24 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Sysadmin.Services;
-using Sysadmin.WMI;
-using Sysadmin.WMI.Models;
 using Sysadmin.WMI.Services;
 using SysAdmin.ActiveDirectory.Models;
-using SysAdmin.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Wpf.Ui.Common.Interfaces;
-using Wpf.Ui.Mvvm.Contracts;
+using Wpf.Ui;
+using Wpf.Ui.Controls;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class PerformanceViewModel : ObservableObject, INavigationAware
+    public partial class PerformanceViewModel : ViewModel
     {
-        private bool _isInitialized = false;
+        private bool isInitialized = false;
 
-        private INavigationService _navigationService;
-        private IExchangeService _exchangeService;
+        private INavigationService navigationService;
+        private IExchangeService exchangeService;
+        private ISnackbarService snackbarService;
 
         [ObservableProperty]
         private ComputerEntry _computer = new ComputerEntry();
@@ -35,9 +33,6 @@ namespace Sysadmin.ViewModels
         private int _disk = 0;
 
         [ObservableProperty]
-        private string _errorMessage = string.Empty;
-
-        [ObservableProperty]
         private bool _isBusy = false;
 
         [ObservableProperty]
@@ -45,40 +40,35 @@ namespace Sysadmin.ViewModels
 
         public UInt64 totalPhysicalMemory = 0;
 
-        public PerformanceViewModel(INavigationService navigationService, IExchangeService exchangeService)
+        public PerformanceViewModel(INavigationService navigationService, IExchangeService exchangeService, ISnackbarService snackbarService)
         {
-            _navigationService = navigationService;
-            _exchangeService = exchangeService;
+            this.navigationService = navigationService;
+            this.exchangeService = exchangeService;
+            this.snackbarService = snackbarService;
         }
 
-        public async void OnNavigatedTo()
+        public override async void OnNavigatedTo()
         {
             IsClosed = false;
 
-            if (!_isInitialized)
+            if (!isInitialized)
                 InitializeViewModel();
 
-            if (_exchangeService.GetParameter() is ComputerEntry entry)
+            if (exchangeService.GetParameter() is ComputerEntry entry)
             {
                 Computer = entry;
                 await Init(Computer.DnsHostName);
             }
         }
 
-        public void OnNavigatedFrom()
+        public override void OnNavigatedFrom()
         {
             IsClosed = true;
         }
 
         private void InitializeViewModel()
         {
-            _isInitialized = true;
-        }
-
-        [RelayCommand]
-        private void OnClose()
-        {
-            _navigationService.Navigate(typeof(Views.Pages.ComputerPage));
+            isInitialized = true;
         }
 
         public async Task Init(string computerAddress)
@@ -108,7 +98,12 @@ namespace Sysadmin.ViewModels
             }
             catch (Exception ex)
             {
-                ErrorMessage = ex.Message;
+                snackbarService.Show("Error",
+                    ex.Message,
+                    ControlAppearance.Danger,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
 
             IsBusy = false;
@@ -190,7 +185,12 @@ namespace Sysadmin.ViewModels
             }
             catch (Exception ex)
             {
-                ErrorMessage = ex.Message;
+                snackbarService.Show("Error",
+                    ex.Message,
+                    ControlAppearance.Danger,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
 
         }

@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Sysadmin.Services;
-using Sysadmin.Views.Pages;
 using SysAdmin.ActiveDirectory;
 using SysAdmin.ActiveDirectory.Models;
 using SysAdmin.ActiveDirectory.Repositories;
@@ -9,18 +8,17 @@ using SysAdmin.ActiveDirectory.Services.Ldap;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Wpf.Ui.Common.Interfaces;
+using Wpf.Ui;
 using Wpf.Ui.Controls;
-using Wpf.Ui.Mvvm.Contracts;
 
 namespace Sysadmin.ViewModels
 {
-    public partial class ComputersViewModel : ObservableObject, INavigationAware
+    public partial class ComputersViewModel : ViewModel
     {
-        private bool _isInitialized = false;
+        private bool isInitialized = false;
 
-        private INavigationService _navigationService;
-        private IExchangeService _exchangeService;
+        private INavigationService navigationService;
+        private IExchangeService exchangeService;
 
         [ObservableProperty]
         private IEnumerable<ComputerEntry> _computers = new List<ComputerEntry>();
@@ -43,13 +41,13 @@ namespace Sysadmin.ViewModels
 
         public ComputersViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
-            _navigationService = navigationService;
-            _exchangeService = exchangeService;
+            this.navigationService = navigationService;
+            this.exchangeService = exchangeService;
         }
 
-        public async void OnNavigatedTo()
+        public override async void OnNavigatedTo()
         {
-            if (!_isInitialized)
+            if (!isInitialized)
                 InitializeViewModel();
 
             await ListAsync();
@@ -57,19 +55,15 @@ namespace Sysadmin.ViewModels
             SortingAndFiltering();
         }
 
-        public void OnNavigatedFrom()
-        {
-        }
-
         private void InitializeViewModel()
         {
-            _isInitialized = true;
+            isInitialized = true;
         }
 
         [RelayCommand]
         private void OnAdd()
         {
-            _navigationService.Navigate(typeof(Views.Pages.AddComputerPage));
+            navigationService.Navigate(typeof(Views.Pages.AddComputerPage));
         }
 
         [RelayCommand]
@@ -77,8 +71,8 @@ namespace Sysadmin.ViewModels
         {
             if (items != null && items.Any())
             {
-                _exchangeService.SetParameter((ComputerEntry)items.First());
-                _navigationService.Navigate(typeof(Views.Pages.ComputerPage));
+                exchangeService.SetParameter((ComputerEntry)items.First());
+                navigationService.Navigate(typeof(Views.Pages.ComputerPage));
             }
         }
 

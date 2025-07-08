@@ -16,13 +16,13 @@
 
         <ui:AutoSuggestBox TextChanged="AutoSuggestBox_TextChanged"  Icon="Search12" PlaceholderText="Search..." Margin="0,8,0,8" />
 
-        <ListView Grid.Row="1" ItemsSource="{Binding Items, ElementName=self}" SelectedItem="{Binding Selected, ElementName=self, Mode=TwoWay}">
-            <ListView.ItemTemplate>
+        <ui:ListView Grid.Row="1" ItemsSource="{Binding Items, ElementName=self}" SelectedItem="{Binding Selected, ElementName=self, Mode=TwoWay}">
+            <ui:ListView.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Name}" Style="{StaticResource ListDescriptionStyle}" />
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </ui:ListView.ItemTemplate>
+        </ui:ListView>
         <ui:ProgressRing IsIndeterminate="True" x:Name="progressRing" Visibility="Collapsed" />
     </Grid>
 </UserControl>
