@@ -9,16 +9,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Wpf.Ui.Controls;
-using Wpf.Ui.Mvvm.Contracts;
+using Wpf.Ui;
 
 namespace Sysadmin.ViewModels
 {
     public partial class UsersViewModel : ViewModel
     {
-        private bool _isInitialized = false;
+        private bool isInitialized = false;
 
-        private INavigationService _navigationService;
-        private IExchangeService _exchangeService;
+        private INavigationService navigationService;
+        private IExchangeService exchangeService;
 
         [ObservableProperty]
         private IEnumerable<UserEntry> _users = new List<UserEntry>();
@@ -44,13 +44,13 @@ namespace Sysadmin.ViewModels
 
         public UsersViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
-            _navigationService = navigationService;
-            _exchangeService = exchangeService;
+            this.navigationService = navigationService;
+            this.exchangeService = exchangeService;
         }
 
         public override async void OnNavigatedTo()
         {
-            if (!_isInitialized)
+            if (!isInitialized)
                 InitializeViewModel();
 
             await ListAsync();
@@ -60,13 +60,13 @@ namespace Sysadmin.ViewModels
 
         private void InitializeViewModel()
         {
-            _isInitialized = true;
+            isInitialized = true;
         }
 
         [RelayCommand]
         private void OnAdd()
         {
-            _navigationService.Navigate(typeof(Views.Pages.AddUserPage));
+            navigationService.Navigate(typeof(Views.Pages.AddUserPage));
         }
 
         [RelayCommand]
@@ -74,8 +74,8 @@ namespace Sysadmin.ViewModels
         {
             if (items.Any())
             {
-                _exchangeService.SetParameter((UserEntry)items.First());
-                _navigationService.Navigate(typeof(Views.Pages.UserPage));
+                exchangeService.SetParameter((UserEntry)items.First());
+                navigationService.Navigate(typeof(Views.Pages.UserPage));
             }
         }
 

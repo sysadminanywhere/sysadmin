@@ -21,12 +21,12 @@ jobs:
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v3.2.0
         with:
-          dotnet-version: 6
+          dotnet-version: 8
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Cache SonarQube packages
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: ~\sonar\cache
           key: ${{ runner.os }}-sonar

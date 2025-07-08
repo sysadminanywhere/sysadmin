@@ -4,36 +4,36 @@ using Sysadmin.Services;
 using Sysadmin.Services.Reports;
 using System.Collections.Generic;
 using System.Linq;
-using Wpf.Ui.Mvvm.Contracts;
+using Wpf.Ui;
 
 
 namespace Sysadmin.ViewModels
 {
     public partial class ReportsViewModel : ViewModel
     {
-        private bool _isInitialized = false;
+        private bool isInitialized = false;
 
-        private INavigationService _navigationService;
-        private IExchangeService _exchangeService;
+        private INavigationService navigationService;
+        private IExchangeService exchangeService;
 
         [ObservableProperty]
         private List<IReport> _reports = new List<IReport>();
 
         public ReportsViewModel(INavigationService navigationService, IExchangeService exchangeService)
         {
-            _navigationService = navigationService;
-            _exchangeService = exchangeService;
+            this.navigationService = navigationService;
+            this.exchangeService = exchangeService;
         }
 
         public override void OnNavigatedTo()
         {
-            if (!_isInitialized)
+            if (!isInitialized)
                 InitializeViewModel();
         }
 
         private void InitializeViewModel()
         {
-            _isInitialized = true;
+            isInitialized = true;
 
             ListAsync();
         }
@@ -76,8 +76,8 @@ namespace Sysadmin.ViewModels
         {
             if (items.Any())
             {
-                _exchangeService.SetParameter((IReport)items.First());
-                _navigationService.Navigate(typeof(Views.Pages.ReportPage));
+                exchangeService.SetParameter((IReport)items.First());
+                navigationService.Navigate(typeof(Views.Pages.ReportPage));
             }
         }
 

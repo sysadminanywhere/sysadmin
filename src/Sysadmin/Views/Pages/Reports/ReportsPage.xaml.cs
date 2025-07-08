@@ -1,4 +1,5 @@
-﻿using Wpf.Ui.Common.Interfaces;
+﻿
+using Wpf.Ui.Controls;
 
 namespace Sysadmin.Views.Pages
 {
@@ -15,6 +16,7 @@ namespace Sysadmin.Views.Pages
         public ReportsPage(ViewModels.ReportsViewModel viewModel)
         {
             ViewModel = viewModel;
+            DataContext = this;
 
             InitializeComponent();
         }

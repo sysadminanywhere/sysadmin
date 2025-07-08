@@ -1,29 +1,31 @@
 ﻿using SysAdmin.Services;
+using System;
 using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using Wpf.Ui.Common.Interfaces;
-using Wpf.Ui.Mvvm.Contracts;
+using System.Windows.Forms;
+using Wpf.Ui;
 
 namespace Sysadmin.Views.Pages
 {
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class ComputerPage : INavigableView<ViewModels.ComputerViewModel>
+    public partial class ComputerPage : Wpf.Ui.Controls.INavigableView<ViewModels.ComputerViewModel>
     {
 
         private ISettingsService settings;
         private INavigationService navigationService;
+        private ISnackbarService snackbarService;
 
         public ViewModels.ComputerViewModel ViewModel
         {
             get;
         }
 
-        public ComputerPage(ViewModels.ComputerViewModel viewModel, ISettingsService settings, INavigationService navigationService)
+        public ComputerPage(ViewModels.ComputerViewModel viewModel, ISettingsService settings, INavigationService navigationService, ISnackbarService snackbarService   )
         {
             ViewModel = viewModel;
+            DataContext = this;
 
             this.settings = settings;
             this.navigationService = navigationService;
@@ -31,22 +33,11 @@ namespace Sysadmin.Views.Pages
             InitializeComponent();
 
             ViewModel.PropertyChanged += ViewModel_PropertyChanged;
+            this.snackbarService = snackbarService;
         }
 
         private void ViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "ErrorMessage")
-            {
-                snackbar.Message = ViewModel.ErrorMessage;
-                snackbar.Show();
-            }
-
-            if (e.PropertyName == "SuccessMessage")
-            {
-                snackbar.Message = ViewModel.SuccessMessage;
-                snackbarOk.Show();
-            }
-
             if (e.PropertyName == "Computer")
             {
                 memberOf.MemberOf = ViewModel.Computer.MemberOf;
@@ -56,21 +47,21 @@ namespace Sysadmin.Views.Pages
 
         private void DeleteMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("Are you sure you want to delete this computer?", "Delete", MessageBoxButton.YesNo);
+            var result = System.Windows.MessageBox.Show("Are you sure you want to delete this computer?", "Delete", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
                 ViewModel.DeleteCommand.Execute(ViewModel);
         }
 
         private void RebootMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("Are you sure you want to reboot this computer?", "Reboot", MessageBoxButton.YesNo);
+            var result = System.Windows.MessageBox.Show("Are you sure you want to reboot this computer?", "Reboot", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
                 ViewModel.RebootCommand.Execute(ViewModel);
         }
 
         private void ShutdownMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("Are you sure you want to shutdown this computer?", "Shutdown", MessageBoxButton.YesNo);
+            var result = System.Windows.MessageBox.Show("Are you sure you want to shutdown this computer?", "Shutdown", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
                 ViewModel.ShutdownCommand.Execute(ViewModel);
         }
@@ -86,7 +77,7 @@ namespace Sysadmin.Views.Pages
             }
             else
             {
-                var result = MessageBox.Show("The VNС viewer is not installed or is located in a different location. Fix the path?", "Remote desktop", MessageBoxButton.YesNo);
+                var result = System.Windows.MessageBox.Show("The VNС viewer is not installed or is located in a different location. Fix the path?", "Remote desktop", MessageBoxButton.YesNo);
                 if (result == MessageBoxResult.Yes)
                 {
                     navigationService.Navigate(typeof(SettingsPage));
@@ -107,8 +98,12 @@ namespace Sysadmin.Views.Pages
 
         private void MemberOfControl_Error(string ErrorMessage)     //NOSONAR
         {
-            snackbar.Message = ErrorMessage;
-            snackbar.Show();
+            snackbarService.Show("Error",
+                ErrorMessage,
+                Wpf.Ui.Controls.ControlAppearance.Danger,
+                new Wpf.Ui.Controls.SymbolIcon(Wpf.Ui.Controls.SymbolRegular.ErrorCircle12),
+                TimeSpan.FromSeconds(5)
+            );
         }
 
     }

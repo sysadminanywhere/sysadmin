@@ -1,9 +1,7 @@
 ﻿using Newtonsoft.Json;
-using SysAdmin.ActiveDirectory.Services.Ldap;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows.Shapes;
 
 namespace SysAdmin.Services
 {
@@ -12,7 +10,7 @@ namespace SysAdmin.Services
 
         private Dictionary<string, string> settings = new Dictionary<string, string>();
 
-        private readonly string fileName = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Sysadmin Anywhere", "Sysadmin", "settings.json");
+        private readonly string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Sysadmin Anywhere", "Sysadmin", "settings.json");
 
         public string ThemeSetting
         {

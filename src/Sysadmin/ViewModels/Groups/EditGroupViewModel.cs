@@ -1,53 +1,54 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Sysadmin.Services;
-using SysAdmin.ActiveDirectory.Models;
-using System.Threading.Tasks;
-using System;
-using Wpf.Ui.Mvvm.Contracts;
-using SysAdmin.ActiveDirectory.Services.Ldap;
 using LdapForNet;
+using Sysadmin.Services;
+using SysAdmin.ActiveDirectory;
+using SysAdmin.ActiveDirectory.Models;
 using SysAdmin.ActiveDirectory.Repositories;
+using SysAdmin.ActiveDirectory.Services.Ldap;
+using System;
+using System.Threading.Tasks;
+using Wpf.Ui;
+using Wpf.Ui.Controls;
 
 namespace Sysadmin.ViewModels
 {
     public partial class EditGroupViewModel : ViewModel
     {
-        private bool _isInitialized = false;
+        private bool isInitialized = false;
 
-        private INavigationService _navigationService;
-        private IExchangeService _exchangeService;
+        private INavigationService navigationService;
+        private IExchangeService exchangeService;
+        private ISnackbarService snackbarService;
 
         [ObservableProperty]
         private GroupEntry _group = new GroupEntry();
 
-        [ObservableProperty]
-        private string _errorMessage = string.Empty;
-
-        public EditGroupViewModel(INavigationService navigationService, IExchangeService exchangeService)
+        public EditGroupViewModel(INavigationService navigationService, IExchangeService exchangeService, ISnackbarService snackbarService)
         {
-            _navigationService = navigationService;
-            _exchangeService = exchangeService;
+            this.navigationService = navigationService;
+            this.exchangeService = exchangeService;
+            this.snackbarService = snackbarService;
         }
 
         public override void OnNavigatedTo()
         {
-            if (!_isInitialized)
+            if (!isInitialized)
                 InitializeViewModel();
 
-            if (_exchangeService.GetParameter() is GroupEntry entry)
+            if (exchangeService.GetParameter() is GroupEntry entry)
                 Group = entry;
         }
 
         private void InitializeViewModel()
         {
-            _isInitialized = true;
+            isInitialized = true;
         }
 
         [RelayCommand]
         private void OnClose()
         {
-            _navigationService.Navigate(typeof(Views.Pages.GroupPage));
+            navigationService.GoBack();
         }
 
         [RelayCommand]
@@ -56,15 +57,25 @@ namespace Sysadmin.ViewModels
             try
             {
                 await Edit(Group);
-                _navigationService.Navigate(typeof(Views.Pages.GroupPage));
+                navigationService.Navigate(typeof(Views.Pages.GroupPage));
             }
             catch (LdapException le)
             {
-                ErrorMessage = SysAdmin.ActiveDirectory.LdapResult.GetErrorMessageFromResult(le.ResultCode);
+                snackbarService.Show("Error",
+                    LdapResult.GetErrorMessageFromResult(le.ResultCode),
+                    ControlAppearance.Danger,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
             catch (Exception ex)
             {
-                ErrorMessage = ex.Message;
+                snackbarService.Show("Error",
+                    ex.Message,
+                    ControlAppearance.Danger,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
 
         }

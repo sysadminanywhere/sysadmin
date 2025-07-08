@@ -8,18 +8,19 @@ using SysAdmin.ActiveDirectory.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Wpf.Ui.Common.Interfaces;
+using System.Windows.Forms;
+using Wpf.Ui;
 using Wpf.Ui.Controls;
-using Wpf.Ui.Mvvm.Contracts;
 
 namespace Sysadmin.ViewModels
 {
     public partial class EventsViewModel : ViewModel
     {
-        private bool _isInitialized = false;
+        private bool isInitialized = false;
 
-        private INavigationService _navigationService;
-        private IExchangeService _exchangeService;
+        private INavigationService navigationService;
+        private IExchangeService exchangeService;
+        private ISnackbarService snackbarService;
 
         [ObservableProperty]
         private ComputerEntry _computer = new ComputerEntry();
@@ -28,23 +29,21 @@ namespace Sysadmin.ViewModels
         private IEnumerable<EventEntity> _items = new List<EventEntity>();
 
         [ObservableProperty]
-        private string _errorMessage = string.Empty;
-
-        [ObservableProperty]
         private bool _isBusy = false;
 
-        public EventsViewModel(INavigationService navigationService, IExchangeService exchangeService)
+        public EventsViewModel(INavigationService navigationService, IExchangeService exchangeService, ISnackbarService snackbarService)
         {
-            _navigationService = navigationService;
-            _exchangeService = exchangeService;
+            this.navigationService = navigationService;
+            this.exchangeService = exchangeService;
+            this.snackbarService = snackbarService;
         }
 
         public override async void OnNavigatedTo()
         {
-            if (!_isInitialized)
+            if (!isInitialized)
                 InitializeViewModel();
 
-            if (_exchangeService.GetParameter() is ComputerEntry entry)
+            if (exchangeService.GetParameter() is ComputerEntry entry)
             {
                 Computer = entry;
                 await Get(Computer.DnsHostName, EventsFilter.TodayErrors);
@@ -53,13 +52,7 @@ namespace Sysadmin.ViewModels
 
         private void InitializeViewModel()
         {
-            _isInitialized = true;
-        }
-
-        [RelayCommand]
-        private void OnClose()
-        {
-            _navigationService.Navigate(typeof(Views.Pages.ComputerPage));
+            isInitialized = true;
         }
 
         [RelayCommand]
@@ -148,7 +141,12 @@ namespace Sysadmin.ViewModels
             }
             catch (Exception ex)
             {
-                ErrorMessage = ex.Message;
+                snackbarService.Show("Error",
+                    ex.Message,
+                    ControlAppearance.Danger,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
 
             Items = entities;

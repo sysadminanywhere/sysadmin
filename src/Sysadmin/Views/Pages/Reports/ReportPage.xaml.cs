@@ -1,19 +1,14 @@
-﻿using FastReport.Export.Image;
-using FastReport;
-using System.Windows;
-using Wpf.Ui.Common.Interfaces;
+﻿using FastReport;
+using FastReport.Export.Image;
+using FastReport.Export.PdfSimple;
 using System;
 using System.Collections.Generic;
-using System.Windows.Media.Imaging;
 using System.IO;
-using System.Linq;
-using FastReport.Export.PdfSimple;
-using System.Windows.Forms;
-using Microsoft.Win32;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using Wpf.Ui;
 using Wpf.Ui.Controls;
-using System.Windows.Markup;
-using System.Diagnostics;
 
 namespace Sysadmin.Views.Pages
 {
@@ -22,6 +17,8 @@ namespace Sysadmin.Views.Pages
     /// </summary>
     public partial class ReportPage : INavigableView<ViewModels.ReportViewModel>
     {
+        
+        private ISnackbarService snackbarService;
 
         private Report report = new Report();
         private int currentPage = 0;
@@ -33,9 +30,12 @@ namespace Sysadmin.Views.Pages
             get;
         }
 
-        public ReportPage(ViewModels.ReportViewModel viewModel)
+        public ReportPage(ViewModels.ReportViewModel viewModel, ISnackbarService snackbarService)
         {
             ViewModel = viewModel;
+            DataContext = this;
+
+            this.snackbarService = snackbarService;
 
             InitializeComponent();
 
@@ -63,7 +63,12 @@ namespace Sysadmin.Views.Pages
             }
             catch (Exception ex)
             {
-                snackbar.Show("Error", ex.Message);
+                snackbarService.Show("Error",
+                    ex.Message,
+                    ControlAppearance.Danger,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
 
             ViewModel.IsBusy = false;
@@ -167,12 +172,22 @@ namespace Sysadmin.Views.Pages
                     PDFSimpleExport pdfExport = new PDFSimpleExport();
                     pdfExport.Export(report, saveFileDialog.FileName);
 
-                    snackbarOk.Show();
+                    snackbarService.Show("Export",
+                    "Report exported successfuly",
+                    ControlAppearance.Success,
+                    new SymbolIcon(SymbolRegular.ArrowExportUp20),
+                    TimeSpan.FromSeconds(5)
+                );
                 }
             }
             catch (Exception ex)
             {
-                snackbar.Show("Error", ex.Message);
+                snackbarService.Show("Error",
+                    ex.Message,
+                    ControlAppearance.Danger,
+                    new SymbolIcon(SymbolRegular.ErrorCircle12),
+                    TimeSpan.FromSeconds(5)
+                );
             }
         }
 
