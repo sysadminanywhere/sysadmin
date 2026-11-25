@@ -7,7 +7,7 @@ namespace Sysadmin.Views.Pages
     /// <summary>
     /// Interaction logic for SettingsPage.xaml
     /// </summary>
-    public partial class SettingsPage : Wpf.Ui.Controls.INavigableView<ViewModels.SettingsViewModel>
+    public partial class SettingsPage : Wpf.Ui.Abstractions.Controls.INavigableView<ViewModels.SettingsViewModel>
     {
 
         ISettingsService settings;

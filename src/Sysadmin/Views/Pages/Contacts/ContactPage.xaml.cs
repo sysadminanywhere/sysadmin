@@ -5,7 +5,7 @@ namespace Sysadmin.Views.Pages
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class ContactPage : Wpf.Ui.Controls.INavigableView<ViewModels.ContactViewModel>
+    public partial class ContactPage : Wpf.Ui.Abstractions.Controls.INavigableView<ViewModels.ContactViewModel>
     {
         public ViewModels.ContactViewModel ViewModel
         {

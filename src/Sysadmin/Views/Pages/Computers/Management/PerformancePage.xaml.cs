@@ -7,7 +7,7 @@ namespace Sysadmin.Views.Pages
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class PerformancePage : Wpf.Ui.Controls.INavigableView<ViewModels.PerformanceViewModel>
+    public partial class PerformancePage : Wpf.Ui.Abstractions.Controls.INavigableView<ViewModels.PerformanceViewModel>
     {
 
         private DispatcherTimer timer;

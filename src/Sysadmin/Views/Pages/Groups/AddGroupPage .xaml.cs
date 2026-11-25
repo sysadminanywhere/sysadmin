@@ -1,5 +1,5 @@
 ﻿using SysAdmin.ActiveDirectory.Models;
-using Wpf.Ui.Controls;
+using Wpf.Ui.Abstractions.Controls;
 
 namespace Sysadmin.Views.Pages
 {

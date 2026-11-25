@@ -7,7 +7,7 @@ namespace Sysadmin.Views.Pages
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class GroupPage : Wpf.Ui.Controls.INavigableView<ViewModels.GroupViewModel>
+    public partial class GroupPage : Wpf.Ui.Abstractions.Controls.INavigableView<ViewModels.GroupViewModel>
     {
         private ISnackbarService snackbarService;
 

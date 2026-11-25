@@ -8,6 +8,7 @@ using System.Windows.Media.Imaging;
 using System.Drawing;
 using System.IO;
 using Wpf.Ui;
+using Wpf.Ui.Abstractions;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 
@@ -27,7 +28,6 @@ namespace Sysadmin.Views.Windows
         }
 
         public MainWindow(ViewModels.MainWindowViewModel viewModel, 
-            IPageService pageService, 
             INavigationService navigationService, 
             IServiceProvider serviceProvider,
             ISnackbarService snackbarService,
@@ -43,7 +43,6 @@ namespace Sysadmin.Views.Windows
             DataContext = this;
 
             InitializeComponent();
-            SetPageService(pageService);
 
             AutoUpdater.UpdateFormSize = new System.Drawing.Size(450, 200);
             AutoUpdater.Icon = BitmapImage2Bitmap(new BitmapImage(new Uri("pack://application:,,,/Assets/StoreLogo.bmp", UriKind.RelativeOrAbsolute)));
@@ -99,7 +98,9 @@ namespace Sysadmin.Views.Windows
 
         public bool Navigate(Type pageType) => RootNavigation.Navigate(pageType);
 
-        public void SetPageService(IPageService pageService) => RootNavigation.SetPageService(pageService);
+        public void SetPageService(INavigationViewPageProvider pageProvider) => RootNavigation.SetPageProviderService(pageProvider);
+
+        public void SetServiceProvider(IServiceProvider serviceProvider) => RootNavigation.SetServiceProvider(serviceProvider);
 
         public void ShowWindow() => Show();
 
@@ -120,14 +121,5 @@ namespace Sysadmin.Views.Windows
             Application.Current.Shutdown();
         }
 
-        INavigationView INavigationWindow.GetNavigation()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetServiceProvider(IServiceProvider serviceProvider)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

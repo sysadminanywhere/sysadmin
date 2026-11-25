@@ -5,7 +5,7 @@ namespace Sysadmin.Views.Pages
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class ProcessesPage : Wpf.Ui.Controls.INavigableView<ViewModels.ProcessesViewModel>
+    public partial class ProcessesPage : Wpf.Ui.Abstractions.Controls.INavigableView<ViewModels.ProcessesViewModel>
     {
         public ViewModels.ProcessesViewModel ViewModel
         {

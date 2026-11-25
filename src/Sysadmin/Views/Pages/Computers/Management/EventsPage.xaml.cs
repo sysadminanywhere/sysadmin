@@ -6,7 +6,7 @@ namespace Sysadmin.Views.Pages
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class EventsPage : Wpf.Ui.Controls.INavigableView<ViewModels.EventsViewModel>
+    public partial class EventsPage : Wpf.Ui.Abstractions.Controls.INavigableView<ViewModels.EventsViewModel>
     {
         public ViewModels.EventsViewModel ViewModel
         {

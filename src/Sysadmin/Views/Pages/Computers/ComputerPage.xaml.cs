@@ -10,7 +10,7 @@ namespace Sysadmin.Views.Pages
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class ComputerPage : Wpf.Ui.Controls.INavigableView<ViewModels.ComputerViewModel>
+    public partial class ComputerPage : Wpf.Ui.Abstractions.Controls.INavigableView<ViewModels.ComputerViewModel>
     {
 
         private ISettingsService settings;

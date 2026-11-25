@@ -6,7 +6,7 @@ namespace Sysadmin.Views.Pages
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class ServicesPage : Wpf.Ui.Controls.INavigableView<ViewModels.ServicesViewModel>
+    public partial class ServicesPage : Wpf.Ui.Abstractions.Controls.INavigableView<ViewModels.ServicesViewModel>
     {
         public ViewModels.ServicesViewModel ViewModel
         {

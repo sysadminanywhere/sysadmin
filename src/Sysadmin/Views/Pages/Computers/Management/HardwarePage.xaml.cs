@@ -15,7 +15,7 @@ namespace Sysadmin.Views.Pages
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class HardwarePage : Wpf.Ui.Controls.INavigableView<ViewModels.HardwareViewModel>
+    public partial class HardwarePage : Wpf.Ui.Abstractions.Controls.INavigableView<ViewModels.HardwareViewModel>
     {
         private ISnackbarService snackbarService;
 

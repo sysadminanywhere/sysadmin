@@ -5,7 +5,7 @@ namespace Sysadmin.Views.Pages
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class PrinterPage : Wpf.Ui.Controls.INavigableView<ViewModels.PrinterViewModel>
+    public partial class PrinterPage : Wpf.Ui.Abstractions.Controls.INavigableView<ViewModels.PrinterViewModel>
     {
         public ViewModels.PrinterViewModel ViewModel
         {

@@ -8,7 +8,7 @@ namespace Sysadmin.Views.Pages
     /// <summary>
     /// Interaction logic for DataView.xaml
     /// </summary>
-    public partial class UserPage : Wpf.Ui.Controls.INavigableView<ViewModels.UserViewModel>
+    public partial class UserPage : Wpf.Ui.Abstractions.Controls.INavigableView<ViewModels.UserViewModel>
     {
 
         private ISnackbarService snackbarService;
