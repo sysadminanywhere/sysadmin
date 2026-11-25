@@ -1,6 +1,6 @@
 # Sysadmin
 
-**Sysadmin** is a free Windows application that makes administering multi-domain Active Directory-based networks easier. It provides a single tool for managing domains, servers, computers, users, and groups â€” without switching between MMC snap-ins and a dozen utilities.
+**Sysadmin** is a free Windows application that makes administering multi-domain Active Directory-based networks easier. It provides a single tool for managing domains, servers, computers, users, and groups — without switching between MMC snap-ins and a dozen utilities.
 
 [![GitHub Release](https://img.shields.io/github/v/release/sysadminanywhere/sysadmin.svg)](https://github.com/sysadminanywhere/sysadmin/releases/latest)
 [![Codacy Security Scan](https://github.com/sysadminanywhere/sysadmin/actions/workflows/codacy.yml/badge.svg?branch=main)](https://github.com/sysadminanywhere/sysadmin/actions/workflows/codacy.yml)
@@ -23,8 +23,8 @@
 - View and change group membership
 - Manage remote computers via WMI:
   - event log with filters
-  - services â€” start and stop
-  - processes â€” terminate
+  - services — start and stop
+  - processes — terminate
   - installed software
   - hardware: CPU, memory, disks, video controller, baseboard, BIOS, and more
   - performance: CPU, memory, and disk usage
@@ -57,7 +57,7 @@
 ## Requirements
 
 - Windows 10 or Windows 11 (x64)
-- .NET 8 Desktop Runtime â€” for framework-dependent builds (the installer includes everything needed)
+- .NET 8 Desktop Runtime — for framework-dependent builds (the installer includes everything needed)
 - An account with permissions to read and modify Active Directory objects
 - For remote computer management: WMI (DCOM/RPC) access and local administrator rights on target machines
 - LDAP port `389` (or `636` when using SSL)
@@ -70,8 +70,8 @@ Download the latest installer from the [Releases](https://github.com/sysadminany
 
 The login screen offers two modes:
 
-1. **Current Windows credentials** â€” the application uses the account you are signed in with. You can also specify alternative credentials.
-2. **LDAP server** â€” enter the server name, port (`389` or `636`), SSL option, user name, and password.
+1. **Current Windows credentials** — the application uses the account you are signed in with. You can also specify alternative credentials.
+2. **LDAP server** — enter the server name, port (`389` or `636`), SSL option, user name, and password.
 
 After a successful connection, the application discovers the domain containers and opens the dashboard. Connection settings (except the password) are saved between launches.
 
@@ -99,7 +99,7 @@ You can also open `src\Sysadmin.sln` in Visual Studio. The installer is built wi
 
 ## Contributing
 
-Bug reports and feature suggestions are welcome â€” please use the [issue templates](https://github.com/sysadminanywhere/sysadmin/issues/new/choose). Pull requests are welcome too.
+Bug reports and feature suggestions are welcome — please use the [issue templates](https://github.com/sysadminanywhere/sysadmin/issues/new/choose). Pull requests are welcome too.
 
 ## License
 

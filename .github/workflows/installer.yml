@@ -1,0 +1,106 @@
+name: Build and release Windows installer
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  installer:
+    if: github.ref == 'refs/heads/main'
+    runs-on: windows-2025
+    outputs:
+      tag: ${{ steps.setup.outputs.tag }}
+      artifact: ${{ steps.setup.outputs.artifact }}
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Install Inno Setup
+        run: choco install innosetup --version=6.7.1 --yes --no-progress
+
+      - name: Compile installer
+        id: setup
+        shell: pwsh
+        run: |
+          $publishDir = Join-Path $env:RUNNER_TEMP 'sysadmin-publish'
+          $outputDir = Join-Path $env:RUNNER_TEMP 'sysadmin-installer'
+          $iscc = Join-Path ${env:ProgramFiles(x86)} 'Inno Setup 6\ISCC.exe'
+          $project = 'src/Sysadmin/Sysadmin.csproj'
+
+          $projectVersion = dotnet msbuild $project -nologo -getProperty:Version -p:Configuration=Release -p:RuntimeIdentifier=win-x64 -p:SelfContained=true
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $tag = "v$projectVersion"
+          git check-ref-format "refs/tags/$tag"
+          if (-not $projectVersion -or $LASTEXITCODE -ne 0) { throw "Invalid project version: $projectVersion" }
+
+          dotnet publish $project -c Release -r win-x64 --self-contained true -o $publishDir
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+          & $iscc "/DPublishDir=$publishDir" "/O$outputDir" src/Setup/SysAdmin.iss
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+          $installer = Get-Item -LiteralPath (Join-Path $outputDir 'SysadminSetup.exe')
+          $version = $installer.VersionInfo.FileVersion.Trim()
+          "path=$($installer.FullName)" >> $env:GITHUB_OUTPUT
+          "artifact=SysadminSetup-$version-win-x64" >> $env:GITHUB_OUTPUT
+          "tag=$tag" >> $env:GITHUB_OUTPUT
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: ${{ steps.setup.outputs.artifact }}
+          path: ${{ steps.setup.outputs.path }}
+          if-no-files-found: error
+
+  release:
+    needs: installer
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: sysadmin-release-${{ needs.installer.outputs.tag }}
+
+    steps:
+      - uses: actions/download-artifact@v7
+        with:
+          name: ${{ needs.installer.outputs.artifact }}
+
+      - name: Create GitHub Release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ needs.installer.outputs.tag }}
+        run: |
+          $tag = $env:RELEASE_TAG
+          $asset = 'SysadminSetup.exe'
+          $releaseUrl = "$env:GITHUB_API_URL/repos/$env:GITHUB_REPOSITORY/releases/tags/$([Uri]::EscapeDataString($tag))"
+          $existingRelease = Invoke-RestMethod $releaseUrl -Authentication Bearer -Token (ConvertTo-SecureString $env:GH_TOKEN -AsPlainText -Force) -SkipHttpErrorCheck -StatusCodeVariable status
+          if ($status -eq 200) {
+            if ($existingRelease.draft -or -not ($existingRelease.assets | Where-Object { $_.name -eq $asset -and $_.state -eq 'uploaded' })) {
+              throw "Release $tag already exists as a draft or without an uploaded $asset."
+            }
+            Write-Output "Release $tag already exists with $asset."
+            exit 0
+          }
+          if ($status -ne 404) { throw "Release lookup failed with HTTP $status." }
+
+          $tagRef = "refs/tags/$tag"
+          $remoteTags = git ls-remote "$env:GITHUB_SERVER_URL/$env:GITHUB_REPOSITORY.git" $tagRef "$tagRef^{}"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          if ($remoteTags -and (($remoteTags | Select-Object -Last 1) -split '\s+')[0] -ne $env:GITHUB_SHA) {
+            throw "Tag $tag already points to a different commit."
+          }
+
+          $releaseOptions = @('--repo', $env:GITHUB_REPOSITORY, '--target', $env:GITHUB_SHA, '--generate-notes')
+          if (($tag -split '\+', 2)[0].Contains('-')) { $releaseOptions += '--prerelease' }
+          gh release create $tag $asset @releaseOptions
+          exit $LASTEXITCODE

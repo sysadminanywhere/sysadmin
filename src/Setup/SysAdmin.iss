@@ -3,10 +3,14 @@
 ; Non-commercial use only
 
 #define MyAppName "Sysadmin"
-#define MyAppVersion "10.5.1.0"
 #define MyAppPublisher "Sysadmin Anywhere"
 #define MyAppURL "https://sysadminanywhere.com"
 #define MyAppExeName "Sysadmin.exe"
+
+#ifndef PublishDir
+  #define PublishDir SourcePath + "..\Sysadmin\bin\Release\net8.0-windows7.0\win-x64\publish"
+#endif
+#define MyAppVersion GetVersionNumbersString(AddBackslash(PublishDir) + MyAppExeName)
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
@@ -14,6 +18,7 @@
 AppId={{3CBBAC91-F12B-4840-89F1-0DE2BE974798}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
+VersionInfoVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
@@ -32,7 +37,7 @@ ArchitecturesInstallIn64BitMode=x64compatible
 ; Uncomment the following line to use a 64-bit installer.
 ;SetupArchitecture=x64
 DisableProgramGroupPage=yes
-LicenseFile=D:\GitHub\sysadmin\src\SetupProject\License.rtf
+LicenseFile=License.rtf
 ; Uncomment the following line to run in non administrative install mode (install for current user only).
 ;PrivilegesRequired=lowest
 OutputBaseFilename=SysadminSetup
@@ -46,8 +51,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "D:\GitHub\sysadmin\src\Sysadmin\bin\Release\net8.0-windows7.0\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\GitHub\sysadmin\src\Sysadmin\bin\Release\net8.0-windows7.0\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#AddBackslash(PublishDir)}*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
