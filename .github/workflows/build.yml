@@ -3,7 +3,8 @@ name: Build
 on:
   push:
     branches:
-      - develop # the name of your main branch
+      - main # the name of your main branch
+      - develop
   pull_request:
     types: [opened, synchronize, reopened]
 
